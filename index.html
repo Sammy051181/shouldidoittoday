@@ -257,7 +257,8 @@
       box-shadow:var(--shadow);
       backdrop-filter:blur(14px);
       padding:18px;
-      position:relative;
+      position:sticky;
+      top:14px;
       z-index:1;
     }
 
@@ -645,7 +646,7 @@
 
     @media (max-width:960px){
       .hero{grid-template-columns:1fr;gap:18px}
-      .checker-card{order:-1}
+      .checker-card{position:relative;top:0;order:-1}
       .hero-copy{text-align:center;padding-top:10px}
       .hero-logo-lockup{margin-left:auto;margin-right:auto}
       .lead{margin-left:auto;margin-right:auto}
@@ -802,14 +803,14 @@
 
           <div class="status-pill" id="locationStatus"><span>Type a location or tap Use my location</span></div>
         </aside>
+      </section>
 
-        <div class="task-area">
-          <div class="section-title">
-            <h2>Choose the job</h2>
-            <p id="hint">Selected: cut grass</p>
-          </div>
-          <div class="tasks" id="taskButtons" aria-label="Choose a task"></div>
+      <section class="task-area" aria-label="Choose a task">
+        <div class="section-title">
+          <h2>Choose the job</h2>
+          <p id="hint">Selected: cut grass</p>
         </div>
+        <div class="tasks" id="taskButtons" aria-label="Choose a task"></div>
       </section>
 
       <section class="result" id="result" aria-live="polite">
@@ -1040,9 +1041,9 @@
       const logoWord=document.getElementById("logoPeriodWord");
       if(!logoWord)return;
       const values={
-        today:{text:"Today?",size:"100",spacing:"-5"},
-        tomorrow:{text:"Tomorrow?",size:"100",spacing:"-5"},
-        weekend:{text:"Weekend?",size:"100",spacing:"-5"}
+        today:{text:"Today?",size:"112",spacing:"-5"},
+        tomorrow:{text:"Tomorrow?",size:"88",spacing:"-5"},
+        weekend:{text:"Weekend?",size:"92",spacing:"-5"}
       };
       const value=values[selectedPeriod]||values.today;
       logoWord.textContent=value.text;
