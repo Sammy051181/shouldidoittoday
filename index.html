@@ -792,18 +792,60 @@
       throw new Error("Postal code not found. Try a nearby town or city.");
     }
 
+    function normalisePlaceName(value) {
+      return value.trim().toLowerCase().replace(/[-_]+/g, " ").replace(/[ ]+/g, " ");
+    }
+
+    const UK_PLACE_ALIASES = {
+      "bradford on avon": { latitude: 51.3470, longitude: -2.2527, countryCode: "GB", name: "Bradford-on-Avon, Wiltshire, GB" },
+      "bradford upon avon": { latitude: 51.3470, longitude: -2.2527, countryCode: "GB", name: "Bradford-on-Avon, Wiltshire, GB" },
+      "bradford-on-avon": { latitude: 51.3470, longitude: -2.2527, countryCode: "GB", name: "Bradford-on-Avon, Wiltshire, GB" },
+      "trowbridge": { latitude: 51.3186, longitude: -2.2080, countryCode: "GB", name: "Trowbridge, Wiltshire, GB" }
+    };
+
+    function getLocalAlias(query) {
+      if (currentRegionKey !== "UK") return null;
+      return UK_PLACE_ALIASES[normalisePlaceName(query)] || null;
+    }
+
+    function buildSearchVariants(query) {
+      const trimmed = query.trim();
+      const variants = [trimmed];
+      if (currentRegionKey === "UK") {
+        variants.push(`${trimmed}, UK`);
+        variants.push(`${trimmed}, England`);
+        variants.push(`${trimmed}, Wiltshire`);
+        const hyphenated = trimmed.replace(/ on /gi, "-on-").replace(/ upon /gi, "-upon-");
+        if (hyphenated !== trimmed) {
+          variants.push(hyphenated);
+          variants.push(`${hyphenated}, UK`);
+          variants.push(`${hyphenated}, Wiltshire`);
+        }
+      }
+      return [...new Set(variants.map(item => item.trim()).filter(Boolean))];
+    }
+
     async function geocode(query) {
       const trimmed = query.trim();
       const preferredCountry = preferredCountryCode();
+      const localAlias = getLocalAlias(trimmed);
+      if (localAlias) return localAlias;
+
       if (currentRegionKey === "UK" && looksLikeUkPostcodeOrOutcode(trimmed)) return geocodeUkPostcode(trimmed);
       if (["US", "CA", "AU", "NZ"].includes(currentRegionKey) && looksLikePostalCode(trimmed)) return geocodeInternationalPostcode(trimmed);
-      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(trimmed)}&count=10&language=en&format=json`;
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Could not search that location.");
-      const data = await response.json();
-      if (!data.results || !data.results.length) throw new Error("Location not found. Try a nearby town or city.");
-      const place = data.results.find(result => result.country_code === preferredCountry) || data.results[0];
-      return { latitude: place.latitude, longitude: place.longitude, countryCode: place.country_code, name: [place.name, place.admin1, place.country_code].filter(Boolean).join(", ") };
+
+      const variants = buildSearchVariants(trimmed);
+      for (const variant of variants) {
+        const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(variant)}&count=10&language=en&format=json`;
+        const response = await fetch(url);
+        if (!response.ok) continue;
+        const data = await response.json();
+        if (!data.results || !data.results.length) continue;
+        const place = data.results.find(result => result.country_code === preferredCountry) || data.results[0];
+        return { latitude: place.latitude, longitude: place.longitude, countryCode: place.country_code, name: [place.name, place.admin1, place.country_code].filter(Boolean).join(", ") };
+      }
+
+      throw new Error("Location not found. Try a postcode, a nearby larger town, or include the county, e.g. Bradford-on-Avon Wiltshire.");
     }
 
     async function getWeather(latitude, longitude) {
