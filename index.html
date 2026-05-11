@@ -1336,27 +1336,87 @@
       return candidates.find(result => ["GO", "WATER", "TAKE ONE"].includes(result.status)) || candidates[0];
     }
 
+    function checkBackPhrase(nextBetter) {
+      if (!nextBetter || !nextBetter.best || nextBetter.best === "No sensible window" || nextBetter.best === "Not needed") return "";
+      return " Check back with me closer to then for better accuracy.";
+    }
+
+    function nextWindowPhrase(nextBetter, fallback = "when the forecast improves") {
+      if (!nextBetter) return fallback;
+      return `${nextBetter.label}, ${nextBetter.best}`;
+    }
+
     function buildRecommendation(todayResult, nextBetter) {
       const taskKey = selected;
+      const checkBack = checkBackPhrase(nextBetter);
+
       if (["GO", "WATER", "TAKE ONE"].includes(todayResult.status)) {
         if (taskKey === "plants") return `Recommendation: water during ${todayResult.best}. Prioritise pots, hanging baskets, new plants and anything under cover.`;
         if (taskKey === "jacket") return "Recommendation: take a coat or waterproof layer.";
         return `Recommendation: do it ${todayResult.label} during ${todayResult.best}.`;
       }
+
       if (["CAUTION", "CHECK", "MAYBE"].includes(todayResult.status)) {
-        if (taskKey === "plants") return nextBetter ? `Recommendation: check the soil first. Water pots, baskets and covered plants only if dry; for normal garden beds, the better option looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: check the soil first. Water pots, baskets and covered plants only if dry.";
+        if (taskKey === "plants") {
+          return nextBetter
+            ? `Recommendation: check the soil first. Water pots, baskets and covered plants only if dry; for normal garden beds, the better option looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+            : "Recommendation: check the soil first. Water pots, baskets and covered plants only if dry.";
+        }
         if (taskKey === "jacket") return "Recommendation: a light layer or waterproof is sensible if you will be out for long.";
-        if (taskKey === "run") return todayResult.best !== "No sensible window" ? `Recommendation: go during ${todayResult.best} if you are happy with the conditions; otherwise the cleaner option looks like ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "checking again later"}.` : `Recommendation: wait for a clearer window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
-        if (taskKey === "dog") return todayResult.best !== "No sensible window" ? `Recommendation: a shorter walk during ${todayResult.best} is reasonable if conditions on the ground are safe; otherwise try ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "again later"}.` : `Recommendation: wait for a safer walking window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
-        if (taskKey === "grass") return nextBetter ? `Recommendation: do not force it; the better practical mowing window looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: leave it for now and reassess when the grass has dried.";
-        if (taskKey === "paint") return nextBetter ? `Recommendation: wait for a longer dry spell; the better option looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: wait for a longer dry spell before painting.";
-        if (taskKey === "washing") return nextBetter ? `Recommendation: today is marginal; the better drying window looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: only hang washing out if you can bring it in quickly.";
-        if (taskKey === "washCar") return nextBetter ? `Recommendation: today is possible but may be poor value; the better car-wash window looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: possible, but it may not stay clean for long.";
-        return nextBetter ? `Recommendation: today is possible but not ideal; the better option looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: possible today, but only if local conditions are better than forecast.";
+        if (taskKey === "run") {
+          return todayResult.best !== "No sensible window"
+            ? `Recommendation: go during ${todayResult.best} if you are happy with the conditions; otherwise the cleaner option looks like ${nextWindowPhrase(nextBetter, "checking again later")}.${checkBack}`
+            : `Recommendation: wait for a clearer window ${nextBetter ? `around ${nextWindowPhrase(nextBetter)}.${checkBack}` : "later."}`;
+        }
+        if (taskKey === "dog") {
+          return todayResult.best !== "No sensible window"
+            ? `Recommendation: a shorter walk during ${todayResult.best} is reasonable if conditions on the ground are safe; otherwise try ${nextWindowPhrase(nextBetter, "again later")}.${checkBack}`
+            : `Recommendation: wait for a safer walking window ${nextBetter ? `around ${nextWindowPhrase(nextBetter)}.${checkBack}` : "later."}`;
+        }
+        if (taskKey === "grass") {
+          return nextBetter
+            ? `Recommendation: leave it today; the next better mowing window looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+            : "Recommendation: leave it for now and reassess when the grass has dried.";
+        }
+        if (taskKey === "paint") {
+          return nextBetter
+            ? `Recommendation: wait for a longer dry spell; the next better painting window looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+            : "Recommendation: wait for a longer dry spell before painting.";
+        }
+        if (taskKey === "washing") {
+          return nextBetter
+            ? `Recommendation: today is marginal; the next better drying window looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+            : "Recommendation: only hang washing out if you can bring it in quickly.";
+        }
+        if (taskKey === "washCar") {
+          return nextBetter
+            ? `Recommendation: today is possible but may be poor value; the next better car-wash window looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+            : "Recommendation: possible, but it may not stay clean for long.";
+        }
+        if (taskKey === "windows") {
+          return nextBetter
+            ? `Recommendation: today is possible but not ideal; the next better window-cleaning slot looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+            : "Recommendation: possible today, but only if local conditions are better than forecast.";
+        }
+        if (taskKey === "bbq") {
+          return nextBetter
+            ? `Recommendation: today is possible but not ideal; the next better BBQ window looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+            : "Recommendation: possible today, but have cover or a backup plan.";
+        }
+        return nextBetter
+          ? `Recommendation: today is possible but not ideal; the next better window looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+          : "Recommendation: possible today, but only if local conditions are better than forecast.";
       }
-      if (taskKey === "plants") return nextBetter ? `Recommendation: wait for now. If pots or covered plants are dry, water them by hand; otherwise the next useful watering window looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: wait for now. Only water pots or covered plants if they are dry to the touch.";
+
+      if (taskKey === "plants") {
+        return nextBetter
+          ? `Recommendation: wait for now. If pots or covered plants are dry, water them by hand; otherwise the next useful watering window looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+          : "Recommendation: wait for now. Only water pots or covered plants if they are dry to the touch.";
+      }
       if (taskKey === "jacket") return "Recommendation: no coat needed unless you personally feel the cold.";
-      return nextBetter ? `Recommendation: leave it ${todayResult.label}; the next better window looks like ${nextBetter.label}, ${nextBetter.best}.` : `Recommendation: leave it ${todayResult.label} and reassess when the forecast improves.`;
+      return nextBetter
+        ? `Recommendation: leave it today; the next better window looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+        : `Recommendation: leave it today and reassess when the forecast improves.`;
     }
 
     function analyse(data, task) {
