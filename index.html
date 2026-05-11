@@ -557,7 +557,7 @@
         }
       },
       IE: {
-        name: "Ireland", locale: "en-IE", tempUnit: "C", windUnit: "kmh", placeholder: "Enter town, city or Eircode area, e.g. Dublin",
+        name: "Ireland", locale: "en-IE", tempUnit: "C", windUnit: "kmh", placeholder: "Enter town or city, e.g. Dublin",
         popularPrefix: "Popular Ireland checks",
         seo: ["should I cut the grass today", "can I hang washing out today", "should I water the plants today", "do I need a jacket today", "should I BBQ today"],
         tasks: null
@@ -771,6 +771,54 @@
       return { UK: "GB", IE: "IE", US: "US", CA: "CA", AU: "AU", NZ: "NZ" }[currentRegionKey] || "GB";
     }
 
+    const US_STATES = {
+      AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California", CO: "Colorado", CT: "Connecticut", DE: "Delaware", FL: "Florida", GA: "Georgia",
+      HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa", KS: "Kansas", KY: "Kentucky", LA: "Louisiana", ME: "Maine", MD: "Maryland",
+      MA: "Massachusetts", MI: "Michigan", MN: "Minnesota", MS: "Mississippi", MO: "Missouri", MT: "Montana", NE: "Nebraska", NV: "Nevada", NH: "New Hampshire", NJ: "New Jersey",
+      NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota", OH: "Ohio", OK: "Oklahoma", OR: "Oregon", PA: "Pennsylvania", RI: "Rhode Island", SC: "South Carolina",
+      SD: "South Dakota", TN: "Tennessee", TX: "Texas", UT: "Utah", VT: "Vermont", VA: "Virginia", WA: "Washington", WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming", DC: "District of Columbia"
+    };
+
+    function parseUsCityState(value) {
+      if (currentRegionKey !== "US") return null;
+      const parts = value.split(",").map(part => part.trim()).filter(Boolean);
+      if (parts.length < 2) return null;
+      const city = parts[0];
+      const stateRaw = parts[1].toUpperCase().replaceAll(".", "");
+      const stateName = US_STATES[stateRaw] || parts[1];
+      return { city, stateRaw, stateName };
+    }
+
+    function preferredAdminName(query) {
+      const parsedUs = parseUsCityState(query);
+      if (parsedUs) return parsedUs.stateName.toLowerCase();
+      return "";
+    }
+
+    function selectBestPlace(results, preferredCountry, query) {
+      const countryMatches = results.filter(result => result.country_code === preferredCountry);
+      const candidates = countryMatches.length ? countryMatches : results;
+      const adminName = preferredAdminName(query);
+      if (adminName) {
+        const adminMatch = candidates.find(result => (result.admin1 || "").toLowerCase().includes(adminName));
+        if (adminMatch) return adminMatch;
+      }
+      return candidates[0];
+    }
+
+    function looksLikeIrishEircode(value) {
+      const compact = value.trim().toUpperCase().replaceAll(" ", "");
+      return compact.length === 7 && /^[A-Z0-9]+$/.test(compact);
+    }
+
+    async function geocodeIrishEircodeApprox(query) {
+      const routingKey = query.trim().toUpperCase().replaceAll(" ", "").slice(0, 3);
+      if (/^D(0[1-9]|1[0-8]|2[024])$/.test(routingKey)) {
+        return { latitude: 53.3498, longitude: -6.2603, countryCode: "IE", name: `${routingKey}, Dublin, IE approximate area` };
+      }
+      throw new Error("Eircode-level lookup is not precise yet. Try the nearest town or city, e.g. Dublin, Cork or Galway.");
+    }
+
     function cleanPostcode(value) { return value.trim().toUpperCase().replace(/[ ]+/g, ""); }
     function looksLikeUkPostcodeOrOutcode(value) {
       const cleaned = cleanPostcode(value);
@@ -845,6 +893,16 @@
     function buildSearchVariants(query) {
       const trimmed = query.trim();
       const variants = [trimmed];
+
+      if (currentRegionKey === "US") {
+        const parsed = parseUsCityState(trimmed);
+        if (parsed) {
+          variants.unshift(parsed.city);
+          variants.push(`${parsed.city}, ${parsed.stateName}`);
+          variants.push(`${parsed.city} ${parsed.stateName}`);
+        }
+      }
+
       if (currentRegionKey === "UK") {
         variants.push(`${trimmed}, UK`);
         variants.push(`${trimmed}, England`);
@@ -866,6 +924,7 @@
       if (localAlias) return localAlias;
 
       if (currentRegionKey === "UK" && looksLikeUkPostcodeOrOutcode(trimmed)) return geocodeUkPostcode(trimmed);
+      if (currentRegionKey === "IE" && looksLikeIrishEircode(trimmed)) return geocodeIrishEircodeApprox(trimmed);
       if (["US", "CA", "AU", "NZ"].includes(currentRegionKey) && looksLikePostalCode(trimmed)) return geocodeInternationalPostcode(trimmed);
 
       const variants = buildSearchVariants(trimmed);
@@ -875,7 +934,7 @@
         if (!response.ok) continue;
         const data = await response.json();
         if (!data.results || !data.results.length) continue;
-        const place = data.results.find(result => result.country_code === preferredCountry) || data.results[0];
+        const place = selectBestPlace(data.results, preferredCountry, trimmed);
         return { latitude: place.latitude, longitude: place.longitude, countryCode: place.country_code, name: [place.name, place.admin1, place.country_code].filter(Boolean).join(", ") };
       }
 
