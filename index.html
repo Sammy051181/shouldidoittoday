@@ -847,6 +847,19 @@
         </div>
 
         <div class="panel">
+          <h2>Weekend weather decisions</h2>
+          <p>Planning ahead? These weekend checks are built for activities where the weather needs a proper decision, not just a forecast.</p>
+          <div class="link-grid">
+            <a href="/uk/should-i-go-camping-this-weekend/">Should I go camping this weekend?</a>
+            <a href="/uk/should-i-have-a-bbq-this-weekend/">Should I have a BBQ this weekend?</a>
+            <a href="/uk/should-i-go-hiking-this-weekend/">Should I go hiking this weekend?</a>
+            <a href="/uk/should-i-go-to-the-beach-this-weekend/">Should I go to the beach this weekend?</a>
+            <a href="/uk/should-i-go-fishing-this-weekend/">Should I go fishing this weekend?</a>
+            <a href="/uk/should-i-play-golf-this-weekend/">Should I play golf this weekend?</a>
+          </div>
+        </div>
+
+        <div class="panel">
           <h2>What the answer means</h2>
           <p><strong>GO</strong> means the weather looks suitable. <strong>CAUTION</strong> means it may be possible, but there is a practical issue to check. <strong>NO-GO</strong> means waiting is probably the better choice.</p>
           <p>The checker uses local forecast data, recent rain, daylight, wind, temperature and task-specific common-sense rules.</p>
@@ -888,6 +901,27 @@
     REGIONS.AU.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},dog:{icon:"🐕",label:"Walk dog",question:"Is it too hot to walk the dog today?",slug:"is-it-too-hot-to-walk-the-dog-today"}};
     REGIONS.NZ.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"}};
 
+    const EXTRA_OUTDOOR_TASKS_UK={
+      camping:{icon:"⛺",label:"Camping",question:"Should I go camping today?",slug:"should-i-go-camping"},
+      hiking:{icon:"🥾",label:"Hiking",question:"Should I go hiking today?",slug:"should-i-go-hiking"},
+      beach:{icon:"🏖️",label:"Beach",question:"Should I go to the beach today?",slug:"should-i-go-to-the-beach"},
+      fishing:{icon:"🎣",label:"Fishing",question:"Should I go fishing today?",slug:"should-i-go-fishing"},
+      golf:{icon:"⛳",label:"Golf",question:"Should I play golf today?",slug:"should-i-play-golf"},
+      cycling:{icon:"🚲",label:"Cycling",question:"Should I go cycling today?",slug:"should-i-go-cycling"}
+    };
+
+    const EXTRA_OUTDOOR_TASKS_US={
+      camping:{icon:"⛺",label:"Camping",question:"Should I go camping today?",slug:"should-i-go-camping"},
+      hiking:{icon:"🥾",label:"Hiking",question:"Should I go hiking today?",slug:"should-i-go-hiking"},
+      beach:{icon:"🏖️",label:"Beach",question:"Should I go to the beach today?",slug:"should-i-go-to-the-beach"},
+      fishing:{icon:"🎣",label:"Fishing",question:"Should I go fishing today?",slug:"should-i-go-fishing"},
+      golf:{icon:"⛳",label:"Golf",question:"Should I play golf today?",slug:"should-i-play-golf"},
+      cycling:{icon:"🚲",label:"Cycling",question:"Should I go cycling today?",slug:"should-i-go-cycling"}
+    };
+
+    ["UK","IE","AU","NZ"].forEach(key=>{REGIONS[key].tasks={...REGIONS[key].tasks,...EXTRA_OUTDOOR_TASKS_UK}});
+    ["US","CA"].forEach(key=>{REGIONS[key].tasks={...REGIONS[key].tasks,...EXTRA_OUTDOOR_TASKS_US}});
+
     const RULES={
       grass:{rainProb:30,windMaxMph:26,tempMinC:8,tempMaxC:28,hours:[8,18],minHours:2},
       washCar:{rainProb:30,windMaxMph:30,tempMinC:4,tempMaxC:26,hours:[8,19],minHours:2},
@@ -898,7 +932,13 @@
       jacket:{rainProb:45,windMaxMph:34,tempMinC:12,tempMaxC:100,hours:[6,23],minHours:1},
       run:{rainProb:60,windMaxMph:35,tempMinC:2,tempMaxC:25,hours:[5,22],minHours:1},
       windows:{rainProb:25,windMaxMph:24,tempMinC:4,tempMaxC:25,hours:[8,17],minHours:2},
-      plants:{rainProb:45,windMaxMph:35,tempMinC:4,tempMaxC:32,hours:[6,21],minHours:1}
+      plants:{rainProb:45,windMaxMph:35,tempMinC:4,tempMaxC:32,hours:[6,21],minHours:1},
+      camping:{rainProb:35,windMaxMph:22,tempMinC:5,tempMaxC:30,hours:[10,22],minHours:4},
+      hiking:{rainProb:45,windMaxMph:32,tempMinC:3,tempMaxC:26,hours:[7,19],minHours:3},
+      beach:{rainProb:30,windMaxMph:24,tempMinC:18,tempMaxC:33,hours:[10,18],minHours:3},
+      fishing:{rainProb:50,windMaxMph:28,tempMinC:4,tempMaxC:28,hours:[6,20],minHours:3},
+      golf:{rainProb:35,windMaxMph:25,tempMinC:4,tempMaxC:28,hours:[7,19],minHours:3},
+      cycling:{rainProb:45,windMaxMph:28,tempMinC:3,tempMaxC:28,hours:[6,20],minHours:2}
     };
 
     const COUNTRY_TO_REGION={GB:"UK",IE:"IE",US:"US",CA:"CA",AU:"AU",NZ:"NZ"};
@@ -999,9 +1039,9 @@
       const logoWord=document.getElementById("logoPeriodWord");
       if(!logoWord)return;
       const values={
-        today:{text:"Today?",size:"100",spacing:"-5"},
-        tomorrow:{text:"Tomorrow?",size:"100",spacing:"-5"},
-        weekend:{text:"Weekend?",size:"100",spacing:"-5"}
+        today:{text:"Today?",size:"112",spacing:"-5"},
+        tomorrow:{text:"Tomorrow?",size:"88",spacing:"-5"},
+        weekend:{text:"Weekend?",size:"92",spacing:"-5"}
       };
       const value=values[selectedPeriod]||values.today;
       logoWord.textContent=value.text;
@@ -1391,6 +1431,60 @@
       if(selected==="dog"){
         if(ctx.maxTemp>=28){score-=45;reasons.push("It may be too hot for a safe dog walk.")}
         else if(ctx.maxTemp>=23){score-=20;reasons.push("Heat may be uncomfortable for dogs, especially on pavements.")}
+      }
+
+      if(selected==="camping"){
+        const overnightStart=makeTime(day,18);
+        const overnightEnd=makeTime(hoursAfter(day,24),9);
+        const overnightRows=rowsBetween(ctx.rows,overnightStart,overnightEnd);
+        const overnightRain=mm(overnightRows);
+        const overnightMinFeels=Math.min(...(overnightRows.length?overnightRows.map(r=>r.apparent):[ctx.minFeels]));
+        const overnightMaxWind=max(overnightRows.map(r=>r.wind),0);
+        if(ctx.rainPast24>4){score-=24;reasons.push("The ground may already be wet from recent rain.")}
+        if(overnightRain>1){score-=24;reasons.push("There is rain risk during the evening or overnight period.")}
+        if(overnightRain>4){score-=18;reasons.push("Overnight rain could make camping uncomfortable.")}
+        if(overnightMinFeels<7){score-=18;reasons.push("It may feel cold overnight.")}
+        if(overnightMaxWind>22){score-=18;reasons.push("Evening or overnight wind may be uncomfortable for tents.")}
+        if(ctx.storm){score-=35;reasons.push("Storm risk is a serious camping concern.")}
+        if(ctx.maxTemp>=30){score-=15;reasons.push("Daytime heat may make pitching and sleeping uncomfortable.")}
+        if(best==="No sensible window"){score-=15;reasons.push("There is not a good daylight arrival or pitching window.")}
+        let status="GO",css="";
+        if(score<45){status="NO-GO";css="no"}
+        else if(score<72){status=overnightRain>2||overnightMinFeels<7?"DAY ONLY":"CAUTION";css="caution"}
+        return{...result(status,css,ctx,best,reasons,"Recommendation: check the campsite forecast, ground conditions and wind exposure before committing overnight.",task)};
+      }
+
+      if(selected==="hiking"){
+        if(ctx.storm){score-=45;reasons.push("Storm risk is a serious concern for hiking.")}
+        if(ctx.maxGust>35){score-=25;reasons.push("Gusts may be strong on exposed ground.")}
+        if(ctx.rainTotal>2){score-=18;reasons.push("Rain could make paths slippery or visibility poorer.")}
+        if(ctx.maxTemp>=27){score-=25;reasons.push("Heat may make a long walk harder and increase hydration risk.")}
+      }
+
+      if(selected==="beach"){
+        if(ctx.maxTemp<18){score-=25;reasons.push("It may feel cool for a beach day.")}
+        if(ctx.maxWind>22){score-=22;reasons.push("Wind may make the beach feel less comfortable.")}
+        if(ctx.rainProb>30){score-=22;reasons.push("Rain risk could spoil the beach window.")}
+        if(ctx.storm){score-=40;reasons.push("Storm risk makes the beach a poor choice.")}
+      }
+
+      if(selected==="fishing"){
+        if(ctx.maxWind>28){score-=24;reasons.push("Wind may make fishing difficult or exposed spots uncomfortable.")}
+        if(ctx.storm){score-=45;reasons.push("Storm risk is unsafe near open water.")}
+        if(ctx.maxTemp<4){score-=16;reasons.push("It may feel very cold sitting still for long periods.")}
+      }
+
+      if(selected==="golf"){
+        if(ctx.maxWind>25){score-=22;reasons.push("Wind may make golf more difficult.")}
+        if(ctx.rainTotal>1.5){score-=20;reasons.push("Rain may make the course wet or play less comfortable.")}
+        if(ctx.storm){score-=45;reasons.push("Storm risk is unsafe on open ground.")}
+      }
+
+      if(selected==="cycling"){
+        if(ctx.maxWind>28){score-=24;reasons.push("Wind may make cycling harder, especially on exposed roads.")}
+        if(ctx.rainTotal>1.5){score-=18;reasons.push("Rain may make roads or paths slippery.")}
+        if(ctx.maxTemp>=29){score-=24;reasons.push("Heat may make cycling harder and increase hydration risk.")}
+        if(ctx.storm){score-=45;reasons.push("Storm risk is unsafe for cycling.")}
       }
 
       if(selected==="plants"){
