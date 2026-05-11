@@ -35,7 +35,7 @@
       --go: #0f766e;
       --caution: #b45309;
       --no: #dc2626;
-      --blue: #1a73e8;
+      --accent: #0f766e;
       --shadow: 0 1px 6px rgba(32, 33, 36, .18);
     }
 
@@ -83,19 +83,27 @@
     }
 
     .logo {
-      margin: 0 0 28px;
-      font-size: clamp(2.8rem, 8vw, 5.25rem);
-      line-height: .95;
-      letter-spacing: -0.08em;
-      font-weight: 700;
+      margin: 0 0 22px;
+      font-size: clamp(2.35rem, 7vw, 4.8rem);
+      line-height: .96;
+      letter-spacing: -0.075em;
+      font-weight: 850;
+      color: var(--ink);
     }
 
-    .logo span:nth-child(1) { color: #1a73e8; }
-    .logo span:nth-child(2) { color: #ea4335; }
-    .logo span:nth-child(3) { color: #fbbc04; }
-    .logo span:nth-child(4) { color: #1a73e8; }
-    .logo span:nth-child(5) { color: #34a853; }
-    .logo span:nth-child(6) { color: #ea4335; }
+    .logo-mark {
+      display: inline-grid;
+      place-items: center;
+      width: .72em;
+      height: .72em;
+      margin-right: .12em;
+      border-radius: 22%;
+      background: var(--accent);
+      color: #fff;
+      font-size: .55em;
+      vertical-align: .18em;
+      letter-spacing: 0;
+    }
 
     .tagline {
       color: var(--muted);
@@ -110,8 +118,8 @@
       width: min(584px, 100%);
       margin: 0 auto;
       border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 9px 10px 9px 18px;
+      border-radius: 18px;
+      padding: 10px 10px 10px 16px;
       background: #fff;
     }
 
@@ -140,7 +148,7 @@
     .go-btn {
       border: 0;
       border-radius: 999px;
-      background: var(--blue);
+      background: var(--accent);
       color: #fff;
       font-weight: 700;
       padding: 10px 16px;
@@ -148,7 +156,7 @@
       white-space: nowrap;
     }
 
-    .go-btn:hover { background: #1765cc; }
+    .go-btn:hover { background: #0b5f59; }
 
     .buttons {
       display: flex;
@@ -176,9 +184,9 @@
     }
 
     .task.active {
-      border-color: #d2e3fc;
-      background: #e8f0fe;
-      color: #1967d2;
+      border-color: #b7ebe3;
+      background: #ecfdf8;
+      color: var(--accent);
     }
 
     .hint {
@@ -289,7 +297,7 @@
     @media (max-width: 620px) {
       header { justify-content: center; }
       main { padding-top: 48px; }
-      .searchbox { border-radius: 24px; align-items: stretch; }
+      .searchbox { border-radius: 18px; align-items: stretch; }
       .go-btn { padding-inline: 14px; }
       .facts { grid-template-columns: repeat(2, 1fr); }
       .answer-row { flex-direction: column; }
@@ -317,7 +325,7 @@
   <main>
     <section class="wrap" aria-labelledby="title">
       <h1 id="title" class="logo" aria-label="Should I Do It Today?">
-        <span>S</span><span>h</span><span>o</span><span>u</span><span>l</span><span>d</span>
+        <span class="logo-mark">✓</span>Should I Do It Today?
       </h1>
       <p class="tagline">Should I do it today?</p>
 
