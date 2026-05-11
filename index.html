@@ -348,7 +348,7 @@
 
     .result-main {
       display: grid;
-      grid-template-columns: 136px 1fr;
+      grid-template-columns: 150px 1fr;
       gap: 16px;
       align-items: center;
       padding: 18px;
@@ -372,6 +372,8 @@
     .answer.caution {
       background: #fffbeb;
       color: var(--caution);
+      font-size: clamp(1rem, 2.4vw, 1.45rem);
+      letter-spacing: -0.03em;
     }
 
     .answer.no {
