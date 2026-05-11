@@ -1,0 +1,4 @@
+Contact: mailto:hello@shouldidoittoday.com
+Preferred-Languages: en
+Canonical: https://shouldidoittoday.com/.well-known/security.txt
+Policy: https://shouldidoittoday.com/
