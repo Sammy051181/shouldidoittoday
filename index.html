@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Should I Do It Today? | Weather-Based Go / No-Go Check</title>
-  <meta name="description" content="Should I do it today? Automatically check your local weather and get a simple go, caution or no-go answer for cutting grass, washing the car, hanging washing out, painting outside, BBQs, jacket checks and more." />
+  <meta name="description" content="Should I do it today? Automatically check your local weather and get a simple go, caution or no-go SITREP for cutting grass, washing the car, hanging washing out, painting outside, BBQs, running, jacket checks and more." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/" />
 
@@ -30,8 +30,6 @@
     :root {
       --ink: #122033;
       --muted: #64748b;
-      --soft: #f6fafc;
-      --card: #ffffff;
       --line: #dbe7ef;
       --accent: #0f766e;
       --accent2: #14b8a6;
@@ -161,7 +159,7 @@
       text-transform: uppercase;
     }
 
-    .hero-title-hidden {
+    .hero-title-hidden, .sr-only {
       position: absolute;
       width: 1px;
       height: 1px;
@@ -220,9 +218,10 @@
       border-radius: 999px;
       background: #fff;
       color: var(--ink);
-      padding: 7px 30px 7px 11px;
+      padding: 7px 34px 7px 14px;
       cursor: pointer;
       outline: none;
+      min-width: 150px;
     }
 
     .region-row select:focus {
@@ -426,27 +425,13 @@
       font-size: .9rem;
     }
 
-    .seo-line strong {
-      color: var(--ink);
-    }
+    .seo-line strong { color: var(--ink); }
 
     footer {
       padding: 20px 0 24px;
       color: var(--muted);
       text-align: center;
       font-size: .82rem;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      white-space: nowrap;
-      border: 0;
     }
 
     @media (max-width: 760px) {
@@ -481,10 +466,7 @@
           <path d="M80 60c0 4-3 8-8 8s-8-4-8-8c0-6 8-16 8-16s8 10 8 16z" fill="#3b82f6" />
           <path d="M88 50h14M84 59h16M89 68h9" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round" />
         </svg>
-        <span class="brand-wordmark">
-          <span>Should I Do It</span>
-          <strong>Today?</strong>
-        </span>
+        <span class="brand-wordmark"><span>Should I Do It</span><strong>Today?</strong></span>
       </a>
       <div class="top-help">Local weather. Simple answer.</div>
     </header>
@@ -500,11 +482,7 @@
             <path d="M80 60c0 4-3 8-8 8s-8-4-8-8c0-6 8-16 8-16s8 10 8 16z" fill="#3b82f6" />
             <path d="M88 50h14M84 59h16M89 68h9" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round" />
           </svg>
-          <div class="main-logo-text">
-            <span>Should I</span>
-            <span>Do It</span>
-            <strong>Today?</strong>
-          </div>
+          <div class="main-logo-text"><span>Should I</span><span>Do It</span><strong>Today?</strong></div>
           <div class="tagline">Weather. Decisions. Done.</div>
         </div>
         <h1 id="title" class="hero-title-hidden">Should I Do It Today?</h1>
@@ -556,21 +534,15 @@
       </section>
     </main>
 
-    <footer>
-      Practical weather-based guidance only. Always check actual local conditions. Weather data by Open-Meteo.
-    </footer>
+    <footer>Practical weather-based guidance only. Always check actual local conditions. Weather data by Open-Meteo.</footer>
   </div>
 
   <script>
     const REGIONS = {
       UK: {
-        name: "UK",
-        locale: "en-GB",
-        tempUnit: "C",
-        windUnit: "mph",
-        placeholder: "Enter town, city or postcode, e.g. Bristol",
-        lead: "Choose a job, use your current location or type a place, and get a fast GO / CAUTION / NO answer.",
+        name: "UK", locale: "en-GB", tempUnit: "C", windUnit: "mph", placeholder: "Enter town, city or postcode, e.g. Bristol",
         popularPrefix: "Popular UK checks",
+        seo: ["should I cut the grass today", "should I mow the lawn today", "can I hang washing out today", "do I need a coat today", "should I BBQ today"],
         tasks: {
           grass: { icon: "🌱", label: "Cut grass", question: "Should I cut the grass today?", slug: "should-i-cut-the-grass-today" },
           washCar: { icon: "🚗", label: "Wash car", question: "Should I wash my car today?", slug: "should-i-wash-my-car-today" },
@@ -581,38 +553,18 @@
           jacket: { icon: "🧥", label: "Need coat", question: "Do I need a coat today?", slug: "do-i-need-a-coat-today" },
           run: { icon: "🏃", label: "Go running", question: "Should I go for a run today?", slug: "should-i-go-for-a-run-today" },
           windows: { icon: "🪟", label: "Clean windows", question: "Should I clean the windows today?", slug: "should-i-clean-the-windows-today" }
-        },
-        seo: ["should I cut the grass today", "should I mow the lawn today", "can I hang washing out today", "do I need a coat today", "should I BBQ today"]
+        }
       },
       IE: {
-        name: "Ireland",
-        locale: "en-IE",
-        tempUnit: "C",
-        windUnit: "kmh",
-        placeholder: "Enter town, city or Eircode area, e.g. Dublin",
-        lead: "Choose a job, use your current location or type a place, and get a fast GO / CAUTION / NO answer.",
+        name: "Ireland", locale: "en-IE", tempUnit: "C", windUnit: "kmh", placeholder: "Enter town, city or Eircode area, e.g. Dublin",
         popularPrefix: "Popular Ireland checks",
-        tasks: {
-          grass: { icon: "🌱", label: "Cut grass", question: "Should I cut the grass today?", slug: "should-i-cut-the-grass-today" },
-          washCar: { icon: "🚗", label: "Wash car", question: "Should I wash my car today?", slug: "should-i-wash-my-car-today" },
-          washing: { icon: "👕", label: "Hang washing", question: "Can I hang washing out today?", slug: "can-i-hang-washing-out-today" },
-          paint: { icon: "🎨", label: "Paint outside", question: "Should I paint outside today?", slug: "should-i-paint-outside-today" },
-          bbq: { icon: "🔥", label: "BBQ", question: "Should I BBQ today?", slug: "should-i-bbq-today" },
-          dog: { icon: "🐕", label: "Walk dog", question: "Should I walk the dog today?", slug: "should-i-walk-the-dog-today" },
-          jacket: { icon: "🧥", label: "Need jacket", question: "Do I need a jacket today?", slug: "do-i-need-a-jacket-today" },
-          run: { icon: "🏃", label: "Go running", question: "Should I go for a run today?", slug: "should-i-go-for-a-run-today" },
-          windows: { icon: "🪟", label: "Clean windows", question: "Should I clean the windows today?", slug: "should-i-clean-the-windows-today" }
-        },
-        seo: ["should I cut the grass today", "can I hang washing out today", "do I need a jacket today", "should I BBQ today", "should I wash my car today"]
+        seo: ["should I cut the grass today", "can I hang washing out today", "do I need a jacket today", "should I BBQ today", "should I wash my car today"],
+        tasks: null
       },
       US: {
-        name: "US",
-        locale: "en-US",
-        tempUnit: "F",
-        windUnit: "mph",
-        placeholder: "Enter city, state or ZIP code, e.g. Boston or 02108",
-        lead: "Choose a task, use your current location or type a place, and get a fast GO / CAUTION / NO answer.",
+        name: "US", locale: "en-US", tempUnit: "F", windUnit: "mph", placeholder: "Enter city, state or ZIP code, e.g. Boston or 02108",
         popularPrefix: "Popular US checks",
+        seo: ["should I mow the lawn today", "can I dry laundry outside today", "should I grill today", "do I need a jacket today", "should I wash my car today"],
         tasks: {
           grass: { icon: "🌱", label: "Mow lawn", question: "Should I mow the lawn today?", slug: "should-i-mow-the-lawn-today" },
           washCar: { icon: "🚗", label: "Wash car", question: "Should I wash my car today?", slug: "should-i-wash-my-car-today" },
@@ -623,95 +575,40 @@
           jacket: { icon: "🧥", label: "Need jacket", question: "Do I need a jacket today?", slug: "do-i-need-a-jacket-today" },
           run: { icon: "🏃", label: "Run", question: "Should I run today?", slug: "should-i-run-today" },
           windows: { icon: "🪟", label: "Wash windows", question: "Should I wash windows today?", slug: "should-i-wash-windows-today" }
-        },
-        seo: ["should I mow the lawn today", "can I dry laundry outside today", "should I grill today", "do I need a jacket today", "should I wash my car today"]
+        }
       },
-      CA: {
-        name: "Canada",
-        locale: "en-CA",
-        tempUnit: "C",
-        windUnit: "kmh",
-        placeholder: "Enter city or postal code, e.g. Toronto",
-        lead: "Choose a task, use your current location or type a place, and get a fast GO / CAUTION / NO answer.",
-        popularPrefix: "Popular Canada checks",
-        tasks: {
-          grass: { icon: "🌱", label: "Mow lawn", question: "Should I mow the lawn today?", slug: "should-i-mow-the-lawn-today" },
-          washCar: { icon: "🚗", label: "Wash car", question: "Should I wash my car today?", slug: "should-i-wash-my-car-today" },
-          washing: { icon: "👕", label: "Dry laundry", question: "Can I dry laundry outside today?", slug: "can-i-dry-laundry-outside-today" },
-          paint: { icon: "🎨", label: "Paint outside", question: "Should I paint outside today?", slug: "should-i-paint-outside-today" },
-          bbq: { icon: "🔥", label: "BBQ", question: "Should I BBQ today?", slug: "should-i-bbq-today" },
-          dog: { icon: "🐕", label: "Walk dog", question: "Should I walk my dog today?", slug: "should-i-walk-my-dog-today" },
-          jacket: { icon: "🧥", label: "Need jacket", question: "Do I need a jacket today?", slug: "do-i-need-a-jacket-today" },
-          run: { icon: "🏃", label: "Run", question: "Should I run today?", slug: "should-i-run-today" },
-          windows: { icon: "🪟", label: "Wash windows", question: "Should I wash windows today?", slug: "should-i-wash-windows-today" }
-        },
-        seo: ["should I mow the lawn today", "can I dry laundry outside today", "do I need a jacket today", "should I BBQ today", "should I wash my car today"]
-      },
-      AU: {
-        name: "Australia",
-        locale: "en-AU",
-        tempUnit: "C",
-        windUnit: "kmh",
-        placeholder: "Enter suburb, town or postcode, e.g. Sydney",
-        lead: "Choose a job, use your current location or type a place, and get a fast GO / CAUTION / NO answer.",
-        popularPrefix: "Popular Australia checks",
-        tasks: {
-          grass: { icon: "🌱", label: "Mow lawn", question: "Should I mow the lawn today?", slug: "should-i-mow-the-lawn-today" },
-          washCar: { icon: "🚗", label: "Wash car", question: "Should I wash my car today?", slug: "should-i-wash-my-car-today" },
-          washing: { icon: "👕", label: "Hang washing", question: "Can I hang washing out today?", slug: "can-i-hang-washing-out-today" },
-          paint: { icon: "🎨", label: "Paint outside", question: "Should I paint outside today?", slug: "should-i-paint-outside-today" },
-          bbq: { icon: "🔥", label: "BBQ", question: "Should I BBQ today?", slug: "should-i-bbq-today" },
-          dog: { icon: "🐕", label: "Walk dog", question: "Is it too hot to walk the dog today?", slug: "is-it-too-hot-to-walk-the-dog-today" },
-          jacket: { icon: "🧥", label: "Need jacket", question: "Do I need a jacket today?", slug: "do-i-need-a-jacket-today" },
-          run: { icon: "🏃", label: "Go running", question: "Should I go for a run today?", slug: "should-i-go-for-a-run-today" },
-          windows: { icon: "🪟", label: "Clean windows", question: "Should I clean the windows today?", slug: "should-i-clean-the-windows-today" }
-        },
-        seo: ["should I mow the lawn today", "can I hang washing out today", "should I BBQ today", "is it too hot to walk the dog today", "do I need a jacket today"]
-      },
-      NZ: {
-        name: "New Zealand",
-        locale: "en-NZ",
-        tempUnit: "C",
-        windUnit: "kmh",
-        placeholder: "Enter town, city or postcode, e.g. Auckland",
-        lead: "Choose a job, use your current location or type a place, and get a fast GO / CAUTION / NO answer.",
-        popularPrefix: "Popular New Zealand checks",
-        tasks: {
-          grass: { icon: "🌱", label: "Mow lawn", question: "Should I mow the lawn today?", slug: "should-i-mow-the-lawn-today" },
-          washCar: { icon: "🚗", label: "Wash car", question: "Should I wash my car today?", slug: "should-i-wash-my-car-today" },
-          washing: { icon: "👕", label: "Hang washing", question: "Can I hang washing out today?", slug: "can-i-hang-washing-out-today" },
-          paint: { icon: "🎨", label: "Paint outside", question: "Should I paint outside today?", slug: "should-i-paint-outside-today" },
-          bbq: { icon: "🔥", label: "BBQ", question: "Should I BBQ today?", slug: "should-i-bbq-today" },
-          dog: { icon: "🐕", label: "Walk dog", question: "Should I walk the dog today?", slug: "should-i-walk-the-dog-today" },
-          jacket: { icon: "🧥", label: "Need jacket", question: "Do I need a jacket today?", slug: "do-i-need-a-jacket-today" },
-          run: { icon: "🏃", label: "Go running", question: "Should I go for a run today?", slug: "should-i-go-for-a-run-today" },
-          windows: { icon: "🪟", label: "Clean windows", question: "Should I clean the windows today?", slug: "should-i-clean-the-windows-today" }
-        },
-        seo: ["should I mow the lawn today", "can I hang washing out today", "should I BBQ today", "do I need a jacket today", "should I wash my car today"]
-      }
+      CA: { name: "Canada", locale: "en-CA", tempUnit: "C", windUnit: "kmh", placeholder: "Enter city or postal code, e.g. Toronto", popularPrefix: "Popular Canada checks", seo: ["should I mow the lawn today", "can I dry laundry outside today", "do I need a jacket today", "should I BBQ today", "should I wash my car today"], tasks: null },
+      AU: { name: "Australia", locale: "en-AU", tempUnit: "C", windUnit: "kmh", placeholder: "Enter suburb, town or postcode, e.g. Sydney", popularPrefix: "Popular Australia checks", seo: ["should I mow the lawn today", "can I hang washing out today", "should I BBQ today", "is it too hot to walk the dog today", "do I need a jacket today"], tasks: null },
+      NZ: { name: "New Zealand", locale: "en-NZ", tempUnit: "C", windUnit: "kmh", placeholder: "Enter town, city or postcode, e.g. Auckland", popularPrefix: "Popular New Zealand checks", seo: ["should I mow the lawn today", "can I hang washing out today", "should I BBQ today", "do I need a jacket today", "should I wash my car today"], tasks: null }
+    };
+
+    REGIONS.IE.tasks = REGIONS.UK.tasks;
+    REGIONS.CA.tasks = REGIONS.US.tasks;
+    REGIONS.AU.tasks = {
+      ...REGIONS.UK.tasks,
+      grass: { icon: "🌱", label: "Mow lawn", question: "Should I mow the lawn today?", slug: "should-i-mow-the-lawn-today" },
+      jacket: { icon: "🧥", label: "Need jacket", question: "Do I need a jacket today?", slug: "do-i-need-a-jacket-today" },
+      dog: { icon: "🐕", label: "Walk dog", question: "Is it too hot to walk the dog today?", slug: "is-it-too-hot-to-walk-the-dog-today" }
+    };
+    REGIONS.NZ.tasks = {
+      ...REGIONS.UK.tasks,
+      grass: { icon: "🌱", label: "Mow lawn", question: "Should I mow the lawn today?", slug: "should-i-mow-the-lawn-today" },
+      jacket: { icon: "🧥", label: "Need jacket", question: "Do I need a jacket today?", slug: "do-i-need-a-jacket-today" }
     };
 
     const RULES = {
-      grass: { rainProb: 35, windMaxMph: 28, tempMinC: 8, tempMaxC: 28, drySensitive: true, hours: [8, 19] },
-      washCar: { rainProb: 30, windMaxMph: 32, tempMinC: 5, tempMaxC: 30, drySensitive: false, hours: [8, 19] },
-      washing: { rainProb: 22, windMaxMph: 38, tempMinC: 7, tempMaxC: 32, drySensitive: false, hours: [7, 20] },
-      paint: { rainProb: 15, windMaxMph: 24, tempMinC: 10, tempMaxC: 25, drySensitive: true, hours: [9, 18] },
-      bbq: { rainProb: 35, windMaxMph: 30, tempMinC: 12, tempMaxC: 34, drySensitive: false, hours: [11, 21] },
-      dog: { rainProb: 55, windMaxMph: 46, tempMinC: -3, tempMaxC: 27, drySensitive: false, hours: [6, 22] },
-      jacket: { rainProb: 40, windMaxMph: 34, tempMinC: 12, tempMaxC: 100, drySensitive: false, hours: [6, 23] },
-      run: { rainProb: 50, windMaxMph: 36, tempMinC: 2, tempMaxC: 25, drySensitive: false, hours: [5, 22] },
-      windows: { rainProb: 28, windMaxMph: 28, tempMinC: 5, tempMaxC: 27, drySensitive: false, hours: [8, 18] }
+      grass: { rainProb: 35, windMaxMph: 28, tempMinC: 8, tempMaxC: 28, hours: [8, 19] },
+      washCar: { rainProb: 30, windMaxMph: 32, tempMinC: 5, tempMaxC: 30, hours: [8, 19] },
+      washing: { rainProb: 22, windMaxMph: 38, tempMinC: 7, tempMaxC: 32, hours: [7, 20] },
+      paint: { rainProb: 15, windMaxMph: 24, tempMinC: 10, tempMaxC: 25, hours: [9, 18] },
+      bbq: { rainProb: 35, windMaxMph: 30, tempMinC: 12, tempMaxC: 34, hours: [11, 21] },
+      dog: { rainProb: 55, windMaxMph: 46, tempMinC: -3, tempMaxC: 27, hours: [6, 22] },
+      jacket: { rainProb: 40, windMaxMph: 34, tempMinC: 12, tempMaxC: 100, hours: [6, 23] },
+      run: { rainProb: 50, windMaxMph: 36, tempMinC: 2, tempMaxC: 25, hours: [5, 22] },
+      windows: { rainProb: 28, windMaxMph: 28, tempMinC: 5, tempMaxC: 27, hours: [8, 18] }
     };
 
-    const COUNTRY_TO_REGION = {
-      GB: "UK",
-      IE: "IE",
-      US: "US",
-      CA: "CA",
-      AU: "AU",
-      NZ: "NZ"
-    };
-
+    const COUNTRY_TO_REGION = { GB: "UK", IE: "IE", US: "US", CA: "CA", AU: "AU", NZ: "NZ" };
     let selected = "grass";
     let currentRegionKey = getInitialRegion();
     let detectedLocation = null;
@@ -734,47 +631,32 @@
       return "UK";
     }
 
-    function region() {
-      return REGIONS[currentRegionKey] || REGIONS.UK;
-    }
-
-    function taskConfig(taskKey = selected) {
-      return { ...RULES[taskKey], ...region().tasks[taskKey] };
-    }
+    function region() { return REGIONS[currentRegionKey] || REGIONS.UK; }
+    function taskConfig(taskKey = selected) { return Object.assign({}, RULES[taskKey], region().tasks[taskKey]); }
 
     function init() {
       const params = new URLSearchParams(window.location.search);
       const regionParam = (params.get("region") || "").toUpperCase();
       if (REGIONS[regionParam]) currentRegionKey = regionParam;
-
       regionSelect.value = currentRegionKey;
-      applyRegion(false);
-
       const taskParam = params.get("task");
-      const locationParam = params.get("location");
       const found = Object.entries(region().tasks).find(([, task]) => task.slug === taskParam);
       if (found) selected = found[0];
+      const locationParam = params.get("location");
       if (locationParam) locationInput.value = locationParam;
-
+      applyRegion(false);
       renderTasks();
-
-      if (locationInput.value.trim()) {
-        checkFromText();
-      } else {
-        autoDetectLocation();
-      }
+      if (locationInput.value.trim()) checkFromText(); else autoDetectLocation();
     }
 
-    function applyRegion(shouldCheck = true) {
+    function applyRegion(shouldCheck) {
       const profile = region();
       document.documentElement.lang = profile.locale;
       locationInput.placeholder = profile.placeholder;
-      leadText.textContent = profile.lead;
+      leadText.textContent = "Choose a job, use your current location or type a place, and get a fast GO / CAUTION / NO answer.";
       seoLine.innerHTML = `<strong>${profile.popularPrefix}:</strong> ${profile.seo.join(", ")}.`;
-      document.title = `${profile.tasks[selected]?.question || profile.tasks.grass.question} | Weather-Based Answer`;
       updateHintAndQuestion();
       renderTasks();
-
       if (shouldCheck) {
         if (locationInput.value.trim()) checkFromText();
         else if (detectedLocation) checkFromCoords(detectedLocation.latitude, detectedLocation.longitude, detectedLocation.name);
@@ -784,37 +666,29 @@
     function renderTasks() {
       const profile = region();
       if (!profile.tasks[selected]) selected = "grass";
-
       taskButtons.innerHTML = Object.entries(profile.tasks).map(([key, task]) => `
         <button class="task ${key === selected ? "active" : ""}" type="button" data-task="${key}">
           <span>${task.icon}</span>${task.label}
         </button>
       `).join("");
-
       document.querySelectorAll("[data-task]").forEach(button => {
         button.addEventListener("click", () => {
           selected = button.dataset.task;
           document.querySelectorAll("[data-task]").forEach(btn => btn.classList.remove("active"));
           button.classList.add("active");
           updateHintAndQuestion();
-          document.title = `${taskConfig().question} | Weather-Based Answer`;
-
-          if (locationInput.value.trim()) {
-            checkFromText();
-          } else if (detectedLocation) {
-            checkFromCoords(detectedLocation.latitude, detectedLocation.longitude, detectedLocation.name);
-          }
+          if (locationInput.value.trim()) checkFromText();
+          else if (detectedLocation) checkFromCoords(detectedLocation.latitude, detectedLocation.longitude, detectedLocation.name);
         });
       });
-
       updateHintAndQuestion();
     }
 
     function updateHintAndQuestion() {
       const task = taskConfig();
       hint.textContent = `Selected: ${task.label.toLowerCase()}`;
-      const questionEl = document.getElementById("question");
-      if (questionEl) questionEl.textContent = task.question;
+      document.getElementById("question").textContent = task.question;
+      document.title = `${task.question} | Weather-Based Answer`;
     }
 
     function setRegionFromCountryCode(countryCode) {
@@ -830,11 +704,9 @@
       if (!timezone) return;
       let newRegion = currentRegionKey;
       if (timezone === "Europe/London") newRegion = "UK";
-      else if (timezone === "Europe/Dublin") newRegion = "IE";
-      else if (timezone.startsWith("America/")) newRegion = timezone.includes("Toronto") || timezone.includes("Vancouver") || timezone.includes("Edmonton") || timezone.includes("Winnipeg") || timezone.includes("Halifax") ? "CA" : currentRegionKey;
-      else if (timezone.startsWith("Australia/")) newRegion = "AU";
-      else if (timezone.startsWith("Pacific/Auckland") || timezone.startsWith("Pacific/Chatham")) newRegion = "NZ";
-
+      if (timezone === "Europe/Dublin") newRegion = "IE";
+      if (timezone.startsWith("Australia/")) newRegion = "AU";
+      if (timezone.startsWith("Pacific/Auckland") || timezone.startsWith("Pacific/Chatham")) newRegion = "NZ";
       if (newRegion !== currentRegionKey) {
         currentRegionKey = newRegion;
         regionSelect.value = currentRegionKey;
@@ -851,42 +723,25 @@
         setLocationStatus("Type your location to start", false);
         return;
       }
-
       setLocationStatus("Detecting your location…", true);
       navigator.geolocation.getCurrentPosition(async position => {
-        const { latitude, longitude } = position.coords;
-        detectedLocation = { latitude, longitude, name: "your current location" };
-        setLocationStatus("Using your current location", false);
-        await checkFromCoords(latitude, longitude, "your current location");
+        const coords = position.coords;
+        detectedLocation = { latitude: coords.latitude, longitude: coords.longitude, name: "your current location" };
+        await checkFromCoords(coords.latitude, coords.longitude, "your current location");
       }, () => {
         setLocationStatus("Type a location or tap Use my location", false);
-      }, {
-        enableHighAccuracy: false,
-        timeout: 8000,
-        maximumAge: 600000
-      });
+      }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 });
     }
 
     function preferredCountryCode() {
-      return {
-        UK: "GB",
-        IE: "IE",
-        US: "US",
-        CA: "CA",
-        AU: "AU",
-        NZ: "NZ"
-      }[currentRegionKey] || "GB";
+      return { UK: "GB", IE: "IE", US: "US", CA: "CA", AU: "AU", NZ: "NZ" }[currentRegionKey] || "GB";
     }
 
-    function cleanPostcode(value) {
-      return value.trim().toUpperCase().replace(/[ ]+/g, "");
-    }
-
+    function cleanPostcode(value) { return value.trim().toUpperCase().replace(/[ ]+/g, ""); }
     function looksLikeUkPostcodeOrOutcode(value) {
       const cleaned = cleanPostcode(value);
       return /^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$/.test(cleaned) || /^[A-Z]{1,2}[0-9][A-Z0-9]?$/.test(cleaned);
     }
-
     function looksLikePostalCode(value) {
       const cleaned = value.trim().toUpperCase();
       if (currentRegionKey === "UK") return looksLikeUkPostcodeOrOutcode(cleaned);
@@ -899,98 +754,61 @@
     async function geocodeUkPostcode(query) {
       const cleaned = cleanPostcode(query);
       const isFullPostcode = /^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$/.test(cleaned);
-
       if (isFullPostcode) {
         const response = await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(cleaned)}`);
         if (response.ok) {
           const data = await response.json();
           if (data.result && data.result.latitude && data.result.longitude) {
-            return {
-              latitude: data.result.latitude,
-              longitude: data.result.longitude,
-              countryCode: "GB",
-              name: [data.result.postcode, data.result.admin_district, "GB"].filter(Boolean).join(", ")
-            };
+            return { latitude: data.result.latitude, longitude: data.result.longitude, countryCode: "GB", name: [data.result.postcode, data.result.admin_district, "GB"].filter(Boolean).join(", ") };
           }
         }
       }
-
       const outcode = cleaned.replace(/[0-9][A-Z]{2}$/, "");
       const outcodeResponse = await fetch(`https://api.postcodes.io/outcodes/${encodeURIComponent(outcode)}`);
       if (outcodeResponse.ok) {
         const outcodeData = await outcodeResponse.json();
         if (outcodeData.result && outcodeData.result.latitude && outcodeData.result.longitude) {
-          return {
-            latitude: outcodeData.result.latitude,
-            longitude: outcodeData.result.longitude,
-            countryCode: "GB",
-            name: [outcodeData.result.outcode, Array.isArray(outcodeData.result.admin_district) ? outcodeData.result.admin_district[0] : outcodeData.result.admin_district, "GB"].filter(Boolean).join(", ")
-          };
+          const district = Array.isArray(outcodeData.result.admin_district) ? outcodeData.result.admin_district[0] : outcodeData.result.admin_district;
+          return { latitude: outcodeData.result.latitude, longitude: outcodeData.result.longitude, countryCode: "GB", name: [outcodeData.result.outcode, district, "GB"].filter(Boolean).join(", ") };
         }
       }
-
       throw new Error("Postcode not found. Try a full UK postcode, an outward postcode like BA14, or a nearby town.");
     }
 
     async function geocodeInternationalPostcode(query) {
       const country = preferredCountryCode();
       let postalCode = query.trim().toUpperCase();
-
       if (currentRegionKey === "US") postalCode = postalCode.slice(0, 5);
       if (currentRegionKey === "CA") postalCode = postalCode.replace(/[ ]+/g, "");
-
       const attempts = [postalCode];
       if (currentRegionKey === "CA" && postalCode.length > 3) attempts.push(postalCode.slice(0, 3));
-
       for (const attempt of attempts) {
         const response = await fetch(`https://api.zippopotam.us/${country}/${encodeURIComponent(attempt)}`);
         if (!response.ok) continue;
         const data = await response.json();
         const place = data.places && data.places[0];
-        if (place) {
-          return {
-            latitude: Number(place.latitude),
-            longitude: Number(place.longitude),
-            countryCode: country,
-            name: [place["place name"], place.state, country].filter(Boolean).join(", ")
-          };
-        }
+        if (place) return { latitude: Number(place.latitude), longitude: Number(place.longitude), countryCode: country, name: [place["place name"], place.state, country].filter(Boolean).join(", ") };
       }
-
       throw new Error("Postal code not found. Try a nearby town or city.");
     }
 
     async function geocode(query) {
       const trimmed = query.trim();
       const preferredCountry = preferredCountryCode();
-
-      if (currentRegionKey === "UK" && looksLikeUkPostcodeOrOutcode(trimmed)) {
-        return geocodeUkPostcode(trimmed);
-      }
-
-      if (["US", "CA", "AU", "NZ"].includes(currentRegionKey) && looksLikePostalCode(trimmed)) {
-        return geocodeInternationalPostcode(trimmed);
-      }
-
+      if (currentRegionKey === "UK" && looksLikeUkPostcodeOrOutcode(trimmed)) return geocodeUkPostcode(trimmed);
+      if (["US", "CA", "AU", "NZ"].includes(currentRegionKey) && looksLikePostalCode(trimmed)) return geocodeInternationalPostcode(trimmed);
       const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(trimmed)}&count=10&language=en&format=json`;
       const response = await fetch(url);
       if (!response.ok) throw new Error("Could not search that location.");
       const data = await response.json();
       if (!data.results || !data.results.length) throw new Error("Location not found. Try a nearby town or city.");
-
       const place = data.results.find(result => result.country_code === preferredCountry) || data.results[0];
-      return {
-        latitude: place.latitude,
-        longitude: place.longitude,
-        countryCode: place.country_code,
-        name: [place.name, place.admin1, place.country_code].filter(Boolean).join(", ")
-      };
+      return { latitude: place.latitude, longitude: place.longitude, countryCode: place.country_code, name: [place.name, place.admin1, place.country_code].filter(Boolean).join(", ") };
     }
 
     async function getWeather(latitude, longitude) {
       const params = new URLSearchParams({
-        latitude,
-        longitude,
+        latitude, longitude,
         hourly: "temperature_2m,precipitation,precipitation_probability,wind_speed_10m,wind_gusts_10m",
         current: "temperature_2m,precipitation,rain,wind_speed_10m",
         daily: "sunrise,sunset",
@@ -1004,49 +822,21 @@
       return response.json();
     }
 
-    function isOutdoorDaylightTask(taskKey) {
-      return ["grass", "washing", "paint", "bbq", "dog", "run", "windows"].includes(taskKey);
-    }
-
-    function isDryGroundTask(taskKey) {
-      return ["grass", "paint", "windows"].includes(taskKey);
-    }
-
-    function isDryingTask(taskKey) {
-      return taskKey === "washing";
-    }
-
-    function isRainTolerantTask(taskKey) {
-      return ["run", "dog"].includes(taskKey);
-    }
-
-    function isRainSensitiveTask(taskKey) {
-      return ["grass", "washing", "paint", "windows", "washCar"].includes(taskKey);
-    }
-
+    function isOutdoorDaylightTask(taskKey) { return ["grass", "washing", "paint", "bbq", "dog", "run", "windows"].includes(taskKey); }
+    function isDryGroundTask(taskKey) { return ["grass", "paint", "windows"].includes(taskKey); }
+    function isDryingTask(taskKey) { return taskKey === "washing"; }
+    function isRainTolerantTask(taskKey) { return ["run", "dog"].includes(taskKey); }
     function isWinterRestPeriod(dateValue) {
       const month = dateValue.getMonth();
-      const northernWinter = [11, 0, 1].includes(month);
-      const southernWinter = [5, 6, 7].includes(month);
-      return ["AU", "NZ"].includes(currentRegionKey) ? southernWinter : northernWinter;
+      return ["AU", "NZ"].includes(currentRegionKey) ? [5,6,7].includes(month) : [11,0,1].includes(month);
     }
-
     function formatList(items) {
       if (!items.length) return "conditions are mixed";
       if (items.length === 1) return items[0];
       return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
     }
-
-    function startOfDay(dateValue) {
-      const d = new Date(dateValue);
-      d.setHours(0, 0, 0, 0);
-      return d;
-    }
-
-    function sameDay(a, b) {
-      return startOfDay(a).getTime() === startOfDay(b).getTime();
-    }
-
+    function startOfDay(dateValue) { const d = new Date(dateValue); d.setHours(0, 0, 0, 0); return d; }
+    function sameDay(a, b) { return startOfDay(a).getTime() === startOfDay(b).getTime(); }
     function dayLabel(dateValue) {
       const today = startOfDay(new Date());
       const target = startOfDay(dateValue);
@@ -1055,12 +845,12 @@
       if (diffDays === 1) return "tomorrow";
       return target.toLocaleDateString(region().locale, { weekday: "long" });
     }
-
+    function buildHourlyRows(data) {
+      return data.hourly.time.map((time, i) => ({ time: new Date(time), hour: new Date(time).getHours(), temp: data.hourly.temperature_2m[i], precip: data.hourly.precipitation[i] || 0, rainProb: data.hourly.precipitation_probability[i] || 0, wind: data.hourly.wind_speed_10m[i] || 0 }));
+    }
     function getSunWindowForDate(data, dateValue, fallbackStartHour, fallbackEndHour) {
       const targetDay = startOfDay(dateValue);
-      let sunrise = null;
-      let sunset = null;
-
+      let sunrise = null, sunset = null;
       if (data.daily && data.daily.time) {
         const index = data.daily.time.findIndex(day => sameDay(new Date(day), targetDay));
         if (index >= 0) {
@@ -1068,36 +858,16 @@
           sunset = data.daily.sunset && data.daily.sunset[index] ? new Date(data.daily.sunset[index]) : null;
         }
       }
-
-      const fallbackStart = new Date(targetDay);
-      fallbackStart.setHours(fallbackStartHour, 0, 0, 0);
-      const fallbackEnd = new Date(targetDay);
-      fallbackEnd.setHours(fallbackEndHour, 0, 0, 0);
-
-      return {
-        start: sunrise || fallbackStart,
-        end: sunset || fallbackEnd
-      };
+      const fallbackStart = new Date(targetDay); fallbackStart.setHours(fallbackStartHour, 0, 0, 0);
+      const fallbackEnd = new Date(targetDay); fallbackEnd.setHours(fallbackEndHour, 0, 0, 0);
+      return { start: sunrise || fallbackStart, end: sunset || fallbackEnd };
     }
-
-    function buildHourlyRows(data) {
-      return data.hourly.time.map((time, i) => ({
-        time: new Date(time),
-        hour: new Date(time).getHours(),
-        temp: data.hourly.temperature_2m[i],
-        precip: data.hourly.precipitation[i] || 0,
-        rainProb: data.hourly.precipitation_probability[i] ?? 0,
-        wind: data.hourly.wind_speed_10m[i] || 0
-      }));
-    }
-
     function findRainEnds(rows, fromTime) {
       const nextRows = rows.filter(row => row.time >= fromTime && row.time <= new Date(fromTime.getTime() + 18 * 60 * 60 * 1000));
-      const rainingNowOrSoon = nextRows.find(row => row.precip > 0.1 || row.rainProb >= 60);
-      if (!rainingNowOrSoon) return null;
-
+      const wetStart = nextRows.find(row => row.precip > 0.1 || row.rainProb >= 60);
+      if (!wetStart) return null;
       for (const row of nextRows) {
-        if (row.time <= rainingNowOrSoon.time) continue;
+        if (row.time <= wetStart.time) continue;
         const following = nextRows.filter(next => next.time >= row.time && next.time <= new Date(row.time.getTime() + 2 * 60 * 60 * 1000));
         if (following.length >= 2 && following.every(next => next.precip <= 0.1 && next.rainProb < 50)) return row.time;
       }
@@ -1110,24 +880,14 @@
       const dayStart = startOfDay(dateValue);
       const rows = buildHourlyRows(data);
       const daylight = getSunWindowForDate(data, dayStart, task.hours[0], task.hours[1]);
-
-      const taskStart = new Date(dayStart);
-      taskStart.setHours(task.hours[0], 0, 0, 0);
-      const taskEnd = new Date(dayStart);
-      taskEnd.setHours(task.hours[1], 0, 0, 0);
-
-      const effectiveStartBase = isOutdoorDaylightTask(taskKey)
-        ? new Date(Math.max(taskStart.getTime(), daylight.start.getTime()))
-        : taskStart;
-      const effectiveEnd = isOutdoorDaylightTask(taskKey)
-        ? new Date(Math.min(taskEnd.getTime(), daylight.end.getTime()))
-        : taskEnd;
+      const taskStart = new Date(dayStart); taskStart.setHours(task.hours[0], 0, 0, 0);
+      const taskEnd = new Date(dayStart); taskEnd.setHours(task.hours[1], 0, 0, 0);
+      const effectiveStartBase = isOutdoorDaylightTask(taskKey) ? new Date(Math.max(taskStart.getTime(), daylight.start.getTime())) : taskStart;
+      const effectiveEnd = isOutdoorDaylightTask(taskKey) ? new Date(Math.min(taskEnd.getTime(), daylight.end.getTime())) : taskEnd;
       const effectiveStart = isToday ? new Date(Math.max(effectiveStartBase.getTime(), now.getTime())) : effectiveStartBase;
-
       const useful = rows.filter(row => row.time >= effectiveStart && row.time <= effectiveEnd);
       const prior24End = isToday ? now : effectiveStartBase;
       const past24 = rows.filter(row => row.time < prior24End && row.time >= new Date(prior24End.getTime() - 24 * 60 * 60 * 1000));
-
       const maxRain = useful.length ? Math.max(...useful.map(row => row.rainProb), 0) : 100;
       const rainTotal = useful.reduce((sum, row) => sum + row.precip, 0);
       const recentRain = past24.reduce((sum, row) => sum + row.precip, 0);
@@ -1137,204 +897,83 @@
       const rainEndsAt = isToday ? findRainEnds(rows, now) : null;
 
       let score = 100;
-      const blockers = [];
-      const cautions = [];
-      const positives = [];
-
-      if (!useful.length) {
-        score -= 50;
-        blockers.push("there is no sensible daylight window left");
-      }
-
-      if (isToday && isOutdoorDaylightTask(taskKey) && now > effectiveEnd) {
-        score -= 45;
-        blockers.push("it is too late in the day for this job");
-      }
-
+      const blockers = [], cautions = [], positives = [];
+      if (!useful.length) { score -= 50; blockers.push("there is no sensible daylight window left"); }
+      if (isToday && isOutdoorDaylightTask(taskKey) && now > effectiveEnd) { score -= 45; blockers.push("it is too late in the day for this job"); }
       if (currentRain > 0) {
-        if (isRainTolerantTask(taskKey) && currentRain <= 2) {
-          score -= 10;
-          cautions.push("it is raining now, but this is manageable if you are prepared for wet weather");
-        } else {
-          score -= 35;
-          blockers.push("it is raining now");
-        }
+        if (isRainTolerantTask(taskKey) && currentRain <= 2) { score -= 10; cautions.push("it is raining now, but this is manageable if you are prepared for wet weather"); }
+        else { score -= 35; blockers.push("it is raining now"); }
       }
-
       if (maxRain > task.rainProb) {
-        if (isRainTolerantTask(taskKey)) {
-          score -= Math.min(16, (maxRain - task.rainProb) * 0.35);
-          cautions.push("showers are likely, so expect a wet-weather version of this activity");
-        } else {
-          score -= Math.min(35, (maxRain - task.rainProb) * 0.75);
-          cautions.push("rain risk is higher than ideal");
-        }
+        if (isRainTolerantTask(taskKey)) { score -= Math.min(16, (maxRain - task.rainProb) * 0.35); cautions.push("showers are likely, so expect a wet-weather version of this activity"); }
+        else { score -= Math.min(35, (maxRain - task.rainProb) * 0.75); cautions.push("rain risk is higher than ideal"); }
       }
-
       if (rainTotal > 0.8) {
-        if (isRainTolerantTask(taskKey) && rainTotal <= 3) {
-          score -= 8;
-          cautions.push("some rain is expected during the usable window");
-        } else {
-          score -= 20;
-          cautions.push("rain is expected during the usable window");
-        }
+        if (isRainTolerantTask(taskKey) && rainTotal <= 3) { score -= 8; cautions.push("some rain is expected during the usable window"); }
+        else { score -= 20; cautions.push("rain is expected during the usable window"); }
       }
-
-      if (maxWind > task.windMaxMph) {
-        score -= Math.min(25, (maxWind - task.windMaxMph) * 1.2);
-        cautions.push("wind may be too strong");
-      }
-
-      if (avgTemp < task.tempMinC) {
-        score -= 18;
-        cautions.push("it may be too cold");
-      }
-
-      if (avgTemp > task.tempMaxC) {
-        score -= 18;
-        cautions.push("it may be too hot");
-      }
-
+      if (maxWind > task.windMaxMph) { score -= Math.min(25, (maxWind - task.windMaxMph) * 1.2); cautions.push("wind may be too strong"); }
+      if (avgTemp < task.tempMinC) { score -= 18; cautions.push("it may be too cold"); }
+      if (avgTemp > task.tempMaxC) { score -= 18; cautions.push("it may be too hot"); }
       if (isDryGroundTask(taskKey) && recentRain > 1.5) {
         score -= recentRain > 4 ? 35 : 22;
         const wetReason = taskKey === "grass" ? "the grass is likely still wet from earlier rain" : "surfaces may still be wet from earlier rain";
-        if (recentRain > 4) blockers.push(wetReason);
-        else cautions.push(wetReason);
+        if (recentRain > 4) blockers.push(wetReason); else cautions.push(wetReason);
       }
-
       if (isDryingTask(taskKey) && useful.length) {
-        const remainingDryHours = useful.filter(row => row.rainProb <= task.rainProb && row.precip < 0.2 && row.wind <= task.windMaxMph && row.temp >= task.tempMinC).length;
-        if (remainingDryHours < 3) {
-          score -= 35;
-          blockers.push("there are not enough dry daylight hours for washing to dry properly");
-        }
+        const dryHours = useful.filter(row => row.rainProb <= task.rainProb && row.precip < 0.2 && row.wind <= task.windMaxMph && row.temp >= task.tempMinC).length;
+        if (dryHours < 3) { score -= 35; blockers.push("there are not enough dry daylight hours for washing to dry properly"); }
       }
+      if (taskKey === "grass" && isWinterRestPeriod(dayStart)) { score -= 28; cautions.push("it is the winter rest period, so grass cutting is usually best avoided unless growth is active and the ground is dry"); }
+      if (taskKey === "grass" && avgTemp < 6) { score -= 30; blockers.push("it is too cold for a useful grass cut"); }
+      if (useful.length && blockers.length === 0) positives.push("there is a usable window");
 
-      if (taskKey === "grass" && isWinterRestPeriod(dayStart)) {
-        score -= 28;
-        cautions.push("it is the winter rest period, so grass cutting is usually best avoided unless growth is active and the ground is dry");
-      }
-
-      if (taskKey === "grass" && avgTemp < 6) {
-        score -= 30;
-        blockers.push("it is too cold for a useful grass cut");
-      }
-
-      if (useful.length && blockers.length === 0) {
-        positives.push("there is a usable daylight window");
-      }
-
-      const goodSlots = useful.filter(row =>
-        row.rainProb <= task.rainProb &&
-        row.precip < 0.2 &&
-        row.wind <= task.windMaxMph &&
-        row.temp >= task.tempMinC &&
-        row.temp <= task.tempMaxC
-      );
-
+      const goodSlots = useful.filter(row => row.rainProb <= task.rainProb && row.precip < 0.2 && row.wind <= task.windMaxMph && row.temp >= task.tempMinC && row.temp <= task.tempMaxC);
       let best = "No sensible window";
       if (goodSlots.length) {
         const first = goodSlots[0].time;
         const last = new Date(goodSlots[goodSlots.length - 1].time.getTime() + 60 * 60 * 1000);
         best = `${formatTime(first)}–${formatTime(last)}`;
       }
-
-      let status = "GO";
-      let css = "";
-      if (score < 45 || blockers.length) {
-        status = "NO";
-        css = "no";
-      } else if (score < 72 || cautions.length) {
-        status = "CAUTION";
-        css = "caution";
-      }
-
-      return {
-        date: dayStart,
-        label: dayLabel(dayStart),
-        status,
-        css,
-        score,
-        blockers,
-        cautions,
-        positives,
-        best,
-        rainEndsAt,
-        rain: useful.length ? `${Math.round(maxRain)}% max` : "N/A",
-        windMph: maxWind,
-        tempC: avgTemp
-      };
+      let status = "GO", css = "";
+      if (score < 45 || blockers.length) { status = "NO"; css = "no"; }
+      else if (score < 72 || cautions.length) { status = "CAUTION"; css = "caution"; }
+      return { date: dayStart, label: dayLabel(dayStart), status, css, score, blockers, cautions, positives, best, rainEndsAt, rain: useful.length ? `${Math.round(maxRain)}% max` : "N/A", windMph: maxWind, tempC: avgTemp };
     }
 
-    function findNextBetterDay(data, task, todayResult) {
+    function findNextBetterDay(data, task) {
       if (!data.daily || !data.daily.time) return null;
       const today = startOfDay(new Date());
-      const candidates = data.daily.time
-        .map(day => startOfDay(new Date(day)))
-        .filter(day => day > today)
-        .map(day => analyseDay(data, task, day, false))
-        .filter(result => result.status !== "NO");
-
+      const candidates = data.daily.time.map(day => startOfDay(new Date(day))).filter(day => day > today).map(day => analyseDay(data, task, day, false)).filter(result => result.status !== "NO");
       if (!candidates.length) return null;
-      const goCandidate = candidates.find(result => result.status === "GO");
-      return goCandidate || candidates[0];
+      return candidates.find(result => result.status === "GO") || candidates[0];
     }
 
     function buildRecommendation(todayResult, nextBetter) {
       const taskKey = selected;
-
-      if (todayResult.status === "GO") {
-        return `Recommendation: do it ${todayResult.label} during ${todayResult.best}.`;
-      }
-
+      if (todayResult.status === "GO") return `Recommendation: do it ${todayResult.label} during ${todayResult.best}.`;
       if (todayResult.status === "CAUTION") {
-        if (taskKey === "run") {
-          if (todayResult.best !== "No sensible window") {
-            return `Recommendation: go during ${todayResult.best} if you are happy running in possible showers; otherwise the cleaner option looks like ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "checking again later"}.`;
-          }
-          return `Recommendation: wait for a clearer window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
-        }
-
-        if (taskKey === "dog") {
-          if (todayResult.best !== "No sensible window") {
-            return `Recommendation: a shorter walk during ${todayResult.best} is reasonable if condi
+        if (taskKey === "run") return todayResult.best !== "No sensible window" ? `Recommendation: go during ${todayResult.best} if you are happy running in possible showers; otherwise the cleaner option looks like ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "checking again later"}.` : `Recommendation: wait for a clearer window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
+        if (taskKey === "dog") return todayResult.best !== "No sensible window" ? `Recommendation: a shorter walk during ${todayResult.best} is reasonable if conditions on the ground are safe; otherwise try ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "again later"}.` : `Recommendation: wait for a safer walking window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
+        return nextBetter ? `Recommendation: today is possible but not ideal; the better option looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: possible today, but only if local conditions are better than forecast.";
+      }
+      return nextBetter ? `Recommendation: leave it ${todayResult.label}; the next better window looks like ${nextBetter.label}, ${nextBetter.best}.` : `Recommendation: leave it ${todayResult.label} and reassess when the forecast improves.`;
+    }
 
     function analyse(data, task) {
-      const today = startOfDay(new Date());
-      const todayResult = analyseDay(data, task, today, true);
-      const nextBetter = findNextBetterDay(data, task, todayResult);
+      const todayResult = analyseDay(data, task, startOfDay(new Date()), true);
+      const nextBetter = findNextBetterDay(data, task);
       const rainText = todayResult.rainEndsAt ? ` Rain appears to ease around ${formatTime(todayResult.rainEndsAt)}.` : "";
       const recommendation = buildRecommendation(todayResult, nextBetter);
-
       let reason = `SITREP: GO. ${formatList(todayResult.positives)}. Best window: ${todayResult.best}. ${recommendation}`;
       if (todayResult.status === "CAUTION") reason = `SITREP: CAUTION.${rainText} Possible, but ${formatList(todayResult.cautions)}. Best window: ${todayResult.best}. ${recommendation}`;
       if (todayResult.status === "NO") reason = `SITREP: NO-GO.${rainText} ${formatList([...todayResult.blockers, ...todayResult.cautions].slice(0, 3))}. ${recommendation}`;
-
-      return {
-        status: todayResult.status,
-        css: todayResult.css,
-        reason,
-        best: todayResult.best,
-        rain: todayResult.rain,
-        windMph: todayResult.windMph,
-        tempC: todayResult.tempC
-      };
+      return { status: todayResult.status, css: todayResult.css, reason, best: todayResult.best, rain: todayResult.rain, windMph: todayResult.windMph, tempC: todayResult.tempC };
     }
 
-    function formatTime(date) {
-      return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    }
-
-    function formatTemp(celsius) {
-      if (region().tempUnit === "F") return `${Math.round((celsius * 9 / 5) + 32)}°F`;
-      return `${Math.round(celsius)}°C`;
-    }
-
-    function formatWind(mph) {
-      if (region().windUnit === "kmh") return `${Math.round(mph * 1.60934)} km/h`;
-      return `${Math.round(mph)} mph`;
-    }
+    function formatTime(date) { return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); }
+    function formatTemp(celsius) { return region().tempUnit === "F" ? `${Math.round((celsius * 9 / 5) + 32)}°F` : `${Math.round(celsius)}°C`; }
+    function formatWind(mph) { return region().windUnit === "kmh" ? `${Math.round(mph * 1.60934)} km/h` : `${Math.round(mph)} mph`; }
 
     function loading() {
       const task = taskConfig();
@@ -1348,7 +987,6 @@
       document.getElementById("wind").textContent = "—";
       document.getElementById("temp").textContent = "—";
     }
-
     function render(place, result) {
       const task = taskConfig();
       document.getElementById("question").textContent = `${task.question} — ${place}`;
@@ -1360,7 +998,6 @@
       document.getElementById("wind").textContent = formatWind(result.windMph);
       document.getElementById("temp").textContent = formatTemp(result.tempC);
     }
-
     function showError(message) {
       document.getElementById("result").classList.add("show");
       document.getElementById("question").textContent = "Could not complete check";
@@ -1376,14 +1013,10 @@
     async function checkFromText() {
       const query = locationInput.value.trim();
       if (!query) {
-        if (detectedLocation) {
-          await checkFromCoords(detectedLocation.latitude, detectedLocation.longitude, detectedLocation.name);
-        } else {
-          showError("Enter a town or city, or allow current location.");
-        }
+        if (detectedLocation) await checkFromCoords(detectedLocation.latitude, detectedLocation.longitude, detectedLocation.name);
+        else showError("Enter a town, city or postcode, or allow current location.");
         return;
       }
-
       try {
         loading();
         setLocationStatus("Checking typed location…", true);
@@ -1393,7 +1026,6 @@
         const result = analyse(data, taskConfig());
         render(place.name, result);
         setLocationStatus(`Using ${place.name} · ${region().name} wording`, false);
-
         const url = new URL(window.location.href);
         url.searchParams.set("location", query);
         url.searchParams.set("task", taskConfig().slug);
@@ -1423,21 +1055,16 @@
         showError("Your browser does not support location checks. Enter a town or city instead.");
         return;
       }
-
       setLocationStatus("Requesting location permission…", true);
       navigator.geolocation.getCurrentPosition(async pos => {
-        const { latitude, longitude } = pos.coords;
-        detectedLocation = { latitude, longitude, name: "your current location" };
+        const coords = pos.coords;
+        detectedLocation = { latitude: coords.latitude, longitude: coords.longitude, name: "your current location" };
         locationInput.value = "";
-        await checkFromCoords(latitude, longitude, "your current location");
+        await checkFromCoords(coords.latitude, coords.longitude, "your current location");
       }, () => {
         setLocationStatus("Location permission not granted", false);
         showError("Location permission was not granted. Enter a town or city instead.");
-      }, {
-        enableHighAccuracy: false,
-        timeout: 8000,
-        maximumAge: 600000
-      });
+      }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 });
     }
 
     regionSelect.addEventListener("change", () => {
@@ -1445,13 +1072,9 @@
       applyRegion(true);
       setLocationStatus(`Using ${region().name} wording`, false);
     });
-
     document.getElementById("checkBtn").addEventListener("click", checkFromText);
     document.getElementById("geoBtn").addEventListener("click", useMyLocation);
-    locationInput.addEventListener("keydown", event => {
-      if (event.key === "Enter") checkFromText();
-    });
-
+    locationInput.addEventListener("keydown", event => { if (event.key === "Enter") checkFromText(); });
     init();
   </script>
 </body>
