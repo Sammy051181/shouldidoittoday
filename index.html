@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Should I Do It Today? | Weather-Based Go / No-Go Check</title>
-  <meta name="description" content="Should I do it today? Automatically check your local weather and get a simple go, caution or no-go SITREP for cutting grass, washing the car, hanging washing out, painting outside, BBQs, running, jacket checks and more." />
+  <meta name="description" content="Should I do it today? Automatically check your local weather and get a simple go, caution or no-go SITREP for cutting grass, washing the car, hanging washing out, painting outside, BBQs, running, watering plants, jacket checks and more." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/" />
 
@@ -542,7 +542,7 @@
       UK: {
         name: "UK", locale: "en-GB", tempUnit: "C", windUnit: "mph", placeholder: "Enter town, city or postcode, e.g. Bristol",
         popularPrefix: "Popular UK checks",
-        seo: ["should I cut the grass today", "should I mow the lawn today", "can I hang washing out today", "do I need a coat today", "should I BBQ today"],
+        seo: ["should I cut the grass today", "can I hang washing out today", "should I water the plants today", "do I need a coat today", "should I BBQ today"],
         tasks: {
           grass: { icon: "🌱", label: "Cut grass", question: "Should I cut the grass today?", slug: "should-i-cut-the-grass-today" },
           washCar: { icon: "🚗", label: "Wash car", question: "Should I wash my car today?", slug: "should-i-wash-my-car-today" },
@@ -552,19 +552,20 @@
           dog: { icon: "🐕", label: "Walk dog", question: "Should I walk the dog today?", slug: "should-i-walk-the-dog-today" },
           jacket: { icon: "🧥", label: "Need coat", question: "Do I need a coat today?", slug: "do-i-need-a-coat-today" },
           run: { icon: "🏃", label: "Go running", question: "Should I go for a run today?", slug: "should-i-go-for-a-run-today" },
-          windows: { icon: "🪟", label: "Clean windows", question: "Should I clean the windows today?", slug: "should-i-clean-the-windows-today" }
+          windows: { icon: "🪟", label: "Clean windows", question: "Should I clean the windows today?", slug: "should-i-clean-the-windows-today" },
+          plants: { icon: "💧", label: "Water plants", question: "Should I water the plants today?", slug: "should-i-water-the-plants-today" }
         }
       },
       IE: {
         name: "Ireland", locale: "en-IE", tempUnit: "C", windUnit: "kmh", placeholder: "Enter town, city or Eircode area, e.g. Dublin",
         popularPrefix: "Popular Ireland checks",
-        seo: ["should I cut the grass today", "can I hang washing out today", "do I need a jacket today", "should I BBQ today", "should I wash my car today"],
+        seo: ["should I cut the grass today", "can I hang washing out today", "should I water the plants today", "do I need a jacket today", "should I BBQ today"],
         tasks: null
       },
       US: {
         name: "US", locale: "en-US", tempUnit: "F", windUnit: "mph", placeholder: "Enter city, state or ZIP code, e.g. Boston or 02108",
         popularPrefix: "Popular US checks",
-        seo: ["should I mow the lawn today", "can I dry laundry outside today", "should I grill today", "do I need a jacket today", "should I wash my car today"],
+        seo: ["should I mow the lawn today", "can I dry laundry outside today", "should I water my plants today", "should I grill today", "do I need a jacket today"],
         tasks: {
           grass: { icon: "🌱", label: "Mow lawn", question: "Should I mow the lawn today?", slug: "should-i-mow-the-lawn-today" },
           washCar: { icon: "🚗", label: "Wash car", question: "Should I wash my car today?", slug: "should-i-wash-my-car-today" },
@@ -574,12 +575,13 @@
           dog: { icon: "🐕", label: "Walk dog", question: "Should I walk my dog today?", slug: "should-i-walk-my-dog-today" },
           jacket: { icon: "🧥", label: "Need jacket", question: "Do I need a jacket today?", slug: "do-i-need-a-jacket-today" },
           run: { icon: "🏃", label: "Run", question: "Should I run today?", slug: "should-i-run-today" },
-          windows: { icon: "🪟", label: "Wash windows", question: "Should I wash windows today?", slug: "should-i-wash-windows-today" }
+          windows: { icon: "🪟", label: "Wash windows", question: "Should I wash windows today?", slug: "should-i-wash-windows-today" },
+          plants: { icon: "💧", label: "Water plants", question: "Should I water my plants today?", slug: "should-i-water-my-plants-today" }
         }
       },
-      CA: { name: "Canada", locale: "en-CA", tempUnit: "C", windUnit: "kmh", placeholder: "Enter city or postal code, e.g. Toronto", popularPrefix: "Popular Canada checks", seo: ["should I mow the lawn today", "can I dry laundry outside today", "do I need a jacket today", "should I BBQ today", "should I wash my car today"], tasks: null },
-      AU: { name: "Australia", locale: "en-AU", tempUnit: "C", windUnit: "kmh", placeholder: "Enter suburb, town or postcode, e.g. Sydney", popularPrefix: "Popular Australia checks", seo: ["should I mow the lawn today", "can I hang washing out today", "should I BBQ today", "is it too hot to walk the dog today", "do I need a jacket today"], tasks: null },
-      NZ: { name: "New Zealand", locale: "en-NZ", tempUnit: "C", windUnit: "kmh", placeholder: "Enter town, city or postcode, e.g. Auckland", popularPrefix: "Popular New Zealand checks", seo: ["should I mow the lawn today", "can I hang washing out today", "should I BBQ today", "do I need a jacket today", "should I wash my car today"], tasks: null }
+      CA: { name: "Canada", locale: "en-CA", tempUnit: "C", windUnit: "kmh", placeholder: "Enter city or postal code, e.g. Toronto", popularPrefix: "Popular Canada checks", seo: ["should I mow the lawn today", "can I dry laundry outside today", "should I water my plants today", "do I need a jacket today", "should I BBQ today"], tasks: null },
+      AU: { name: "Australia", locale: "en-AU", tempUnit: "C", windUnit: "kmh", placeholder: "Enter suburb, town or postcode, e.g. Sydney", popularPrefix: "Popular Australia checks", seo: ["should I mow the lawn today", "can I hang washing out today", "should I water the plants today", "should I BBQ today", "is it too hot to walk the dog today"], tasks: null },
+      NZ: { name: "New Zealand", locale: "en-NZ", tempUnit: "C", windUnit: "kmh", placeholder: "Enter town, city or postcode, e.g. Auckland", popularPrefix: "Popular New Zealand checks", seo: ["should I mow the lawn today", "can I hang washing out today", "should I water the plants today", "should I BBQ today", "do I need a jacket today"], tasks: null }
     };
 
     REGIONS.IE.tasks = REGIONS.UK.tasks;
@@ -605,7 +607,8 @@
       dog: { rainProb: 55, windMaxMph: 46, tempMinC: -3, tempMaxC: 27, hours: [6, 22] },
       jacket: { rainProb: 40, windMaxMph: 34, tempMinC: 12, tempMaxC: 100, hours: [6, 23] },
       run: { rainProb: 50, windMaxMph: 36, tempMinC: 2, tempMaxC: 25, hours: [5, 22] },
-      windows: { rainProb: 28, windMaxMph: 28, tempMinC: 5, tempMaxC: 27, hours: [8, 18] }
+      windows: { rainProb: 28, windMaxMph: 28, tempMinC: 5, tempMaxC: 27, hours: [8, 18] },
+      plants: { rainProb: 45, windMaxMph: 35, tempMinC: 4, tempMaxC: 32, hours: [6, 21] }
     };
 
     const COUNTRY_TO_REGION = { GB: "UK", IE: "IE", US: "US", CA: "CA", AU: "AU", NZ: "NZ" };
@@ -851,7 +854,7 @@
     async function getWeather(latitude, longitude) {
       const params = new URLSearchParams({
         latitude, longitude,
-        hourly: "temperature_2m,precipitation,precipitation_probability,wind_speed_10m,wind_gusts_10m",
+        hourly: "temperature_2m,precipitation,precipitation_probability,wind_speed_10m,wind_gusts_10m,relative_humidity_2m,cloud_cover,evapotranspiration,soil_moisture_0_to_1cm,soil_moisture_1_to_3cm",
         current: "temperature_2m,precipitation,rain,wind_speed_10m",
         daily: "sunrise,sunset",
         timezone: "auto",
@@ -864,9 +867,10 @@
       return response.json();
     }
 
-    function isOutdoorDaylightTask(taskKey) { return ["grass", "washing", "paint", "bbq", "dog", "run", "windows"].includes(taskKey); }
+    function isOutdoorDaylightTask(taskKey) { return ["grass", "washing", "paint", "bbq", "dog", "run", "windows", "plants"].includes(taskKey); }
     function isDryGroundTask(taskKey) { return ["grass", "paint", "windows"].includes(taskKey); }
     function isDryingTask(taskKey) { return taskKey === "washing"; }
+    function isWateringTask(taskKey) { return taskKey === "plants"; }
     function isRainTolerantTask(taskKey) { return ["run", "dog"].includes(taskKey); }
     function isWinterRestPeriod(dateValue) {
       const month = dateValue.getMonth();
@@ -888,7 +892,19 @@
       return target.toLocaleDateString(region().locale, { weekday: "long" });
     }
     function buildHourlyRows(data) {
-      return data.hourly.time.map((time, i) => ({ time: new Date(time), hour: new Date(time).getHours(), temp: data.hourly.temperature_2m[i], precip: data.hourly.precipitation[i] || 0, rainProb: data.hourly.precipitation_probability[i] || 0, wind: data.hourly.wind_speed_10m[i] || 0 }));
+      return data.hourly.time.map((time, i) => ({
+        time: new Date(time),
+        hour: new Date(time).getHours(),
+        temp: data.hourly.temperature_2m[i],
+        precip: data.hourly.precipitation[i] || 0,
+        rainProb: data.hourly.precipitation_probability[i] || 0,
+        wind: data.hourly.wind_speed_10m[i] || 0,
+        humidity: data.hourly.relative_humidity_2m ? data.hourly.relative_humidity_2m[i] : null,
+        cloud: data.hourly.cloud_cover ? data.hourly.cloud_cover[i] : null,
+        evap: data.hourly.evapotranspiration ? data.hourly.evapotranspiration[i] || 0 : 0,
+        soil0: data.hourly.soil_moisture_0_to_1cm ? data.hourly.soil_moisture_0_to_1cm[i] : null,
+        soil1: data.hourly.soil_moisture_1_to_3cm ? data.hourly.soil_moisture_1_to_3cm[i] : null
+      }));
     }
     function getSunWindowForDate(data, dateValue, fallbackStartHour, fallbackEndHour) {
       const targetDay = startOfDay(dateValue);
@@ -916,7 +932,176 @@
       return null;
     }
 
+    function findWateringWindow(rows, dayStart, isToday) {
+      const now = new Date();
+      const windows = [
+        { start: 6, end: 10 },
+        { start: 18, end: 21 }
+      ];
+
+      for (const window of windows) {
+        const start = new Date(dayStart);
+        start.setHours(window.start, 0, 0, 0);
+        const end = new Date(dayStart);
+        end.setHours(window.end, 0, 0, 0);
+        const effectiveStart = isToday ? new Date(Math.max(start.getTime(), now.getTime())) : start;
+        const slots = rows.filter(row => row.time >= effectiveStart && row.time <= end && row.precip <= 0.1 && row.rainProb < 55);
+        if (slots.length) {
+          const first = slots[0].time;
+          const last = new Date(slots[slots.length - 1].time.getTime() + 60 * 60 * 1000);
+          return `${formatTime(first)}–${formatTime(last)}`;
+        }
+      }
+
+      return "No sensible window";
+    }
+
+    function analyseWaterPlantsDay(data, task, dateValue, isToday) {
+      const now = new Date();
+      const dayStart = startOfDay(dateValue);
+      const rows = buildHourlyRows(data);
+
+      const taskStart = new Date(dayStart);
+      taskStart.setHours(task.hours[0], 0, 0, 0);
+      const taskEnd = new Date(dayStart);
+      taskEnd.setHours(task.hours[1], 0, 0, 0);
+      const effectiveStart = isToday ? new Date(Math.max(taskStart.getTime(), now.getTime())) : taskStart;
+
+      const useful = rows.filter(row => row.time >= effectiveStart && row.time <= taskEnd);
+      const next6 = rows.filter(row => row.time >= (isToday ? now : taskStart) && row.time <= new Date((isToday ? now : taskStart).getTime() + 6 * 60 * 60 * 1000));
+      const next24 = rows.filter(row => row.time >= (isToday ? now : taskStart) && row.time <= new Date((isToday ? now : taskStart).getTime() + 24 * 60 * 60 * 1000));
+      const past24End = isToday ? now : taskStart;
+      const past24 = rows.filter(row => row.time < past24End && row.time >= new Date(past24End.getTime() - 24 * 60 * 60 * 1000));
+      const past72 = rows.filter(row => row.time < past24End && row.time >= new Date(past24End.getTime() - 72 * 60 * 60 * 1000));
+
+      const currentRain = isToday ? (data.current.precipitation || data.current.rain || 0) : 0;
+      const recentRain24 = past24.reduce((sum, row) => sum + row.precip, 0);
+      const recentRain72 = past72.reduce((sum, row) => sum + row.precip, 0);
+      const rainNext6 = next6.reduce((sum, row) => sum + row.precip, 0);
+      const rainNext24 = next24.reduce((sum, row) => sum + row.precip, 0);
+      const maxRainProb = useful.length ? Math.max(...useful.map(row => row.rainProb), 0) : 100;
+      const maxTemp = useful.length ? Math.max(...useful.map(row => row.temp), data.current.temperature_2m) : data.current.temperature_2m;
+      const minTempNext12 = rows.filter(row => row.time >= (isToday ? now : taskStart) && row.time <= new Date((isToday ? now : taskStart).getTime() + 12 * 60 * 60 * 1000)).reduce((min, row) => Math.min(min, row.temp), 99);
+      const avgWind = useful.length ? useful.reduce((sum, row) => sum + row.wind, 0) / useful.length : 0;
+      const avgHumidity = useful.filter(row => row.humidity !== null).length ? useful.filter(row => row.humidity !== null).reduce((sum, row) => sum + row.humidity, 0) / useful.filter(row => row.humidity !== null).length : null;
+      const evapTotal = useful.reduce((sum, row) => sum + row.evap, 0);
+      const latestSoil = [...rows].reverse().find(row => row.time <= (isToday ? now : taskStart) && row.soil1 !== null);
+      const soilMoisture = latestSoil ? latestSoil.soil1 : null;
+      const rainEndsAt = isToday ? findRainEnds(rows, now) : null;
+      const best = findWateringWindow(rows, dayStart, isToday);
+
+      let score = 50;
+      const blockers = [];
+      const cautions = [];
+      const positives = [];
+
+      if (currentRain > 0) {
+        score -= 35;
+        blockers.push("it is raining now");
+      }
+
+      if (rainNext6 >= 2 || maxRainProb >= 75) {
+        score -= 35;
+        blockers.push("useful rain is likely soon");
+      } else if (rainNext24 >= 2) {
+        score -= 18;
+        cautions.push("rain is expected later, so garden beds may not need watering");
+      } else if (rainNext24 < 1) {
+        score += 18;
+        positives.push("no useful rain is expected soon");
+      }
+
+      if (recentRain24 >= 5) {
+        score -= 35;
+        blockers.push("there has already been enough recent rain for most outdoor plants");
+      } else if (recentRain24 >= 2) {
+        score -= 15;
+        cautions.push("there has been some recent rain, so check soil before watering");
+      } else if (recentRain72 < 2) {
+        score += 22;
+        positives.push("it has been fairly dry recently");
+      }
+
+      if (maxTemp >= 24) {
+        score += 15;
+        positives.push("warm conditions will increase water demand");
+      } else if (maxTemp < 10) {
+        score -= 15;
+        cautions.push("cool conditions reduce watering need");
+      }
+
+      if (avgWind >= 16) {
+        score += 8;
+        positives.push("wind will dry pots and exposed soil faster");
+      }
+
+      if (avgHumidity !== null && avgHumidity < 55) {
+        score += 8;
+        positives.push("low humidity will increase drying");
+      }
+
+      if (evapTotal >= 2) {
+        score += 8;
+        positives.push("evaporation demand looks elevated");
+      }
+
+      if (soilMoisture !== null) {
+        if (soilMoisture < 0.22) {
+          score += 16;
+          positives.push("near-surface soil moisture looks low");
+        } else if (soilMoisture > 0.32) {
+          score -= 16;
+          cautions.push("near-surface soil moisture does not look especially dry");
+        }
+      }
+
+      if (minTempNext12 <= 2) {
+        score -= 25;
+        blockers.push("cold or frost risk makes watering a poor choice");
+      }
+
+      if (isWinterRestPeriod(dayStart) && maxTemp < 12) {
+        score -= 18;
+        cautions.push("seasonal demand is low, so established outdoor beds usually do not need watering");
+      }
+
+      if (best === "No sensible window") {
+        score -= 20;
+        cautions.push("there is no ideal morning or evening watering window left");
+      }
+
+      let status = "CAUTION";
+      let css = "caution";
+      if (score >= 70 && blockers.length === 0) {
+        status = "GO";
+        css = "";
+      }
+      if (score < 45 || blockers.length) {
+        status = "NO";
+        css = "no";
+      }
+
+      if (!positives.length && status === "GO") positives.push("conditions suggest watering could be useful");
+
+      return {
+        date: dayStart,
+        label: dayLabel(dayStart),
+        status,
+        css,
+        score,
+        blockers,
+        cautions,
+        positives,
+        best,
+        rainEndsAt,
+        rain: useful.length ? `${Math.round(maxRainProb)}% max` : "N/A",
+        windMph: avgWind,
+        tempC: maxTemp
+      };
+    }
+
     function analyseDay(data, task, dateValue, isToday) {
+      if (selected === "plants") return analyseWaterPlantsDay(data, task, dateValue, isToday);
       const taskKey = selected;
       const now = new Date();
       const dayStart = startOfDay(dateValue);
@@ -993,12 +1178,17 @@
 
     function buildRecommendation(todayResult, nextBetter) {
       const taskKey = selected;
-      if (todayResult.status === "GO") return `Recommendation: do it ${todayResult.label} during ${todayResult.best}.`;
+      if (todayResult.status === "GO") {
+        if (taskKey === "plants") return `Recommendation: water during ${todayResult.best}. Prioritise pots, hanging baskets, new plants and anything under cover.`;
+        return `Recommendation: do it ${todayResult.label} during ${todayResult.best}.`;
+      }
       if (todayResult.status === "CAUTION") {
+        if (taskKey === "plants") return nextBetter ? `Recommendation: check the soil first. Water pots, baskets and covered plants only if dry; for normal garden beds, the better option looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: check the soil first. Water pots, baskets and covered plants only if dry.";
         if (taskKey === "run") return todayResult.best !== "No sensible window" ? `Recommendation: go during ${todayResult.best} if you are happy running in possible showers; otherwise the cleaner option looks like ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "checking again later"}.` : `Recommendation: wait for a clearer window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
         if (taskKey === "dog") return todayResult.best !== "No sensible window" ? `Recommendation: a shorter walk during ${todayResult.best} is reasonable if conditions on the ground are safe; otherwise try ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "again later"}.` : `Recommendation: wait for a safer walking window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
         return nextBetter ? `Recommendation: today is possible but not ideal; the better option looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: possible today, but only if local conditions are better than forecast.";
       }
+      if (taskKey === "plants") return nextBetter ? `Recommendation: wait for now. If pots or covered plants are dry, water them by hand; otherwise the next useful watering window looks like ${nextBetter.label}, ${nextBetter.best}.` : `Recommendation: wait for now. Only water pots or covered plants if they are dry to the touch.`;
       return nextBetter ? `Recommendation: leave it ${todayResult.label}; the next better window looks like ${nextBetter.label}, ${nextBetter.best}.` : `Recommendation: leave it ${todayResult.label} and reassess when the forecast improves.`;
     }
 
