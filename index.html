@@ -4,19 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Should I Do It Today? | Weather-Based Go / No-Go Decision Tool</title>
-  <meta name="description" content="Should I do it today? Get a simple weather-based go/no-go answer for mowing the lawn, washing the car, hanging washing out, painting outside, BBQs, dog walks, running and more." />
+  <title>Should I Do It Today? | Simple Weather-Based Go / No-Go Check</title>
+  <meta name="description" content="Should I do it today? Enter your location and get a simple weather-based go/no-go answer for mowing the lawn, washing the car, hanging washing out, painting outside, BBQs and more." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Should I Do It Today?" />
   <meta property="og:title" content="Should I Do It Today?" />
-  <meta property="og:description" content="Instant weather-based go/no-go checks for everyday outdoor jobs." />
+  <meta property="og:description" content="A simple weather-based go/no-go check for everyday outdoor tasks." />
   <meta property="og:url" content="https://shouldidoittoday.com/" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Should I Do It Today?" />
-  <meta name="twitter:description" content="A simple daily go/no-go check for outdoor tasks, powered by local weather." />
+  <meta name="twitter:card" content="summary" />
 
   <script type="application/ld+json">
   {
@@ -24,870 +22,466 @@
     "@type": "WebSite",
     "name": "Should I Do It Today?",
     "url": "https://shouldidoittoday.com/",
-    "description": "A weather-based decision tool for everyday outdoor tasks.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://shouldidoittoday.com/?location={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How does Should I Do It Today work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The site checks local weather conditions such as rain risk, wind speed, temperature and recent rainfall, then applies task-specific rules to produce a simple go, caution or no-go answer."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I use it for mowing the lawn?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. The mowing check considers rain, recent rainfall, likely ground wetness, wind and temperature to help decide whether today is suitable for cutting grass."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is the advice guaranteed?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. It is a practical guide based on forecast data and simple rules. Always use your own judgement and check local conditions before starting a task."
-        }
-      }
-    ]
+    "description": "A simple weather-based go/no-go decision tool for everyday outdoor tasks."
   }
   </script>
 
   <style>
     :root {
-      --ink: #102033;
-      --muted: #607086;
-      --soft: #f3f7fb;
-      --card: #ffffff;
-      --line: #dce7f2;
-      --green: #0f766e;
-      --green-2: #14b8a6;
-      --amber: #f59e0b;
-      --red: #dc2626;
-      --blue: #2563eb;
-      --navy: #071827;
-      --shadow: 0 24px 70px rgba(16, 32, 51, 0.14);
-      --radius: 26px;
+      --ink: #202124;
+      --muted: #5f6368;
+      --line: #dadce0;
+      --soft: #f8fafd;
+      --go: #0f766e;
+      --caution: #b45309;
+      --no: #dc2626;
+      --blue: #1a73e8;
+      --shadow: 0 1px 6px rgba(32, 33, 36, .18);
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
       color: var(--ink);
-      background:
-        radial-gradient(circle at 85% 5%, rgba(20, 184, 166, 0.18), transparent 32%),
-        radial-gradient(circle at 8% 22%, rgba(37, 99, 235, 0.10), transparent 28%),
-        linear-gradient(180deg, #ffffff 0%, #f6fafc 54%, #edf6f8 100%);
-      line-height: 1.55;
-    }
-
-    a { color: inherit; }
-    .skip {
-      position: absolute;
-      left: -999px;
-      top: 1rem;
-      background: var(--navy);
-      color: white;
-      padding: .75rem 1rem;
-      z-index: 20;
-      border-radius: 999px;
-    }
-    .skip:focus { left: 1rem; }
-
-    .container {
-      width: min(1140px, calc(100% - 32px));
-      margin: 0 auto;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(255, 255, 255, .82);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(220, 231, 242, .9);
-    }
-
-    .nav {
+      min-height: 54px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 1rem 0;
+      justify-content: flex-end;
+      gap: 18px;
+      padding: 0 22px;
+      font-size: 14px;
+      color: var(--muted);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: .7rem;
-      font-weight: 900;
+    header a {
+      color: var(--muted);
       text-decoration: none;
-      letter-spacing: -0.03em;
     }
 
-    .brand-mark {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--green), var(--green-2));
-      color: #fff;
-      display: grid;
-      place-items: center;
-      box-shadow: 0 12px 30px rgba(15, 118, 110, .24);
-    }
+    header a:hover { text-decoration: underline; }
 
-    .nav-links {
+    main {
+      flex: 1;
       display: flex;
-      gap: .9rem;
-      align-items: center;
+      justify-content: center;
+      align-items: flex-start;
+      padding: clamp(58px, 12vh, 132px) 18px 40px;
+    }
+
+    .wrap {
+      width: min(680px, 100%);
+      text-align: center;
+    }
+
+    .logo {
+      margin: 0 0 28px;
+      font-size: clamp(2.8rem, 8vw, 5.25rem);
+      line-height: .95;
+      letter-spacing: -0.08em;
       font-weight: 700;
+    }
+
+    .logo span:nth-child(1) { color: #1a73e8; }
+    .logo span:nth-child(2) { color: #ea4335; }
+    .logo span:nth-child(3) { color: #fbbc04; }
+    .logo span:nth-child(4) { color: #1a73e8; }
+    .logo span:nth-child(5) { color: #34a853; }
+    .logo span:nth-child(6) { color: #ea4335; }
+
+    .tagline {
+      color: var(--muted);
+      margin: -16px 0 26px;
+      font-size: 1rem;
+    }
+
+    .searchbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: min(584px, 100%);
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 10px 9px 18px;
+      background: #fff;
+    }
+
+    .searchbox:focus-within,
+    .searchbox:hover {
+      box-shadow: var(--shadow);
+      border-color: transparent;
+    }
+
+    .search-icon {
+      color: #9aa0a6;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      font-size: 16px;
+      color: var(--ink);
+      padding: 8px 4px;
+    }
+
+    .go-btn {
+      border: 0;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 16px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .go-btn:hover { background: #1765cc; }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .task,
+    .secondary {
+      border: 1px solid #f8f9fa;
+      background: #f8f9fa;
+      color: #3c4043;
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .task:hover,
+    .secondary:hover {
+      border-color: #dadce0;
+      box-shadow: 0 1px 1px rgba(0,0,0,.08);
+    }
+
+    .task.active {
+      border-color: #d2e3fc;
+      background: #e8f0fe;
+      color: #1967d2;
+    }
+
+    .hint {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .result {
+      display: none;
+      width: min(584px, 100%);
+      margin: 28px auto 0;
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(60,64,67,.12);
+    }
+
+    .result.show { display: block; }
+
+    .answer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .answer {
+      font-size: 2.15rem;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: var(--go);
+      white-space: nowrap;
+    }
+
+    .answer.caution { color: var(--caution); }
+    .answer.no { color: var(--no); }
+
+    .question {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.35;
+    }
+
+    .reason {
+      margin: 4px 0 0;
       color: var(--muted);
       font-size: .95rem;
     }
 
-    .nav-links a {
-      text-decoration: none;
-      padding: .55rem .7rem;
-      border-radius: 999px;
-    }
-
-    .nav-links a:hover { background: var(--soft); color: var(--ink); }
-
-    .hero {
-      padding: 5rem 0 2.2rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: .45rem;
-      background: rgba(15, 118, 110, .1);
-      color: var(--green);
-      border: 1px solid rgba(15, 118, 110, .18);
-      padding: .45rem .75rem;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: .9rem;
-    }
-
-    h1, h2, h3 { line-height: 1.08; margin: 0; letter-spacing: -0.045em; }
-    h1 {
-      font-size: clamp(2.65rem, 7vw, 5.9rem);
-      margin-top: 1rem;
-      max-width: 11ch;
-    }
-
-    .lead {
-      font-size: clamp(1.08rem, 2vw, 1.32rem);
-      color: var(--muted);
-      max-width: 62ch;
-      margin: 1.1rem 0 1.6rem;
-    }
-
-    .search-card {
-      background: rgba(255, 255, 255, .9);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 1rem;
-      box-shadow: var(--shadow);
-    }
-
-    .search-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: .75rem;
-    }
-
-    input, select, button {
-      font: inherit;
-    }
-
-    .location-input {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 1rem 1.05rem;
-      color: var(--ink);
-      background: #fff;
-      outline: none;
-    }
-
-    .location-input:focus {
-      border-color: var(--green-2);
-      box-shadow: 0 0 0 4px rgba(20, 184, 166, .15);
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 18px;
-      padding: 1rem 1.15rem;
-      background: var(--navy);
-      color: #fff;
-      font-weight: 900;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .45rem;
-      text-decoration: none;
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(7, 24, 39, .2); }
-    .btn.secondary { background: #eef6f6; color: var(--green); }
-    .btn.secondary:hover { box-shadow: none; background: #dff3f1; }
-
-    .micro-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .65rem;
-      margin-top: .8rem;
-      align-items: center;
-      color: var(--muted);
-      font-size: .92rem;
-    }
-
-    .hero-panel {
-      background: var(--navy);
-      border-radius: 34px;
-      color: #fff;
-      padding: 1.2rem;
-      box-shadow: 0 30px 80px rgba(7, 24, 39, .28);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-panel::before {
-      content: "";
-      position: absolute;
-      inset: -40% -10% auto auto;
-      width: 280px;
-      height: 280px;
-      background: rgba(20, 184, 166, .35);
-      border-radius: 50%;
-      filter: blur(12px);
-    }
-
-    .sitrep {
-      position: relative;
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: rgba(255, 255, 255, .06);
-      border-radius: 26px;
-      padding: 1.2rem;
-    }
-
-    .sitrep-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: .38rem .65rem;
-      font-weight: 950;
-      font-size: .82rem;
-      background: rgba(20, 184, 166, .18);
-      color: #a7fff4;
-      border: 1px solid rgba(167, 255, 244, .26);
-    }
-
-    .status {
-      font-size: clamp(2.5rem, 6vw, 4.9rem);
-      font-weight: 1000;
-      letter-spacing: -0.08em;
-      line-height: .95;
-      margin: .5rem 0 .6rem;
-    }
-
-    .signal-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: .75rem;
-      margin-top: 1rem;
-    }
-
-    .signal {
-      background: rgba(255, 255, 255, .08);
-      border: 1px solid rgba(255, 255, 255, .1);
-      border-radius: 18px;
-      padding: .85rem;
-    }
-
-    .signal span { display: block; color: rgba(255,255,255,.62); font-size: .82rem; font-weight: 800; }
-    .signal strong { display: block; font-size: 1.1rem; margin-top: .2rem; }
-
-    section { padding: 3rem 0; }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .section-head h2 { font-size: clamp(2rem, 4vw, 3rem); }
-    .section-head p { max-width: 62ch; color: var(--muted); margin: .75rem 0 0; }
-
-    .task-grid {
+    .facts {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
+      gap: 8px;
+      margin-top: 14px;
     }
 
-    .task-card {
-      background: rgba(255, 255, 255, .86);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 1.1rem;
-      min-height: 190px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-      text-align: left;
-      color: var(--ink);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    .fact {
+      background: #f8fafd;
+      border-radius: 10px;
+      padding: 10px;
+      min-width: 0;
     }
 
-    .task-card:hover, .task-card.active {
-      transform: translateY(-3px);
-      box-shadow: 0 18px 42px rgba(16, 32, 51, .12);
-      border-color: rgba(20, 184, 166, .55);
+    .fact span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 3px;
     }
 
-    .task-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 17px;
-      display: grid;
-      place-items: center;
-      background: var(--soft);
-      font-size: 1.45rem;
-      margin-bottom: .9rem;
+    .fact strong {
+      font-size: 13px;
+      word-break: break-word;
     }
 
-    .task-card h3 { font-size: 1.2rem; letter-spacing: -0.03em; }
-    .task-card p { margin: .55rem 0 1rem; color: var(--muted); font-size: .95rem; }
-    .task-card .check-link { color: var(--green); font-weight: 950; }
-
-    .result-wrap {
-      display: none;
-      margin-top: 1.5rem;
+    .seo-text {
+      width: min(584px, 100%);
+      margin: 26px auto 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
     }
-
-    .result-wrap.show { display: block; }
-
-    .result-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      padding: 1.25rem;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: .82fr 1.18fr;
-      gap: 1rem;
-    }
-
-    .result-status {
-      border-radius: 25px;
-      padding: 1.3rem;
-      background: #edfdf9;
-      border: 1px solid #c9f4ec;
-    }
-
-    .result-status.no { background: #fff1f2; border-color: #fecdd3; }
-    .result-status.caution { background: #fffbeb; border-color: #fde68a; }
-
-    .assessment {
-      font-size: 4.1rem;
-      font-weight: 1000;
-      letter-spacing: -0.08em;
-      line-height: .9;
-      margin: .25rem 0 .75rem;
-    }
-
-    .reason { color: var(--muted); margin: 0; }
-
-    .detail-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: .75rem;
-    }
-
-    .detail {
-      background: var(--soft);
-      border-radius: 18px;
-      padding: .95rem;
-      border: 1px solid var(--line);
-    }
-
-    .detail span { display:block; color: var(--muted); font-weight: 850; font-size: .84rem; }
-    .detail strong { display:block; margin-top: .2rem; font-size: 1.05rem; }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-
-    .info-card {
-      background: rgba(255, 255, 255, .86);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 1.2rem;
-    }
-
-    .info-card h3 { font-size: 1.25rem; }
-    .info-card p, .info-card li { color: var(--muted); }
-
-    .long-copy {
-      background: #ffffff;
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      padding: clamp(1.2rem, 3vw, 2rem);
-      box-shadow: 0 15px 45px rgba(16, 32, 51, .07);
-    }
-
-    .long-copy h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); margin-bottom: 1rem; }
-    .long-copy h3 { margin-top: 1.6rem; font-size: 1.35rem; }
-    .long-copy p, .long-copy li { color: var(--muted); }
-
-    .faq {
-      display: grid;
-      gap: .8rem;
-    }
-
-    details {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 1rem 1.1rem;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: 950;
-      color: var(--ink);
-    }
-
-    details p { color: var(--muted); margin-bottom: 0; }
 
     footer {
-      background: var(--navy);
-      color: rgba(255,255,255,.76);
-      padding: 2rem 0;
-      margin-top: 2rem;
+      padding: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
     }
 
-    footer strong { color: #fff; }
-    footer a { color: #a7fff4; }
-
-    .footer-grid {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
     }
 
-    .small { font-size: .9rem; color: var(--muted); }
-    .hidden { display: none; }
-
-    @media (max-width: 920px) {
-      .hero-grid, .result-card { grid-template-columns: 1fr; }
-      .task-grid { grid-template-columns: repeat(2, 1fr); }
-      .content-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
+    @media (max-width: 620px) {
+      header { justify-content: center; }
+      main { padding-top: 48px; }
+      .searchbox { border-radius: 24px; align-items: stretch; }
+      .go-btn { padding-inline: 14px; }
+      .facts { grid-template-columns: repeat(2, 1fr); }
+      .answer-row { flex-direction: column; }
     }
 
-    @media (max-width: 560px) {
-      .hero { padding-top: 3rem; }
-      .search-row, .detail-grid, .signal-grid, .task-grid { grid-template-columns: 1fr; }
-      .assessment { font-size: 3rem; }
-      .btn { width: 100%; }
+    @media (max-width: 420px) {
+      .searchbox {
+        display: grid;
+        grid-template-columns: auto 1fr;
+      }
+      .go-btn {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+      .facts { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-
   <header>
-    <div class="container nav">
-      <a href="/" class="brand" aria-label="Should I Do It Today home">
-        <span class="brand-mark" aria-hidden="true">✓</span>
-        <span>Should I Do It Today?</span>
-      </a>
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#checks">Checks</a>
-        <a href="#how-it-works">How it works</a>
-        <a href="#seo-pages">Popular questions</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-    </div>
+    <a href="#popular">Popular checks</a>
+    <a href="#about">About</a>
   </header>
 
-  <main id="main">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">Daily go/no-go checks for outdoor tasks</span>
-          <h1>Should I do it today?</h1>
-          <p class="lead">Get a clear, local, weather-based answer before you mow the lawn, wash the car, hang washing out, paint outside, BBQ, walk the dog or go for a run.</p>
+  <main>
+    <section class="wrap" aria-labelledby="title">
+      <h1 id="title" class="logo" aria-label="Should I Do It Today?">
+        <span>S</span><span>h</span><span>o</span><span>u</span><span>l</span><span>d</span>
+      </h1>
+      <p class="tagline">Should I do it today?</p>
 
-          <div class="search-card" aria-label="Location search">
-            <div class="search-row">
-              <label class="hidden" for="locationInput">Enter your town, city or postcode area</label>
-              <input id="locationInput" class="location-input" type="search" autocomplete="postal-code" placeholder="Enter a town or city, e.g. Bristol, Glasgow, London" />
-              <button class="btn" id="checkBtn" type="button">Check today</button>
-            </div>
-            <div class="micro-actions">
-              <button class="btn secondary" id="geoBtn" type="button">Use my current location</button>
-              <span id="helperText">Choose a task below, then check your local conditions.</span>
-            </div>
-          </div>
-        </div>
-
-        <aside class="hero-panel" aria-label="Example decision summary">
-          <div class="sitrep">
-            <div class="sitrep-top">
-              <div>
-                <span class="badge">Example SITREP</span>
-                <p class="small" style="color:rgba(255,255,255,.68); margin:.75rem 0 0;">Task: Mow the lawn</p>
-              </div>
-              <span class="badge">Today</span>
-            </div>
-            <div class="status">GO</div>
-            <p style="margin:0; color:rgba(255,255,255,.76);">Dry, mild and light wind. Best window: late morning to afternoon.</p>
-            <div class="signal-grid">
-              <div class="signal"><span>Rain risk</span><strong>Low</strong></div>
-              <div class="signal"><span>Wind</span><strong>Light</strong></div>
-              <div class="signal"><span>Temperature</span><strong>Suitable</strong></div>
-              <div class="signal"><span>Decision</span><strong>Do it today</strong></div>
-            </div>
-          </div>
-        </aside>
+      <div class="searchbox">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <label class="sr-only" for="locationInput">Enter your town or city</label>
+        <input id="locationInput" type="search" placeholder="Enter town or city" autocomplete="postal-code" />
+        <button id="checkBtn" class="go-btn" type="button">Check</button>
       </div>
-    </section>
 
-    <section id="checks">
-      <div class="container">
-        <div class="section-head">
+      <div class="buttons" id="taskButtons" aria-label="Choose a task"></div>
+
+      <div class="buttons">
+        <button id="geoBtn" class="secondary" type="button">Use my location</button>
+      </div>
+
+      <p class="hint" id="hint">Choose a task, enter a location, get a go/no-go answer.</p>
+
+      <div class="result" id="result" aria-live="polite">
+        <div class="answer-row">
           <div>
-            <h2>Popular checks</h2>
-            <p>Select what you are thinking of doing. The answer changes depending on your local rain, wind, temperature and task type.</p>
+            <p class="question" id="question">Should I mow the lawn today?</p>
+            <p class="reason" id="reason">Enter a location to check today’s weather.</p>
           </div>
+          <div class="answer" id="answer">GO</div>
         </div>
-
-        <div class="task-grid" id="taskGrid"></div>
-
-        <div class="result-wrap" id="resultWrap" aria-live="polite">
-          <div class="result-card">
-            <div class="result-status" id="resultStatusCard">
-              <span class="eyebrow" id="resultTask">Task selected</span>
-              <div class="assessment" id="assessment">—</div>
-              <p class="reason" id="reason">Enter a location and choose a task to get your answer.</p>
-            </div>
-            <div>
-              <div class="detail-grid">
-                <div class="detail"><span>Location</span><strong id="detailLocation">—</strong></div>
-                <div class="detail"><span>Best window</span><strong id="detailWindow">—</strong></div>
-                <div class="detail"><span>Rain risk</span><strong id="detailRain">—</strong></div>
-                <div class="detail"><span>Wind</span><strong id="detailWind">—</strong></div>
-                <div class="detail"><span>Temperature</span><strong id="detailTemp">—</strong></div>
-                <div class="detail"><span>Ground / surface</span><strong id="detailGround">—</strong></div>
-              </div>
-              <p class="small" style="margin-top:1rem;">This is a practical guide based on forecast data, not a guarantee. Always check actual local conditions.</p>
-            </div>
-          </div>
+        <div class="facts">
+          <div class="fact"><span>Best time</span><strong id="bestTime">—</strong></div>
+          <div class="fact"><span>Rain</span><strong id="rain">—</strong></div>
+          <div class="fact"><span>Wind</span><strong id="wind">—</strong></div>
+          <div class="fact"><span>Temp</span><strong id="temp">—</strong></div>
         </div>
       </div>
-    </section>
 
-    <section id="how-it-works">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Simple answer. Clear reasoning.</h2>
-            <p>The site is built around one question: is today suitable for the thing you want to do?</p>
-          </div>
-        </div>
-        <div class="content-grid">
-          <article class="info-card">
-            <h3>1. Choose the task</h3>
-            <p>Mowing, washing, drying, painting, BBQs and exercise all need different weather conditions. Each task has its own rule set.</p>
-          </article>
-          <article class="info-card">
-            <h3>2. Check local weather</h3>
-            <p>Rain risk, wind, temperature and recent rainfall are checked for your location to produce a practical go/no-go answer.</p>
-          </article>
-          <article class="info-card">
-            <h3>3. Get the SITREP</h3>
-            <p>The answer is shown as GO, CAUTION or NO-GO, with a short explanation and the best time window for today.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="seo-pages">
-      <div class="container long-copy">
-        <h2>Weather-based answers for everyday jobs</h2>
-        <p><strong>Should I Do It Today?</strong> is designed for quick everyday decisions. Instead of reading a full weather forecast and guessing what it means, you get a task-specific answer for your location.</p>
-
-        <h3>Should I mow the lawn today?</h3>
-        <p>The lawn mowing check looks for rain, recent rainfall, wind and suitable temperature. If the grass is likely to be wet, the answer may be caution or no-go even if it is not raining right now.</p>
-
-        <h3>Should I wash my car today?</h3>
-        <p>The car washing check looks for rain risk, wind and temperature. A dry, calm day is better because heavy wind can blow dirt back onto the car and rain can undo the job.</p>
-
-        <h3>Can I hang washing out today?</h3>
-        <p>The washing line check looks for low rain risk, enough drying time, useful breeze and reasonable temperature. A windy but dry day can be better than a warm still day.</p>
-
-        <h3>Should I paint outside today?</h3>
-        <p>The outside painting check is stricter. It looks for dry conditions, low rain risk, moderate temperature and manageable wind. If rain is likely soon, the safest answer is usually no-go.</p>
-
-        <h3>Should I BBQ today?</h3>
-        <p>The BBQ check balances rain, wind and comfort. A dry day with light or moderate wind usually scores well. Strong wind or heavy rain risk lowers the score quickly.</p>
-      </div>
-    </section>
-
-    <section id="faq">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>FAQ</h2>
-            <p>Useful answers for people searching before they start a job outside.</p>
-          </div>
-        </div>
-        <div class="faq">
-          <details>
-            <summary>Is this a weather forecast website?</summary>
-            <p>No. It uses weather data, but the point is to give a simple task decision rather than a full forecast.</p>
-          </details>
-          <details>
-            <summary>Does it work in the UK and other English-speaking countries?</summary>
-            <p>Yes. You can search for towns and cities in the UK, Ireland, United States, Canada, Australia, New Zealand and other locations supported by the weather data provider.</p>
-          </details>
-          <details>
-            <summary>Why does it say caution instead of yes or no?</summary>
-            <p>Caution means the task is possible, but conditions are not ideal. For example, it may be dry now but rain could arrive later, or wind may be stronger than ideal.</p>
-          </details>
-          <details>
-            <summary>Can I trust the answer completely?</summary>
-            <p>No forecast-based tool can guarantee local conditions. Use it as a guide and check the actual weather where you are before starting.</p>
-          </details>
-        </div>
+      <div class="seo-text" id="popular">
+        <p>Popular checks include: should I mow the lawn today, should I wash my car today, can I hang washing out today, should I paint outside today, should I BBQ today and should I walk the dog today.</p>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container footer-grid">
-      <div>
-        <strong>Should I Do It Today?</strong><br />
-        Your daily go/no-go check for outdoor tasks.
-      </div>
-      <div>
-        Weather data by <a href="https://open-meteo.com/" rel="nofollow">Open-Meteo</a>. Built for practical guidance only.
-      </div>
-    </div>
+  <footer id="about">
+    Should I Do It Today? gives practical weather-based guidance only. Always check local conditions. Weather data by Open-Meteo.
   </footer>
 
   <script>
     const tasks = {
       mow: {
-        slug: "should-i-mow-the-lawn-today",
-        icon: "🌱",
-        title: "Mow the lawn",
+        label: "Mow lawn",
         question: "Should I mow the lawn today?",
-        summary: "Checks rain, ground wetness, temperature and wind.",
-        hours: [8, 19],
+        slug: "should-i-mow-the-lawn-today",
         rainProb: 35,
         windMax: 28,
         tempMin: 8,
         tempMax: 28,
         drySensitive: true,
-        idealWindMin: 0
+        hours: [8, 19]
       },
       washCar: {
-        slug: "should-i-wash-my-car-today",
-        icon: "🚗",
-        title: "Wash the car",
+        label: "Wash car",
         question: "Should I wash my car today?",
-        summary: "Looks for dry conditions and manageable wind.",
-        hours: [8, 19],
+        slug: "should-i-wash-my-car-today",
         rainProb: 30,
         windMax: 32,
         tempMin: 5,
         tempMax: 30,
         drySensitive: false,
-        idealWindMin: 0
+        hours: [8, 19]
       },
       washing: {
-        slug: "can-i-hang-washing-out-today",
-        icon: "👕",
-        title: "Hang washing out",
+        label: "Hang washing",
         question: "Can I hang washing out today?",
-        summary: "Checks drying conditions, rain risk and breeze.",
-        hours: [7, 20],
+        slug: "can-i-hang-washing-out-today",
         rainProb: 22,
         windMax: 38,
         tempMin: 7,
         tempMax: 32,
         drySensitive: false,
-        idealWindMin: 5
+        hours: [7, 20]
       },
       paint: {
-        slug: "should-i-paint-outside-today",
-        icon: "🎨",
-        title: "Paint outside",
+        label: "Paint outside",
         question: "Should I paint outside today?",
-        summary: "Strict check for dry, calm and mild conditions.",
-        hours: [9, 18],
+        slug: "should-i-paint-outside-today",
         rainProb: 15,
         windMax: 24,
         tempMin: 10,
         tempMax: 25,
         drySensitive: true,
-        idealWindMin: 0
+        hours: [9, 18]
       },
       bbq: {
-        slug: "should-i-bbq-today",
-        icon: "🔥",
-        title: "BBQ",
+        label: "BBQ",
         question: "Should I BBQ today?",
-        summary: "Checks comfort, wind and rain risk.",
-        hours: [11, 21],
+        slug: "should-i-bbq-today",
         rainProb: 35,
         windMax: 30,
         tempMin: 12,
         tempMax: 34,
         drySensitive: false,
-        idealWindMin: 0
+        hours: [11, 21]
       },
       dog: {
-        slug: "should-i-walk-the-dog-today",
-        icon: "🐕",
-        title: "Walk the dog",
+        label: "Walk dog",
         question: "Should I walk the dog today?",
-        summary: "Checks rain, wind and comfortable temperature.",
-        hours: [6, 22],
+        slug: "should-i-walk-the-dog-today",
         rainProb: 55,
         windMax: 46,
         tempMin: -3,
         tempMax: 27,
         drySensitive: false,
-        idealWindMin: 0
-      },
-      run: {
-        slug: "should-i-go-for-a-run-today",
-        icon: "🏃",
-        title: "Go for a run",
-        question: "Should I go for a run today?",
-        summary: "Checks running comfort, wind and rain risk.",
-        hours: [5, 22],
-        rainProb: 50,
-        windMax: 36,
-        tempMin: 2,
-        tempMax: 25,
-        drySensitive: false,
-        idealWindMin: 0
-      },
-      windows: {
-        slug: "should-i-clean-the-windows-today",
-        icon: "🪟",
-        title: "Clean windows",
-        question: "Should I clean the windows today?",
-        summary: "Checks rain, wind and surface drying conditions.",
-        hours: [8, 18],
-        rainProb: 28,
-        windMax: 28,
-        tempMin: 5,
-        tempMax: 27,
-        drySensitive: false,
-        idealWindMin: 0
+        hours: [6, 22]
       }
     };
 
-    let selectedTaskKey = "mow";
-    const taskGrid = document.getElementById("taskGrid");
+    let selected = "mow";
     const locationInput = document.getElementById("locationInput");
-    const helperText = document.getElementById("helperText");
+    const taskButtons = document.getElementById("taskButtons");
+    const hint = document.getElementById("hint");
 
-    function initTasks() {
-      taskGrid.innerHTML = Object.entries(tasks).map(([key, task]) => `
-        <button class="task-card ${key === selectedTaskKey ? "active" : ""}" type="button" data-task="${key}">
-          <span>
-            <span class="task-icon" aria-hidden="true">${task.icon}</span>
-            <h3>${task.question}</h3>
-            <p>${task.summary}</p>
-          </span>
-          <span class="check-link">Check this task →</span>
-        </button>
+    function init() {
+      const params = new URLSearchParams(window.location.search);
+      const taskParam = params.get("task");
+      const locationParam = params.get("location");
+      const found = Object.entries(tasks).find(([, task]) => task.slug === taskParam);
+      if (found) selected = found[0];
+      if (locationParam) locationInput.value = locationParam;
+
+      taskButtons.innerHTML = Object.entries(tasks).map(([key, task]) => `
+        <button class="task ${key === selected ? "active" : ""}" type="button" data-task="${key}">${task.label}</button>
       `).join("");
 
       document.querySelectorAll("[data-task]").forEach(button => {
         button.addEventListener("click", () => {
-          selectedTaskKey = button.dataset.task;
+          selected = button.dataset.task;
           document.querySelectorAll("[data-task]").forEach(btn => btn.classList.remove("active"));
           button.classList.add("active");
-          document.getElementById("checks").scrollIntoView({ behavior: "smooth", block: "start" });
-          if (locationInput.value.trim()) runCheckFromSearch();
+          hint.textContent = `Selected: ${tasks[selected].label}`;
+          if (locationInput.value.trim()) checkFromText();
         });
       });
+
+      hint.textContent = `Selected: ${tasks[selected].label}`;
+      if (locationInput.value.trim()) checkFromText();
     }
 
-    function getTaskFromUrl() {
-      const params = new URLSearchParams(window.location.search);
-      const taskParam = params.get("task") || "";
-      const match = Object.entries(tasks).find(([, task]) => task.slug === taskParam);
-      if (match) selectedTaskKey = match[0];
-      const locationParam = params.get("location");
-      if (locationParam) locationInput.value = locationParam;
-    }
-
-    async function geocodeLocation(query) {
+    async function geocode(query) {
       const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=1&language=en&format=json`;
       const response = await fetch(url);
-      if (!response.ok) throw new Error("Location search failed.");
+      if (!response.ok) throw new Error("Could not search that location.");
       const data = await response.json();
       if (!data.results || !data.results.length) throw new Error("Location not found. Try a nearby town or city.");
-      const result = data.results[0];
+      const place = data.results[0];
       return {
-        latitude: result.latitude,
-        longitude: result.longitude,
-        name: [result.name, result.admin1, result.country_code].filter(Boolean).join(", ")
+        latitude: place.latitude,
+        longitude: place.longitude,
+        name: [place.name, place.admin1, place.country_code].filter(Boolean).join(", ")
       };
     }
 
-    async function fetchForecast(latitude, longitude) {
+    async function reverseName(latitude, longitude) {
+      return "your location";
+    }
+
+    async function getWeather(latitude, longitude) {
       const params = new URLSearchParams({
         latitude,
         longitude,
@@ -898,36 +492,33 @@
         past_days: "1",
         wind_speed_unit: "mph"
       });
-      const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
-      const response = await fetch(url);
+      const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params.toString()}`);
       if (!response.ok) throw new Error("Weather check failed.");
       return response.json();
     }
 
-    function analyseForecast(data, task) {
+    function analyse(data, task) {
       const now = new Date();
-      const hourly = data.hourly;
-      const rows = hourly.time.map((time, index) => ({
+      const rows = data.hourly.time.map((time, i) => ({
         time: new Date(time),
         hour: new Date(time).getHours(),
-        temp: hourly.temperature_2m[index],
-        precip: hourly.precipitation[index] || 0,
-        rainProb: hourly.precipitation_probability[index] ?? 0,
-        wind: hourly.wind_speed_10m[index] || 0,
-        gust: hourly.wind_gusts_10m[index] || 0
+        temp: data.hourly.temperature_2m[i],
+        precip: data.hourly.precipitation[i] || 0,
+        rainProb: data.hourly.precipitation_probability[i] ?? 0,
+        wind: data.hourly.wind_speed_10m[i] || 0,
+        gust: data.hourly.wind_gusts_10m[i] || 0
       }));
 
       const next12 = rows.filter(row => row.time >= now && row.time <= new Date(now.getTime() + 12 * 60 * 60 * 1000));
-      const taskWindow = next12.filter(row => row.hour >= task.hours[0] && row.hour <= task.hours[1]);
-      const usableWindow = taskWindow.length ? taskWindow : next12;
+      const windowRows = next12.filter(row => row.hour >= task.hours[0] && row.hour <= task.hours[1]);
+      const useful = windowRows.length ? windowRows : next12;
       const past24 = rows.filter(row => row.time < now && row.time >= new Date(now.getTime() - 24 * 60 * 60 * 1000));
 
-      const maxRainProb = Math.max(...usableWindow.map(row => row.rainProb), 0);
-      const rainNext = usableWindow.reduce((sum, row) => sum + row.precip, 0);
+      const maxRain = Math.max(...useful.map(row => row.rainProb), 0);
+      const rainTotal = useful.reduce((sum, row) => sum + row.precip, 0);
       const recentRain = past24.reduce((sum, row) => sum + row.precip, 0);
-      const maxWind = Math.max(...usableWindow.map(row => row.wind), 0);
-      const maxGust = Math.max(...usableWindow.map(row => row.gust), 0);
-      const avgTemp = usableWindow.length ? usableWindow.reduce((sum, row) => sum + row.temp, 0) / usableWindow.length : data.current.temperature_2m;
+      const maxWind = Math.max(...useful.map(row => row.wind), 0);
+      const avgTemp = useful.length ? useful.reduce((sum, row) => sum + row.temp, 0) / useful.length : data.current.temperature_2m;
 
       let score = 100;
       const reasons = [];
@@ -936,45 +527,32 @@
         score -= 35;
         reasons.push("it is raining now");
       }
-
-      if (maxRainProb > task.rainProb) {
-        score -= Math.min(35, (maxRainProb - task.rainProb) * 0.75);
+      if (maxRain > task.rainProb) {
+        score -= Math.min(35, (maxRain - task.rainProb) * 0.75);
         reasons.push("rain risk is higher than ideal");
       }
-
-      if (rainNext > 0.8) {
+      if (rainTotal > 0.8) {
         score -= 20;
-        reasons.push("rain is expected during the useful window");
+        reasons.push("rain is expected soon");
       }
-
       if (maxWind > task.windMax) {
         score -= Math.min(25, (maxWind - task.windMax) * 1.2);
         reasons.push("wind may be too strong");
       }
-
       if (avgTemp < task.tempMin) {
         score -= 18;
-        reasons.push("temperature is lower than ideal");
+        reasons.push("it may be too cold");
       }
-
       if (avgTemp > task.tempMax) {
         score -= 18;
-        reasons.push("temperature is higher than ideal");
+        reasons.push("it may be too hot");
       }
-
       if (task.drySensitive && recentRain > 2.5) {
         score -= 22;
-        reasons.push("recent rain may have left surfaces or grass wet");
+        reasons.push("surfaces may still be wet");
       }
 
-      if (task.idealWindMin > 0 && maxWind < task.idealWindMin) {
-        score -= 8;
-        reasons.push("there may not be much breeze for drying");
-      }
-
-      score = Math.max(0, Math.round(score));
-
-      const goodSlots = usableWindow.filter(row =>
+      const goodSlots = useful.filter(row =>
         row.rainProb <= task.rainProb &&
         row.precip < 0.2 &&
         row.wind <= task.windMax &&
@@ -982,133 +560,122 @@
         row.temp <= task.tempMax
       );
 
-      let bestWindow = "No ideal window today";
+      let best = "No ideal window";
       if (goodSlots.length) {
         const first = goodSlots[0].time;
-        const last = goodSlots[goodSlots.length - 1].time;
-        bestWindow = `${formatHour(first)}–${formatHour(new Date(last.getTime() + 60 * 60 * 1000))}`;
+        const last = new Date(goodSlots[goodSlots.length - 1].time.getTime() + 60 * 60 * 1000);
+        best = `${formatTime(first)}–${formatTime(last)}`;
       }
 
-      let assessment = "GO";
-      let className = "go";
+      let status = "GO";
+      let css = "";
       if (score < 45) {
-        assessment = "NO-GO";
-        className = "no";
+        status = "NO";
+        css = "no";
       } else if (score < 70) {
-        assessment = "CAUTION";
-        className = "caution";
+        status = "CAUTION";
+        css = "caution";
       }
 
-      const reason = buildReason(assessment, reasons, task.title);
-      const ground = recentRain > 4 ? "Likely wet" : recentRain > 1.5 ? "Possibly damp" : "Likely dry";
+      let reason = "Good day for it. Conditions look suitable.";
+      if (status === "CAUTION") reason = `Possible, but not ideal: ${reasons.slice(0, 2).join(" and ") || "conditions are mixed"}.`;
+      if (status === "NO") reason = `Best to leave it today: ${reasons.slice(0, 2).join(" and ") || "conditions are poor"}.`;
 
       return {
-        assessment,
-        className,
-        score,
+        status,
+        css,
         reason,
-        bestWindow,
-        rainRisk: `${Math.round(maxRainProb)}% max chance`,
-        wind: `${Math.round(maxWind)} mph, gusts ${Math.round(maxGust)} mph`,
-        temp: `${Math.round(avgTemp)}°C average`,
-        ground
+        best,
+        rain: `${Math.round(maxRain)}% max`,
+        wind: `${Math.round(maxWind)} mph`,
+        temp: `${Math.round(avgTemp)}°C`
       };
     }
 
-    function buildReason(assessment, reasons, taskTitle) {
-      if (assessment === "GO") {
-        return `Good day for it. Conditions look suitable for ${taskTitle.toLowerCase()} based on today's forecast.`;
-      }
-      if (!reasons.length) return `Conditions are mixed. You could do it, but check local conditions before starting.`;
-      const sentence = reasons.slice(0, 3).join(", ");
-      if (assessment === "CAUTION") return `Possible, but not ideal because ${sentence}.`;
-      return `Leave it for now because ${sentence}.`;
-    }
-
-    function formatHour(date) {
+    function formatTime(date) {
       return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     }
 
-    function showLoading() {
-      document.getElementById("resultWrap").classList.add("show");
-      document.getElementById("assessment").textContent = "…";
-      document.getElementById("reason").textContent = "Checking your local conditions.";
-      document.getElementById("resultTask").textContent = tasks[selectedTaskKey].question;
+    function loading() {
+      document.getElementById("result").classList.add("show");
+      document.getElementById("question").textContent = tasks[selected].question;
+      document.getElementById("reason").textContent = "Checking today's weather...";
+      document.getElementById("answer").className = "answer";
+      document.getElementById("answer").textContent = "…";
     }
 
-    function showResult(locationName, analysis) {
-      const card = document.getElementById("resultStatusCard");
-      card.className = `result-status ${analysis.className}`;
-      document.getElementById("resultTask").textContent = tasks[selectedTaskKey].question;
-      document.getElementById("assessment").textContent = analysis.assessment;
-      document.getElementById("reason").textContent = analysis.reason;
-      document.getElementById("detailLocation").textContent = locationName;
-      document.getElementById("detailWindow").textContent = analysis.bestWindow;
-      document.getElementById("detailRain").textContent = analysis.rainRisk;
-      document.getElementById("detailWind").textContent = analysis.wind;
-      document.getElementById("detailTemp").textContent = analysis.temp;
-      document.getElementById("detailGround").textContent = analysis.ground;
-      helperText.textContent = `Showing ${tasks[selectedTaskKey].title.toLowerCase()} conditions for ${locationName}.`;
+    function render(place, result) {
+      document.getElementById("question").textContent = `${tasks[selected].question} — ${place}`;
+      document.getElementById("reason").textContent = result.reason;
+      document.getElementById("answer").className = `answer ${result.css}`;
+      document.getElementById("answer").textContent = result.status;
+      document.getElementById("bestTime").textContent = result.best;
+      document.getElementById("rain").textContent = result.rain;
+      document.getElementById("wind").textContent = result.wind;
+      document.getElementById("temp").textContent = result.temp;
     }
 
-    function showError(message) {
-      document.getElementById("resultWrap").classList.add("show");
-      document.getElementById("resultStatusCard").className = "result-status caution";
-      document.getElementById("assessment").textContent = "CHECK";
+    function error(message) {
+      document.getElementById("result").classList.add("show");
+      document.getElementById("question").textContent = "Could not complete check";
       document.getElementById("reason").textContent = message;
-      helperText.textContent = message;
+      document.getElementById("answer").className = "answer caution";
+      document.getElementById("answer").textContent = "CHECK";
+      document.getElementById("bestTime").textContent = "—";
+      document.getElementById("rain").textContent = "—";
+      document.getElementById("wind").textContent = "—";
+      document.getElementById("temp").textContent = "—";
     }
 
-    async function runCheckFromSearch() {
+    async function checkFromText() {
       const query = locationInput.value.trim();
       if (!query) {
-        showError("Enter a town or city first, such as Bristol, Glasgow or London.");
+        error("Enter a town or city first.");
         return;
       }
       try {
-        showLoading();
-        const location = await geocodeLocation(query);
-        const forecast = await fetchForecast(location.latitude, location.longitude);
-        const analysis = analyseForecast(forecast, tasks[selectedTaskKey]);
-        showResult(location.name, analysis);
-        const newUrl = new URL(window.location.href);
-        newUrl.searchParams.set("location", query);
-        newUrl.searchParams.set("task", tasks[selectedTaskKey].slug);
-        history.replaceState(null, "", newUrl);
-      } catch (error) {
-        showError(error.message || "Something went wrong. Try another nearby location.");
+        loading();
+        const place = await geocode(query);
+        const data = await getWeather(place.latitude, place.longitude);
+        const result = analyse(data, tasks[selected]);
+        render(place.name, result);
+
+        const url = new URL(window.location.href);
+        url.searchParams.set("location", query);
+        url.searchParams.set("task", tasks[selected].slug);
+        history.replaceState(null, "", url);
+      } catch (err) {
+        error(err.message || "Something went wrong. Try another location.");
       }
     }
 
-    async function runCheckFromGeo() {
+    async function checkFromGeo() {
       if (!navigator.geolocation) {
-        showError("Your browser does not support current-location checks. Enter a town or city instead.");
+        error("Your browser does not support location checks. Enter a town or city instead.");
         return;
       }
-      showLoading();
-      navigator.geolocation.getCurrentPosition(async position => {
+      loading();
+      navigator.geolocation.getCurrentPosition(async pos => {
         try {
-          const { latitude, longitude } = position.coords;
-          const forecast = await fetchForecast(latitude, longitude);
-          const analysis = analyseForecast(forecast, tasks[selectedTaskKey]);
-          showResult("your current location", analysis);
-        } catch (error) {
-          showError(error.message || "Could not check the weather for your current location.");
+          const { latitude, longitude } = pos.coords;
+          const data = await getWeather(latitude, longitude);
+          const result = analyse(data, tasks[selected]);
+          render("your location", result);
+        } catch (err) {
+          error(err.message || "Could not check your current location.");
         }
       }, () => {
-        showError("Location permission was not granted. Enter a town or city instead.");
+        error("Location permission was not granted. Enter a town or city instead.");
       });
     }
 
-    document.getElementById("checkBtn").addEventListener("click", runCheckFromSearch);
-    document.getElementById("geoBtn").addEventListener("click", runCheckFromGeo);
+    document.getElementById("checkBtn").addEventListener("click", checkFromText);
+    document.getElementById("geoBtn").addEventListener("click", checkFromGeo);
     locationInput.addEventListener("keydown", event => {
-      if (event.key === "Enter") runCheckFromSearch();
+      if (event.key === "Enter") checkFromText();
     });
 
-    getTaskFromUrl();
-    initTasks();
-    if (locationInput.value.trim()) runCheckFromSearch();
+    init();
   </script>
 </body>
 </html>
