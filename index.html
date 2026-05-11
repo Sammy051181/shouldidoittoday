@@ -257,8 +257,8 @@
       box-shadow:var(--shadow);
       backdrop-filter:blur(14px);
       padding:18px;
-      position:sticky;
-      top:14px;
+      position:relative;
+      z-index:1;
     }
 
     .checker-head{
@@ -645,7 +645,7 @@
 
     @media (max-width:960px){
       .hero{grid-template-columns:1fr;gap:18px}
-      .checker-card{position:relative;top:0;order:-1}
+      .checker-card{order:-1}
       .hero-copy{text-align:center;padding-top:10px}
       .hero-logo-lockup{margin-left:auto;margin-right:auto}
       .lead{margin-left:auto;margin-right:auto}
