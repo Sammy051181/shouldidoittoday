@@ -599,16 +599,47 @@
     };
 
     const RULES = {
-      grass: { rainProb: 35, windMaxMph: 28, tempMinC: 8, tempMaxC: 28, hours: [8, 19] },
-      washCar: { rainProb: 30, windMaxMph: 32, tempMinC: 5, tempMaxC: 30, hours: [8, 19] },
-      washing: { rainProb: 22, windMaxMph: 38, tempMinC: 7, tempMaxC: 32, hours: [7, 20] },
-      paint: { rainProb: 15, windMaxMph: 24, tempMinC: 10, tempMaxC: 25, hours: [9, 18] },
-      bbq: { rainProb: 35, windMaxMph: 30, tempMinC: 12, tempMaxC: 34, hours: [11, 21] },
-      dog: { rainProb: 55, windMaxMph: 46, tempMinC: -3, tempMaxC: 27, hours: [6, 22] },
-      jacket: { rainProb: 40, windMaxMph: 34, tempMinC: 12, tempMaxC: 100, hours: [6, 23] },
-      run: { rainProb: 50, windMaxMph: 36, tempMinC: 2, tempMaxC: 25, hours: [5, 22] },
-      windows: { rainProb: 28, windMaxMph: 28, tempMinC: 5, tempMaxC: 27, hours: [8, 18] },
-      plants: { rainProb: 45, windMaxMph: 35, tempMinC: 4, tempMaxC: 32, hours: [6, 21] }
+      grass: {
+        rainProb: 30, windMaxMph: 26, tempMinC: 8, tempMaxC: 28, hours: [8, 18], minGoodHours: 2,
+        category: "dry-ground", lateCutoffHour: 15, recentRain12Limit: 1, recentRain24Limit: 2.5, recentRain48Limit: 6,
+        avoidIfRainNextHours: 4, needsDryAfterRainHours: 4
+      },
+      washCar: {
+        rainProb: 30, windMaxMph: 30, tempMinC: 4, tempMaxC: 26, hours: [8, 19], minGoodHours: 2,
+        category: "car", rainLookaheadHours: 12, recentRain24Limit: 4
+      },
+      washing: {
+        rainProb: 22, windMaxMph: 34, tempMinC: 8, tempMaxC: 32, hours: [7, 18], minGoodHours: 4,
+        category: "drying", maxHumidity: 82, lateCutoffHour: 15
+      },
+      paint: {
+        rainProb: 15, windMaxMph: 22, tempMinC: 10, tempMaxC: 25, hours: [9, 17], minGoodHours: 5,
+        category: "paint", rainLookaheadHours: 12, recentRain24Limit: 1, maxHumidity: 78
+      },
+      bbq: {
+        rainProb: 40, windMaxMph: 28, tempMinC: 10, tempMaxC: 34, hours: [11, 21], minGoodHours: 2,
+        category: "comfort", mealWindows: [[12, 15], [17, 20]]
+      },
+      dog: {
+        rainProb: 60, windMaxMph: 42, tempMinC: -2, tempMaxC: 26, hours: [6, 22], minGoodHours: 1,
+        category: "pet", heatCautionC: 23, heatNoC: 28, coldCautionC: 0
+      },
+      jacket: {
+        rainProb: 45, windMaxMph: 34, tempMinC: 12, tempMaxC: 100, hours: [6, 23], minGoodHours: 1,
+        category: "clothing", coatFeelsC: 11, lightJacketFeelsC: 15
+      },
+      run: {
+        rainProb: 60, windMaxMph: 35, tempMinC: 2, tempMaxC: 25, hours: [5, 22], minGoodHours: 1,
+        category: "fitness", heatCautionC: 22, heatNoC: 29, coldCautionC: 0
+      },
+      windows: {
+        rainProb: 25, windMaxMph: 24, tempMinC: 4, tempMaxC: 25, hours: [8, 17], minGoodHours: 2,
+        category: "windows", rainLookaheadHours: 12, sunTempCautionC: 23
+      },
+      plants: {
+        rainProb: 45, windMaxMph: 35, tempMinC: 4, tempMaxC: 32, hours: [6, 21], minGoodHours: 1,
+        category: "watering", rainSoonUsefulMm: 2, recentRainEnoughMm: 5
+      }
     };
 
     const COUNTRY_TO_REGION = { GB: "UK", IE: "IE", US: "US", CA: "CA", AU: "AU", NZ: "NZ" };
@@ -854,12 +885,12 @@
     async function getWeather(latitude, longitude) {
       const params = new URLSearchParams({
         latitude, longitude,
-        hourly: "temperature_2m,precipitation,precipitation_probability,wind_speed_10m,wind_gusts_10m,relative_humidity_2m,cloud_cover,evapotranspiration,soil_moisture_0_to_1cm,soil_moisture_1_to_3cm",
-        current: "temperature_2m,precipitation,rain,wind_speed_10m",
+        hourly: "temperature_2m,apparent_temperature,precipitation,precipitation_probability,weather_code,wind_speed_10m,wind_gusts_10m,relative_humidity_2m,cloud_cover,evapotranspiration,soil_moisture_0_to_1cm,soil_moisture_1_to_3cm,uv_index",
+        current: "temperature_2m,apparent_temperature,precipitation,rain,weather_code,wind_speed_10m",
         daily: "sunrise,sunset",
         timezone: "auto",
         forecast_days: "7",
-        past_days: "1",
+        past_days: "3",
         wind_speed_unit: "mph"
       });
       const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params.toString()}`);
@@ -874,15 +905,17 @@
     function isRainTolerantTask(taskKey) { return ["run", "dog"].includes(taskKey); }
     function isWinterRestPeriod(dateValue) {
       const month = dateValue.getMonth();
-      return ["AU", "NZ"].includes(currentRegionKey) ? [5,6,7].includes(month) : [11,0,1].includes(month);
+      return ["AU", "NZ"].includes(currentRegionKey) ? [5, 6, 7].includes(month) : [11, 0, 1].includes(month);
     }
     function formatList(items) {
-      if (!items.length) return "conditions are mixed";
-      if (items.length === 1) return items[0];
-      return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
+      const clean = [...new Set(items.filter(Boolean))];
+      if (!clean.length) return "conditions are mixed";
+      if (clean.length === 1) return clean[0];
+      return `${clean.slice(0, -1).join(", ")} and ${clean[clean.length - 1]}`;
     }
     function startOfDay(dateValue) { const d = new Date(dateValue); d.setHours(0, 0, 0, 0); return d; }
     function sameDay(a, b) { return startOfDay(a).getTime() === startOfDay(b).getTime(); }
+    function makeTime(dayStart, hour) { const d = new Date(dayStart); d.setHours(hour, 0, 0, 0); return d; }
     function dayLabel(dateValue) {
       const today = startOfDay(new Date());
       const target = startOfDay(dateValue);
@@ -891,16 +924,32 @@
       if (diffDays === 1) return "tomorrow";
       return target.toLocaleDateString(region().locale, { weekday: "long" });
     }
+    function sum(values) { return values.reduce((total, value) => total + value, 0); }
+    function avg(values, fallback = 0) { return values.length ? sum(values) / values.length : fallback; }
+    function max(values, fallback = 0) { return values.length ? Math.max(...values) : fallback; }
+    function min(values, fallback = 0) { return values.length ? Math.min(...values) : fallback; }
+    function rowsBetween(rows, from, to) { return rows.filter(row => row.time >= from && row.time <= to); }
+    function hoursAfter(base, hours) { return new Date(base.getTime() + hours * 60 * 60 * 1000); }
+    function hoursBefore(base, hours) { return new Date(base.getTime() - hours * 60 * 60 * 1000); }
+    function mm(rows) { return sum(rows.map(row => row.precip)); }
+    function hasStorm(rows) { return rows.some(row => row.weatherCode >= 95); }
+    function hasSnowOrIce(rows) { return rows.some(row => [56,57,66,67,71,73,75,77,85,86].includes(row.weatherCode)); }
+    function hasFog(rows) { return rows.some(row => [45,48].includes(row.weatherCode)); }
+
     function buildHourlyRows(data) {
       return data.hourly.time.map((time, i) => ({
         time: new Date(time),
         hour: new Date(time).getHours(),
         temp: data.hourly.temperature_2m[i],
+        apparent: data.hourly.apparent_temperature ? data.hourly.apparent_temperature[i] : data.hourly.temperature_2m[i],
         precip: data.hourly.precipitation[i] || 0,
         rainProb: data.hourly.precipitation_probability[i] || 0,
+        weatherCode: data.hourly.weather_code ? data.hourly.weather_code[i] || 0 : 0,
         wind: data.hourly.wind_speed_10m[i] || 0,
+        gust: data.hourly.wind_gusts_10m ? data.hourly.wind_gusts_10m[i] || data.hourly.wind_speed_10m[i] || 0 : data.hourly.wind_speed_10m[i] || 0,
         humidity: data.hourly.relative_humidity_2m ? data.hourly.relative_humidity_2m[i] : null,
         cloud: data.hourly.cloud_cover ? data.hourly.cloud_cover[i] : null,
+        uv: data.hourly.uv_index ? data.hourly.uv_index[i] || 0 : 0,
         evap: data.hourly.evapotranspiration ? data.hourly.evapotranspiration[i] || 0 : 0,
         soil0: data.hourly.soil_moisture_0_to_1cm ? data.hourly.soil_moisture_0_to_1cm[i] : null,
         soil1: data.hourly.soil_moisture_1_to_3cm ? data.hourly.soil_moisture_1_to_3cm[i] : null
@@ -916,176 +965,111 @@
           sunset = data.daily.sunset && data.daily.sunset[index] ? new Date(data.daily.sunset[index]) : null;
         }
       }
-      const fallbackStart = new Date(targetDay); fallbackStart.setHours(fallbackStartHour, 0, 0, 0);
-      const fallbackEnd = new Date(targetDay); fallbackEnd.setHours(fallbackEndHour, 0, 0, 0);
-      return { start: sunrise || fallbackStart, end: sunset || fallbackEnd };
+      return { start: sunrise || makeTime(targetDay, fallbackStartHour), end: sunset || makeTime(targetDay, fallbackEndHour) };
     }
     function findRainEnds(rows, fromTime) {
-      const nextRows = rows.filter(row => row.time >= fromTime && row.time <= new Date(fromTime.getTime() + 18 * 60 * 60 * 1000));
+      const nextRows = rowsBetween(rows, fromTime, hoursAfter(fromTime, 18));
       const wetStart = nextRows.find(row => row.precip > 0.1 || row.rainProb >= 60);
       if (!wetStart) return null;
       for (const row of nextRows) {
         if (row.time <= wetStart.time) continue;
-        const following = nextRows.filter(next => next.time >= row.time && next.time <= new Date(row.time.getTime() + 2 * 60 * 60 * 1000));
+        const following = rowsBetween(nextRows, row.time, hoursAfter(row.time, 2));
         if (following.length >= 2 && following.every(next => next.precip <= 0.1 && next.rainProb < 50)) return row.time;
       }
       return null;
     }
-
-    function findWateringWindow(rows, dayStart, isToday) {
+    function findContinuousWindow(rows, predicate, minHours = 1) {
+      const sequences = [];
+      let current = [];
+      rows.forEach(row => {
+        if (predicate(row)) current.push(row);
+        else if (current.length) { sequences.push(current); current = []; }
+      });
+      if (current.length) sequences.push(current);
+      const valid = sequences.find(seq => seq.length >= minHours) || sequences[0];
+      if (!valid || !valid.length) return "No sensible window";
+      const first = valid[0].time;
+      const last = new Date(valid[valid.length - 1].time.getTime() + 60 * 60 * 1000);
+      return `${formatTime(first)}–${formatTime(last)}`;
+    }
+    function findWindowInPreferredPeriods(rows, dayStart, periods, predicate, minHours = 1, isToday = false) {
       const now = new Date();
-      const windows = [
-        { start: 6, end: 10 },
-        { start: 18, end: 21 }
-      ];
-
-      for (const window of windows) {
-        const start = new Date(dayStart);
-        start.setHours(window.start, 0, 0, 0);
-        const end = new Date(dayStart);
-        end.setHours(window.end, 0, 0, 0);
+      for (const period of periods) {
+        const start = makeTime(dayStart, period[0]);
+        const end = makeTime(dayStart, period[1]);
         const effectiveStart = isToday ? new Date(Math.max(start.getTime(), now.getTime())) : start;
-        const slots = rows.filter(row => row.time >= effectiveStart && row.time <= end && row.precip <= 0.1 && row.rainProb < 55);
-        if (slots.length) {
-          const first = slots[0].time;
-          const last = new Date(slots[slots.length - 1].time.getTime() + 60 * 60 * 1000);
-          return `${formatTime(first)}–${formatTime(last)}`;
-        }
+        const periodRows = rowsBetween(rows, effectiveStart, end);
+        const result = findContinuousWindow(periodRows, predicate, minHours);
+        if (result !== "No sensible window") return result;
       }
-
       return "No sensible window";
     }
 
-    function analyseWaterPlantsDay(data, task, dateValue, isToday) {
+    function buildContext(data, task, dateValue, isToday) {
       const now = new Date();
       const dayStart = startOfDay(dateValue);
       const rows = buildHourlyRows(data);
-
-      const taskStart = new Date(dayStart);
-      taskStart.setHours(task.hours[0], 0, 0, 0);
-      const taskEnd = new Date(dayStart);
-      taskEnd.setHours(task.hours[1], 0, 0, 0);
-      const effectiveStart = isToday ? new Date(Math.max(taskStart.getTime(), now.getTime())) : taskStart;
-
-      const useful = rows.filter(row => row.time >= effectiveStart && row.time <= taskEnd);
-      const next6 = rows.filter(row => row.time >= (isToday ? now : taskStart) && row.time <= new Date((isToday ? now : taskStart).getTime() + 6 * 60 * 60 * 1000));
-      const next24 = rows.filter(row => row.time >= (isToday ? now : taskStart) && row.time <= new Date((isToday ? now : taskStart).getTime() + 24 * 60 * 60 * 1000));
-      const past24End = isToday ? now : taskStart;
-      const past24 = rows.filter(row => row.time < past24End && row.time >= new Date(past24End.getTime() - 24 * 60 * 60 * 1000));
-      const past72 = rows.filter(row => row.time < past24End && row.time >= new Date(past24End.getTime() - 72 * 60 * 60 * 1000));
-
+      const daylight = getSunWindowForDate(data, dayStart, task.hours[0], task.hours[1]);
+      const taskStart = makeTime(dayStart, task.hours[0]);
+      const taskEnd = makeTime(dayStart, task.hours[1]);
+      const effectiveStartBase = isOutdoorDaylightTask(selected) ? new Date(Math.max(taskStart.getTime(), daylight.start.getTime())) : taskStart;
+      const effectiveEnd = isOutdoorDaylightTask(selected) ? new Date(Math.min(taskEnd.getTime(), daylight.end.getTime())) : taskEnd;
+      const effectiveStart = isToday ? new Date(Math.max(effectiveStartBase.getTime(), now.getTime())) : effectiveStartBase;
+      const baseTime = isToday ? now : effectiveStartBase;
+      const useful = rowsBetween(rows, effectiveStart, effectiveEnd);
+      const next3 = rowsBetween(rows, baseTime, hoursAfter(baseTime, 3));
+      const next6 = rowsBetween(rows, baseTime, hoursAfter(baseTime, 6));
+      const next12 = rowsBetween(rows, baseTime, hoursAfter(baseTime, 12));
+      const next24 = rowsBetween(rows, baseTime, hoursAfter(baseTime, 24));
+      const past6 = rowsBetween(rows, hoursBefore(baseTime, 6), baseTime);
+      const past12 = rowsBetween(rows, hoursBefore(baseTime, 12), baseTime);
+      const past24 = rowsBetween(rows, hoursBefore(baseTime, 24), baseTime);
+      const past48 = rowsBetween(rows, hoursBefore(baseTime, 48), baseTime);
+      const past72 = rowsBetween(rows, hoursBefore(baseTime, 72), baseTime);
       const currentRain = isToday ? (data.current.precipitation || data.current.rain || 0) : 0;
-      const recentRain24 = past24.reduce((sum, row) => sum + row.precip, 0);
-      const recentRain72 = past72.reduce((sum, row) => sum + row.precip, 0);
-      const rainNext6 = next6.reduce((sum, row) => sum + row.precip, 0);
-      const rainNext24 = next24.reduce((sum, row) => sum + row.precip, 0);
-      const maxRainProb = useful.length ? Math.max(...useful.map(row => row.rainProb), 0) : 100;
-      const maxTemp = useful.length ? Math.max(...useful.map(row => row.temp), data.current.temperature_2m) : data.current.temperature_2m;
-      const minTempNext12 = rows.filter(row => row.time >= (isToday ? now : taskStart) && row.time <= new Date((isToday ? now : taskStart).getTime() + 12 * 60 * 60 * 1000)).reduce((min, row) => Math.min(min, row.temp), 99);
-      const avgWind = useful.length ? useful.reduce((sum, row) => sum + row.wind, 0) / useful.length : 0;
-      const avgHumidity = useful.filter(row => row.humidity !== null).length ? useful.filter(row => row.humidity !== null).reduce((sum, row) => sum + row.humidity, 0) / useful.filter(row => row.humidity !== null).length : null;
-      const evapTotal = useful.reduce((sum, row) => sum + row.evap, 0);
-      const latestSoil = [...rows].reverse().find(row => row.time <= (isToday ? now : taskStart) && row.soil1 !== null);
-      const soilMoisture = latestSoil ? latestSoil.soil1 : null;
-      const rainEndsAt = isToday ? findRainEnds(rows, now) : null;
-      const best = findWateringWindow(rows, dayStart, isToday);
-
-      let score = 50;
-      const blockers = [];
-      const cautions = [];
-      const positives = [];
-
-      if (currentRain > 0) {
-        score -= 35;
-        blockers.push("it is raining now");
-      }
-
-      if (rainNext6 >= 2 || maxRainProb >= 75) {
-        score -= 35;
-        blockers.push("useful rain is likely soon");
-      } else if (rainNext24 >= 2) {
-        score -= 18;
-        cautions.push("rain is expected later, so garden beds may not need watering");
-      } else if (rainNext24 < 1) {
-        score += 18;
-        positives.push("no useful rain is expected soon");
-      }
-
-      if (recentRain24 >= 5) {
-        score -= 35;
-        blockers.push("there has already been enough recent rain for most outdoor plants");
-      } else if (recentRain24 >= 2) {
-        score -= 15;
-        cautions.push("there has been some recent rain, so check soil before watering");
-      } else if (recentRain72 < 2) {
-        score += 22;
-        positives.push("it has been fairly dry recently");
-      }
-
-      if (maxTemp >= 24) {
-        score += 15;
-        positives.push("warm conditions will increase water demand");
-      } else if (maxTemp < 10) {
-        score -= 15;
-        cautions.push("cool conditions reduce watering need");
-      }
-
-      if (avgWind >= 16) {
-        score += 8;
-        positives.push("wind will dry pots and exposed soil faster");
-      }
-
-      if (avgHumidity !== null && avgHumidity < 55) {
-        score += 8;
-        positives.push("low humidity will increase drying");
-      }
-
-      if (evapTotal >= 2) {
-        score += 8;
-        positives.push("evaporation demand looks elevated");
-      }
-
-      if (soilMoisture !== null) {
-        if (soilMoisture < 0.22) {
-          score += 16;
-          positives.push("near-surface soil moisture looks low");
-        } else if (soilMoisture > 0.32) {
-          score -= 16;
-          cautions.push("near-surface soil moisture does not look especially dry");
-        }
-      }
-
-      if (minTempNext12 <= 2) {
-        score -= 25;
-        blockers.push("cold or frost risk makes watering a poor choice");
-      }
-
-      if (isWinterRestPeriod(dayStart) && maxTemp < 12) {
-        score -= 18;
-        cautions.push("seasonal demand is low, so established outdoor beds usually do not need watering");
-      }
-
-      if (best === "No sensible window") {
-        score -= 20;
-        cautions.push("there is no ideal morning or evening watering window left");
-      }
-
-      let status = "CAUTION";
-      let css = "caution";
-      if (score >= 70 && blockers.length === 0) {
-        status = "GO";
-        css = "";
-      }
-      if (score < 45 || blockers.length) {
-        status = "NO";
-        css = "no";
-      }
-
-      if (!positives.length && status === "GO") positives.push("conditions suggest watering could be useful");
-
+      const currentWeatherCode = isToday && data.current.weather_code ? data.current.weather_code : 0;
+      const currentApparent = isToday && data.current.apparent_temperature !== undefined ? data.current.apparent_temperature : null;
+      const rowTemps = useful.map(row => row.temp);
+      const rowFeels = useful.map(row => row.apparent);
+      const rowWind = useful.map(row => row.wind);
+      const rowGust = useful.map(row => row.gust);
+      const rowHumidity = useful.map(row => row.humidity).filter(value => value !== null);
+      const latestSoil = [...rows].reverse().find(row => row.time <= baseTime && row.soil1 !== null);
       return {
-        date: dayStart,
-        label: dayLabel(dayStart),
+        data, rows, dayStart, daylight, taskStart, taskEnd, effectiveStart, effectiveEnd, useful, baseTime,
+        next3, next6, next12, next24, past6, past12, past24, past48, past72,
+        currentRain, currentWeatherCode, currentApparent,
+        rainEndsAt: isToday ? findRainEnds(rows, now) : null,
+        noWindow: !useful.length,
+        daylightLeftHours: useful.length,
+        rain3: mm(next3), rain6: mm(next6), rain12: mm(next12), rain24: mm(next24),
+        rainPast6: mm(past6), rainPast12: mm(past12), rainPast24: mm(past24), rainPast48: mm(past48), rainPast72: mm(past72),
+        maxRainProb: max(useful.map(row => row.rainProb), 0),
+        maxRainProbNext12: max(next12.map(row => row.rainProb), 0),
+        rainTotal: mm(useful),
+        avgTemp: avg(rowTemps, data.current.temperature_2m),
+        maxTemp: max(rowTemps, data.current.temperature_2m),
+        minTemp: min(rowTemps, data.current.temperature_2m),
+        avgFeels: avg(rowFeels, currentApparent || data.current.temperature_2m),
+        minFeels: min(rowFeels, currentApparent || data.current.temperature_2m),
+        maxFeels: max(rowFeels, currentApparent || data.current.temperature_2m),
+        maxWind: max(rowWind, data.current.wind_speed_10m || 0),
+        maxGust: max(rowGust, data.current.wind_speed_10m || 0),
+        avgWind: avg(rowWind, data.current.wind_speed_10m || 0),
+        avgHumidity: rowHumidity.length ? avg(rowHumidity) : null,
+        maxUv: max(useful.map(row => row.uv), 0),
+        evapTotal: sum(useful.map(row => row.evap)),
+        soilMoisture: latestSoil ? latestSoil.soil1 : null,
+        stormLikely: hasStorm(useful) || hasStorm(next12) || currentWeatherCode >= 95,
+        snowOrIceLikely: hasSnowOrIce(useful) || hasSnowOrIce(next12) || [56,57,66,67,71,73,75,77,85,86].includes(currentWeatherCode),
+        fogLikely: hasFog(useful) || hasFog(next6),
+        isToday
+      };
+    }
+    function baseResult(ctx, status, css, score, blockers, cautions, positives, best, task) {
+      return {
+        date: ctx.dayStart,
+        label: dayLabel(ctx.dayStart),
         status,
         css,
         score,
@@ -1093,102 +1077,285 @@
         cautions,
         positives,
         best,
-        rainEndsAt,
-        rain: useful.length ? `${Math.round(maxRainProb)}% max` : "N/A",
-        windMph: avgWind,
-        tempC: maxTemp
+        rainEndsAt: ctx.rainEndsAt,
+        rain: ctx.useful.length ? `${Math.round(ctx.maxRainProb)}% max` : "N/A",
+        windMph: ctx.maxWind || ctx.avgWind || 0,
+        tempC: selected === "jacket" ? ctx.minFeels : (selected === "plants" ? ctx.maxTemp : ctx.avgTemp),
+        taskKey: selected
       };
+    }
+    function scoreToStatus(score, blockers, cautionThreshold = 72, noThreshold = 45) {
+      if (score < noThreshold || blockers.length) return { status: "NO", css: "no" };
+      if (score < cautionThreshold) return { status: "CAUTION", css: "caution" };
+      return { status: "GO", css: "" };
+    }
+
+    function analyseGrass(ctx, task) {
+      let score = 100;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.noWindow) { score -= 50; blockers.push("there is no sensible daylight window left"); }
+      if (ctx.isToday && new Date() > ctx.effectiveEnd) { score -= 45; blockers.push("it is too late in the day for mowing"); }
+      if (ctx.currentRain > 0) { score -= 40; blockers.push("it is raining now"); }
+      if (ctx.rainPast12 > task.recentRain12Limit) { score -= 32; blockers.push("the grass is likely wet from recent rain"); }
+      else if (ctx.rainPast24 > task.recentRain24Limit) { score -= 24; cautions.push("the grass may still be damp from rain in the last 24 hours"); }
+      if (ctx.rainPast48 > task.recentRain48Limit) { score -= 16; cautions.push("the ground may be soft after heavier recent rain"); }
+      if (ctx.rain6 > 0.5 || ctx.maxRainProbNext12 > 60) { score -= 28; cautions.push("rain is possible soon, so the cut may be poor value"); }
+      if (ctx.rainEndsAt && ctx.rainEndsAt.getHours() >= task.lateCutoffHour) { score -= 24; blockers.push(`rain may not clear until around ${formatTime(ctx.rainEndsAt)}, which is late for mowing`); }
+      if (ctx.avgTemp < task.tempMinC) { score -= 22; cautions.push("it is cool, so grass growth is likely limited"); }
+      if (ctx.avgTemp < 6) { score -= 28; blockers.push("it is too cold for a useful grass cut"); }
+      if (isWinterRestPeriod(ctx.dayStart)) { score -= 24; cautions.push("it is the winter rest period, so mowing is usually best avoided unless conditions are unusually dry and mild"); }
+      if (ctx.maxWind > task.windMaxMph || ctx.maxGust > 34) { score -= 18; cautions.push("wind may make mowing messy or uncomfortable"); }
+      if (ctx.snowOrIceLikely) { score -= 50; blockers.push("snow, ice or freezing precipitation risk makes mowing unsuitable"); }
+      const best = findContinuousWindow(ctx.useful, row => row.rainProb <= task.rainProb && row.precip <= 0.05 && row.wind <= task.windMaxMph && row.temp >= task.tempMinC && row.temp <= task.tempMaxC, task.minGoodHours);
+      if (best === "No sensible window") { score -= 20; cautions.push("there is no proper dry mowing window"); }
+      else positives.push("there is a possible dry daylight mowing window");
+      const state = scoreToStatus(score, blockers);
+      return baseResult(ctx, state.status, state.css, score, blockers, cautions, positives, best, task);
+    }
+
+    function analyseWashCar(ctx, task) {
+      let score = 100;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.noWindow) { score -= 40; blockers.push("there is no sensible daylight window left"); }
+      if (ctx.currentRain > 0) { score -= 35; blockers.push("it is raining now"); }
+      if (ctx.rain12 >= 1 || ctx.maxRainProbNext12 > 55) { score -= 32; cautions.push("rain is likely within 12 hours, so the car may not stay clean for long"); }
+      if (ctx.rainPast24 > task.recentRain24Limit) { score -= 14; cautions.push("roads may still be wet or dirty from recent rain"); }
+      if (ctx.minTemp <= 2) { score -= 40; blockers.push("near-freezing temperatures could make washing unsafe or icy"); }
+      if (ctx.maxTemp > task.tempMaxC || (ctx.maxTemp > 23 && ctx.maxUv >= 4)) { score -= 15; cautions.push("warm sun may cause water spots, so avoid the hottest part of the day"); }
+      if (ctx.maxWind > task.windMaxMph || ctx.maxGust > 38) { score -= 16; cautions.push("wind could blow dust or debris back onto the car"); }
+      const best = findContinuousWindow(ctx.useful, row => row.rainProb <= task.rainProb && row.precip <= 0.05 && row.temp >= task.tempMinC && row.temp <= task.tempMaxC && row.wind <= task.windMaxMph, task.minGoodHours);
+      if (best !== "No sensible window") positives.push("there is a usable dry window");
+      const state = scoreToStatus(score, blockers);
+      return baseResult(ctx, state.status, state.css, score, blockers, cautions, positives, best, task);
+    }
+
+    function analyseWashing(ctx, task) {
+      let score = 100;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.noWindow) { score -= 50; blockers.push("there are not enough daylight hours left"); }
+      if (ctx.currentRain > 0) { score -= 40; blockers.push("it is raining now"); }
+      if (ctx.rainTotal > 0.2 || ctx.maxRainProb > task.rainProb) { score -= 34; cautions.push("rain risk is too high for reliable drying"); }
+      if (ctx.avgHumidity !== null && ctx.avgHumidity > task.maxHumidity) { score -= 24; cautions.push("humidity is high, so washing will dry slowly"); }
+      if (ctx.avgTemp < task.tempMinC) { score -= 18; cautions.push("it is cool, so drying will be slow"); }
+      if (ctx.avgWind < 4 && ctx.avgTemp < 14) { score -= 12; cautions.push("there is not much wind to help drying"); }
+      if (ctx.maxWind > task.windMaxMph || ctx.maxGust > 42) { score -= 18; cautions.push("wind may be too strong for hanging washing safely"); }
+      if (ctx.isToday && new Date().getHours() >= task.lateCutoffHour && ctx.avgTemp < 18) { score -= 24; blockers.push("it is too late in the day for washing to dry properly"); }
+      if (ctx.snowOrIceLikely || ctx.minTemp <= 2) { score -= 30; blockers.push("cold or icy conditions make outdoor drying poor"); }
+      const best = findContinuousWindow(ctx.useful, row => row.rainProb <= task.rainProb && row.precip <= 0.05 && row.temp >= task.tempMinC && row.wind <= task.windMaxMph && (row.humidity === null || row.humidity <= task.maxHumidity), task.minGoodHours);
+      if (best === "No sensible window") { score -= 28; blockers.push("there are not enough dry daylight hours for washing to dry properly"); }
+      else positives.push("there is a long enough dry daylight window");
+      const state = scoreToStatus(score, blockers);
+      return baseResult(ctx, state.status, state.css, score, blockers, cautions, positives, best, task);
+    }
+
+    function analysePaint(ctx, task) {
+      let score = 100;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.noWindow) { score -= 50; blockers.push("there is no sensible daylight painting window left"); }
+      if (ctx.currentRain > 0) { score -= 50; blockers.push("it is raining now"); }
+      if (ctx.rainPast24 > task.recentRain24Limit) { score -= 36; blockers.push("surfaces may still be damp from recent rain"); }
+      if (ctx.rain12 > 0.2 || ctx.maxRainProbNext12 > 40) { score -= 42; blockers.push("rain is possible before paint has time to dry or cure"); }
+      if (ctx.avgHumidity !== null && ctx.avgHumidity > task.maxHumidity) { score -= 28; cautions.push("humidity is high, so paint may dry poorly"); }
+      if (ctx.avgTemp < task.tempMinC) { score -= 35; blockers.push("it is too cold for most exterior painting"); }
+      if (ctx.maxTemp > task.tempMaxC) { score -= 22; cautions.push("it may be too hot for a good paint finish"); }
+      if (ctx.maxWind > task.windMaxMph || ctx.maxGust > 30) { score -= 24; cautions.push("wind may affect application and finish"); }
+      if (ctx.snowOrIceLikely || ctx.fogLikely) { score -= 40; blockers.push("damp, foggy, icy or wintry conditions are unsuitable for painting"); }
+      const best = findContinuousWindow(ctx.useful, row => row.rainProb <= task.rainProb && row.precip <= 0.02 && row.temp >= task.tempMinC && row.temp <= task.tempMaxC && row.wind <= task.windMaxMph && (row.humidity === null || row.humidity <= task.maxHumidity), task.minGoodHours);
+      if (best === "No sensible window") { score -= 35; blockers.push("there is not enough dry curing time"); }
+      else positives.push("there is a possible dry painting window");
+      const state = scoreToStatus(score, blockers);
+      return baseResult(ctx, state.status, state.css, score, blockers, cautions, positives, best, task);
+    }
+
+    function analyseBBQ(ctx, task) {
+      let score = 100;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.noWindow) { score -= 30; cautions.push("there is not much usable time left"); }
+      if (ctx.currentRain > 0) { score -= 25; cautions.push("it is raining now"); }
+      if (ctx.stormLikely) { score -= 45; blockers.push("storm risk makes a BBQ a poor idea"); }
+      if (ctx.maxRainProb > 55 || ctx.rainTotal > 1.5) { score -= 30; cautions.push("showers may interrupt cooking or eating outside"); }
+      if (ctx.maxWind > task.windMaxMph || ctx.maxGust > 36) { score -= 35; blockers.push("wind may make cooking unsafe or unpleasant"); }
+      if (ctx.avgTemp < task.tempMinC) { score -= 14; cautions.push("it may feel chilly for eating outside"); }
+      if (ctx.maxTemp > task.tempMaxC || ctx.maxUv >= 7) { score -= 16; cautions.push("heat or strong sun may make it uncomfortable without shade"); }
+      const best = findWindowInPreferredPeriods(ctx.rows, ctx.dayStart, task.mealWindows, row => row.time >= ctx.effectiveStart && row.rainProb <= task.rainProb && row.precip <= 0.1 && row.wind <= task.windMaxMph && row.temp >= task.tempMinC, task.minGoodHours, ctx.isToday);
+      if (best !== "No sensible window") positives.push("there is a usable lunch or evening BBQ window");
+      else { score -= 18; cautions.push("there is no clean lunch or evening BBQ window"); }
+      const state = scoreToStatus(score, blockers);
+      return baseResult(ctx, state.status, state.css, score, blockers, cautions, positives, best, task);
+    }
+
+    function analyseDog(ctx, task) {
+      let score = 100;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.noWindow) { score -= 35; blockers.push("there is no sensible walking window left"); }
+      if (ctx.stormLikely) { score -= 45; blockers.push("storm risk makes dog walking unsafe"); }
+      if (ctx.maxTemp >= task.heatNoC || ctx.maxFeels >= task.heatNoC) { score -= 50; blockers.push("it may be too hot for a safe dog walk"); }
+      else if (ctx.maxTemp >= task.heatCautionC || ctx.maxFeels >= task.heatCautionC) { score -= 25; cautions.push("heat may be uncomfortable for dogs, especially on pavements"); }
+      if (ctx.snowOrIceLikely || (ctx.minTemp <= task.coldCautionC && ctx.rainPast24 > 0.5)) { score -= 22; cautions.push("cold, ice or wet ground may make conditions slippery"); }
+      if (ctx.currentRain > 0) { score -= 10; cautions.push("it is raining now, but a shorter walk may still be fine"); }
+      if (ctx.rainTotal > 2 || ctx.maxRainProb > 70) { score -= 16; cautions.push("expect a wet walk"); }
+      if (ctx.maxWind > task.windMaxMph || ctx.maxGust > 50) { score -= 35; blockers.push("wind may be too strong for exposed routes"); }
+      const best = findContinuousWindow(ctx.useful, row => row.rainProb <= task.rainProb && row.wind <= task.windMaxMph && row.temp >= task.tempMinC && row.temp <= task.tempMaxC && row.apparent <= task.heatNoC && ![95,96,99].includes(row.weatherCode), task.minGoodHours);
+      if (best !== "No sensible window") positives.push("there is a reasonable walking window");
+      const state = scoreToStatus(score, blockers);
+      return baseResult(ctx, state.status, state.css, score, blockers, cautions, positives, best, task);
+    }
+
+    function analyseRun(ctx, task) {
+      let score = 100;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.noWindow) { score -= 35; blockers.push("there is no sensible running window left"); }
+      if (ctx.stormLikely) { score -= 50; blockers.push("storm risk makes running unsafe"); }
+      if (ctx.maxTemp >= task.heatNoC || ctx.maxFeels >= task.heatNoC) { score -= 50; blockers.push("it may be too hot for a safe run"); }
+      else if (ctx.maxTemp >= task.heatCautionC || ctx.maxFeels >= task.heatCautionC) { score -= 20; cautions.push("heat may make running harder, so choose an easier pace or cooler time"); }
+      if (ctx.snowOrIceLikely || (ctx.minTemp <= task.coldCautionC && ctx.rainPast24 > 0.5)) { score -= 24; cautions.push("cold, ice or wet surfaces could make footing poor"); }
+      if (ctx.currentRain > 0) { score -= 8; cautions.push("it is raining now, but running is still possible if you are prepared to get wet"); }
+      if (ctx.rainTotal > 3 || ctx.maxRainProb > 75) { score -= 16; cautions.push("showers are likely, so expect a wet-weather run"); }
+      if (ctx.maxWind > task.windMaxMph || ctx.maxGust > 45) { score -= 35; blockers.push("wind may be too strong for a safe or useful run"); }
+      const best = findContinuousWindow(ctx.useful, row => row.wind <= task.windMaxMph && row.temp >= task.tempMinC && row.temp <= task.tempMaxC && row.apparent <= task.heatNoC && ![95,96,99].includes(row.weatherCode), task.minGoodHours);
+      if (best !== "No sensible window") positives.push("there is a runnable window");
+      const state = scoreToStatus(score, blockers);
+      return baseResult(ctx, state.status, state.css, score, blockers, cautions, positives, best, task);
+    }
+
+    function analyseWindows(ctx, task) {
+      let score = 100;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.noWindow) { score -= 35; blockers.push("there is no sensible daylight window left"); }
+      if (ctx.currentRain > 0) { score -= 35; blockers.push("it is raining now"); }
+      if (ctx.rain12 > 0.5 || ctx.maxRainProbNext12 > 50) { score -= 30; cautions.push("rain is likely soon, so clean windows may not stay clean"); }
+      if (ctx.maxWind > task.windMaxMph || ctx.maxGust > 32) { score -= 22; cautions.push("wind may blow dirt or debris onto the glass"); }
+      if (ctx.minTemp <= 2) { score -= 35; blockers.push("near-freezing conditions could make surfaces slippery or icy"); }
+      if (ctx.maxTemp > task.sunTempCautionC && ctx.maxUv >= 4) { score -= 16; cautions.push("strong sun or warmth may cause streaks, so avoid direct sun"); }
+      const best = findContinuousWindow(ctx.useful, row => row.rainProb <= task.rainProb && row.precip <= 0.05 && row.wind <= task.windMaxMph && row.temp >= task.tempMinC && row.temp <= task.tempMaxC, task.minGoodHours);
+      if (best !== "No sensible window") positives.push("there is a usable dry window");
+      const state = scoreToStatus(score, blockers);
+      return baseResult(ctx, state.status, state.css, score, blockers, cautions, positives, best, task);
+    }
+
+    function findWateringWindow(ctx, task) {
+      const periods = [[6, 10], [18, 21]];
+      return findWindowInPreferredPeriods(ctx.rows, ctx.dayStart, periods, row => row.time >= ctx.effectiveStart && row.precip <= 0.1 && row.rainProb < 55 && row.temp >= task.tempMinC, task.minGoodHours, ctx.isToday);
+    }
+    function analyseWaterPlants(ctx, task) {
+      let score = 50;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.currentRain > 0) { score -= 35; blockers.push("it is raining now"); }
+      if (ctx.rain6 >= task.rainSoonUsefulMm || ctx.maxRainProbNext12 >= 75) { score -= 35; blockers.push("useful rain is likely soon"); }
+      else if (ctx.rain24 >= 2) { score -= 18; cautions.push("rain is expected later, so garden beds may not need watering"); }
+      else { score += 18; positives.push("no useful rain is expected soon"); }
+      if (ctx.rainPast24 >= task.recentRainEnoughMm) { score -= 35; blockers.push("there has already been enough recent rain for most outdoor plants"); }
+      else if (ctx.rainPast24 >= 2) { score -= 15; cautions.push("there has been some recent rain, so check soil before watering"); }
+      else if (ctx.rainPast72 < 2) { score += 22; positives.push("it has been fairly dry recently"); }
+      if (ctx.maxTemp >= 24) { score += 15; positives.push("warm conditions will increase water demand"); }
+      else if (ctx.maxTemp < 10) { score -= 15; cautions.push("cool conditions reduce watering need"); }
+      if (ctx.avgWind >= 16) { score += 8; positives.push("wind will dry pots and exposed soil faster"); }
+      if (ctx.avgHumidity !== null && ctx.avgHumidity < 55) { score += 8; positives.push("low humidity will increase drying"); }
+      if (ctx.evapTotal >= 2) { score += 8; positives.push("evaporation demand looks elevated"); }
+      if (ctx.soilMoisture !== null) {
+        if (ctx.soilMoisture < 0.22) { score += 16; positives.push("near-surface soil moisture looks low"); }
+        else if (ctx.soilMoisture > 0.32) { score -= 16; cautions.push("near-surface soil moisture does not look especially dry"); }
+      }
+      if (min(ctx.next12.map(row => row.temp), 99) <= 2) { score -= 25; blockers.push("cold or frost risk makes watering a poor choice"); }
+      if (isWinterRestPeriod(ctx.dayStart) && ctx.maxTemp < 12) { score -= 18; cautions.push("seasonal demand is low, so established outdoor beds usually do not need watering"); }
+      const best = findWateringWindow(ctx, task);
+      if (best === "No sensible window") { score -= 20; cautions.push("there is no ideal morning or evening watering window left"); }
+      let status = "CHECK";
+      let css = "caution";
+      if (score >= 70 && blockers.length === 0) { status = "WATER"; css = ""; }
+      if (score < 45 || blockers.length) { status = "WAIT"; css = "no"; }
+      return baseResult(ctx, status, css, score, blockers, cautions, positives, best, task);
+    }
+
+    function analyseJacket(ctx, task) {
+      let score = 0;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.minFeels <= task.coatFeelsC) { score += 40; positives.push("it will feel cold enough for a coat"); }
+      else if (ctx.minFeels <= task.lightJacketFeelsC) { score += 24; positives.push("a light layer may be useful"); }
+      if (ctx.rain24 > 0.5 || ctx.maxRainProb >= task.rainProb) { score += 24; positives.push("rain risk means a waterproof layer is sensible"); }
+      if (ctx.maxWind > 18) { score += 14; positives.push("wind will make it feel cooler"); }
+      if (ctx.maxTemp - ctx.minTemp > 8) { score += 10; cautions.push("temperatures vary through the day, so a removable layer is useful"); }
+      if (ctx.stormLikely) { score += 20; positives.push("stormy conditions make waterproof outerwear sensible"); }
+      if (ctx.minFeels > 16 && ctx.rain24 < 0.5 && ctx.maxWind < 16) { blockers.push("it looks mild and mostly dry"); }
+      let status = "NO";
+      let css = "no";
+      let best = "Not needed";
+      if (score >= 45) { status = "TAKE ONE"; css = ""; best = "Take one"; }
+      else if (score >= 22) { status = "MAYBE"; css = "caution"; best = "Light layer"; }
+      return baseResult(ctx, status, css, score, blockers, cautions, positives, best, task);
+    }
+
+    function analyseFallback(ctx, task) {
+      let score = 100;
+      const blockers = [], cautions = [], positives = [];
+      if (ctx.noWindow) { score -= 50; blockers.push("there is no sensible daylight window left"); }
+      if (ctx.currentRain > 0) {
+        if (isRainTolerantTask(selected) && ctx.currentRain <= 2) { score -= 10; cautions.push("it is raining now, but this is manageable if you are prepared for wet weather"); }
+        else { score -= 35; blockers.push("it is raining now"); }
+      }
+      if (ctx.maxRainProb > task.rainProb) {
+        if (isRainTolerantTask(selected)) { score -= Math.min(16, (ctx.maxRainProb - task.rainProb) * 0.35); cautions.push("showers are likely, so expect a wet-weather version of this activity"); }
+        else { score -= Math.min(35, (ctx.maxRainProb - task.rainProb) * 0.75); cautions.push("rain risk is higher than ideal"); }
+      }
+      if (ctx.rainTotal > 0.8) { score -= 20; cautions.push("rain is expected during the usable window"); }
+      if (ctx.maxWind > task.windMaxMph) { score -= Math.min(25, (ctx.maxWind - task.windMaxMph) * 1.2); cautions.push("wind may be too strong"); }
+      if (ctx.avgTemp < task.tempMinC) { score -= 18; cautions.push("it may be too cold"); }
+      if (ctx.avgTemp > task.tempMaxC) { score -= 18; cautions.push("it may be too hot"); }
+      const best = findContinuousWindow(ctx.useful, row => row.rainProb <= task.rainProb && row.precip < 0.2 && row.wind <= task.windMaxMph && row.temp >= task.tempMinC && row.temp <= task.tempMaxC, task.minGoodHours || 1);
+      if (best !== "No sensible window") positives.push("there is a usable window");
+      const state = scoreToStatus(score, blockers);
+      return baseResult(ctx, state.status, state.css, score, blockers, cautions, positives, best, task);
     }
 
     function analyseDay(data, task, dateValue, isToday) {
-      if (selected === "plants") return analyseWaterPlantsDay(data, task, dateValue, isToday);
-      const taskKey = selected;
-      const now = new Date();
-      const dayStart = startOfDay(dateValue);
-      const rows = buildHourlyRows(data);
-      const daylight = getSunWindowForDate(data, dayStart, task.hours[0], task.hours[1]);
-      const taskStart = new Date(dayStart); taskStart.setHours(task.hours[0], 0, 0, 0);
-      const taskEnd = new Date(dayStart); taskEnd.setHours(task.hours[1], 0, 0, 0);
-      const effectiveStartBase = isOutdoorDaylightTask(taskKey) ? new Date(Math.max(taskStart.getTime(), daylight.start.getTime())) : taskStart;
-      const effectiveEnd = isOutdoorDaylightTask(taskKey) ? new Date(Math.min(taskEnd.getTime(), daylight.end.getTime())) : taskEnd;
-      const effectiveStart = isToday ? new Date(Math.max(effectiveStartBase.getTime(), now.getTime())) : effectiveStartBase;
-      const useful = rows.filter(row => row.time >= effectiveStart && row.time <= effectiveEnd);
-      const prior24End = isToday ? now : effectiveStartBase;
-      const past24 = rows.filter(row => row.time < prior24End && row.time >= new Date(prior24End.getTime() - 24 * 60 * 60 * 1000));
-      const maxRain = useful.length ? Math.max(...useful.map(row => row.rainProb), 0) : 100;
-      const rainTotal = useful.reduce((sum, row) => sum + row.precip, 0);
-      const recentRain = past24.reduce((sum, row) => sum + row.precip, 0);
-      const maxWind = useful.length ? Math.max(...useful.map(row => row.wind), 0) : 0;
-      const avgTemp = useful.length ? useful.reduce((sum, row) => sum + row.temp, 0) / useful.length : data.current.temperature_2m;
-      const currentRain = isToday ? (data.current.precipitation || data.current.rain || 0) : 0;
-      const rainEndsAt = isToday ? findRainEnds(rows, now) : null;
-
-      let score = 100;
-      const blockers = [], cautions = [], positives = [];
-      if (!useful.length) { score -= 50; blockers.push("there is no sensible daylight window left"); }
-      if (isToday && isOutdoorDaylightTask(taskKey) && now > effectiveEnd) { score -= 45; blockers.push("it is too late in the day for this job"); }
-      if (currentRain > 0) {
-        if (isRainTolerantTask(taskKey) && currentRain <= 2) { score -= 10; cautions.push("it is raining now, but this is manageable if you are prepared for wet weather"); }
-        else { score -= 35; blockers.push("it is raining now"); }
+      const ctx = buildContext(data, task, dateValue, isToday);
+      switch (selected) {
+        case "grass": return analyseGrass(ctx, task);
+        case "washCar": return analyseWashCar(ctx, task);
+        case "washing": return analyseWashing(ctx, task);
+        case "paint": return analysePaint(ctx, task);
+        case "bbq": return analyseBBQ(ctx, task);
+        case "dog": return analyseDog(ctx, task);
+        case "jacket": return analyseJacket(ctx, task);
+        case "run": return analyseRun(ctx, task);
+        case "windows": return analyseWindows(ctx, task);
+        case "plants": return analyseWaterPlants(ctx, task);
+        default: return analyseFallback(ctx, task);
       }
-      if (maxRain > task.rainProb) {
-        if (isRainTolerantTask(taskKey)) { score -= Math.min(16, (maxRain - task.rainProb) * 0.35); cautions.push("showers are likely, so expect a wet-weather version of this activity"); }
-        else { score -= Math.min(35, (maxRain - task.rainProb) * 0.75); cautions.push("rain risk is higher than ideal"); }
-      }
-      if (rainTotal > 0.8) {
-        if (isRainTolerantTask(taskKey) && rainTotal <= 3) { score -= 8; cautions.push("some rain is expected during the usable window"); }
-        else { score -= 20; cautions.push("rain is expected during the usable window"); }
-      }
-      if (maxWind > task.windMaxMph) { score -= Math.min(25, (maxWind - task.windMaxMph) * 1.2); cautions.push("wind may be too strong"); }
-      if (avgTemp < task.tempMinC) { score -= 18; cautions.push("it may be too cold"); }
-      if (avgTemp > task.tempMaxC) { score -= 18; cautions.push("it may be too hot"); }
-      if (isDryGroundTask(taskKey) && recentRain > 1.5) {
-        score -= recentRain > 4 ? 35 : 22;
-        const wetReason = taskKey === "grass" ? "the grass is likely still wet from earlier rain" : "surfaces may still be wet from earlier rain";
-        if (recentRain > 4) blockers.push(wetReason); else cautions.push(wetReason);
-      }
-      if (isDryingTask(taskKey) && useful.length) {
-        const dryHours = useful.filter(row => row.rainProb <= task.rainProb && row.precip < 0.2 && row.wind <= task.windMaxMph && row.temp >= task.tempMinC).length;
-        if (dryHours < 3) { score -= 35; blockers.push("there are not enough dry daylight hours for washing to dry properly"); }
-      }
-      if (taskKey === "grass" && isWinterRestPeriod(dayStart)) { score -= 28; cautions.push("it is the winter rest period, so grass cutting is usually best avoided unless growth is active and the ground is dry"); }
-      if (taskKey === "grass" && avgTemp < 6) { score -= 30; blockers.push("it is too cold for a useful grass cut"); }
-      if (useful.length && blockers.length === 0) positives.push("there is a usable window");
-
-      const goodSlots = useful.filter(row => row.rainProb <= task.rainProb && row.precip < 0.2 && row.wind <= task.windMaxMph && row.temp >= task.tempMinC && row.temp <= task.tempMaxC);
-      let best = "No sensible window";
-      if (goodSlots.length) {
-        const first = goodSlots[0].time;
-        const last = new Date(goodSlots[goodSlots.length - 1].time.getTime() + 60 * 60 * 1000);
-        best = `${formatTime(first)}–${formatTime(last)}`;
-      }
-      let status = "GO", css = "";
-      if (score < 45 || blockers.length) { status = "NO"; css = "no"; }
-      else if (score < 72 || cautions.length) { status = "CAUTION"; css = "caution"; }
-      return { date: dayStart, label: dayLabel(dayStart), status, css, score, blockers, cautions, positives, best, rainEndsAt, rain: useful.length ? `${Math.round(maxRain)}% max` : "N/A", windMph: maxWind, tempC: avgTemp };
     }
 
     function findNextBetterDay(data, task) {
       if (!data.daily || !data.daily.time) return null;
       const today = startOfDay(new Date());
-      const candidates = data.daily.time.map(day => startOfDay(new Date(day))).filter(day => day > today).map(day => analyseDay(data, task, day, false)).filter(result => result.status !== "NO");
+      const candidates = data.daily.time
+        .map(day => startOfDay(new Date(day)))
+        .filter(day => day > today)
+        .map(day => analyseDay(data, task, day, false))
+        .filter(result => !["NO", "WAIT"].includes(result.status));
       if (!candidates.length) return null;
-      return candidates.find(result => result.status === "GO") || candidates[0];
+      return candidates.find(result => ["GO", "WATER", "TAKE ONE"].includes(result.status)) || candidates[0];
     }
 
     function buildRecommendation(todayResult, nextBetter) {
       const taskKey = selected;
-      if (todayResult.status === "GO") {
+      if (["GO", "WATER", "TAKE ONE"].includes(todayResult.status)) {
         if (taskKey === "plants") return `Recommendation: water during ${todayResult.best}. Prioritise pots, hanging baskets, new plants and anything under cover.`;
+        if (taskKey === "jacket") return "Recommendation: take a coat or waterproof layer.";
         return `Recommendation: do it ${todayResult.label} during ${todayResult.best}.`;
       }
-      if (todayResult.status === "CAUTION") {
+      if (["CAUTION", "CHECK", "MAYBE"].includes(todayResult.status)) {
         if (taskKey === "plants") return nextBetter ? `Recommendation: check the soil first. Water pots, baskets and covered plants only if dry; for normal garden beds, the better option looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: check the soil first. Water pots, baskets and covered plants only if dry.";
-        if (taskKey === "run") return todayResult.best !== "No sensible window" ? `Recommendation: go during ${todayResult.best} if you are happy running in possible showers; otherwise the cleaner option looks like ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "checking again later"}.` : `Recommendation: wait for a clearer window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
+        if (taskKey === "jacket") return "Recommendation: a light layer or waterproof is sensible if you will be out for long.";
+        if (taskKey === "run") return todayResult.best !== "No sensible window" ? `Recommendation: go during ${todayResult.best} if you are happy with the conditions; otherwise the cleaner option looks like ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "checking again later"}.` : `Recommendation: wait for a clearer window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
         if (taskKey === "dog") return todayResult.best !== "No sensible window" ? `Recommendation: a shorter walk during ${todayResult.best} is reasonable if conditions on the ground are safe; otherwise try ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "again later"}.` : `Recommendation: wait for a safer walking window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
+        if (taskKey === "grass") return nextBetter ? `Recommendation: do not force it; the better practical mowing window looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: leave it for now and reassess when the grass has dried.";
+        if (taskKey === "paint") return nextBetter ? `Recommendation: wait for a longer dry spell; the better option looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: wait for a longer dry spell before painting.";
+        if (taskKey === "washing") return nextBetter ? `Recommendation: today is marginal; the better drying window looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: only hang washing out if you can bring it in quickly.";
+        if (taskKey === "washCar") return nextBetter ? `Recommendation: today is possible but may be poor value; the better car-wash window looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: possible, but it may not stay clean for long.";
         return nextBetter ? `Recommendation: today is possible but not ideal; the better option looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: possible today, but only if local conditions are better than forecast.";
       }
-      if (taskKey === "plants") return nextBetter ? `Recommendation: wait for now. If pots or covered plants are dry, water them by hand; otherwise the next useful watering window looks like ${nextBetter.label}, ${nextBetter.best}.` : `Recommendation: wait for now. Only water pots or covered plants if they are dry to the touch.`;
+      if (taskKey === "plants") return nextBetter ? `Recommendation: wait for now. If pots or covered plants are dry, water them by hand; otherwise the next useful watering window looks like ${nextBetter.label}, ${nextBetter.best}.` : "Recommendation: wait for now. Only water pots or covered plants if they are dry to the touch.";
+      if (taskKey === "jacket") return "Recommendation: no coat needed unless you personally feel the cold.";
       return nextBetter ? `Recommendation: leave it ${todayResult.label}; the next better window looks like ${nextBetter.label}, ${nextBetter.best}.` : `Recommendation: leave it ${todayResult.label} and reassess when the forecast improves.`;
     }
 
@@ -1197,9 +1364,16 @@
       const nextBetter = findNextBetterDay(data, task);
       const rainText = todayResult.rainEndsAt ? ` Rain appears to ease around ${formatTime(todayResult.rainEndsAt)}.` : "";
       const recommendation = buildRecommendation(todayResult, nextBetter);
-      let reason = `SITREP: GO. ${formatList(todayResult.positives)}. Best window: ${todayResult.best}. ${recommendation}`;
-      if (todayResult.status === "CAUTION") reason = `SITREP: CAUTION.${rainText} Possible, but ${formatList(todayResult.cautions)}. Best window: ${todayResult.best}. ${recommendation}`;
-      if (todayResult.status === "NO") reason = `SITREP: NO-GO.${rainText} ${formatList([...todayResult.blockers, ...todayResult.cautions].slice(0, 3))}. ${recommendation}`;
+      const issues = formatList([...todayResult.blockers, ...todayResult.cautions].slice(0, 3));
+      const positives = formatList(todayResult.positives.slice(0, 3));
+      let reason;
+      if (["GO", "WATER", "TAKE ONE"].includes(todayResult.status)) {
+        reason = `SITREP: ${todayResult.status}. ${positives}. Best window: ${todayResult.best}. ${recommendation}`;
+      } else if (["CAUTION", "CHECK", "MAYBE"].includes(todayResult.status)) {
+        reason = `SITREP: ${todayResult.status}.${rainText} ${issues}. Best window: ${todayResult.best}. ${recommendation}`;
+      } else {
+        reason = `SITREP: ${todayResult.status}.${rainText} ${issues}. ${recommendation}`;
+      }
       return { status: todayResult.status, css: todayResult.css, reason, best: todayResult.best, rain: todayResult.rain, windMph: todayResult.windMph, tempC: todayResult.tempC };
     }
 
