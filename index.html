@@ -1016,6 +1016,14 @@
       return taskKey === "washing";
     }
 
+    function isRainTolerantTask(taskKey) {
+      return ["run", "dog"].includes(taskKey);
+    }
+
+    function isRainSensitiveTask(taskKey) {
+      return ["grass", "washing", "paint", "windows", "washCar"].includes(taskKey);
+    }
+
     function isWinterRestPeriod(dateValue) {
       const month = dateValue.getMonth();
       const northernWinter = [11, 0, 1].includes(month);
@@ -1144,18 +1152,33 @@
       }
 
       if (currentRain > 0) {
-        score -= 35;
-        blockers.push("it is raining now");
+        if (isRainTolerantTask(taskKey) && currentRain <= 2) {
+          score -= 10;
+          cautions.push("it is raining now, but this is manageable if you are prepared for wet weather");
+        } else {
+          score -= 35;
+          blockers.push("it is raining now");
+        }
       }
 
       if (maxRain > task.rainProb) {
-        score -= Math.min(35, (maxRain - task.rainProb) * 0.75);
-        cautions.push("rain risk is higher than ideal");
+        if (isRainTolerantTask(taskKey)) {
+          score -= Math.min(16, (maxRain - task.rainProb) * 0.35);
+          cautions.push("showers are likely, so expect a wet-weather version of this activity");
+        } else {
+          score -= Math.min(35, (maxRain - task.rainProb) * 0.75);
+          cautions.push("rain risk is higher than ideal");
+        }
       }
 
       if (rainTotal > 0.8) {
-        score -= 20;
-        cautions.push("rain is expected during the usable window");
+        if (isRainTolerantTask(taskKey) && rainTotal <= 3) {
+          score -= 8;
+          cautions.push("some rain is expected during the usable window");
+        } else {
+          score -= 20;
+          cautions.push("rain is expected during the usable window");
+        }
       }
 
       if (maxWind > task.windMaxMph) {
@@ -1259,10 +1282,23 @@
     }
 
     function buildRecommendation(todayResult, nextBetter) {
-      if (todayResult.status === "GO") return `Recommendation: do it ${todayResult.label} during ${todayResult.best}.`;
-      if (nextBetter) return `Recommendation: leave it ${todayResult.label}; the next better window looks like ${nextBetter.label}, ${nextBetter.best}.`;
-      return `Recommendation: leave it ${todayResult.label} and reassess when the forecast improves.`;
-    }
+      const taskKey = selected;
+
+      if (todayResult.status === "GO") {
+        return `Recommendation: do it ${todayResult.label} during ${todayResult.best}.`;
+      }
+
+      if (todayResult.status === "CAUTION") {
+        if (taskKey === "run") {
+          if (todayResult.best !== "No sensible window") {
+            return `Recommendation: go during ${todayResult.best} if you are happy running in possible showers; otherwise the cleaner option looks like ${nextBetter ? `${nextBetter.label}, ${nextBetter.best}` : "checking again later"}.`;
+          }
+          return `Recommendation: wait for a clearer window ${nextBetter ? `on ${nextBetter.label}, ${nextBetter.best}` : "later"}.`;
+        }
+
+        if (taskKey === "dog") {
+          if (todayResult.best !== "No sensible window") {
+            return `Recommendation: a shorter walk during ${todayResult.best} is reasonable if condi
 
     function analyse(data, task) {
       const today = startOfDay(new Date());
