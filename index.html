@@ -475,73 +475,37 @@
 
     .result{
       display:none;
-      margin:30px 0 0;
-      border:2px solid rgba(22,120,60,.18);
-      border-radius:34px;
-      background:
-        linear-gradient(135deg,rgba(236,253,243,.95),rgba(255,255,255,.98) 48%,rgba(255,255,255,1));
-      box-shadow:0 28px 90px rgba(20,36,25,.18);
+      margin:24px 0 0;
+      border:1px solid var(--line);
+      border-radius:30px;
+      background:#fff;
+      box-shadow:var(--shadow-soft);
       overflow:hidden;
       text-align:left;
-      position:relative;
     }
 
-    .result::before{
-      content:"";
-      position:absolute;
-      inset:0 auto 0 0;
-      width:10px;
-      background:var(--green);
-    }
-
-    .result.show{
-      display:block;
-      animation:resultPop .22s ease-out;
-    }
-
-    .result.caution{
-      border-color:rgba(180,83,9,.28);
-      background:linear-gradient(135deg,rgba(255,247,237,.96),rgba(255,255,255,.98) 50%,#fff);
-    }
-
-    .result.caution::before{background:var(--amber)}
-
-    .result.no{
-      border-color:rgba(185,28,28,.28);
-      background:linear-gradient(135deg,rgba(255,241,242,.96),rgba(255,255,255,.98) 50%,#fff);
-    }
-
-    .result.no::before{background:var(--red)}
-
-    .result.loading-result::before{background:var(--muted)}
-
-    @keyframes resultPop{
-      from{opacity:0;transform:translateY(8px)}
-      to{opacity:1;transform:translateY(0)}
-    }
+    .result.show{display:block}
 
     .result-top{
       display:grid;
-      grid-template-columns:220px minmax(0,1fr);
-      gap:20px;
+      grid-template-columns:190px minmax(0,1fr);
+      gap:18px;
       align-items:stretch;
-      padding:22px 22px 22px 30px;
+      padding:18px;
     }
 
     .answer{
-      min-height:172px;
-      border-radius:28px;
+      min-height:150px;
+      border-radius:24px;
       display:grid;
       place-items:center;
       text-align:center;
-      padding:18px;
-      background:#dcfce7;
+      padding:16px;
+      background:#ecfdf3;
       color:var(--green);
-      border:1px solid rgba(22,120,60,.16);
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 18px 34px rgba(22,120,60,.16);
-      font-size:clamp(2rem,4.2vw,3.1rem);
-      line-height:.86;
-      letter-spacing:-.06em;
+      font-size:clamp(1.7rem,3.5vw,2.55rem);
+      line-height:.9;
+      letter-spacing:-.055em;
       font-weight:1000;
       text-transform:uppercase;
     }
@@ -551,18 +515,17 @@
     .answer.loading{background:#f4f7f2;color:var(--muted)}
 
     .question{
-      margin:2px 0 8px;
+      margin:2px 0 6px;
       font-weight:1000;
-      font-size:clamp(1.45rem,2.6vw,2rem);
-      letter-spacing:-.05em;
-      line-height:1.08;
+      font-size:clamp(1.25rem,2.2vw,1.68rem);
+      letter-spacing:-.045em;
+      line-height:1.1;
     }
 
     .reason{
       margin:0;
       color:var(--soft-ink);
-      font-size:1.08rem;
-      font-weight:650;
+      font-size:1.02rem;
     }
 
     .why-wrap{
@@ -625,12 +588,6 @@
       gap:18px;
       margin:34px auto 0;
       width:100%;
-      text-align:left;
-    }
-
-    .how-section{
-      margin:34px auto 0;
-      width:min(820px,100%);
       text-align:left;
     }
 
@@ -856,14 +813,6 @@
         <div class="tasks" id="taskButtons" aria-label="Choose a task"></div>
       </section>
 
-      <section class="task-area" aria-label="Choose a task">
-        <div class="section-title">
-          <h2>Choose the job</h2>
-          <p id="hint">Selected: cut grass</p>
-        </div>
-        <div class="tasks" id="taskButtons" aria-label="Choose a task"></div>
-      </section>
-
       <section class="result" id="result" aria-live="polite">
         <div class="result-top">
           <div class="answer loading" id="answer">CHECK</div>
@@ -884,16 +833,54 @@
         </div>
       </section>
 
-      <section class="how-section" aria-label="How it works">
+      <section class="content-grid" aria-label="Helpful information">
         <div class="panel">
-          <h2>How it works</h2>
+          <h2>Popular weather checks</h2>
+          <p>These are the everyday decisions the checker is built around.</p>
+          <div class="link-grid">
+            <a href="/uk/should-i-cut-the-grass-today/">Should I cut the grass today?</a>
+            <a href="/uk/can-i-hang-washing-out-today/">Can I hang washing out today?</a>
+            <a href="/uk/should-i-water-the-plants-today/">Should I water the plants today?</a>
+            <a href="/uk/should-i-bbq-today/">Should I BBQ today?</a>
+            <a href="/uk/should-i-go-for-a-run-today/">Should I go for a run today?</a>
+            <a href="/uk/do-i-need-a-coat-today/">Do I need a coat today?</a>
+          </div>
+          <p class="seo-line" id="seoLine"></p>
+        </div>
+
+        <div class="panel">
+          <h2>Weekend weather decisions</h2>
+          <p>Planning ahead? These weekend checks are built for activities where the weather needs a proper decision, not just a forecast.</p>
+          <div class="link-grid">
+            <a href="/uk/should-i-go-camping-this-weekend/">Should I go camping this weekend?</a>
+            <a href="/uk/should-i-have-a-bbq-this-weekend/">Should I have a BBQ this weekend?</a>
+            <a href="/uk/should-i-go-hiking-this-weekend/">Should I go hiking this weekend?</a>
+            <a href="/uk/should-i-go-to-the-beach-this-weekend/">Should I go to the beach this weekend?</a>
+            <a href="/uk/should-i-go-fishing-this-weekend/">Should I go fishing this weekend?</a>
+            <a href="/uk/should-i-play-golf-this-weekend/">Should I play golf this weekend?</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>What the answer means</h2>
+          <p><strong>GO</strong> means the weather looks suitable. <strong>CAUTION</strong> means it may be possible, but there is a practical issue to check. <strong>NO-GO</strong> means waiting is probably the better choice.</p>
+          <p>The checker uses local forecast data, recent rain, daylight, wind, temperature and task-specific common-sense rules.</p>
+        </div>
+
+        <div class="panel">
+          <h3>How it works</h3>
           <ul>
-            <li>Choose the job or activity you are thinking about.</li>
+            <li>Enter a town, city or postcode.</li>
+            <li>Choose the job you are considering.</li>
             <li>Pick today, tomorrow or the weekend.</li>
-            <li>Enter a town, city or postcode, or use your device location.</li>
-            <li>Get a simple GO, CAUTION or NO-GO with the best window and the main weather reasons.</li>
+            <li>Get a short decision, best window and reasons.</li>
           </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Limitations</h3>
           <p>This is practical weather guidance, not a guarantee. Always check the actual conditions where you are, especially for storms, ice, heat, tools, ladders, pets and outdoor cooking.</p>
+          <p>Weather data is provided by Open-Meteo.</p>
         </div>
       </section>
     </main>
@@ -1546,7 +1533,7 @@
     }
 
     function loading(){
-      document.getElementById("result").className="result show loading-result";
+      document.getElementById("result").classList.add("show");
       document.getElementById("answer").className="answer loading";
       document.getElementById("answer").textContent="…";
       document.getElementById("reason").textContent="Checking the local forecast…";
@@ -1555,8 +1542,6 @@
     }
 
     function render(place,r){
-      const resultBox=document.getElementById("result");
-      resultBox.className=`result show ${r.css||"go"}`;
       const task=taskConfig();
       document.getElementById("question").textContent=`${periodQuestion(task,selectedPeriod)} — ${place}`;
       document.getElementById("reason").textContent=r.reason;
@@ -1570,7 +1555,7 @@
     }
 
     function showError(message){
-      document.getElementById("result").className="result show caution";
+      document.getElementById("result").classList.add("show");
       document.getElementById("question").textContent="Could not complete check";
       document.getElementById("reason").textContent=message;
       document.getElementById("answer").className="answer caution";
