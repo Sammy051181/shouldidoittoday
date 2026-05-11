@@ -3,105 +3,1459 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Should I Do It Today? | Local Weather-Based GO / CAUTION / NO-GO</title>
-  <meta name="description" content="Should I do it today? Enter your location and get a local weather SITREP for cutting grass, washing the car, hanging washing, painting outside, BBQs, running, walking the dog, watering plants and more." />
+
+  <title>Should I Do It Today? | Weather-Based GO / CAUTION / NO-GO Checker</title>
+  <meta name="description" content="Should I do it today? Get a simple local weather-based GO, CAUTION or NO-GO for cutting grass, hanging washing, washing the car, BBQs, running, dog walks and more." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/" />
+
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Should I Do It Today?" />
   <meta property="og:title" content="Should I Do It Today?" />
-  <meta property="og:description" content="A simple local weather-based GO / CAUTION / NO-GO checker for everyday outdoor tasks." />
+  <meta property="og:description" content="A simple local weather-based GO / CAUTION / NO-GO checker for everyday outdoor jobs." />
   <meta property="og:url" content="https://shouldidoittoday.com/" />
   <meta name="twitter:card" content="summary" />
+
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebSite","name":"Should I Do It Today?","url":"https://shouldidoittoday.com/","description":"A simple weather-based decision tool for everyday outdoor tasks."}
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Should I Do It Today?",
+    "url": "https://shouldidoittoday.com/",
+    "applicationCategory": "WeatherApplication",
+    "operatingSystem": "Any",
+    "description": "A simple weather-based decision tool for everyday outdoor jobs."
+  }
   </script>
+
   <style>
-    :root{--ink:#122033;--muted:#64748b;--line:#dbe7ef;--accent:#0f766e;--accent2:#14b8a6;--go:#0f766e;--caution:#b45309;--no:#dc2626;--shadow:0 18px 55px rgba(15,23,42,.10)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 80% 8%,rgba(20,184,166,.15),transparent 32%),radial-gradient(circle at 10% 88%,rgba(15,118,110,.10),transparent 30%),#fff;line-height:1.5}button,input,select{font:inherit}.page{width:min(980px,calc(100% - 28px));margin:0 auto;min-height:100vh;display:flex;flex-direction:column}header{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:18px 0}.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}.weather-icon{flex:0 0 auto;overflow:visible;filter:drop-shadow(0 8px 18px rgba(15,118,110,.14))}.brand .weather-icon{width:48px;height:38px}.brand-wordmark{display:grid;line-height:.92;font-weight:950;letter-spacing:-.055em;font-size:1.02rem}.brand-wordmark strong{color:#22c55e;font-size:1.16em;letter-spacing:-.06em}.top-help{color:var(--muted);font-size:.9rem;font-weight:700}main{flex:1;padding:34px 0 48px}.hero{width:100%;text-align:center}.main-logo-lockup{display:grid;justify-items:center;gap:8px;margin:0 auto 18px}.main-logo-lockup .weather-icon{width:min(210px,48vw);height:auto}.main-logo-text{display:grid;justify-items:center;line-height:.92;font-weight:950;letter-spacing:-.07em;font-size:clamp(2.4rem,7vw,4.6rem);color:var(--ink)}.main-logo-text strong{color:#22c55e;font-size:1.16em;letter-spacing:-.075em}.tagline{margin-top:6px;color:var(--muted);font-size:.78rem;font-weight:850;letter-spacing:.28em;text-transform:uppercase}.hero-title-hidden,.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.status-pill{display:inline-flex;align-items:center;gap:8px;min-height:34px;padding:7px 12px;border-radius:999px;background:rgba(15,118,110,.08);color:var(--accent);border:1px solid rgba(15,118,110,.16);font-size:.9rem;font-weight:850;margin-top:4px;margin-bottom:14px}.pulse{width:8px;height:8px;border-radius:999px;background:var(--accent2);box-shadow:0 0 0 5px rgba(20,184,166,.16)}.lead{margin:0 auto 20px;max-width:650px;color:var(--muted);font-size:clamp(1.02rem,2vw,1.18rem)}.region-row{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin:0 auto 16px;color:var(--muted);font-size:.9rem;font-weight:750}.region-row select{border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);padding:7px 34px 7px 14px;cursor:pointer;outline:none;min-width:150px}.region-row select:focus,.search-input:focus{border-color:var(--accent2);box-shadow:0 0 0 4px rgba(20,184,166,.14)}.search-card{width:min(680px,100%);margin:0 auto;padding:12px;border:1px solid var(--line);border-radius:26px;background:rgba(255,255,255,.92);box-shadow:var(--shadow);backdrop-filter:blur(14px)}.search-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center}.search-input{min-width:0;width:100%;border:1px solid var(--line);border-radius:17px;padding:14px 15px;outline:none;color:var(--ink);background:#fff}.btn{border:0;border-radius:17px;padding:14px 16px;cursor:pointer;font-weight:900;white-space:nowrap}.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#0b5f59}.btn-secondary{background:#ecfdf8;color:var(--accent);border:1px solid #b7ebe3}.btn-secondary:hover{background:#dcf8f1}.tasks{width:min(820px,100%);margin:18px auto 0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.task{border:1px solid var(--line);border-radius:20px;background:#fff;color:var(--ink);padding:12px 10px;cursor:pointer;font-weight:850;box-shadow:0 4px 16px rgba(15,23,42,.04);transition:transform .15s ease,border-color .15s ease,background .15s ease,box-shadow .15s ease}.task:hover{transform:translateY(-2px);border-color:#b7ebe3;box-shadow:0 10px 24px rgba(15,23,42,.08)}.task.active{border-color:#99efe1;background:#ecfdf8;color:var(--accent)}.task span{display:block;font-size:1.45rem;margin-bottom:4px}.hint{margin:13px 0 0;color:var(--muted);font-size:.92rem}.result{display:none;width:min(760px,100%);margin:18px auto 0;border:1px solid var(--line);border-radius:26px;background:#fff;box-shadow:0 14px 42px rgba(15,23,42,.09);overflow:hidden;text-align:left}.result.show{display:block}.result-main{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;padding:18px}.answer{min-height:92px;border-radius:21px;display:grid;place-items:center;text-align:center;padding:12px;background:#ecfdf8;color:var(--go);font-size:clamp(1.25rem,3.4vw,1.9rem);line-height:.95;letter-spacing:-.04em;font-weight:1000}.answer.caution{background:#fffbeb;color:var(--caution);font-size:clamp(1rem,2.4vw,1.45rem);letter-spacing:-.03em}.answer.no{background:#fff1f2;color:var(--no)}.question{margin:0 0 5px;font-weight:900;font-size:1.12rem;letter-spacing:-.025em}.reason{margin:0;color:var(--muted)}.why{margin:12px 0 0;padding-left:1.1rem;color:var(--muted)}.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.fact{background:#fff;padding:13px}.fact span{display:block;color:var(--muted);font-size:.76rem;font-weight:850;margin-bottom:3px}.fact strong{display:block;font-size:.95rem}.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:42px auto 0;width:min(920px,100%);text-align:left}.panel{border:1px solid var(--line);border-radius:24px;background:#fff;padding:22px;box-shadow:0 10px 28px rgba(15,23,42,.05)}.panel h2,.panel h3{margin-top:0;letter-spacing:-.035em}.panel p,.panel li{color:var(--muted)}.link-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.link-grid a{display:block;border:1px solid var(--line);border-radius:14px;padding:10px 12px;color:var(--accent);text-decoration:none;font-weight:750;background:#fbfeff}.link-grid a:hover{border-color:#99efe1;background:#ecfdf8}.seo-line{width:min(760px,100%);margin:22px auto 0;color:var(--muted);font-size:.9rem}.seo-line strong{color:var(--ink)}footer{padding:20px 0 24px;color:var(--muted);text-align:center;font-size:.82rem}@media (max-width:900px){.tasks{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}}@media (max-width:760px){main{padding-top:32px}.search-row{grid-template-columns:1fr}.btn{width:100%}.result-main{grid-template-columns:1fr}.answer{min-height:72px}.facts{grid-template-columns:repeat(2,1fr)}}@media (max-width:430px){.page{width:min(100% - 20px,860px)}header{justify-content:center}.top-help{display:none}.tasks{grid-template-columns:1fr}.facts{grid-template-columns:1fr}.tagline{letter-spacing:.18em}}
+    :root{
+      --bg:#f5f8f1;
+      --bg2:#eef7ed;
+      --ink:#162119;
+      --soft-ink:#24352a;
+      --muted:#607063;
+      --line:#dce8da;
+      --card:#ffffff;
+      --card2:#fbfefb;
+      --green:#16783c;
+      --green2:#22c55e;
+      --teal:#0f766e;
+      --teal2:#14b8a6;
+      --amber:#b45309;
+      --amber-bg:#fff7ed;
+      --red:#b91c1c;
+      --red-bg:#fff1f2;
+      --blue:#2563eb;
+      --shadow:0 24px 70px rgba(20,36,25,.12);
+      --shadow-soft:0 12px 34px rgba(20,36,25,.08);
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 82% 5%, rgba(34,197,94,.18), transparent 28%),
+        radial-gradient(circle at 12% 24%, rgba(20,184,166,.12), transparent 24%),
+        linear-gradient(180deg,#fbfdf9 0%,var(--bg) 46%,#ffffff 100%);
+      line-height:1.5;
+    }
+
+    button,input,select{font:inherit}
+    button{touch-action:manipulation}
+
+    .skip{
+      position:absolute;
+      left:-999px;
+      top:12px;
+      z-index:99;
+      background:var(--ink);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:12px;
+      text-decoration:none;
+    }
+    .skip:focus{left:12px}
+
+    .page{
+      width:min(1120px,calc(100% - 28px));
+      margin:0 auto;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:1rem;
+      padding:18px 0;
+    }
+
+    .brand{
+      display:inline-flex;
+      align-items:center;
+      gap:11px;
+      text-decoration:none;
+      color:var(--ink);
+    }
+
+    .weather-icon{
+      flex:0 0 auto;
+      overflow:visible;
+      filter:drop-shadow(0 10px 18px rgba(15,118,110,.14));
+    }
+
+    .brand .weather-icon{width:48px;height:38px}
+
+    .brand-wordmark{
+      display:grid;
+      line-height:.95;
+      font-weight:950;
+      letter-spacing:-.055em;
+      font-size:1.03rem;
+    }
+
+    .brand-wordmark strong{
+      color:var(--green2);
+      font-size:1.15em;
+      letter-spacing:-.065em;
+    }
+
+    .top-help{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      color:var(--muted);
+      font-size:.91rem;
+      font-weight:800;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(220,232,218,.9);
+      border-radius:999px;
+      padding:8px 12px;
+      box-shadow:0 8px 24px rgba(20,36,25,.05);
+    }
+
+    .top-help::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:var(--green2);
+      box-shadow:0 0 0 5px rgba(34,197,94,.12);
+    }
+
+    main{flex:1;padding:26px 0 52px}
+
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1.04fr) minmax(330px,.96fr);
+      gap:28px;
+      align-items:start;
+    }
+
+    .hero-copy{padding-top:18px}
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      min-height:34px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(22,120,60,.08);
+      color:var(--green);
+      border:1px solid rgba(22,120,60,.16);
+      font-size:.9rem;
+      font-weight:900;
+      margin-bottom:16px;
+    }
+
+    .kicker span{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:var(--green2);
+    }
+
+    h1{
+      margin:0;
+      max-width:740px;
+      font-size:clamp(3rem,7.4vw,6.2rem);
+      line-height:.88;
+      letter-spacing:-.085em;
+      font-weight:1000;
+    }
+
+    h1 strong{
+      color:var(--green2);
+      display:block;
+      font-size:1.08em;
+    }
+
+    .lead{
+      margin:18px 0 0;
+      max-width:650px;
+      color:var(--muted);
+      font-size:clamp(1.05rem,1.6vw,1.24rem);
+    }
+
+    .benefit-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+      margin:22px 0 0;
+    }
+
+    .benefit{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:9px 11px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.78);
+      color:var(--soft-ink);
+      font-weight:850;
+      font-size:.92rem;
+    }
+
+    .checker-card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.88);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+      padding:18px;
+      position:sticky;
+      top:14px;
+    }
+
+    .checker-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:13px;
+    }
+
+    .checker-head h2{
+      margin:0;
+      letter-spacing:-.04em;
+      font-size:1.22rem;
+    }
+
+    .checker-head p{
+      margin:3px 0 0;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .region-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:.91rem;
+      font-weight:800;
+    }
+
+    .region-row select{
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:var(--ink);
+      padding:8px 32px 8px 13px;
+      cursor:pointer;
+      outline:none;
+      min-width:148px;
+    }
+
+    .period-tabs{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:8px;
+      background:#eef7ed;
+      border:1px solid #d4ead1;
+      border-radius:20px;
+      padding:6px;
+      margin-bottom:12px;
+    }
+
+    .period-tab{
+      border:0;
+      border-radius:15px;
+      background:transparent;
+      color:var(--muted);
+      font-weight:950;
+      padding:10px 8px;
+      cursor:pointer;
+    }
+
+    .period-tab.active{
+      background:#fff;
+      color:var(--green);
+      box-shadow:0 8px 18px rgba(20,36,25,.08);
+    }
+
+    .search-card{
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:var(--card2);
+    }
+
+    .search-row{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:8px;
+      align-items:center;
+    }
+
+    .search-input{
+      min-width:0;
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:17px;
+      padding:14px 14px;
+      outline:none;
+      color:var(--ink);
+      background:#fff;
+    }
+
+    .search-input:focus,.region-row select:focus{
+      border-color:var(--teal2);
+      box-shadow:0 0 0 4px rgba(20,184,166,.14);
+    }
+
+    .btn{
+      border:0;
+      border-radius:17px;
+      padding:14px 16px;
+      cursor:pointer;
+      font-weight:950;
+      white-space:nowrap;
+      transition:transform .15s ease,background .15s ease,box-shadow .15s ease;
+    }
+
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--green);color:#fff;box-shadow:0 10px 22px rgba(22,120,60,.18)}
+    .btn-primary:hover{background:#115f31}
+    .btn-secondary{width:100%;margin-top:8px;background:#ecfdf8;color:var(--teal);border:1px solid #b7ebe3}
+    .btn-secondary:hover{background:#dcf8f1}
+
+    .status-pill{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-height:38px;
+      padding:8px 11px;
+      border-radius:17px;
+      background:rgba(22,120,60,.07);
+      color:var(--green);
+      border:1px solid rgba(22,120,60,.15);
+      font-size:.89rem;
+      font-weight:850;
+      margin-top:11px;
+    }
+
+    .pulse{
+      width:8px;
+      height:8px;
+      flex:0 0 auto;
+      border-radius:999px;
+      background:var(--teal2);
+      box-shadow:0 0 0 5px rgba(20,184,166,.16);
+    }
+
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    .task-area{
+      margin:26px 0 0;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:16px;
+      margin:0 0 12px;
+    }
+
+    .section-title h2{
+      margin:0;
+      font-size:1.25rem;
+      letter-spacing:-.04em;
+    }
+
+    .section-title p{
+      margin:0;
+      color:var(--muted);
+      font-size:.93rem;
+      font-weight:750;
+    }
+
+    .tasks{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:10px;
+    }
+
+    .task{
+      border:1px solid var(--line);
+      border-radius:21px;
+      background:#fff;
+      color:var(--ink);
+      padding:13px 10px;
+      cursor:pointer;
+      font-weight:900;
+      box-shadow:0 6px 20px rgba(20,36,25,.05);
+      transition:transform .15s ease,border-color .15s ease,background .15s ease,box-shadow .15s ease;
+      min-height:84px;
+    }
+
+    .task:hover{
+      transform:translateY(-2px);
+      border-color:#aee8c4;
+      box-shadow:0 14px 28px rgba(20,36,25,.09);
+    }
+
+    .task.active{
+      border-color:#95e3b0;
+      background:#effdf3;
+      color:var(--green);
+      box-shadow:0 12px 28px rgba(22,120,60,.10);
+    }
+
+    .task span{display:block;font-size:1.58rem;margin-bottom:5px}
+
+    .result{
+      display:none;
+      margin:24px 0 0;
+      border:1px solid var(--line);
+      border-radius:30px;
+      background:#fff;
+      box-shadow:var(--shadow-soft);
+      overflow:hidden;
+      text-align:left;
+    }
+
+    .result.show{display:block}
+
+    .result-top{
+      display:grid;
+      grid-template-columns:190px minmax(0,1fr);
+      gap:18px;
+      align-items:stretch;
+      padding:18px;
+    }
+
+    .answer{
+      min-height:150px;
+      border-radius:24px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:16px;
+      background:#ecfdf3;
+      color:var(--green);
+      font-size:clamp(1.7rem,3.5vw,2.55rem);
+      line-height:.9;
+      letter-spacing:-.055em;
+      font-weight:1000;
+      text-transform:uppercase;
+    }
+
+    .answer.caution{background:var(--amber-bg);color:var(--amber);font-size:clamp(1.3rem,2.6vw,1.95rem)}
+    .answer.no{background:var(--red-bg);color:var(--red)}
+    .answer.loading{background:#f4f7f2;color:var(--muted)}
+
+    .question{
+      margin:2px 0 6px;
+      font-weight:1000;
+      font-size:clamp(1.25rem,2.2vw,1.68rem);
+      letter-spacing:-.045em;
+      line-height:1.1;
+    }
+
+    .reason{
+      margin:0;
+      color:var(--soft-ink);
+      font-size:1.02rem;
+    }
+
+    .why-wrap{
+      margin-top:13px;
+      padding:12px 14px;
+      border:1px solid #e4eee2;
+      border-radius:18px;
+      background:#fbfefb;
+    }
+
+    .why-title{
+      margin:0 0 6px;
+      color:var(--ink);
+      font-size:.84rem;
+      font-weight:950;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .why{
+      margin:0;
+      padding-left:1.1rem;
+      color:var(--muted);
+    }
+
+    .why li+li{margin-top:2px}
+
+    .facts{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1px;
+      background:var(--line);
+      border-top:1px solid var(--line);
+    }
+
+    .fact{
+      background:#fff;
+      padding:15px;
+    }
+
+    .fact span{
+      display:block;
+      color:var(--muted);
+      font-size:.78rem;
+      font-weight:950;
+      margin-bottom:4px;
+      text-transform:uppercase;
+      letter-spacing:.07em;
+    }
+
+    .fact strong{
+      display:block;
+      font-size:1rem;
+      letter-spacing:-.02em;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      margin:34px auto 0;
+      width:100%;
+      text-align:left;
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius:26px;
+      background:rgba(255,255,255,.88);
+      padding:23px;
+      box-shadow:0 10px 28px rgba(20,36,25,.05);
+    }
+
+    .panel h2,.panel h3{
+      margin:0 0 9px;
+      letter-spacing:-.04em;
+      line-height:1.1;
+    }
+
+    .panel p,.panel li{color:var(--muted)}
+    .panel p{margin:0 0 10px}
+    .panel p:last-child{margin-bottom:0}
+
+    .link-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:13px;
+    }
+
+    .link-grid a{
+      display:block;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:11px 12px;
+      color:var(--green);
+      text-decoration:none;
+      font-weight:850;
+      background:#fbfefb;
+    }
+
+    .link-grid a:hover{border-color:#95e3b0;background:#effdf3}
+
+    .seo-line{
+      margin:15px 0 0;
+      color:var(--muted);
+      font-size:.91rem;
+    }
+
+    .seo-line strong{color:var(--ink)}
+
+    footer{
+      padding:22px 0 28px;
+      color:var(--muted);
+      text-align:center;
+      font-size:.84rem;
+    }
+
+    @media (max-width:960px){
+      .hero{grid-template-columns:1fr;gap:18px}
+      .checker-card{position:relative;top:0;order:-1}
+      .hero-copy{text-align:center;padding-top:10px}
+      .lead{margin-left:auto;margin-right:auto}
+      .benefit-row{justify-content:center}
+      .tasks{grid-template-columns:repeat(3,1fr)}
+      .content-grid{grid-template-columns:1fr}
+    }
+
+    @media (max-width:760px){
+      main{padding-top:18px}
+      header{align-items:flex-start}
+      .top-help{display:none}
+      .checker-head{display:block}
+      .region-row{align-items:flex-start;flex-direction:column}
+      .region-row select{width:100%}
+      .search-row{grid-template-columns:1fr}
+      .btn{width:100%}
+      .tasks{grid-template-columns:repeat(2,1fr)}
+      .result-top{grid-template-columns:1fr}
+      .answer{min-height:86px}
+      .facts{grid-template-columns:repeat(2,1fr)}
+      .link-grid{grid-template-columns:1fr}
+      .section-title{display:block}
+      .section-title p{margin-top:4px}
+    }
+
+    @media (max-width:430px){
+      .page{width:min(100% - 20px,1120px)}
+      .tasks{grid-template-columns:1fr}
+      .facts{grid-template-columns:1fr}
+      h1{font-size:clamp(2.8rem,18vw,4.2rem)}
+      .checker-card{padding:13px;border-radius:24px}
+    }
   </style>
 </head>
+
 <body>
+  <a href="#main" class="skip">Skip to content</a>
+
   <div class="page">
     <header>
       <a class="brand" href="/" aria-label="Should I Do It Today home">
-        <svg class="weather-icon" viewBox="0 0 110 78" role="img" aria-label="Weather check logo"><circle cx="31" cy="24" r="16" fill="#fbbf24"/><path d="M31 2v9M9 24h9M15 8l7 7M48 8l-7 7" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/><path d="M30 62h49c11 0 20-9 20-20s-9-20-20-20c-5 0-9 1-13 4C62 16 52 10 40 10c-15 0-27 11-28 26C6 39 3 45 3 51c0 6 5 11 12 11h15z" fill="#fff" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M36 43l11 11 25-29" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M80 60c0 4-3 8-8 8s-8-4-8-8c0-6 8-16 8-16s8 10 8 16z" fill="#3b82f6"/><path d="M88 50h14M84 59h16M89 68h9" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round"/></svg>
+        <svg class="weather-icon" viewBox="0 0 110 78" role="img" aria-label="Weather check logo">
+          <circle cx="31" cy="24" r="16" fill="#fbbf24"/>
+          <path d="M31 2v9M9 24h9M15 8l7 7M48 8l-7 7" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+          <path d="M30 62h49c11 0 20-9 20-20s-9-20-20-20c-5 0-9 1-13 4C62 16 52 10 40 10c-15 0-27 11-28 26C6 39 3 45 3 51c0 6 5 11 12 11h15z" fill="#fff" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M36 43l11 11 25-29" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M80 60c0 4-3 8-8 8s-8-4-8-8c0-6 8-16 8-16s8 10 8 16z" fill="#3b82f6"/>
+          <path d="M88 50h14M84 59h16M89 68h9" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round"/>
+        </svg>
         <span class="brand-wordmark"><span>Should I Do It</span><strong>Today?</strong></span>
       </a>
       <div class="top-help">Local weather. Simple answer.</div>
     </header>
 
-    <main>
+    <main id="main">
       <section class="hero" aria-labelledby="title">
-        <div class="main-logo-lockup" aria-hidden="true">
-          <svg class="weather-icon" viewBox="0 0 110 78" focusable="false"><circle cx="31" cy="24" r="16" fill="#fbbf24"/><path d="M31 2v9M9 24h9M15 8l7 7M48 8l-7 7" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/><path d="M30 62h49c11 0 20-9 20-20s-9-20-20-20c-5 0-9 1-13 4C62 16 52 10 40 10c-15 0-27 11-28 26C6 39 3 45 3 51c0 6 5 11 12 11h15z" fill="#fff" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M36 43l11 11 25-29" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M80 60c0 4-3 8-8 8s-8-4-8-8c0-6 8-16 8-16s8 10 8 16z" fill="#3b82f6"/><path d="M88 50h14M84 59h16M89 68h9" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round"/></svg>
-          <div class="main-logo-text"><span>Should I</span><span>Do It</span><strong>Today?</strong></div>
-          <div class="tagline">Weather. Decisions. Done.</div>
+        <div class="hero-copy">
+          <div class="kicker"><span></span> Your daily decision board</div>
+          <h1 id="title">Should I do it <strong>today?</strong></h1>
+          <p class="lead">Get a practical local weather-based GO, CAUTION or NO-GO for everyday outdoor jobs like mowing, hanging washing, washing the car, BBQs, running and dog walks.</p>
+          <div class="benefit-row" aria-label="Key benefits">
+            <div class="benefit">⚡ Fast answer</div>
+            <div class="benefit">📍 Local forecast</div>
+            <div class="benefit">🧠 Plain-English reasons</div>
+            <div class="benefit">✅ No account needed</div>
+          </div>
+
+          <div class="task-area">
+            <div class="section-title">
+              <h2>Choose the job</h2>
+              <p id="hint">Selected: cut grass</p>
+            </div>
+            <div class="tasks" id="taskButtons" aria-label="Choose a task"></div>
+          </div>
         </div>
-        <h1 id="title" class="hero-title-hidden">Should I Do It Today?</h1>
-        <div class="status-pill" id="locationStatus"><span>Type a location or tap Use my location</span></div>
-        <p class="lead">Choose a job, use your current location or type a place, and get a fast GO / CAUTION / NO-GO answer.</p>
-        <div class="region-row"><label for="regionSelect">Region:</label><select id="regionSelect" aria-label="Choose regional wording"><option value="UK">UK</option><option value="IE">Ireland</option><option value="US">US</option><option value="CA">Canada</option><option value="AU">Australia</option><option value="NZ">New Zealand</option></select></div>
-        <div class="search-card"><div class="search-row"><label class="sr-only" for="locationInput">Enter your location</label><input id="locationInput" class="search-input" type="search" placeholder="Enter a location" autocomplete="off" maxlength="80"/><button id="checkBtn" class="btn btn-primary" type="button">Check</button><button id="geoBtn" class="btn btn-secondary" type="button">Use my location</button></div></div>
-        <div class="tasks" id="taskButtons" aria-label="Choose a task"></div>
-        <p class="hint" id="hint">Selected: cut grass</p>
-        <div class="result" id="result" aria-live="polite"><div class="result-main"><div class="answer" id="answer">CHECK</div><div><p class="question" id="question">Choose a task and location</p><p class="reason" id="reason">Enter a location to get a local SITREP.</p><ul class="why" id="whyList"></ul></div></div><div class="facts"><div class="fact"><span>Best time</span><strong id="bestTime">—</strong></div><div class="fact"><span>Rain</span><strong id="rain">—</strong></div><div class="fact"><span>Wind</span><strong id="wind">—</strong></div><div class="fact"><span>Temp</span><strong id="temp">—</strong></div></div></div>
-        <p class="seo-line" id="seoLine"></p>
+
+        <aside class="checker-card" aria-label="Weather decision checker">
+          <div class="checker-head">
+            <div>
+              <h2>Check your local conditions</h2>
+              <p>Use a town, city, postcode or your device location.</p>
+            </div>
+          </div>
+
+          <div class="region-row">
+            <label for="regionSelect">Regional wording</label>
+            <select id="regionSelect" aria-label="Choose regional wording">
+              <option value="UK">UK</option>
+              <option value="IE">Ireland</option>
+              <option value="US">US</option>
+              <option value="CA">Canada</option>
+              <option value="AU">Australia</option>
+              <option value="NZ">New Zealand</option>
+            </select>
+          </div>
+
+          <div class="period-tabs" aria-label="Choose forecast period">
+            <button class="period-tab active" type="button" data-period="today">Today</button>
+            <button class="period-tab" type="button" data-period="tomorrow">Tomorrow</button>
+            <button class="period-tab" type="button" data-period="weekend">Weekend</button>
+          </div>
+
+          <div class="search-card">
+            <div class="search-row">
+              <label class="sr-only" for="locationInput">Enter your location</label>
+              <input id="locationInput" class="search-input" type="search" placeholder="Enter a location" autocomplete="off" maxlength="80"/>
+              <button id="checkBtn" class="btn btn-primary" type="button">Check</button>
+            </div>
+            <button id="geoBtn" class="btn btn-secondary" type="button">Use my location</button>
+          </div>
+
+          <div class="status-pill" id="locationStatus"><span>Type a location or tap Use my location</span></div>
+        </aside>
+      </section>
+
+      <section class="result" id="result" aria-live="polite">
+        <div class="result-top">
+          <div class="answer loading" id="answer">CHECK</div>
+          <div>
+            <p class="question" id="question">Choose a task and location</p>
+            <p class="reason" id="reason">Enter a location to get a local decision.</p>
+            <div class="why-wrap">
+              <p class="why-title">Why this answer?</p>
+              <ul class="why" id="whyList"><li>Choose a task and location to see the reasons.</li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="facts">
+          <div class="fact"><span>Best window</span><strong id="bestTime">—</strong></div>
+          <div class="fact"><span>Rain risk</span><strong id="rain">—</strong></div>
+          <div class="fact"><span>Wind</span><strong id="wind">—</strong></div>
+          <div class="fact"><span>Temperature</span><strong id="temp">—</strong></div>
+        </div>
       </section>
 
       <section class="content-grid" aria-label="Helpful information">
-        <div class="panel"><h2>Popular weather checks</h2><div class="link-grid"><a href="/uk/should-i-cut-the-grass-today/">Should I cut the grass today?</a><a href="/uk/can-i-hang-washing-out-today/">Can I hang washing out today?</a><a href="/uk/should-i-water-the-plants-today/">Should I water the plants today?</a><a href="/uk/should-i-bbq-today/">Should I BBQ today?</a><a href="/uk/should-i-go-for-a-run-today/">Should I go for a run today?</a><a href="/uk/do-i-need-a-coat-today/">Do I need a coat today?</a></div></div>
-        <div class="panel"><h2>What the answer means</h2><p><strong>GO</strong> means the weather looks suitable. <strong>CAUTION</strong> means it may be possible, but there is a practical issue to check. <strong>NO-GO</strong> means waiting is likely the better choice.</p><p>The checker uses local forecast data, recent rain, daylight, wind, temperature and task-specific common-sense rules.</p></div>
-        <div class="panel"><h3>How it works</h3><ul><li>Enter a town, city or postcode.</li><li>Choose the job you are considering.</li><li>Get a short SITREP, a best window and the reasons behind the decision.</li></ul></div>
-        <div class="panel"><h3>Limitations</h3><p>This is practical guidance, not a guarantee. Always check the actual conditions where you are, especially for storms, ice, heat, tools, ladders, pets and outdoor cooking.</p></div>
+        <div class="panel">
+          <h2>Popular weather checks</h2>
+          <p>These are the everyday decisions the checker is built around.</p>
+          <div class="link-grid">
+            <a href="/uk/should-i-cut-the-grass-today/">Should I cut the grass today?</a>
+            <a href="/uk/can-i-hang-washing-out-today/">Can I hang washing out today?</a>
+            <a href="/uk/should-i-water-the-plants-today/">Should I water the plants today?</a>
+            <a href="/uk/should-i-bbq-today/">Should I BBQ today?</a>
+            <a href="/uk/should-i-go-for-a-run-today/">Should I go for a run today?</a>
+            <a href="/uk/do-i-need-a-coat-today/">Do I need a coat today?</a>
+          </div>
+          <p class="seo-line" id="seoLine"></p>
+        </div>
+
+        <div class="panel">
+          <h2>What the answer means</h2>
+          <p><strong>GO</strong> means the weather looks suitable. <strong>CAUTION</strong> means it may be possible, but there is a practical issue to check. <strong>NO-GO</strong> means waiting is probably the better choice.</p>
+          <p>The checker uses local forecast data, recent rain, daylight, wind, temperature and task-specific common-sense rules.</p>
+        </div>
+
+        <div class="panel">
+          <h3>How it works</h3>
+          <ul>
+            <li>Enter a town, city or postcode.</li>
+            <li>Choose the job you are considering.</li>
+            <li>Pick today, tomorrow or the weekend.</li>
+            <li>Get a short decision, best window and reasons.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Limitations</h3>
+          <p>This is practical weather guidance, not a guarantee. Always check the actual conditions where you are, especially for storms, ice, heat, tools, ladders, pets and outdoor cooking.</p>
+          <p>Weather data is provided by Open-Meteo.</p>
+        </div>
       </section>
     </main>
+
     <footer>Practical weather-based guidance only. Always check actual local conditions. Weather data by Open-Meteo.</footer>
   </div>
 
   <script>
-    const REGIONS={UK:{name:"UK",locale:"en-GB",tempUnit:"C",windUnit:"mph",placeholder:"Enter town, city or postcode, e.g. Bristol",popularPrefix:"Popular UK checks",seo:["should I cut the grass today","can I hang washing out today","should I water the plants today","do I need a coat today","should I BBQ today"],tasks:{grass:{icon:"🌱",label:"Cut grass",question:"Should I cut the grass today?",slug:"should-i-cut-the-grass-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Hang washing",question:"Can I hang washing out today?",slug:"can-i-hang-washing-out-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"BBQ",question:"Should I BBQ today?",slug:"should-i-bbq-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk the dog today?",slug:"should-i-walk-the-dog-today"},jacket:{icon:"🧥",label:"Need coat",question:"Do I need a coat today?",slug:"do-i-need-a-coat-today"},run:{icon:"🏃",label:"Go running",question:"Should I go for a run today?",slug:"should-i-go-for-a-run-today"},windows:{icon:"🪟",label:"Clean windows",question:"Should I clean the windows today?",slug:"should-i-clean-the-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water the plants today?",slug:"should-i-water-the-plants-today"}}},IE:{name:"Ireland",locale:"en-IE",tempUnit:"C",windUnit:"kmh",placeholder:"Enter town or city, e.g. Dublin",popularPrefix:"Popular Ireland checks",seo:["should I cut the grass today","can I hang washing out today","should I water the plants today","do I need a jacket today","should I BBQ today"],tasks:null},US:{name:"US",locale:"en-US",tempUnit:"F",windUnit:"mph",placeholder:"Enter city, state or ZIP code, e.g. Boston or 02108",popularPrefix:"Popular US checks",seo:["should I mow the lawn today","can I dry laundry outside today","should I water my plants today","should I grill today","do I need a jacket today"],tasks:{grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Dry laundry",question:"Can I dry laundry outside today?",slug:"can-i-dry-laundry-outside-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"Grill",question:"Should I grill today?",slug:"should-i-grill-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk my dog today?",slug:"should-i-walk-my-dog-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},run:{icon:"🏃",label:"Run",question:"Should I run today?",slug:"should-i-run-today"},windows:{icon:"🪟",label:"Wash windows",question:"Should I wash windows today?",slug:"should-i-wash-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}}},CA:{name:"Canada",locale:"en-CA",tempUnit:"C",windUnit:"kmh",placeholder:"Enter city or postal code, e.g. Toronto",popularPrefix:"Popular Canada checks",seo:["should I mow the lawn today","can I dry laundry outside today","should I water my plants today","do I need a jacket today","should I BBQ today"],tasks:null},AU:{name:"Australia",locale:"en-AU",tempUnit:"C",windUnit:"kmh",placeholder:"Enter suburb, town or postcode, e.g. Sydney",popularPrefix:"Popular Australia checks",seo:["should I mow the lawn today","can I hang washing out today","should I water the plants today","should I BBQ today","is it too hot to walk the dog today"],tasks:null},NZ:{name:"New Zealand",locale:"en-NZ",tempUnit:"C",windUnit:"kmh",placeholder:"Enter town, city or postcode, e.g. Auckland",popularPrefix:"Popular New Zealand checks",seo:["should I mow the lawn today","can I hang washing out today","should I water the plants today","should I BBQ today","do I need a jacket today"],tasks:null}};
-    REGIONS.IE.tasks=REGIONS.UK.tasks;REGIONS.CA.tasks=REGIONS.US.tasks;REGIONS.AU.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},dog:{icon:"🐕",label:"Walk dog",question:"Is it too hot to walk the dog today?",slug:"is-it-too-hot-to-walk-the-dog-today"}};REGIONS.NZ.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"}};
-    const RULES={grass:{rainProb:30,windMaxMph:26,tempMinC:8,tempMaxC:28,hours:[8,18],minHours:2},washCar:{rainProb:30,windMaxMph:30,tempMinC:4,tempMaxC:26,hours:[8,19],minHours:2},washing:{rainProb:22,windMaxMph:34,tempMinC:8,tempMaxC:32,hours:[7,18],minHours:4},paint:{rainProb:15,windMaxMph:22,tempMinC:10,tempMaxC:25,hours:[9,17],minHours:5},bbq:{rainProb:40,windMaxMph:28,tempMinC:10,tempMaxC:34,hours:[11,21],minHours:2},dog:{rainProb:60,windMaxMph:42,tempMinC:-2,tempMaxC:26,hours:[6,22],minHours:1},jacket:{rainProb:45,windMaxMph:34,tempMinC:12,tempMaxC:100,hours:[6,23],minHours:1},run:{rainProb:60,windMaxMph:35,tempMinC:2,tempMaxC:25,hours:[5,22],minHours:1},windows:{rainProb:25,windMaxMph:24,tempMinC:4,tempMaxC:25,hours:[8,17],minHours:2},plants:{rainProb:45,windMaxMph:35,tempMinC:4,tempMaxC:32,hours:[6,21],minHours:1}};
-    const COUNTRY_TO_REGION={GB:"UK",IE:"IE",US:"US",CA:"CA",AU:"AU",NZ:"NZ"};let selected="grass";let currentRegionKey=getInitialRegion();let detectedLocation=null;
-    const locationInput=document.getElementById("locationInput"),taskButtons=document.getElementById("taskButtons"),hint=document.getElementById("hint"),locationStatus=document.getElementById("locationStatus"),regionSelect=document.getElementById("regionSelect"),seoLine=document.getElementById("seoLine");
-    function getInitialRegion(){const lang=(navigator.language||"en-GB").toUpperCase();if(lang.includes("US"))return"US";if(lang.includes("CA"))return"CA";if(lang.includes("AU"))return"AU";if(lang.includes("NZ"))return"NZ";if(lang.includes("IE"))return"IE";return"UK"}function region(){return REGIONS[currentRegionKey]||REGIONS.UK}function taskConfig(taskKey=selected){return Object.assign({},RULES[taskKey],region().tasks[taskKey])}
-    function init(){const params=new URLSearchParams(window.location.search);const regionParam=(params.get("region")||"").toUpperCase();if(REGIONS[regionParam])currentRegionKey=regionParam;regionSelect.value=currentRegionKey;applyRegion(false);const taskParam=params.get("task");if(taskParam){const found=Object.entries(region().tasks).find(([,task])=>task.slug===taskParam);if(found)selected=found[0]}const loc=params.get("location");if(loc)locationInput.value=loc;renderTasks();if(locationInput.value.trim())checkFromText();else setLocationStatus("Type a location or tap Use my location",false)}
-    function applyRegion(shouldCheck){const p=region();document.documentElement.lang=p.locale;locationInput.placeholder=p.placeholder;seoLine.innerHTML=`<strong>${p.popularPrefix}:</strong> ${p.seo.join(", ")}.`;renderTasks();if(shouldCheck){if(locationInput.value.trim())checkFromText();else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name)}}
-    function renderTasks(){const p=region();if(!p.tasks[selected])selected="grass";taskButtons.innerHTML=Object.entries(p.tasks).map(([key,task])=>`<button class="task ${key===selected?"active":""}" type="button" data-task="${key}"><span>${task.icon}</span>${task.label}</button>`).join("");document.querySelectorAll("[data-task]").forEach(button=>{button.addEventListener("click",()=>{selected=button.dataset.task;document.querySelectorAll("[data-task]").forEach(btn=>btn.classList.remove("active"));button.classList.add("active");updateHintAndQuestion();if(locationInput.value.trim())checkFromText();else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name)})});updateHintAndQuestion()}
-    function updateHintAndQuestion(){const task=taskConfig();hint.textContent=`Selected: ${task.label.toLowerCase()}`;document.getElementById("question").textContent=task.question;document.title=`${task.question} | Weather-Based Answer`}
-    function validateLocationInput(value){const trimmed=value.trim();if(!trimmed)return{ok:false,message:"Enter a town, city or postcode."};if(trimmed.length>80)return{ok:false,message:"Location is too long. Try a town, city or postcode."};for(let i=0;i<trimmed.length;i+=1){const code=trimmed.charCodeAt(i);if(code<32||code===127)return{ok:false,message:"Location contains unsupported characters."}}if(trimmed.includes("<")||trimmed.includes(">"))return{ok:false,message:"Location contains unsupported characters."};return{ok:true,value:trimmed}}
-    function setLocationStatus(text,active=true){locationStatus.textContent="";if(active){const pulse=document.createElement("span");pulse.className="pulse";locationStatus.appendChild(pulse)}const label=document.createElement("span");label.textContent=text;locationStatus.appendChild(label)}
-    function preferredCountryCode(){return{UK:"GB",IE:"IE",US:"US",CA:"CA",AU:"AU",NZ:"NZ"}[currentRegionKey]||"GB"}function setRegionFromCountryCode(code){const newRegion=COUNTRY_TO_REGION[code]||currentRegionKey;if(newRegion!==currentRegionKey){currentRegionKey=newRegion;regionSelect.value=currentRegionKey;applyRegion(false)}}function setRegionFromTimezone(tz){if(!tz)return;if(tz==="Europe/London")setRegionFromCountryCode("GB");else if(tz==="Europe/Dublin")setRegionFromCountryCode("IE");else if(tz.startsWith("Australia/"))setRegionFromCountryCode("AU");else if(tz.startsWith("Pacific/Auckland")||tz.startsWith("Pacific/Chatham"))setRegionFromCountryCode("NZ")}
+    const REGIONS={
+      UK:{name:"UK",locale:"en-GB",tempUnit:"C",windUnit:"mph",placeholder:"Enter town, city or postcode, e.g. Bristol",popularPrefix:"Popular UK checks",seo:["should I cut the grass today","can I hang washing out today","should I water the plants today","do I need a coat today","should I BBQ today"],tasks:{grass:{icon:"🌱",label:"Cut grass",question:"Should I cut the grass today?",slug:"should-i-cut-the-grass-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Hang washing",question:"Can I hang washing out today?",slug:"can-i-hang-washing-out-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"BBQ",question:"Should I BBQ today?",slug:"should-i-bbq-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk the dog today?",slug:"should-i-walk-the-dog-today"},jacket:{icon:"🧥",label:"Need coat",question:"Do I need a coat today?",slug:"do-i-need-a-coat-today"},run:{icon:"🏃",label:"Go running",question:"Should I go for a run today?",slug:"should-i-go-for-a-run-today"},windows:{icon:"🪟",label:"Clean windows",question:"Should I clean the windows today?",slug:"should-i-clean-the-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water the plants today?",slug:"should-i-water-the-plants-today"}}},
+      IE:{name:"Ireland",locale:"en-IE",tempUnit:"C",windUnit:"kmh",placeholder:"Enter town or city, e.g. Dublin",popularPrefix:"Popular Ireland checks",seo:["should I cut the grass today","can I hang washing out today","should I water the plants today","do I need a jacket today","should I BBQ today"],tasks:null},
+      US:{name:"US",locale:"en-US",tempUnit:"F",windUnit:"mph",placeholder:"Enter city, state or ZIP code, e.g. Boston or 02108",popularPrefix:"Popular US checks",seo:["should I mow the lawn today","can I dry laundry outside today","should I water my plants today","should I grill today","do I need a jacket today"],tasks:{grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Dry laundry",question:"Can I dry laundry outside today?",slug:"can-i-dry-laundry-outside-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"Grill",question:"Should I grill today?",slug:"should-i-grill-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk my dog today?",slug:"should-i-walk-my-dog-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},run:{icon:"🏃",label:"Run",question:"Should I run today?",slug:"should-i-run-today"},windows:{icon:"🪟",label:"Wash windows",question:"Should I wash windows today?",slug:"should-i-wash-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}}},
+      CA:{name:"Canada",locale:"en-CA",tempUnit:"C",windUnit:"kmh",placeholder:"Enter city or postal code, e.g. Toronto",popularPrefix:"Popular Canada checks",seo:["should I mow the lawn today","can I dry laundry outside today","should I water my plants today","do I need a jacket today","should I BBQ today"],tasks:null},
+      AU:{name:"Australia",locale:"en-AU",tempUnit:"C",windUnit:"kmh",placeholder:"Enter suburb, town or postcode, e.g. Sydney",popularPrefix:"Popular Australia checks",seo:["should I mow the lawn today","can I hang washing out today","should I water the plants today","should I BBQ today","is it too hot to walk the dog today"],tasks:null},
+      NZ:{name:"New Zealand",locale:"en-NZ",tempUnit:"C",windUnit:"kmh",placeholder:"Enter town, city or postcode, e.g. Auckland",popularPrefix:"Popular New Zealand checks",seo:["should I mow the lawn today","can I hang washing out today","should I water the plants today","should I BBQ today","do I need a jacket today"],tasks:null}
+    };
+
+    REGIONS.IE.tasks=REGIONS.UK.tasks;
+    REGIONS.CA.tasks=REGIONS.US.tasks;
+    REGIONS.AU.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},dog:{icon:"🐕",label:"Walk dog",question:"Is it too hot to walk the dog today?",slug:"is-it-too-hot-to-walk-the-dog-today"}};
+    REGIONS.NZ.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"}};
+
+    const RULES={
+      grass:{rainProb:30,windMaxMph:26,tempMinC:8,tempMaxC:28,hours:[8,18],minHours:2},
+      washCar:{rainProb:30,windMaxMph:30,tempMinC:4,tempMaxC:26,hours:[8,19],minHours:2},
+      washing:{rainProb:22,windMaxMph:34,tempMinC:8,tempMaxC:32,hours:[7,18],minHours:4},
+      paint:{rainProb:15,windMaxMph:22,tempMinC:10,tempMaxC:25,hours:[9,17],minHours:5},
+      bbq:{rainProb:40,windMaxMph:28,tempMinC:10,tempMaxC:34,hours:[11,21],minHours:2},
+      dog:{rainProb:60,windMaxMph:42,tempMinC:-2,tempMaxC:26,hours:[6,22],minHours:1},
+      jacket:{rainProb:45,windMaxMph:34,tempMinC:12,tempMaxC:100,hours:[6,23],minHours:1},
+      run:{rainProb:60,windMaxMph:35,tempMinC:2,tempMaxC:25,hours:[5,22],minHours:1},
+      windows:{rainProb:25,windMaxMph:24,tempMinC:4,tempMaxC:25,hours:[8,17],minHours:2},
+      plants:{rainProb:45,windMaxMph:35,tempMinC:4,tempMaxC:32,hours:[6,21],minHours:1}
+    };
+
+    const COUNTRY_TO_REGION={GB:"UK",IE:"IE",US:"US",CA:"CA",AU:"AU",NZ:"NZ"};
+    let selected="grass";
+    let selectedPeriod="today";
+    let currentRegionKey=getInitialRegion();
+    let detectedLocation=null;
+    let lastPlace=null;
+    let lastWeather=null;
+
+    const locationInput=document.getElementById("locationInput");
+    const taskButtons=document.getElementById("taskButtons");
+    const hint=document.getElementById("hint");
+    const locationStatus=document.getElementById("locationStatus");
+    const regionSelect=document.getElementById("regionSelect");
+    const seoLine=document.getElementById("seoLine");
+
+    function getInitialRegion(){
+      const lang=(navigator.language||"en-GB").toUpperCase();
+      if(lang.includes("US"))return"US";
+      if(lang.includes("CA"))return"CA";
+      if(lang.includes("AU"))return"AU";
+      if(lang.includes("NZ"))return"NZ";
+      if(lang.includes("IE"))return"IE";
+      return"UK";
+    }
+
+    function region(){return REGIONS[currentRegionKey]||REGIONS.UK}
+    function taskConfig(taskKey=selected){return Object.assign({},RULES[taskKey],region().tasks[taskKey])}
+
+    function init(){
+      const params=new URLSearchParams(window.location.search);
+      const regionParam=(params.get("region")||"").toUpperCase();
+      if(REGIONS[regionParam])currentRegionKey=regionParam;
+      regionSelect.value=currentRegionKey;
+      const periodParam=(params.get("period")||"").toLowerCase();
+      if(["today","tomorrow","weekend"].includes(periodParam))selectedPeriod=periodParam;
+      setPeriodTab();
+      applyRegion(false);
+      const taskParam=params.get("task");
+      if(taskParam){
+        const found=Object.entries(region().tasks).find(([,task])=>task.slug===taskParam);
+        if(found)selected=found[0];
+      }
+      const loc=params.get("location");
+      if(loc)locationInput.value=loc;
+      renderTasks();
+      if(locationInput.value.trim())checkFromText();
+      else setLocationStatus("Type a location or tap Use my location",false);
+    }
+
+    function applyRegion(shouldCheck){
+      const p=region();
+      document.documentElement.lang=p.locale;
+      locationInput.placeholder=p.placeholder;
+      seoLine.innerHTML=`<strong>${p.popularPrefix}:</strong> ${p.seo.join(", ")}.`;
+      renderTasks();
+      if(shouldCheck){
+        if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
+        else if(locationInput.value.trim())checkFromText();
+        else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
+      }
+    }
+
+    function renderTasks(){
+      const p=region();
+      if(!p.tasks[selected])selected="grass";
+      taskButtons.innerHTML=Object.entries(p.tasks).map(([key,task])=>`<button class="task ${key===selected?"active":""}" type="button" data-task="${key}"><span>${task.icon}</span>${task.label}</button>`).join("");
+      document.querySelectorAll("[data-task]").forEach(button=>{
+        button.addEventListener("click",()=>{
+          selected=button.dataset.task;
+          document.querySelectorAll("[data-task]").forEach(btn=>btn.classList.remove("active"));
+          button.classList.add("active");
+          updateHintAndQuestion();
+          if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
+          else if(locationInput.value.trim())checkFromText();
+          else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
+        });
+      });
+      updateHintAndQuestion();
+    }
+
+    function updateHintAndQuestion(){
+      const task=taskConfig();
+      const periodLabel={today:"today",tomorrow:"tomorrow",weekend:"this weekend"}[selectedPeriod];
+      hint.textContent=`Selected: ${task.label.toLowerCase()} • ${periodLabel}`;
+      document.getElementById("question").textContent=periodQuestion(task,selectedPeriod);
+      document.title=`${periodQuestion(task,selectedPeriod)} | Weather-Based Answer`;
+    }
+
+    function periodQuestion(task,period){
+      if(period==="today")return task.question;
+      if(period==="tomorrow")return task.question.replace(" today"," tomorrow").replace(" Today"," Tomorrow");
+      return task.question.replace(" today"," this weekend").replace(" Today"," This Weekend");
+    }
+
+    function setPeriodTab(){
+      document.querySelectorAll("[data-period]").forEach(tab=>{
+        tab.classList.toggle("active",tab.dataset.period===selectedPeriod);
+      });
+    }
+
+    document.querySelectorAll("[data-period]").forEach(tab=>{
+      tab.addEventListener("click",()=>{
+        selectedPeriod=tab.dataset.period;
+        setPeriodTab();
+        updateHintAndQuestion();
+        if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
+        else if(locationInput.value.trim())checkFromText();
+        else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
+      });
+    });
+
+    function validateLocationInput(value){
+      const trimmed=value.trim();
+      if(!trimmed)return{ok:false,message:"Enter a town, city or postcode."};
+      if(trimmed.length>80)return{ok:false,message:"Location is too long. Try a town, city or postcode."};
+      for(let i=0;i<trimmed.length;i+=1){
+        const code=trimmed.charCodeAt(i);
+        if(code<32||code===127)return{ok:false,message:"Location contains unsupported characters."};
+      }
+      if(trimmed.includes("<")||trimmed.includes(">"))return{ok:false,message:"Location contains unsupported characters."};
+      return{ok:true,value:trimmed};
+    }
+
+    function setLocationStatus(text,active=true){
+      locationStatus.textContent="";
+      if(active){const pulse=document.createElement("span");pulse.className="pulse";locationStatus.appendChild(pulse)}
+      const label=document.createElement("span");label.textContent=text;locationStatus.appendChild(label);
+    }
+
+    function preferredCountryCode(){return{UK:"GB",IE:"IE",US:"US",CA:"CA",AU:"AU",NZ:"NZ"}[currentRegionKey]||"GB"}
+
+    function setRegionFromCountryCode(code){
+      const newRegion=COUNTRY_TO_REGION[code]||currentRegionKey;
+      if(newRegion!==currentRegionKey){
+        currentRegionKey=newRegion;
+        regionSelect.value=currentRegionKey;
+        applyRegion(false);
+      }
+    }
+
+    function setRegionFromTimezone(tz){
+      if(!tz)return;
+      if(tz==="Europe/London")setRegionFromCountryCode("GB");
+      else if(tz==="Europe/Dublin")setRegionFromCountryCode("IE");
+      else if(tz.startsWith("Australia/"))setRegionFromCountryCode("AU");
+      else if(tz.startsWith("Pacific/Auckland")||tz.startsWith("Pacific/Chatham"))setRegionFromCountryCode("NZ");
+    }
+
     const US_STATES={AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",DE:"Delaware",FL:"Florida",GA:"Georgia",HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",MI:"Michigan",MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",NJ:"New Jersey",NM:"New Mexico",NY:"New York",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VT:"Vermont",VA:"Virginia",WA:"Washington",WV:"West Virginia",WI:"Wisconsin",WY:"Wyoming",DC:"District of Columbia"};
-    function parseUsCityState(value){if(currentRegionKey!=="US")return null;const parts=value.split(",").map(p=>p.trim()).filter(Boolean);if(parts.length<2)return null;const city=parts[0];const stateRaw=parts[1].toUpperCase().replaceAll(".","");return{city,stateName:US_STATES[stateRaw]||parts[1]}}
-    function cleanPostcode(value){return value.trim().toUpperCase().replaceAll(" ","")}function looksLikeUkPostcodeOrOutcode(value){const c=cleanPostcode(value);return new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$").test(c)||new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?$" ).test(c)}function looksLikePostalCode(value){const c=value.trim().toUpperCase();if(currentRegionKey==="UK")return looksLikeUkPostcodeOrOutcode(c);if(currentRegionKey==="US")return new RegExp("^[0-9]{5}(-[0-9]{4})?$").test(c);if(currentRegionKey==="CA")return new RegExp("^[A-Z][0-9][A-Z][ -]?[0-9][A-Z][0-9]$").test(c)||new RegExp("^[A-Z][0-9][A-Z]$").test(c);if(currentRegionKey==="AU"||currentRegionKey==="NZ")return new RegExp("^[0-9]{4}$").test(c);return false}
-    async function geocodeUkPostcode(query){const cleaned=cleanPostcode(query);const full=new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$").test(cleaned);if(full){const r=await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(cleaned)}`);if(r.ok){const d=await r.json();if(d.result)return{latitude:d.result.latitude,longitude:d.result.longitude,countryCode:"GB",name:[d.result.postcode,d.result.admin_district,"GB"].filter(Boolean).join(", ")}}}const outcode=cleaned.replace(new RegExp("[0-9][A-Z]{2}$"),"");const r=await fetch(`https://api.postcodes.io/outcodes/${encodeURIComponent(outcode)}`);if(r.ok){const d=await r.json();if(d.result)return{latitude:d.result.latitude,longitude:d.result.longitude,countryCode:"GB",name:[d.result.outcode,Array.isArray(d.result.admin_district)?d.result.admin_district[0]:d.result.admin_district,"GB"].filter(Boolean).join(", ")}}throw new Error("Postcode not found. Try a full UK postcode, an outward postcode like BA14, or a nearby town.")}
-    async function geocodeInternationalPostcode(query){const country=preferredCountryCode();let postal=query.trim().toUpperCase();if(currentRegionKey==="US")postal=postal.slice(0,5);if(currentRegionKey==="CA")postal=postal.replaceAll(" ","");const attempts=[postal];if(currentRegionKey==="CA"&&postal.length>3)attempts.push(postal.slice(0,3));for(const attempt of attempts){const r=await fetch(`https://api.zippopotam.us/${country}/${encodeURIComponent(attempt)}`);if(!r.ok)continue;const d=await r.json();const p=d.places&&d.places[0];if(p)return{latitude:Number(p.latitude),longitude:Number(p.longitude),countryCode:country,name:[p["place name"],p.state,country].filter(Boolean).join(", ")}}throw new Error("Postal code not found. Try a nearby town or city.")}
-    async function geocodeIrishEircodeApprox(query){const key=query.trim().toUpperCase().replaceAll(" ","").slice(0,3);if(new RegExp("^D(0[1-9]|1[0-8]|2[024])$").test(key))return{latitude:53.3498,longitude:-6.2603,countryCode:"IE",name:`${key}, Dublin, IE approximate area`};throw new Error("Eircode-level lookup is not precise yet. Try the nearest town or city, e.g. Dublin, Cork or Galway.")}
-    const UK_PLACE_ALIASES={"bradford on avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},"bradford upon avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},"bradford-on-avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},trowbridge:{latitude:51.3186,longitude:-2.2080,countryCode:"GB",name:"Trowbridge, Wiltshire, GB"}};
-    function normalise(s){return s.trim().toLowerCase().replaceAll("-"," ").replaceAll("_"," ").split(" ").filter(Boolean).join(" ")}function getLocalAlias(query){if(currentRegionKey!=="UK")return null;return UK_PLACE_ALIASES[normalise(query)]||null}
-    function selectBestPlace(results,preferredCountry,query){const countryMatches=results.filter(r=>r.country_code===preferredCountry);const candidates=countryMatches.length?countryMatches:results;const parsed=parseUsCityState(query);if(parsed){const match=candidates.find(r=>(r.admin1||"").toLowerCase().includes(parsed.stateName.toLowerCase()));if(match)return match}return candidates[0]}
-    function buildSearchVariants(query){const t=query.trim();const v=[t];const parsed=parseUsCityState(t);if(parsed){v.unshift(parsed.city);v.push(`${parsed.city}, ${parsed.stateName}`)}if(currentRegionKey==="UK"){v.push(`${t}, UK`,`${t}, England`,`${t}, Scotland`,`${t}, Wales`);const h=t.replace(/ on /gi,"-on-").replace(/ upon /gi,"-upon-");if(h!==t)v.push(h,`${h}, UK`)}return[...new Set(v.map(x=>x.trim()).filter(Boolean))]}
-    async function geocode(query){const trimmed=query.trim();const preferred=preferredCountryCode();const alias=getLocalAlias(trimmed);if(alias)return alias;if(currentRegionKey==="UK"&&looksLikeUkPostcodeOrOutcode(trimmed))return geocodeUkPostcode(trimmed);if(currentRegionKey==="IE"&&cleanPostcode(trimmed).length===7)return geocodeIrishEircodeApprox(trimmed);if(["US","CA","AU","NZ"].includes(currentRegionKey)&&looksLikePostalCode(trimmed))return geocodeInternationalPostcode(trimmed);for(const variant of buildSearchVariants(trimmed)){const url=`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(variant)}&count=10&language=en&format=json`;const r=await fetch(url);if(!r.ok)continue;const d=await r.json();if(!d.results||!d.results.length)continue;const place=selectBestPlace(d.results,preferred,trimmed);return{latitude:place.latitude,longitude:place.longitude,countryCode:place.country_code,name:[place.name,place.admin1,place.country_code].filter(Boolean).join(", ")}}throw new Error("Location not found. Try a postcode, a nearby larger town, or include the county.")}
-    async function reverseGeocodeCoords(lat,lon,timezone){const rounded=`${lat.toFixed(3)}, ${lon.toFixed(3)}`;if(timezone==="Europe/London"||currentRegionKey==="UK"){try{const r=await fetch(`https://api.postcodes.io/postcodes?lon=${encodeURIComponent(lon)}&lat=${encodeURIComponent(lat)}&limit=1`);if(r.ok){const d=await r.json();const p=d.result&&d.result[0];if(p)return{name:[p.admin_district,p.region,"GB"].filter(Boolean).join(", "),countryCode:"GB"}}}catch(e){}}return{name:`your device location near ${rounded}`,countryCode:null}}
-    async function getWeather(latitude,longitude){const params=new URLSearchParams({latitude,longitude,hourly:"temperature_2m,apparent_temperature,precipitation,precipitation_probability,weather_code,wind_speed_10m,wind_gusts_10m,relative_humidity_2m,cloud_cover,evapotranspiration,soil_moisture_0_to_1cm,soil_moisture_1_to_3cm,uv_index",current:"temperature_2m,apparent_temperature,precipitation,rain,weather_code,wind_speed_10m",daily:"sunrise,sunset",timezone:"auto",forecast_days:"7",past_days:"3",wind_speed_unit:"mph"});const r=await fetch(`https://api.open-meteo.com/v1/forecast?${params.toString()}`);if(!r.ok)throw new Error("Weather check failed.");return r.json()}
-    function startOfDay(d){const x=new Date(d);x.setHours(0,0,0,0);return x}function makeTime(day,h){const x=new Date(day);x.setHours(h,0,0,0);return x}function hoursAfter(d,h){return new Date(d.getTime()+h*3600000)}function hoursBefore(d,h){return new Date(d.getTime()-h*3600000)}function rowsBetween(rows,from,to){return rows.filter(r=>r.time>=from&&r.time<=to)}function sum(a){return a.reduce((t,v)=>t+v,0)}function avg(a,f=0){return a.length?sum(a)/a.length:f}function max(a,f=0){return a.length?Math.max(...a):f}function mm(rows){return sum(rows.map(r=>r.precip))}function formatTime(d){return d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}function formatTemp(c){return region().tempUnit==="F"?`${Math.round(c*9/5+32)}°F`:`${Math.round(c)}°C`}function formatWind(m){return region().windUnit==="kmh"?`${Math.round(m*1.60934)} km/h`:`${Math.round(m)} mph`}function dayLabel(d){const diff=Math.round((startOfDay(d)-startOfDay(new Date()))/86400000);if(diff===0)return"today";if(diff===1)return"tomorrow";return d.toLocaleDateString(region().locale,{weekday:"long"})}
-    function buildRows(data){return data.hourly.time.map((t,i)=>({time:new Date(t),temp:data.hourly.temperature_2m[i],apparent:data.hourly.apparent_temperature?data.hourly.apparent_temperature[i]:data.hourly.temperature_2m[i],precip:data.hourly.precipitation[i]||0,rainProb:data.hourly.precipitation_probability[i]||0,weatherCode:data.hourly.weather_code?data.hourly.weather_code[i]||0:0,wind:data.hourly.wind_speed_10m[i]||0,gust:data.hourly.wind_gusts_10m?data.hourly.wind_gusts_10m[i]||0:0,humidity:data.hourly.relative_humidity_2m?data.hourly.relative_humidity_2m[i]:null,uv:data.hourly.uv_index?data.hourly.uv_index[i]||0:0,evap:data.hourly.evapotranspiration?data.hourly.evapotranspiration[i]||0:0,soil:data.hourly.soil_moisture_1_to_3cm?data.hourly.soil_moisture_1_to_3cm[i]:null}))}
-    function findWindow(rows,predicate,minHours){let run=[];for(const row of rows){if(predicate(row))run.push(row);else if(run.length>=minHours)break;else run=[]}if(run.length<minHours)return"No sensible window";return `${formatTime(run[0].time)}–${formatTime(hoursAfter(run[run.length-1].time,1))}`}function isStorm(rows){return rows.some(r=>r.weatherCode>=95)}function isWintry(rows){return rows.some(r=>[56,57,66,67,71,73,75,77,85,86].includes(r.weatherCode))}function isWinterRest(day){const m=day.getMonth();return["AU","NZ"].includes(currentRegionKey)?[5,6,7].includes(m):[11,0,1].includes(m)}
-    function context(data,task,day,isToday){const now=new Date(),rows=buildRows(data),start=makeTime(day,task.hours[0]),end=makeTime(day,task.hours[1]),base=isToday?now:start,useful=rowsBetween(rows,isToday?new Date(Math.max(start,now)):start,end),next6=rowsBetween(rows,base,hoursAfter(base,6)),next12=rowsBetween(rows,base,hoursAfter(base,12)),next24=rowsBetween(rows,base,hoursAfter(base,24)),past24=rowsBetween(rows,hoursBefore(base,24),base),past72=rowsBetween(rows,hoursBefore(base,72),base);return{rows,day,useful,base,next6,next12,next24,past24,past72,currentRain:isToday?(data.current.precipitation||data.current.rain||0):0,temp:avg(useful.map(r=>r.temp),data.current.temperature_2m),maxTemp:max(useful.map(r=>r.temp),data.current.temperature_2m),minFeels:Math.min(...(useful.length?useful.map(r=>r.apparent):[data.current.apparent_temperature||data.current.temperature_2m])),maxWind:max(useful.map(r=>r.wind),0),maxGust:max(useful.map(r=>r.gust),0),avgHumidity:avg(useful.map(r=>r.humidity).filter(v=>v!==null),null),rainProb:max(useful.map(r=>r.rainProb),0),rainNext12:mm(next12),rainNext24:mm(next24),rainPast24:mm(past24),rainPast72:mm(past72),rainTotal:mm(useful),storm:isStorm(useful)||isStorm(next12),wintry:isWintry(useful)||isWintry(next12),soil:rows.slice().reverse().find(r=>r.time<=base&&r.soil!==null)?.soil??null,evap:sum(useful.map(r=>r.evap)),isToday}}
-    function result(status,css,ctx,best,reasons,rec,task){return{status,css,best,reason:`SITREP: ${status}. ${reasons.slice(0,3).join(" ")} ${rec}`,why:reasons.slice(0,5),rain:`${Math.round(ctx.rainProb)}% max`,windMph:ctx.maxWind,tempC:selected==="jacket"?ctx.minFeels:ctx.temp}}
-    function nextBetter(data,task){const rows=data.daily.time||[];for(const dayStr of rows.slice(1)){const day=startOfDay(new Date(dayStr));const r=analyseDay(data,task,day,false);if(["GO","WATER","TAKE ONE","CAUTION","CHECK"].includes(r.status)&&r.best!=="No sensible window")return r}return null}
-    function recommend(status,today,next){if(["GO","WATER","TAKE ONE"].includes(status))return`Recommendation: use the best window ${today.best}.`;if(next&&next.best!=="No sensible window")return`Recommendation: leave it today; the next better window looks like ${next.label||dayLabel(next.date)}, ${next.best}. Check back with me closer to then for better accuracy.`;return"Recommendation: leave it today and reassess when the forecast improves."}
-    function analyseDay(data,task,day,isToday){const ctx=context(data,task,day,isToday);let score=100,reasons=[];const good=row=>row.rainProb<=task.rainProb&&row.precip<0.2&&row.wind<=task.windMaxMph&&row.temp>=task.tempMinC&&row.temp<=task.tempMaxC;let best=findWindow(ctx.useful,good,task.minHours);if(!ctx.useful.length){score-=40;reasons.push("There is no sensible daylight window left.")}if(ctx.currentRain>0){score-=selected==="run"||selected==="dog"?10:35;reasons.push("It is raining now.")}if(ctx.storm){score-=45;reasons.push("Storm risk makes this a poor choice.")}if(ctx.wintry){score-=30;reasons.push("Wintry or icy conditions may make this unsafe or ineffective.")}if(ctx.rainProb>task.rainProb){score-=20;reasons.push("Rain risk is higher than ideal.")}if(ctx.maxWind>task.windMaxMph||ctx.maxGust>task.windMaxMph+10){score-=18;reasons.push("Wind may be too strong.")}if(ctx.temp<task.tempMinC){score-=16;reasons.push("It may be too cold.")}if(ctx.temp>task.tempMaxC){score-=16;reasons.push("It may be too hot.")}if(selected==="grass"){if(ctx.rainPast24>2){score-=35;reasons.push("The grass is likely wet from recent rain.")}if(isWinterRest(day)){score-=20;reasons.push("It is the winter rest period, so mowing is usually best avoided unless it is dry and mild.")}if(isToday&&new Date().getHours()>=15){score-=22;reasons.push("It is getting late for a useful grass cut.")}}if(selected==="washing"){if(best==="No sensible window"){score-=35;reasons.push("There are not enough dry daylight hours for washing to dry properly.")}if(ctx.avgHumidity!==null&&ctx.avgHumidity>82){score-=18;reasons.push("Humidity is high, so drying will be slow.")}}if(selected==="paint"){if(ctx.rainPast24>1){score-=35;reasons.push("Surfaces may still be damp from recent rain.")}if(ctx.rainNext12>0.2){score-=35;reasons.push("Rain is possible before paint has time to dry or cure.")}}if(selected==="washCar"){if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so the car may not stay clean for long.")}if(ctx.temp<=2){score-=35;reasons.push("Near-freezing temperatures could make washing unsafe or icy.")}}if(selected==="windows"){if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so windows may not stay clean.")}if(ctx.temp<=2){score-=35;reasons.push("Near-freezing conditions could make surfaces slippery or icy.")}}if(selected==="bbq"){best=findWindow(ctx.useful.filter(r=>r.time.getHours()>=12&&r.time.getHours()<=20),good,2);if(best==="No sensible window"){score-=25;reasons.push("There is no clean lunch or evening BBQ window.")}}if(selected==="run"){if(ctx.maxTemp>=29){score-=45;reasons.push("It may be too hot for a safe run.")}else if(ctx.maxTemp>=22){score-=15;reasons.push("Heat may make running harder.")}}if(selected==="dog"){if(ctx.maxTemp>=28){score-=45;reasons.push("It may be too hot for a safe dog walk.")}else if(ctx.maxTemp>=23){score-=20;reasons.push("Heat may be uncomfortable for dogs, especially on pavements.")}}if(selected==="plants"){score=35;reasons=[];best=findWindow(ctx.useful.filter(r=>[6,7,8,9,18,19,20].includes(r.time.getHours())),r=>r.precip<0.1&&r.rainProb<55,1);if(ctx.currentRain>0){score-=35;reasons.push("It is raining now.")}if(ctx.rainNext24>=2){score-=28;reasons.push("Useful rain is expected, so garden beds may not need watering.")}else{score+=8;reasons.push("No useful rain is expected soon.")}if(ctx.rainPast24>=5){score-=35;reasons.push("There has already been enough recent rain for most outdoor plants.")}else if(ctx.rainPast72<1){score+=ctx.maxTemp>=18?18:8;reasons.push("It has been fairly dry recently.")}if(ctx.maxTemp<15){score-=30;reasons.push("It is cool, so established outdoor plants usually need little extra water.")}if(ctx.soil!==null&&ctx.soil<0.22){score+=16;reasons.push("Near-surface soil moisture looks low.")}let status="CHECK",css="caution";if(score>=75&&ctx.maxTemp>=18) {status="WATER";css=""} if(score<45){status="WAIT";css="no"}return{...result(status,css,ctx,best,reasons,"Recommendation: check the soil first. Water pots, baskets, new plants and covered plants only if dry.",task),date:day,label:dayLabel(day)}}if(selected==="jacket"){let status="NO",css="no";score=0;reasons=[];if(ctx.minFeels<=11){status="TAKE ONE";css="";reasons.push("It will feel cold enough for a coat.")}else if(ctx.minFeels<=15||ctx.rainNext24>0.5||ctx.maxWind>18){status="MAYBE";css="caution";reasons.push("A light layer or waterproof may be useful.")}else{reasons.push("It looks mild enough without a coat.")}return{...result(status,css,ctx,status==="NO"?"Not needed":"Take one",reasons,status==="NO"?"Recommendation: no coat needed unless you personally feel the cold.":"Recommendation: take a layer or waterproof if you will be out for long.",task),date:day,label:dayLabel(day)}}if(best==="No sensible window"){score-=20;reasons.push("There is no proper usable window.")}if(!reasons.length)reasons.push("There is a usable weather window.");let status="GO",css="";if(score<45){status="NO-GO";css="no"}else if(score<72){status="CAUTION";css="caution"}return{...result(status,css,ctx,best,reasons,"",task),date:day,label:dayLabel(day)}}
-    function analyse(data,task){const today=analyseDay(data,task,startOfDay(new Date()),true);const next=nextBetter(data,task);today.reason=today.reason+" "+recommend(today.status,today,next);return today}
-    function loading(){document.getElementById("result").classList.add("show");document.getElementById("answer").className="answer";document.getElementById("answer").textContent="…";document.getElementById("reason").textContent="Checking today’s weather…";document.getElementById("whyList").innerHTML="";["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—")}
-    function render(place,r){const task=taskConfig();document.getElementById("question").textContent=`${task.question} — ${place}`;document.getElementById("reason").textContent=r.reason;document.getElementById("answer").className=`answer ${r.css}`;document.getElementById("answer").textContent=r.status;document.getElementById("bestTime").textContent=r.best;document.getElementById("rain").textContent=r.rain;document.getElementById("wind").textContent=formatWind(r.windMph);document.getElementById("temp").textContent=formatTemp(r.tempC);document.getElementById("whyList").innerHTML=(r.why||[]).map(item=>`<li>${item}</li>`).join("")}
-    function showError(message){document.getElementById("result").classList.add("show");document.getElementById("question").textContent="Could not complete check";document.getElementById("reason").textContent=message;document.getElementById("answer").className="answer caution";document.getElementById("answer").textContent="CHECK";document.getElementById("whyList").innerHTML="";["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—")}
-    async function checkFromText(){const validation=validateLocationInput(locationInput.value);if(!validation.ok){showError(validation.message);setLocationStatus("Type another location",false);return}const query=validation.value;try{loading();setLocationStatus("Checking typed location…",true);const place=await geocode(query);setRegionFromCountryCode(place.countryCode);const data=await getWeather(place.latitude,place.longitude);const r=analyse(data,taskConfig());render(place.name,r);setLocationStatus(`Using ${place.name}`,false);const url=new URL(window.location.href);url.searchParams.set("location",query);url.searchParams.set("task",taskConfig().slug);url.searchParams.set("region",currentRegionKey.toLowerCase());history.replaceState(null,"",url)}catch(err){setLocationStatus("Type another location",false);showError(err.message||"Something went wrong. Try another location.")}}
-    async function checkFromCoords(latitude,longitude,placeName){try{loading();const data=await getWeather(latitude,longitude);setRegionFromTimezone(data.timezone);const resolved=await reverseGeocodeCoords(latitude,longitude,data.timezone);if(resolved.countryCode)setRegionFromCountryCode(resolved.countryCode);const display=resolved.name||placeName||"your current location";const r=analyse(data,taskConfig());render(display,r);setLocationStatus(`Using ${display}`,false)}catch(err){showError(err.message||"Could not check your current location.")}}
-    function useMyLocation(){if(!navigator.geolocation){showError("Your browser does not support location checks. Enter a town or city instead.");return}setLocationStatus("Requesting location permission…",true);navigator.geolocation.getCurrentPosition(async pos=>{const c=pos.coords;detectedLocation={latitude:c.latitude,longitude:c.longitude,name:"your device location"};locationInput.value="";await checkFromCoords(c.latitude,c.longitude,"your device location")},()=>{setLocationStatus("Location permission not granted",false);showError("Location permission was not granted. Enter a town or city instead.")},{enableHighAccuracy:false,timeout:8000,maximumAge:600000})}
-    regionSelect.addEventListener("change",()=>{currentRegionKey=regionSelect.value;applyRegion(true);setLocationStatus(`Using ${region().name} wording`,false)});document.getElementById("checkBtn").addEventListener("click",checkFromText);document.getElementById("geoBtn").addEventListener("click",useMyLocation);locationInput.addEventListener("keydown",e=>{if(e.key==="Enter")checkFromText()});init();
+
+    function parseUsCityState(value){
+      if(currentRegionKey!=="US")return null;
+      const parts=value.split(",").map(p=>p.trim()).filter(Boolean);
+      if(parts.length<2)return null;
+      const city=parts[0];
+      const stateRaw=parts[1].toUpperCase().replaceAll(".","");
+      return{city,stateName:US_STATES[stateRaw]||parts[1]};
+    }
+
+    function cleanPostcode(value){return value.trim().toUpperCase().replaceAll(" ","")}
+    function looksLikeUkPostcodeOrOutcode(value){const c=cleanPostcode(value);return new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$").test(c)||new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?$").test(c)}
+    function looksLikePostalCode(value){
+      const c=value.trim().toUpperCase();
+      if(currentRegionKey==="UK")return looksLikeUkPostcodeOrOutcode(c);
+      if(currentRegionKey==="US")return new RegExp("^[0-9]{5}(-[0-9]{4})?$").test(c);
+      if(currentRegionKey==="CA")return new RegExp("^[A-Z][0-9][A-Z][ -]?[0-9][A-Z][0-9]$").test(c)||new RegExp("^[A-Z][0-9][A-Z]$").test(c);
+      if(currentRegionKey==="AU"||currentRegionKey==="NZ")return new RegExp("^[0-9]{4}$").test(c);
+      return false;
+    }
+
+    async function geocodeUkPostcode(query){
+      const cleaned=cleanPostcode(query);
+      const full=new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$").test(cleaned);
+      if(full){
+        const r=await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(cleaned)}`);
+        if(r.ok){const d=await r.json();if(d.result)return{latitude:d.result.latitude,longitude:d.result.longitude,countryCode:"GB",name:[d.result.postcode,d.result.admin_district,"GB"].filter(Boolean).join(", ")}}
+      }
+      const outcode=cleaned.replace(new RegExp("[0-9][A-Z]{2}$"),"");
+      const r=await fetch(`https://api.postcodes.io/outcodes/${encodeURIComponent(outcode)}`);
+      if(r.ok){const d=await r.json();if(d.result)return{latitude:d.result.latitude,longitude:d.result.longitude,countryCode:"GB",name:[d.result.outcode,Array.isArray(d.result.admin_district)?d.result.admin_district[0]:d.result.admin_district,"GB"].filter(Boolean).join(", ")}}
+      throw new Error("Postcode not found. Try a full UK postcode, an outward postcode like BA14, or a nearby town.");
+    }
+
+    async function geocodeInternationalPostcode(query){
+      const country=preferredCountryCode();
+      let postal=query.trim().toUpperCase();
+      if(currentRegionKey==="US")postal=postal.slice(0,5);
+      if(currentRegionKey==="CA")postal=postal.replaceAll(" ","");
+      const attempts=[postal];
+      if(currentRegionKey==="CA"&&postal.length>3)attempts.push(postal.slice(0,3));
+      for(const attempt of attempts){
+        const r=await fetch(`https://api.zippopotam.us/${country}/${encodeURIComponent(attempt)}`);
+        if(!r.ok)continue;
+        const d=await r.json();
+        const p=d.places&&d.places[0];
+        if(p)return{latitude:Number(p.latitude),longitude:Number(p.longitude),countryCode:country,name:[p["place name"],p.state,country].filter(Boolean).join(", ")};
+      }
+      throw new Error("Postal code not found. Try a nearby town or city.");
+    }
+
+    async function geocodeIrishEircodeApprox(query){
+      const key=query.trim().toUpperCase().replaceAll(" ","").slice(0,3);
+      if(new RegExp("^D(0[1-9]|1[0-8]|2[024])$").test(key))return{latitude:53.3498,longitude:-6.2603,countryCode:"IE",name:`${key}, Dublin, IE approximate area`};
+      throw new Error("Eircode-level lookup is not precise yet. Try the nearest town or city, e.g. Dublin, Cork or Galway.");
+    }
+
+    const UK_PLACE_ALIASES={
+      "bradford on avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},
+      "bradford upon avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},
+      "bradford-on-avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},
+      trowbridge:{latitude:51.3186,longitude:-2.2080,countryCode:"GB",name:"Trowbridge, Wiltshire, GB"}
+    };
+
+    function normalise(s){return s.trim().toLowerCase().replaceAll("-"," ").replaceAll("_"," ").split(" ").filter(Boolean).join(" ")}
+    function getLocalAlias(query){if(currentRegionKey!=="UK")return null;return UK_PLACE_ALIASES[normalise(query)]||null}
+
+    function selectBestPlace(results,preferredCountry,query){
+      const countryMatches=results.filter(r=>r.country_code===preferredCountry);
+      const candidates=countryMatches.length?countryMatches:results;
+      const parsed=parseUsCityState(query);
+      if(parsed){
+        const match=candidates.find(r=>(r.admin1||"").toLowerCase().includes(parsed.stateName.toLowerCase()));
+        if(match)return match;
+      }
+      return candidates[0];
+    }
+
+    function buildSearchVariants(query){
+      const t=query.trim();
+      const v=[t];
+      const parsed=parseUsCityState(t);
+      if(parsed){v.unshift(parsed.city);v.push(`${parsed.city}, ${parsed.stateName}`)}
+      if(currentRegionKey==="UK"){
+        v.push(`${t}, UK`,`${t}, England`,`${t}, Scotland`,`${t}, Wales`);
+        const h=t.replace(/ on /gi,"-on-").replace(/ upon /gi,"-upon-");
+        if(h!==t)v.push(h,`${h}, UK`);
+      }
+      return[...new Set(v.map(x=>x.trim()).filter(Boolean))];
+    }
+
+    async function geocode(query){
+      const trimmed=query.trim();
+      const preferred=preferredCountryCode();
+      const alias=getLocalAlias(trimmed);
+      if(alias)return alias;
+      if(currentRegionKey==="UK"&&looksLikeUkPostcodeOrOutcode(trimmed))return geocodeUkPostcode(trimmed);
+      if(currentRegionKey==="IE"&&cleanPostcode(trimmed).length===7)return geocodeIrishEircodeApprox(trimmed);
+      if(["US","CA","AU","NZ"].includes(currentRegionKey)&&looksLikePostalCode(trimmed))return geocodeInternationalPostcode(trimmed);
+      for(const variant of buildSearchVariants(trimmed)){
+        const url=`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(variant)}&count=10&language=en&format=json`;
+        const r=await fetch(url);
+        if(!r.ok)continue;
+        const d=await r.json();
+        if(!d.results||!d.results.length)continue;
+        const place=selectBestPlace(d.results,preferred,trimmed);
+        return{latitude:place.latitude,longitude:place.longitude,countryCode:place.country_code,name:[place.name,place.admin1,place.country_code].filter(Boolean).join(", ")};
+      }
+      throw new Error("Location not found. Try a postcode, a nearby larger town, or include the county.");
+    }
+
+    async function reverseGeocodeCoords(lat,lon,timezone){
+      const rounded=`${lat.toFixed(3)}, ${lon.toFixed(3)}`;
+      if(timezone==="Europe/London"||currentRegionKey==="UK"){
+        try{
+          const r=await fetch(`https://api.postcodes.io/postcodes?lon=${encodeURIComponent(lon)}&lat=${encodeURIComponent(lat)}&limit=1`);
+          if(r.ok){const d=await r.json();const p=d.result&&d.result[0];if(p)return{name:[p.admin_district,p.region,"GB"].filter(Boolean).join(", "),countryCode:"GB"}}
+        }catch(e){}
+      }
+      return{name:`your device location near ${rounded}`,countryCode:null};
+    }
+
+    async function getWeather(latitude,longitude){
+      const params=new URLSearchParams({
+        latitude,longitude,
+        hourly:"temperature_2m,apparent_temperature,precipitation,precipitation_probability,weather_code,wind_speed_10m,wind_gusts_10m,relative_humidity_2m,cloud_cover,evapotranspiration,soil_moisture_0_to_1cm,soil_moisture_1_to_3cm,uv_index",
+        current:"temperature_2m,apparent_temperature,precipitation,rain,weather_code,wind_speed_10m",
+        daily:"sunrise,sunset",
+        timezone:"auto",
+        forecast_days:"7",
+        past_days:"3",
+        wind_speed_unit:"mph"
+      });
+      const r=await fetch(`https://api.open-meteo.com/v1/forecast?${params.toString()}`);
+      if(!r.ok)throw new Error("Weather check failed.");
+      return r.json();
+    }
+
+    function startOfDay(d){const x=new Date(d);x.setHours(0,0,0,0);return x}
+    function makeTime(day,h){const x=new Date(day);x.setHours(h,0,0,0);return x}
+    function hoursAfter(d,h){return new Date(d.getTime()+h*3600000)}
+    function hoursBefore(d,h){return new Date(d.getTime()-h*3600000)}
+    function rowsBetween(rows,from,to){return rows.filter(r=>r.time>=from&&r.time<=to)}
+    function sum(a){return a.reduce((t,v)=>t+v,0)}
+    function avg(a,f=0){return a.length?sum(a)/a.length:f}
+    function max(a,f=0){return a.length?Math.max(...a):f}
+    function mm(rows){return sum(rows.map(r=>r.precip))}
+    function formatTime(d){return d.toLocaleTimeString(region().locale,{hour:"2-digit",minute:"2-digit"})}
+    function formatTemp(c){return region().tempUnit==="F"?`${Math.round(c*9/5+32)}°F`:`${Math.round(c)}°C`}
+    function formatWind(m){return region().windUnit==="kmh"?`${Math.round(m*1.60934)} km/h`:`${Math.round(m)} mph`}
+    function dayLabel(d){
+      const diff=Math.round((startOfDay(d)-startOfDay(new Date()))/86400000);
+      if(diff===0)return"today";
+      if(diff===1)return"tomorrow";
+      return d.toLocaleDateString(region().locale,{weekday:"long"});
+    }
+
+    function buildRows(data){
+      return data.hourly.time.map((t,i)=>({
+        time:new Date(t),
+        temp:data.hourly.temperature_2m[i],
+        apparent:data.hourly.apparent_temperature?data.hourly.apparent_temperature[i]:data.hourly.temperature_2m[i],
+        precip:data.hourly.precipitation[i]||0,
+        rainProb:data.hourly.precipitation_probability[i]||0,
+        weatherCode:data.hourly.weather_code?data.hourly.weather_code[i]||0:0,
+        wind:data.hourly.wind_speed_10m[i]||0,
+        gust:data.hourly.wind_gusts_10m?data.hourly.wind_gusts_10m[i]||0:0,
+        humidity:data.hourly.relative_humidity_2m?data.hourly.relative_humidity_2m[i]:null,
+        uv:data.hourly.uv_index?data.hourly.uv_index[i]||0:0,
+        evap:data.hourly.evapotranspiration?data.hourly.evapotranspiration[i]||0:0,
+        soil:data.hourly.soil_moisture_1_to_3cm?data.hourly.soil_moisture_1_to_3cm[i]:null
+      }));
+    }
+
+    function findWindow(rows,predicate,minHours){
+      let run=[];
+      let best=[];
+      for(const row of rows){
+        if(predicate(row))run.push(row);
+        else{if(run.length>best.length)best=run;run=[];}
+      }
+      if(run.length>best.length)best=run;
+      if(best.length<minHours)return"No sensible window";
+      return `${formatTime(best[0].time)}–${formatTime(hoursAfter(best[best.length-1].time,1))}`;
+    }
+
+    function isStorm(rows){return rows.some(r=>r.weatherCode>=95)}
+    function isWintry(rows){return rows.some(r=>[56,57,66,67,71,73,75,77,85,86].includes(r.weatherCode))}
+    function isWinterRest(day){const m=day.getMonth();return["AU","NZ"].includes(currentRegionKey)?[5,6,7].includes(m):[11,0,1].includes(m)}
+
+    function getTargetDays(data){
+      const dates=(data.daily.time||[]).map(d=>startOfDay(new Date(d)));
+      const today=startOfDay(new Date());
+      if(selectedPeriod==="today")return [today];
+      if(selectedPeriod==="tomorrow")return [startOfDay(hoursAfter(today,24))];
+      const weekend=dates.filter(d=>[0,6].includes(d.getDay())&&d>=today).slice(0,2);
+      return weekend.length?weekend:[today];
+    }
+
+    function context(data,task,day,isToday){
+      const now=new Date();
+      const rows=buildRows(data);
+      const start=makeTime(day,task.hours[0]);
+      const end=makeTime(day,task.hours[1]);
+      const base=isToday?now:start;
+      const useful=rowsBetween(rows,isToday?new Date(Math.max(start,now)):start,end);
+      const next6=rowsBetween(rows,base,hoursAfter(base,6));
+      const next12=rowsBetween(rows,base,hoursAfter(base,12));
+      const next24=rowsBetween(rows,base,hoursAfter(base,24));
+      const past24=rowsBetween(rows,hoursBefore(base,24),base);
+      const past72=rowsBetween(rows,hoursBefore(base,72),base);
+      return{
+        rows,day,useful,base,next6,next12,next24,past24,past72,
+        currentRain:isToday?(data.current.precipitation||data.current.rain||0):0,
+        temp:avg(useful.map(r=>r.temp),data.current.temperature_2m),
+        maxTemp:max(useful.map(r=>r.temp),data.current.temperature_2m),
+        minFeels:Math.min(...(useful.length?useful.map(r=>r.apparent):[data.current.apparent_temperature||data.current.temperature_2m])),
+        maxWind:max(useful.map(r=>r.wind),0),
+        maxGust:max(useful.map(r=>r.gust),0),
+        avgHumidity:avg(useful.map(r=>r.humidity).filter(v=>v!==null),null),
+        rainProb:max(useful.map(r=>r.rainProb),0),
+        rainNext12:mm(next12),
+        rainNext24:mm(next24),
+        rainPast24:mm(past24),
+        rainPast72:mm(past72),
+        rainTotal:mm(useful),
+        storm:isStorm(useful)||isStorm(next12),
+        wintry:isWintry(useful)||isWintry(next12),
+        soil:rows.slice().reverse().find(r=>r.time<=base&&r.soil!==null)?.soil??null,
+        evap:sum(useful.map(r=>r.evap)),
+        isToday
+      };
+    }
+
+    function scoreValue(status){
+      if(["GO","WATER","TAKE ONE"].includes(status))return 3;
+      if(["CAUTION","CHECK","MAYBE"].includes(status))return 2;
+      if(["WAIT","NO","NO-GO"].includes(status))return 1;
+      return 0;
+    }
+
+    function result(status,css,ctx,best,reasons,rec,task){
+      const lead=status==="GO"?"Good conditions look likely.":status==="CAUTION"?"Possible, but check the details.":status==="NO-GO"?"Waiting is likely the better choice.":"Check the details before deciding.";
+      return{
+        status,css,best,
+        reason:`${lead} ${reasons.slice(0,3).join(" ")} ${rec}`.trim(),
+        why:reasons.slice(0,5),
+        rain:`${Math.round(ctx.rainProb)}% max`,
+        windMph:ctx.maxWind,
+        tempC:selected==="jacket"?ctx.minFeels:ctx.temp,
+        score:scoreValue(status),
+        date:ctx.day,
+        label:dayLabel(ctx.day)
+      };
+    }
+
+    function nextBetter(data,task){
+      const rows=data.daily.time||[];
+      for(const dayStr of rows.slice(1)){
+        const day=startOfDay(new Date(dayStr));
+        const r=analyseDay(data,task,day,false);
+        if(["GO","WATER","TAKE ONE","CAUTION","CHECK"].includes(r.status)&&r.best!=="No sensible window")return r;
+      }
+      return null;
+    }
+
+    function recommend(status,today,next){
+      if(["GO","WATER","TAKE ONE"].includes(status))return`Recommendation: use the best window ${today.best}.`;
+      if(next&&next.best!=="No sensible window")return`Recommendation: leave it for now; the next better window looks like ${next.label}, ${next.best}.`;
+      return"Recommendation: leave it for now and reassess when the forecast improves.";
+    }
+
+    function analyseDay(data,task,day,isToday){
+      const ctx=context(data,task,day,isToday);
+      let score=100,reasons=[];
+      const good=row=>row.rainProb<=task.rainProb&&row.precip<0.2&&row.wind<=task.windMaxMph&&row.temp>=task.tempMinC&&row.temp<=task.tempMaxC;
+      let best=findWindow(ctx.useful,good,task.minHours);
+
+      if(!ctx.useful.length){score-=40;reasons.push("There is no sensible daylight window left.")}
+      if(ctx.currentRain>0){score-=selected==="run"||selected==="dog"?10:35;reasons.push("It is raining now.")}
+      if(ctx.storm){score-=45;reasons.push("Storm risk makes this a poor choice.")}
+      if(ctx.wintry){score-=30;reasons.push("Wintry or icy conditions may make this unsafe or ineffective.")}
+      if(ctx.rainProb>task.rainProb){score-=20;reasons.push("Rain risk is higher than ideal.")}
+      if(ctx.maxWind>task.windMaxMph||ctx.maxGust>task.windMaxMph+10){score-=18;reasons.push("Wind may be too strong.")}
+      if(ctx.temp<task.tempMinC){score-=16;reasons.push("It may be too cold.")}
+      if(ctx.temp>task.tempMaxC){score-=16;reasons.push("It may be too hot.")}
+
+      if(selected==="grass"){
+        if(ctx.rainPast24>2){score-=35;reasons.push("The grass is likely wet from recent rain.")}
+        if(isWinterRest(day)){score-=20;reasons.push("It is the winter rest period, so mowing is usually best avoided unless it is dry and mild.")}
+        if(isToday&&new Date().getHours()>=15){score-=22;reasons.push("It is getting late for a useful grass cut.")}
+      }
+
+      if(selected==="washing"){
+        if(best==="No sensible window"){score-=35;reasons.push("There are not enough dry daylight hours for washing to dry properly.")}
+        if(ctx.avgHumidity!==null&&ctx.avgHumidity>82){score-=18;reasons.push("Humidity is high, so drying will be slow.")}
+      }
+
+      if(selected==="paint"){
+        if(ctx.rainPast24>1){score-=35;reasons.push("Surfaces may still be damp from recent rain.")}
+        if(ctx.rainNext12>0.2){score-=35;reasons.push("Rain is possible before paint has time to dry or cure.")}
+      }
+
+      if(selected==="washCar"){
+        if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so the car may not stay clean for long.")}
+        if(ctx.temp<=2){score-=35;reasons.push("Near-freezing temperatures could make washing unsafe or icy.")}
+      }
+
+      if(selected==="windows"){
+        if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so windows may not stay clean.")}
+        if(ctx.temp<=2){score-=35;reasons.push("Near-freezing conditions could make surfaces slippery or icy.")}
+      }
+
+      if(selected==="bbq"){
+        best=findWindow(ctx.useful.filter(r=>r.time.getHours()>=12&&r.time.getHours()<=20),good,2);
+        if(best==="No sensible window"){score-=25;reasons.push("There is no clean lunch or evening BBQ window.")}
+      }
+
+      if(selected==="run"){
+        if(ctx.maxTemp>=29){score-=45;reasons.push("It may be too hot for a safe run.")}
+        else if(ctx.maxTemp>=22){score-=15;reasons.push("Heat may make running harder.")}
+      }
+
+      if(selected==="dog"){
+        if(ctx.maxTemp>=28){score-=45;reasons.push("It may be too hot for a safe dog walk.")}
+        else if(ctx.maxTemp>=23){score-=20;reasons.push("Heat may be uncomfortable for dogs, especially on pavements.")}
+      }
+
+      if(selected==="plants"){
+        score=35;reasons=[];
+        best=findWindow(ctx.useful.filter(r=>[6,7,8,9,18,19,20].includes(r.time.getHours())),r=>r.precip<0.1&&r.rainProb<55,1);
+        if(ctx.currentRain>0){score-=35;reasons.push("It is raining now.")}
+        if(ctx.rainNext24>=2){score-=28;reasons.push("Useful rain is expected, so garden beds may not need watering.")}
+        else{score+=8;reasons.push("No useful rain is expected soon.")}
+        if(ctx.rainPast24>=5){score-=35;reasons.push("There has already been enough recent rain for most outdoor plants.")}
+        else if(ctx.rainPast72<1){score+=ctx.maxTemp>=18?18:8;reasons.push("It has been fairly dry recently.")}
+        if(ctx.maxTemp<15){score-=30;reasons.push("It is cool, so established outdoor plants usually need little extra water.")}
+        if(ctx.soil!==null&&ctx.soil<0.22){score+=16;reasons.push("Near-surface soil moisture looks low.")}
+        let status="CHECK",css="caution";
+        if(score>=75&&ctx.maxTemp>=18){status="WATER";css=""}
+        if(score<45){status="WAIT";css="no"}
+        return{...result(status,css,ctx,best,reasons,"Recommendation: check the soil first. Water pots, baskets, new plants and covered plants only if dry.",task)};
+      }
+
+      if(selected==="jacket"){
+        let status="NO",css="no";
+        reasons=[];
+        if(ctx.minFeels<=11){status="TAKE ONE";css="";reasons.push("It will feel cold enough for a coat.")}
+        else if(ctx.minFeels<=15||ctx.rainNext24>0.5||ctx.maxWind>18){status="MAYBE";css="caution";reasons.push("A light layer or waterproof may be useful.")}
+        else{reasons.push("It looks mild enough without a coat.")}
+        return{...result(status,css,ctx,status==="NO"?"Not needed":"Take one",reasons,status==="NO"?"Recommendation: no coat needed unless you personally feel the cold.":"Recommendation: take a layer or waterproof if you will be out for long.",task)};
+      }
+
+      if(best==="No sensible window"){score-=20;reasons.push("There is no proper usable window.")}
+      if(!reasons.length)reasons.push("There is a usable weather window.");
+      let status="GO",css="";
+      if(score<45){status="NO-GO";css="no"}
+      else if(score<72){status="CAUTION";css="caution"}
+      return{...result(status,css,ctx,best,reasons,"",task)};
+    }
+
+    function analyse(data,task){
+      const days=getTargetDays(data);
+      const results=days.map(day=>analyseDay(data,task,day,startOfDay(day).getTime()===startOfDay(new Date()).getTime()));
+      let chosen=results.slice().sort((a,b)=>b.score-a.score)[0]||results[0];
+      const next=nextBetter(data,task);
+      const periodText=selectedPeriod==="weekend"?`Best weekend option: ${chosen.label}. `:"";
+      chosen.reason=periodText+chosen.reason+" "+recommend(chosen.status,chosen,next);
+      return chosen;
+    }
+
+    function loading(){
+      document.getElementById("result").classList.add("show");
+      document.getElementById("answer").className="answer loading";
+      document.getElementById("answer").textContent="…";
+      document.getElementById("reason").textContent="Checking the local forecast…";
+      document.getElementById("whyList").innerHTML="<li>Fetching weather data and applying task-specific rules.</li>";
+      ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—");
+    }
+
+    function render(place,r){
+      const task=taskConfig();
+      document.getElementById("question").textContent=`${periodQuestion(task,selectedPeriod)} — ${place}`;
+      document.getElementById("reason").textContent=r.reason;
+      document.getElementById("answer").className=`answer ${r.css}`;
+      document.getElementById("answer").textContent=r.status;
+      document.getElementById("bestTime").textContent=r.best;
+      document.getElementById("rain").textContent=r.rain;
+      document.getElementById("wind").textContent=formatWind(r.windMph);
+      document.getElementById("temp").textContent=formatTemp(r.tempC);
+      document.getElementById("whyList").innerHTML=(r.why&&r.why.length?r.why:["There is not enough forecast detail to give a stronger reason."]).map(item=>`<li>${item}</li>`).join("");
+    }
+
+    function showError(message){
+      document.getElementById("result").classList.add("show");
+      document.getElementById("question").textContent="Could not complete check";
+      document.getElementById("reason").textContent=message;
+      document.getElementById("answer").className="answer caution";
+      document.getElementById("answer").textContent="CHECK";
+      document.getElementById("whyList").innerHTML="<li>Try a nearby town, city or full postcode.</li>";
+      ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—");
+    }
+
+    function analyseAndRender(place,data){
+      const r=analyse(data,taskConfig());
+      render(place.name||place,r);
+      updateUrl();
+    }
+
+    function updateUrl(){
+      const url=new URL(window.location.href);
+      const task=taskConfig();
+      if(locationInput.value.trim())url.searchParams.set("location",locationInput.value.trim());
+      url.searchParams.set("task",task.slug);
+      url.searchParams.set("region",currentRegionKey.toLowerCase());
+      url.searchParams.set("period",selectedPeriod);
+      history.replaceState(null,"",url);
+    }
+
+    async function checkFromText(){
+      const validation=validateLocationInput(locationInput.value);
+      if(!validation.ok){showError(validation.message);setLocationStatus("Type another location",false);return}
+      const query=validation.value;
+      try{
+        loading();
+        setLocationStatus("Checking typed location…",true);
+        const place=await geocode(query);
+        setRegionFromCountryCode(place.countryCode);
+        const data=await getWeather(place.latitude,place.longitude);
+        lastPlace=place;
+        lastWeather=data;
+        analyseAndRender(place,data);
+        setLocationStatus(`Using ${place.name}`,false);
+      }catch(err){
+        setLocationStatus("Type another location",false);
+        showError(err.message||"Something went wrong. Try another location.");
+      }
+    }
+
+    async function checkFromCoords(latitude,longitude,placeName){
+      try{
+        loading();
+        const data=await getWeather(latitude,longitude);
+        setRegionFromTimezone(data.timezone);
+        const resolved=await reverseGeocodeCoords(latitude,longitude,data.timezone);
+        if(resolved.countryCode)setRegionFromCountryCode(resolved.countryCode);
+        const display=resolved.name||placeName||"your current location";
+        lastPlace={name:display,latitude,longitude,countryCode:resolved.countryCode};
+        lastWeather=data;
+        analyseAndRender(lastPlace,data);
+        setLocationStatus(`Using ${display}`,false);
+      }catch(err){
+        showError(err.message||"Could not check your current location.");
+      }
+    }
+
+    function useMyLocation(){
+      if(!navigator.geolocation){showError("Your browser does not support location checks. Enter a town or city instead.");return}
+      setLocationStatus("Requesting location permission…",true);
+      navigator.geolocation.getCurrentPosition(async pos=>{
+        const c=pos.coords;
+        detectedLocation={latitude:c.latitude,longitude:c.longitude,name:"your device location"};
+        locationInput.value="";
+        await checkFromCoords(c.latitude,c.longitude,"your device location");
+      },()=>{
+        setLocationStatus("Location permission not granted",false);
+        showError("Location permission was not granted. Enter a town or city instead.");
+      },{enableHighAccuracy:false,timeout:8000,maximumAge:600000});
+    }
+
+    regionSelect.addEventListener("change",()=>{
+      currentRegionKey=regionSelect.value;
+      applyRegion(true);
+      setLocationStatus(`Using ${region().name} wording`,false);
+    });
+
+    document.getElementById("checkBtn").addEventListener("click",checkFromText);
+    document.getElementById("geoBtn").addEventListener("click",useMyLocation);
+    locationInput.addEventListener("keydown",e=>{if(e.key==="Enter")checkFromText()});
+
+    init();
   </script>
 </body>
 </html>
