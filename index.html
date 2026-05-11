@@ -162,38 +162,6 @@
 
     .hero-copy{padding-top:18px}
 
-    .hero-logo-lockup{
-      display:inline-flex;
-      align-items:center;
-      gap:14px;
-      margin:0 0 18px;
-      padding:12px 16px 12px 13px;
-      border:1px solid rgba(220,232,218,.92);
-      border-radius:26px;
-      background:rgba(255,255,255,.78);
-      box-shadow:0 14px 36px rgba(20,36,25,.07);
-      backdrop-filter:blur(12px);
-    }
-
-    .hero-logo-lockup .weather-icon{
-      width:86px;
-      height:auto;
-    }
-
-    .hero-logo-text{
-      display:grid;
-      line-height:.9;
-      font-weight:1000;
-      letter-spacing:-.07em;
-      font-size:clamp(1.5rem,3vw,2.15rem);
-    }
-
-    .hero-logo-text strong{
-      color:var(--green2);
-      font-size:1.12em;
-      letter-spacing:-.075em;
-    }
-
     .kicker{
       display:inline-flex;
       align-items:center;
@@ -662,8 +630,6 @@
 
     @media (max-width:760px){
       main{padding-top:18px}
-      .hero-logo-lockup{display:flex;justify-content:center;width:100%;padding:11px}
-      .hero-logo-lockup .weather-icon{width:72px}
       header{align-items:flex-start}
       .top-help{display:none}
       .checker-head{display:block}
@@ -712,17 +678,6 @@
     <main id="main">
       <section class="hero" aria-labelledby="title">
         <div class="hero-copy">
-          <div class="hero-logo-lockup" aria-hidden="true">
-            <svg class="weather-icon" viewBox="0 0 110 78" focusable="false">
-              <circle cx="31" cy="24" r="16" fill="#fbbf24"/>
-              <path d="M31 2v9M9 24h9M15 8l7 7M48 8l-7 7" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
-              <path d="M30 62h49c11 0 20-9 20-20s-9-20-20-20c-5 0-9 1-13 4C62 16 52 10 40 10c-15 0-27 11-28 26C6 39 3 45 3 51c0 6 5 11 12 11h15z" fill="#fff" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M36 43l11 11 25-29" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M80 60c0 4-3 8-8 8s-8-4-8-8c0-6 8-16 8-16s8 10 8 16z" fill="#3b82f6"/>
-              <path d="M88 50h14M84 59h16M89 68h9" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round"/>
-            </svg>
-            <div class="hero-logo-text"><span>Should I Do It</span><strong>Today?</strong></div>
-          </div>
           <div class="kicker"><span></span> Your daily decision board</div>
           <h1 id="title">Should I do it <strong>today?</strong></h1>
           <p class="lead">Get a practical local weather-based GO, CAUTION or NO-GO for everyday outdoor jobs like mowing, hanging washing, washing the car, BBQs, running and dog walks.</p>
