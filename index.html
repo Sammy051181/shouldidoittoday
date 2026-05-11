@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Should I Do It Today? | Weather-Based Go / No-Go Check</title>
-  <meta name="description" content="Should I do it today? Automatically check your local weather and get a simple go, caution or no-go answer for mowing the lawn, washing the car, hanging washing out, painting outside, BBQs, dog walks and more." />
+  <meta name="description" content="Should I do it today? Automatically check your local weather and get a simple go, caution or no-go answer for mowing the lawn, washing the car, hanging washing out, painting outside, BBQs, dog walks, jacket checks and more." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/" />
 
@@ -84,14 +84,32 @@
     }
 
     .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 10px 24px rgba(15,118,110,.18);
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      filter: drop-shadow(0 8px 18px rgba(15,118,110,.16));
+    }
+
+    .hero-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: var(--ink);
+      font-weight: 950;
+      letter-spacing: -0.045em;
+      font-size: clamp(1.7rem, 4vw, 2.55rem);
+    }
+
+    .hero-logo svg {
+      width: clamp(54px, 9vw, 76px);
+      height: auto;
+      filter: drop-shadow(0 10px 22px rgba(15,118,110,.14));
+    }
+
+    .hero-logo strong {
+      color: var(--accent);
     }
 
     .top-help {
@@ -386,7 +404,13 @@
   <div class="page">
     <header>
       <a class="brand" href="/" aria-label="Should I Do It Today home">
-        <span class="brand-mark">✓</span>
+        <svg class="brand-mark" viewBox="0 0 96 72" role="img" aria-label="Should I Do It Today logo">
+          <circle cx="27" cy="23" r="15" fill="#fbbf24" />
+          <path d="M19 4v8M4 23h8M10 10l6 6M44 10l-6 6" stroke="#f59e0b" stroke-width="5" stroke-linecap="round" />
+          <path d="M27 58h42c10 0 18-8 18-18s-8-18-18-18c-4 0-8 1-11 3C54 16 45 10 35 10c-13 0-24 10-25 23C5 36 2 41 2 47c0 6 5 11 11 11h14z" fill="#ffffff" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M32 39l10 10 22-25" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M70 54c0 4-3 7-7 7s-7-3-7-7c0-5 7-14 7-14s7 9 7 14z" fill="#3b82f6" />
+        </svg>
         <span>Should I Do It Today?</span>
       </a>
       <div class="top-help">Local weather. Simple answer.</div>
@@ -394,6 +418,16 @@
 
     <main>
       <section class="hero" aria-labelledby="title">
+        <div class="hero-logo" aria-hidden="true">
+          <svg viewBox="0 0 96 72" role="img" focusable="false">
+            <circle cx="27" cy="23" r="15" fill="#fbbf24" />
+            <path d="M19 4v8M4 23h8M10 10l6 6M44 10l-6 6" stroke="#f59e0b" stroke-width="5" stroke-linecap="round" />
+            <path d="M27 58h42c10 0 18-8 18-18s-8-18-18-18c-4 0-8 1-11 3C54 16 45 10 35 10c-13 0-24 10-25 23C5 36 2 41 2 47c0 6 5 11 11 11h14z" fill="#ffffff" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M32 39l10 10 22-25" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M70 54c0 4-3 7-7 7s-7-3-7-7c0-5 7-14 7-14s7 9 7 14z" fill="#3b82f6" />
+          </svg>
+          <span>Should I Do It <strong>Today?</strong></span>
+        </div>
         <div class="status-pill" id="locationStatus"><span class="pulse"></span><span>Detecting your location…</span></div>
         <h1 id="title">Should I do it today?</h1>
         <p class="lead">Choose a job, use your current location or type a place, and get a fast GO / CAUTION / NO answer.</p>
@@ -426,7 +460,7 @@
           </div>
         </div>
 
-        <p class="seo-line">Popular checks: should I mow the lawn today, should I wash my car today, can I hang washing out today, should I paint outside today, should I BBQ today.</p>
+        <p class="seo-line">Popular checks: should I mow the lawn today, should I wash my car today, can I hang washing out today, should I paint outside today, should I BBQ today, do I need a jacket today.</p>
       </section>
     </main>
 
@@ -508,6 +542,18 @@
         tempMax: 27,
         drySensitive: false,
         hours: [6, 22]
+      },
+      jacket: {
+        icon: "🧥",
+        label: "Need jacket",
+        question: "Do I need a jacket today?",
+        slug: "do-i-need-a-jacket-today",
+        rainProb: 40,
+        windMax: 34,
+        tempMin: 12,
+        tempMax: 100,
+        drySensitive: false,
+        hours: [6, 23]
       },
       run: {
         icon: "🏃",
