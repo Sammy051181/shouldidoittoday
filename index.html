@@ -1057,7 +1057,7 @@
         const start = makeTime(dayStart, period[0]);
         const end = makeTime(dayStart, period[1]);
         const effectiveStart = isToday ? new Date(Math.max(start.getTime(), now.getTime())) : start;
-        const periodRows = rowsBetween(rows, effectiveStart, end);
+        const periodRows = rows.filter(row => row.time >= effectiveStart && row.time < end);
         const result = findContinuousWindow(periodRows, predicate, minHours);
         if (result !== "No sensible window") return result;
       }
@@ -1297,32 +1297,108 @@
       return findWindowInPreferredPeriods(ctx.rows, ctx.dayStart, periods, row => row.time >= ctx.effectiveStart && row.precip <= 0.1 && row.rainProb < 55 && row.temp >= task.tempMinC, task.minGoodHours, ctx.isToday);
     }
     function analyseWaterPlants(ctx, task) {
-      let score = 50;
+      let score = 35;
       const blockers = [], cautions = [], positives = [];
-      if (ctx.currentRain > 0) { score -= 35; blockers.push("it is raining now"); }
-      if (ctx.rain6 >= task.rainSoonUsefulMm || ctx.maxRainProbNext12 >= 75) { score -= 35; blockers.push("useful rain is likely soon"); }
-      else if (ctx.rain24 >= 2) { score -= 18; cautions.push("rain is expected later, so garden beds may not need watering"); }
-      else { score += 18; positives.push("no useful rain is expected soon"); }
-      if (ctx.rainPast24 >= task.recentRainEnoughMm) { score -= 35; blockers.push("there has already been enough recent rain for most outdoor plants"); }
-      else if (ctx.rainPast24 >= 2) { score -= 15; cautions.push("there has been some recent rain, so check soil before watering"); }
-      else if (ctx.rainPast72 < 2) { score += 22; positives.push("it has been fairly dry recently"); }
-      if (ctx.maxTemp >= 24) { score += 15; positives.push("warm conditions will increase water demand"); }
-      else if (ctx.maxTemp < 10) { score -= 15; cautions.push("cool conditions reduce watering need"); }
-      if (ctx.avgWind >= 16) { score += 8; positives.push("wind will dry pots and exposed soil faster"); }
-      if (ctx.avgHumidity !== null && ctx.avgHumidity < 55) { score += 8; positives.push("low humidity will increase drying"); }
-      if (ctx.evapTotal >= 2) { score += 8; positives.push("evaporation demand looks elevated"); }
-      if (ctx.soilMoisture !== null) {
-        if (ctx.soilMoisture < 0.22) { score += 16; positives.push("near-surface soil moisture looks low"); }
-        else if (ctx.soilMoisture > 0.32) { score -= 16; cautions.push("near-surface soil moisture does not look especially dry"); }
+      const isCool = ctx.maxTemp < 15;
+      const isWarmEnoughForRoutineWatering = ctx.maxTemp >= 18;
+      const isDrySpell = ctx.rainPast72 < 1;
+      const isVeryDryAndDrying = isDrySpell && (ctx.evapTotal >= 1.2 || ctx.avgWind >= 14 || (ctx.avgHumidity !== null && ctx.avgHumidity < 55));
+
+      if (ctx.currentRain > 0) {
+        score -= 35;
+        blockers.push("it is raining now");
       }
-      if (min(ctx.next12.map(row => row.temp), 99) <= 2) { score -= 25; blockers.push("cold or frost risk makes watering a poor choice"); }
-      if (isWinterRestPeriod(ctx.dayStart) && ctx.maxTemp < 12) { score -= 18; cautions.push("seasonal demand is low, so established outdoor beds usually do not need watering"); }
+
+      if (ctx.rain6 >= task.rainSoonUsefulMm || ctx.maxRainProbNext12 >= 75) {
+        score -= 35;
+        blockers.push("useful rain is likely soon");
+      } else if (ctx.rain24 >= 2) {
+        score -= 18;
+        cautions.push("rain is expected later, so garden beds may not need watering");
+      } else {
+        score += 8;
+        positives.push("no useful rain is expected soon");
+      }
+
+      if (ctx.rainPast24 >= task.recentRainEnoughMm) {
+        score -= 35;
+        blockers.push("there has already been enough recent rain for most outdoor plants");
+      } else if (ctx.rainPast24 >= 2) {
+        score -= 15;
+        cautions.push("there has been some recent rain, so check soil before watering");
+      } else if (isDrySpell) {
+        score += isWarmEnoughForRoutineWatering ? 18 : 8;
+        positives.push("it has been fairly dry recently");
+      }
+
+      if (ctx.maxTemp >= 24) {
+        score += 18;
+        positives.push("warm conditions will increase water demand");
+      } else if (ctx.maxTemp >= 18) {
+        score += 8;
+        positives.push("mild conditions may increase water demand for pots and new plants");
+      } else if (isCool) {
+        score -= 24;
+        cautions.push("it is cool, so established outdoor plants usually need little extra water");
+      }
+
+      if (ctx.avgWind >= 16 && ctx.maxTemp >= 16) {
+        score += 8;
+        positives.push("wind will dry pots and exposed soil faster");
+      }
+
+      if (ctx.avgHumidity !== null && ctx.avgHumidity < 55 && ctx.maxTemp >= 16) {
+        score += 6;
+        positives.push("low humidity will increase drying");
+      }
+
+      if (ctx.evapTotal >= 2 && ctx.maxTemp >= 16) {
+        score += 8;
+        positives.push("evaporation demand looks elevated");
+      }
+
+      if (ctx.soilMoisture !== null) {
+        if (ctx.soilMoisture < 0.22) {
+          score += 16;
+          positives.push("near-surface soil moisture looks low");
+        } else if (ctx.soilMoisture > 0.32) {
+          score -= 16;
+          cautions.push("near-surface soil moisture does not look especially dry");
+        }
+      }
+
+      if (min(ctx.next12.map(row => row.temp), 99) <= 2) {
+        score -= 25;
+        blockers.push("cold or frost risk makes watering a poor choice");
+      }
+
+      if (isWinterRestPeriod(ctx.dayStart) && ctx.maxTemp < 12) {
+        score -= 18;
+        cautions.push("seasonal demand is low, so established outdoor beds usually do not need watering");
+      }
+
+      if (isCool && !isVeryDryAndDrying) {
+        score -= 18;
+        cautions.push("cool weather means no routine watering unless pots, baskets or new plants are actually dry");
+      }
+
       const best = findWateringWindow(ctx, task);
-      if (best === "No sensible window") { score -= 20; cautions.push("there is no ideal morning or evening watering window left"); }
+      if (best === "No sensible window") {
+        score -= 20;
+        cautions.push("there is no ideal morning or evening watering window left");
+      }
+
       let status = "CHECK";
       let css = "caution";
-      if (score >= 70 && blockers.length === 0) { status = "WATER"; css = ""; }
-      if (score < 45 || blockers.length) { status = "WAIT"; css = "no"; }
+      if (score >= 75 && blockers.length === 0 && (isWarmEnoughForRoutineWatering || isVeryDryAndDrying || (ctx.soilMoisture !== null && ctx.soilMoisture < 0.22))) {
+        status = "WATER";
+        css = "";
+      }
+      if (score < 45 || blockers.length) {
+        status = "WAIT";
+        css = "no";
+      }
+
       return baseResult(ctx, status, css, score, blockers, cautions, positives, best, task);
     }
 
@@ -1410,7 +1486,7 @@
       const checkBack = checkBackPhrase(nextBetter);
 
       if (["GO", "WATER", "TAKE ONE"].includes(todayResult.status)) {
-        if (taskKey === "plants") return `Recommendation: water during ${todayResult.best}. Prioritise pots, hanging baskets, new plants and anything under cover.`;
+        if (taskKey === "plants") return `Recommendation: water during ${todayResult.best} only if soil is dry. Prioritise pots, hanging baskets, new plants and anything under cover.`;
         if (taskKey === "jacket") return "Recommendation: take a coat or waterproof layer.";
         return `Recommendation: do it ${todayResult.label} during ${todayResult.best}.`;
       }
@@ -1418,8 +1494,8 @@
       if (["CAUTION", "CHECK", "MAYBE"].includes(todayResult.status)) {
         if (taskKey === "plants") {
           return nextBetter
-            ? `Recommendation: check the soil first. Water pots, baskets and covered plants only if dry; for normal garden beds, the better option looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
-            : "Recommendation: check the soil first. Water pots, baskets and covered plants only if dry.";
+            ? `Recommendation: do not routinely water garden beds. Check the soil first; water pots, baskets, new plants and covered plants only if dry. The better general watering window looks like ${nextWindowPhrase(nextBetter)}.${checkBack}`
+            : "Recommendation: do not routinely water garden beds. Check the soil first; water pots, baskets, new plants and covered plants only if dry.";
         }
         if (taskKey === "jacket") return "Recommendation: a light layer or waterproof is sensible if you will be out for long.";
         if (taskKey === "run") {
