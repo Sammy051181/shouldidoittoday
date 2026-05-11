@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Should I Do It Today? | Simple Weather-Based Go / No-Go Check</title>
-  <meta name="description" content="Should I do it today? Enter your location and get a simple weather-based go/no-go answer for mowing the lawn, washing the car, hanging washing out, painting outside, BBQs and more." />
+  <title>Should I Do It Today? | Weather-Based Go / No-Go Check</title>
+  <meta name="description" content="Should I do it today? Automatically check your local weather and get a simple go, caution or no-go answer for mowing the lawn, washing the car, hanging washing out, painting outside, BBQs, dog walks and more." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Should I Do It Today?" />
   <meta property="og:title" content="Should I Do It Today?" />
-  <meta property="og:description" content="A simple weather-based go/no-go check for everyday outdoor tasks." />
+  <meta property="og:description" content="A simple local weather-based go/no-go check for everyday outdoor tasks." />
   <meta property="og:url" content="https://shouldidoittoday.com/" />
   <meta name="twitter:card" content="summary" />
 
@@ -28,15 +28,17 @@
 
   <style>
     :root {
-      --ink: #202124;
-      --muted: #5f6368;
-      --line: #dadce0;
-      --soft: #f8fafd;
+      --ink: #122033;
+      --muted: #64748b;
+      --soft: #f6fafc;
+      --card: #ffffff;
+      --line: #dbe7ef;
+      --accent: #0f766e;
+      --accent2: #14b8a6;
       --go: #0f766e;
       --caution: #b45309;
       --no: #dc2626;
-      --accent: #0f766e;
-      --shadow: 0 1px 6px rgba(32, 33, 36, .18);
+      --shadow: 0 18px 55px rgba(15, 23, 42, .10);
     }
 
     * { box-sizing: border-box; }
@@ -44,242 +46,309 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       color: var(--ink);
-      background: #fff;
+      background:
+        radial-gradient(circle at 80% 8%, rgba(20,184,166,.15), transparent 32%),
+        radial-gradient(circle at 10% 88%, rgba(15,118,110,.10), transparent 30%),
+        #ffffff;
+      line-height: 1.5;
+    }
+
+    button, input { font: inherit; }
+
+    .page {
+      width: min(860px, calc(100% - 28px));
+      margin: 0 auto;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
     header {
-      min-height: 54px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: flex-end;
-      gap: 18px;
-      padding: 0 22px;
-      font-size: 14px;
-      color: var(--muted);
+      gap: 1rem;
+      padding: 18px 0;
     }
 
-    header a {
-      color: var(--muted);
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       text-decoration: none;
+      color: var(--ink);
+      font-weight: 900;
+      letter-spacing: -0.03em;
     }
 
-    header a:hover { text-decoration: underline; }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 24px rgba(15,118,110,.18);
+    }
+
+    .top-help {
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 700;
+    }
 
     main {
       flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: clamp(58px, 12vh, 132px) 18px 40px;
+      display: grid;
+      place-items: center;
+      padding: 34px 0 48px;
     }
 
-    .wrap {
-      width: min(680px, 100%);
+    .hero {
+      width: 100%;
       text-align: center;
     }
 
-    .logo {
-      margin: 0 0 22px;
-      font-size: clamp(2.35rem, 7vw, 4.8rem);
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(15,118,110,.08);
+      color: var(--accent);
+      border: 1px solid rgba(15,118,110,.16);
+      font-size: .9rem;
+      font-weight: 850;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent2);
+      box-shadow: 0 0 0 5px rgba(20,184,166,.16);
+    }
+
+    h1 {
+      margin: 18px auto 10px;
+      font-size: clamp(2.7rem, 7vw, 5.25rem);
       line-height: .96;
       letter-spacing: -0.075em;
-      font-weight: 850;
-      color: var(--ink);
+      font-weight: 900;
+      max-width: 760px;
     }
 
-    .logo-mark {
-      display: inline-grid;
-      place-items: center;
-      width: .72em;
-      height: .72em;
-      margin-right: .12em;
-      border-radius: 22%;
-      background: var(--accent);
-      color: #fff;
-      font-size: .55em;
-      vertical-align: .18em;
-      letter-spacing: 0;
-    }
-
-    .tagline {
+    .lead {
+      margin: 0 auto 24px;
+      max-width: 620px;
       color: var(--muted);
-      margin: -16px 0 26px;
-      font-size: 1rem;
+      font-size: clamp(1.02rem, 2vw, 1.18rem);
     }
 
-    .searchbox {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: min(584px, 100%);
+    .search-card {
+      width: min(680px, 100%);
       margin: 0 auto;
+      padding: 12px;
       border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 10px 10px 10px 16px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .search-input {
+      min-width: 0;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 14px 15px;
+      outline: none;
+      color: var(--ink);
       background: #fff;
     }
 
-    .searchbox:focus-within,
-    .searchbox:hover {
-      box-shadow: var(--shadow);
-      border-color: transparent;
+    .search-input:focus {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 4px rgba(20,184,166,.14);
     }
 
-    .search-icon {
-      color: #9aa0a6;
-      font-size: 18px;
-      line-height: 1;
-    }
-
-    input {
-      flex: 1;
-      min-width: 0;
+    .btn {
       border: 0;
-      outline: 0;
-      font-size: 16px;
-      color: var(--ink);
-      padding: 8px 4px;
-    }
-
-    .go-btn {
-      border: 0;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 700;
-      padding: 10px 16px;
+      border-radius: 17px;
+      padding: 14px 16px;
       cursor: pointer;
+      font-weight: 900;
       white-space: nowrap;
     }
 
-    .go-btn:hover { background: #0b5f59; }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
 
-    .buttons {
-      display: flex;
-      justify-content: center;
+    .btn-primary:hover { background: #0b5f59; }
+
+    .btn-secondary {
+      background: #ecfdf8;
+      color: var(--accent);
+      border: 1px solid #b7ebe3;
+    }
+
+    .btn-secondary:hover { background: #dcf8f1; }
+
+    .tasks {
+      width: min(760px, 100%);
+      margin: 18px auto 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 22px;
     }
 
-    .task,
-    .secondary {
-      border: 1px solid #f8f9fa;
-      background: #f8f9fa;
-      color: #3c4043;
-      border-radius: 4px;
-      padding: 10px 14px;
-      font-size: 14px;
+    .task {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      color: var(--ink);
+      padding: 12px 10px;
       cursor: pointer;
+      font-weight: 850;
+      box-shadow: 0 4px 16px rgba(15,23,42,.04);
+      transition: transform .15s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease;
     }
 
-    .task:hover,
-    .secondary:hover {
-      border-color: #dadce0;
-      box-shadow: 0 1px 1px rgba(0,0,0,.08);
+    .task:hover {
+      transform: translateY(-2px);
+      border-color: #b7ebe3;
+      box-shadow: 0 10px 24px rgba(15,23,42,.08);
     }
 
     .task.active {
-      border-color: #b7ebe3;
+      border-color: #99efe1;
       background: #ecfdf8;
       color: var(--accent);
     }
 
+    .task span {
+      display: block;
+      font-size: 1.45rem;
+      margin-bottom: 4px;
+    }
+
     .hint {
-      margin: 18px 0 0;
+      margin: 13px 0 0;
       color: var(--muted);
-      font-size: 13px;
+      font-size: .92rem;
     }
 
     .result {
       display: none;
-      width: min(584px, 100%);
-      margin: 28px auto 0;
-      text-align: left;
+      width: min(680px, 100%);
+      margin: 18px auto 0;
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
+      border-radius: 26px;
       background: #fff;
-      box-shadow: 0 1px 2px rgba(60,64,67,.12);
+      box-shadow: 0 14px 42px rgba(15,23,42,.09);
+      overflow: hidden;
+      text-align: left;
     }
 
     .result.show { display: block; }
 
-    .answer-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+    .result-main {
+      display: grid;
+      grid-template-columns: 136px 1fr;
       gap: 16px;
-      margin-bottom: 14px;
+      align-items: center;
+      padding: 18px;
     }
 
     .answer {
-      font-size: 2.15rem;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -0.05em;
+      min-height: 92px;
+      border-radius: 21px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 12px;
+      background: #ecfdf8;
       color: var(--go);
-      white-space: nowrap;
+      font-size: 2rem;
+      line-height: .95;
+      letter-spacing: -0.06em;
+      font-weight: 1000;
     }
 
-    .answer.caution { color: var(--caution); }
-    .answer.no { color: var(--no); }
+    .answer.caution {
+      background: #fffbeb;
+      color: var(--caution);
+    }
+
+    .answer.no {
+      background: #fff1f2;
+      color: var(--no);
+    }
 
     .question {
-      margin: 0;
-      font-size: 1.05rem;
-      line-height: 1.35;
+      margin: 0 0 5px;
+      font-weight: 900;
+      font-size: 1.12rem;
+      letter-spacing: -0.025em;
     }
 
     .reason {
-      margin: 4px 0 0;
+      margin: 0;
       color: var(--muted);
-      font-size: .95rem;
     }
 
     .facts {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-top: 14px;
+      gap: 1px;
+      background: var(--line);
+      border-top: 1px solid var(--line);
     }
 
     .fact {
-      background: #f8fafd;
-      border-radius: 10px;
-      padding: 10px;
-      min-width: 0;
+      background: #fff;
+      padding: 13px;
     }
 
     .fact span {
       display: block;
       color: var(--muted);
-      font-size: 12px;
+      font-size: .76rem;
+      font-weight: 850;
       margin-bottom: 3px;
     }
 
     .fact strong {
-      font-size: 13px;
-      word-break: break-word;
+      display: block;
+      font-size: .95rem;
     }
 
-    .seo-text {
-      width: min(584px, 100%);
-      margin: 26px auto 0;
+    .seo-line {
+      width: min(680px, 100%);
+      margin: 22px auto 0;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
+      font-size: .9rem;
     }
 
     footer {
-      padding: 18px;
+      padding: 20px 0 24px;
       color: var(--muted);
-      font-size: 12px;
       text-align: center;
+      font-size: .82rem;
     }
 
     .sr-only {
@@ -294,85 +363,82 @@
       border: 0;
     }
 
-    @media (max-width: 620px) {
-      header { justify-content: center; }
-      main { padding-top: 48px; }
-      .searchbox { border-radius: 18px; align-items: stretch; }
-      .go-btn { padding-inline: 14px; }
+    @media (max-width: 760px) {
+      main { place-items: start; padding-top: 32px; }
+      .search-row { grid-template-columns: 1fr; }
+      .btn { width: 100%; }
+      .tasks { grid-template-columns: repeat(2, 1fr); }
+      .result-main { grid-template-columns: 1fr; }
+      .answer { min-height: 72px; }
       .facts { grid-template-columns: repeat(2, 1fr); }
-      .answer-row { flex-direction: column; }
     }
 
-    @media (max-width: 420px) {
-      .searchbox {
-        display: grid;
-        grid-template-columns: auto 1fr;
-      }
-      .go-btn {
-        grid-column: 1 / -1;
-        width: 100%;
-      }
+    @media (max-width: 430px) {
+      .page { width: min(100% - 20px, 860px); }
+      header { justify-content: center; }
+      .top-help { display: none; }
+      .tasks { grid-template-columns: 1fr; }
       .facts { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <a href="#popular">Popular checks</a>
-    <a href="#about">About</a>
-  </header>
+  <div class="page">
+    <header>
+      <a class="brand" href="/" aria-label="Should I Do It Today home">
+        <span class="brand-mark">✓</span>
+        <span>Should I Do It Today?</span>
+      </a>
+      <div class="top-help">Local weather. Simple answer.</div>
+    </header>
 
-  <main>
-    <section class="wrap" aria-labelledby="title">
-      <h1 id="title" class="logo" aria-label="Should I Do It Today?">
-        <span class="logo-mark">✓</span>Should I Do It Today?
-      </h1>
-      <p class="tagline">Should I do it today?</p>
+    <main>
+      <section class="hero" aria-labelledby="title">
+        <div class="status-pill" id="locationStatus"><span class="pulse"></span><span>Detecting your location…</span></div>
+        <h1 id="title">Should I do it today?</h1>
+        <p class="lead">Choose a job, use your current location or type a place, and get a fast GO / CAUTION / NO answer.</p>
 
-      <div class="searchbox">
-        <span class="search-icon" aria-hidden="true">⌕</span>
-        <label class="sr-only" for="locationInput">Enter your town or city</label>
-        <input id="locationInput" type="search" placeholder="Enter town or city" autocomplete="postal-code" />
-        <button id="checkBtn" class="go-btn" type="button">Check</button>
-      </div>
-
-      <div class="buttons" id="taskButtons" aria-label="Choose a task"></div>
-
-      <div class="buttons">
-        <button id="geoBtn" class="secondary" type="button">Use my location</button>
-      </div>
-
-      <p class="hint" id="hint">Choose a task, enter a location, get a go/no-go answer.</p>
-
-      <div class="result" id="result" aria-live="polite">
-        <div class="answer-row">
-          <div>
-            <p class="question" id="question">Should I mow the lawn today?</p>
-            <p class="reason" id="reason">Enter a location to check today’s weather.</p>
+        <div class="search-card">
+          <div class="search-row">
+            <label class="sr-only" for="locationInput">Enter your town, city or postcode area</label>
+            <input id="locationInput" class="search-input" type="search" placeholder="Or enter a town or city, e.g. Bristol" autocomplete="postal-code" />
+            <button id="checkBtn" class="btn btn-primary" type="button">Check</button>
+            <button id="geoBtn" class="btn btn-secondary" type="button">Use my location</button>
           </div>
-          <div class="answer" id="answer">GO</div>
         </div>
-        <div class="facts">
-          <div class="fact"><span>Best time</span><strong id="bestTime">—</strong></div>
-          <div class="fact"><span>Rain</span><strong id="rain">—</strong></div>
-          <div class="fact"><span>Wind</span><strong id="wind">—</strong></div>
-          <div class="fact"><span>Temp</span><strong id="temp">—</strong></div>
+
+        <div class="tasks" id="taskButtons" aria-label="Choose a task"></div>
+        <p class="hint" id="hint">Selected: mow the lawn</p>
+
+        <div class="result" id="result" aria-live="polite">
+          <div class="result-main">
+            <div class="answer" id="answer">GO</div>
+            <div>
+              <p class="question" id="question">Should I mow the lawn today?</p>
+              <p class="reason" id="reason">Checking your local conditions…</p>
+            </div>
+          </div>
+          <div class="facts">
+            <div class="fact"><span>Best time</span><strong id="bestTime">—</strong></div>
+            <div class="fact"><span>Rain</span><strong id="rain">—</strong></div>
+            <div class="fact"><span>Wind</span><strong id="wind">—</strong></div>
+            <div class="fact"><span>Temp</span><strong id="temp">—</strong></div>
+          </div>
         </div>
-      </div>
 
-      <div class="seo-text" id="popular">
-        <p>Popular checks include: should I mow the lawn today, should I wash my car today, can I hang washing out today, should I paint outside today, should I BBQ today and should I walk the dog today.</p>
-      </div>
-    </section>
-  </main>
+        <p class="seo-line">Popular checks: should I mow the lawn today, should I wash my car today, can I hang washing out today, should I paint outside today, should I BBQ today.</p>
+      </section>
+    </main>
 
-  <footer id="about">
-    Should I Do It Today? gives practical weather-based guidance only. Always check local conditions. Weather data by Open-Meteo.
-  </footer>
+    <footer>
+      Practical weather-based guidance only. Always check actual local conditions. Weather data by Open-Meteo.
+    </footer>
+  </div>
 
   <script>
     const tasks = {
       mow: {
+        icon: "🌱",
         label: "Mow lawn",
         question: "Should I mow the lawn today?",
         slug: "should-i-mow-the-lawn-today",
@@ -384,6 +450,7 @@
         hours: [8, 19]
       },
       washCar: {
+        icon: "🚗",
         label: "Wash car",
         question: "Should I wash my car today?",
         slug: "should-i-wash-my-car-today",
@@ -395,6 +462,7 @@
         hours: [8, 19]
       },
       washing: {
+        icon: "👕",
         label: "Hang washing",
         question: "Can I hang washing out today?",
         slug: "can-i-hang-washing-out-today",
@@ -406,6 +474,7 @@
         hours: [7, 20]
       },
       paint: {
+        icon: "🎨",
         label: "Paint outside",
         question: "Should I paint outside today?",
         slug: "should-i-paint-outside-today",
@@ -417,6 +486,7 @@
         hours: [9, 18]
       },
       bbq: {
+        icon: "🔥",
         label: "BBQ",
         question: "Should I BBQ today?",
         slug: "should-i-bbq-today",
@@ -428,6 +498,7 @@
         hours: [11, 21]
       },
       dog: {
+        icon: "🐕",
         label: "Walk dog",
         question: "Should I walk the dog today?",
         slug: "should-i-walk-the-dog-today",
@@ -437,13 +508,40 @@
         tempMax: 27,
         drySensitive: false,
         hours: [6, 22]
+      },
+      run: {
+        icon: "🏃",
+        label: "Go running",
+        question: "Should I go for a run today?",
+        slug: "should-i-go-for-a-run-today",
+        rainProb: 50,
+        windMax: 36,
+        tempMin: 2,
+        tempMax: 25,
+        drySensitive: false,
+        hours: [5, 22]
+      },
+      windows: {
+        icon: "🪟",
+        label: "Clean windows",
+        question: "Should I clean the windows today?",
+        slug: "should-i-clean-the-windows-today",
+        rainProb: 28,
+        windMax: 28,
+        tempMin: 5,
+        tempMax: 27,
+        drySensitive: false,
+        hours: [8, 18]
       }
     };
 
     let selected = "mow";
+    let detectedLocation = null;
+
     const locationInput = document.getElementById("locationInput");
     const taskButtons = document.getElementById("taskButtons");
     const hint = document.getElementById("hint");
+    const locationStatus = document.getElementById("locationStatus");
 
     function init() {
       const params = new URLSearchParams(window.location.search);
@@ -454,7 +552,9 @@
       if (locationParam) locationInput.value = locationParam;
 
       taskButtons.innerHTML = Object.entries(tasks).map(([key, task]) => `
-        <button class="task ${key === selected ? "active" : ""}" type="button" data-task="${key}">${task.label}</button>
+        <button class="task ${key === selected ? "active" : ""}" type="button" data-task="${key}">
+          <span>${task.icon}</span>${task.label}
+        </button>
       `).join("");
 
       document.querySelectorAll("[data-task]").forEach(button => {
@@ -463,12 +563,47 @@
           document.querySelectorAll("[data-task]").forEach(btn => btn.classList.remove("active"));
           button.classList.add("active");
           hint.textContent = `Selected: ${tasks[selected].label}`;
-          if (locationInput.value.trim()) checkFromText();
+
+          if (locationInput.value.trim()) {
+            checkFromText();
+          } else if (detectedLocation) {
+            checkFromCoords(detectedLocation.latitude, detectedLocation.longitude, detectedLocation.name);
+          }
         });
       });
 
       hint.textContent = `Selected: ${tasks[selected].label}`;
-      if (locationInput.value.trim()) checkFromText();
+
+      if (locationInput.value.trim()) {
+        checkFromText();
+      } else {
+        autoDetectLocation();
+      }
+    }
+
+    function setLocationStatus(text, active = true) {
+      locationStatus.innerHTML = `${active ? '<span class="pulse"></span>' : ''}<span>${text}</span>`;
+    }
+
+    function autoDetectLocation() {
+      if (!navigator.geolocation) {
+        setLocationStatus("Type your location to start", false);
+        return;
+      }
+
+      setLocationStatus("Detecting your location…", true);
+      navigator.geolocation.getCurrentPosition(async position => {
+        const { latitude, longitude } = position.coords;
+        detectedLocation = { latitude, longitude, name: "your current location" };
+        setLocationStatus("Using your current location", false);
+        await checkFromCoords(latitude, longitude, "your current location");
+      }, () => {
+        setLocationStatus("Type a location or tap Use my location", false);
+      }, {
+        enableHighAccuracy: false,
+        timeout: 8000,
+        maximumAge: 600000
+      });
     }
 
     async function geocode(query) {
@@ -483,10 +618,6 @@
         longitude: place.longitude,
         name: [place.name, place.admin1, place.country_code].filter(Boolean).join(", ")
       };
-    }
-
-    async function reverseName(latitude, longitude) {
-      return "your location";
     }
 
     async function getWeather(latitude, longitude) {
@@ -513,8 +644,7 @@
         temp: data.hourly.temperature_2m[i],
         precip: data.hourly.precipitation[i] || 0,
         rainProb: data.hourly.precipitation_probability[i] ?? 0,
-        wind: data.hourly.wind_speed_10m[i] || 0,
-        gust: data.hourly.wind_gusts_10m[i] || 0
+        wind: data.hourly.wind_speed_10m[i] || 0
       }));
 
       const next12 = rows.filter(row => row.time >= now && row.time <= new Date(now.getTime() + 12 * 60 * 60 * 1000));
@@ -607,9 +737,13 @@
     function loading() {
       document.getElementById("result").classList.add("show");
       document.getElementById("question").textContent = tasks[selected].question;
-      document.getElementById("reason").textContent = "Checking today's weather...";
+      document.getElementById("reason").textContent = "Checking today’s weather…";
       document.getElementById("answer").className = "answer";
       document.getElementById("answer").textContent = "…";
+      document.getElementById("bestTime").textContent = "—";
+      document.getElementById("rain").textContent = "—";
+      document.getElementById("wind").textContent = "—";
+      document.getElementById("temp").textContent = "—";
     }
 
     function render(place, result) {
@@ -623,7 +757,7 @@
       document.getElementById("temp").textContent = result.temp;
     }
 
-    function error(message) {
+    function showError(message) {
       document.getElementById("result").classList.add("show");
       document.getElementById("question").textContent = "Could not complete check";
       document.getElementById("reason").textContent = message;
@@ -638,47 +772,69 @@
     async function checkFromText() {
       const query = locationInput.value.trim();
       if (!query) {
-        error("Enter a town or city first.");
+        if (detectedLocation) {
+          await checkFromCoords(detectedLocation.latitude, detectedLocation.longitude, detectedLocation.name);
+        } else {
+          showError("Enter a town or city, or allow current location.");
+        }
         return;
       }
+
       try {
         loading();
+        setLocationStatus("Checking typed location…", true);
         const place = await geocode(query);
         const data = await getWeather(place.latitude, place.longitude);
         const result = analyse(data, tasks[selected]);
         render(place.name, result);
+        setLocationStatus(`Using ${place.name}`, false);
 
         const url = new URL(window.location.href);
         url.searchParams.set("location", query);
         url.searchParams.set("task", tasks[selected].slug);
         history.replaceState(null, "", url);
       } catch (err) {
-        error(err.message || "Something went wrong. Try another location.");
+        setLocationStatus("Type another location", false);
+        showError(err.message || "Something went wrong. Try another location.");
       }
     }
 
-    async function checkFromGeo() {
+    async function checkFromCoords(latitude, longitude, placeName) {
+      try {
+        loading();
+        const data = await getWeather(latitude, longitude);
+        const result = analyse(data, tasks[selected]);
+        render(placeName, result);
+      } catch (err) {
+        showError(err.message || "Could not check your current location.");
+      }
+    }
+
+    function useMyLocation() {
       if (!navigator.geolocation) {
-        error("Your browser does not support location checks. Enter a town or city instead.");
+        showError("Your browser does not support location checks. Enter a town or city instead.");
         return;
       }
-      loading();
+
+      setLocationStatus("Requesting location permission…", true);
       navigator.geolocation.getCurrentPosition(async pos => {
-        try {
-          const { latitude, longitude } = pos.coords;
-          const data = await getWeather(latitude, longitude);
-          const result = analyse(data, tasks[selected]);
-          render("your location", result);
-        } catch (err) {
-          error(err.message || "Could not check your current location.");
-        }
+        const { latitude, longitude } = pos.coords;
+        detectedLocation = { latitude, longitude, name: "your current location" };
+        locationInput.value = "";
+        setLocationStatus("Using your current location", false);
+        await checkFromCoords(latitude, longitude, "your current location");
       }, () => {
-        error("Location permission was not granted. Enter a town or city instead.");
+        setLocationStatus("Location permission not granted", false);
+        showError("Location permission was not granted. Enter a town or city instead.");
+      }, {
+        enableHighAccuracy: false,
+        timeout: 8000,
+        maximumAge: 600000
       });
     }
 
     document.getElementById("checkBtn").addEventListener("click", checkFromText);
-    document.getElementById("geoBtn").addEventListener("click", checkFromGeo);
+    document.getElementById("geoBtn").addEventListener("click", useMyLocation);
     locationInput.addEventListener("keydown", event => {
       if (event.key === "Enter") checkFromText();
     });
