@@ -993,8 +993,9 @@
         longitude,
         hourly: "temperature_2m,precipitation,precipitation_probability,wind_speed_10m,wind_gusts_10m",
         current: "temperature_2m,precipitation,rain,wind_speed_10m",
+        daily: "sunrise,sunset",
         timezone: "auto",
-        forecast_days: "2",
+        forecast_days: "7",
         past_days: "1",
         wind_speed_unit: "mph"
       });
@@ -1003,9 +1004,76 @@
       return response.json();
     }
 
-    function analyse(data, task) {
-      const now = new Date();
-      const rows = data.hourly.time.map((time, i) => ({
+    function isOutdoorDaylightTask(taskKey) {
+      return ["grass", "washing", "paint", "bbq", "dog", "run", "windows"].includes(taskKey);
+    }
+
+    function isDryGroundTask(taskKey) {
+      return ["grass", "paint", "windows"].includes(taskKey);
+    }
+
+    function isDryingTask(taskKey) {
+      return taskKey === "washing";
+    }
+
+    function isWinterRestPeriod(dateValue) {
+      const month = dateValue.getMonth();
+      const northernWinter = [11, 0, 1].includes(month);
+      const southernWinter = [5, 6, 7].includes(month);
+      return ["AU", "NZ"].includes(currentRegionKey) ? southernWinter : northernWinter;
+    }
+
+    function formatList(items) {
+      if (!items.length) return "conditions are mixed";
+      if (items.length === 1) return items[0];
+      return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
+    }
+
+    function startOfDay(dateValue) {
+      const d = new Date(dateValue);
+      d.setHours(0, 0, 0, 0);
+      return d;
+    }
+
+    function sameDay(a, b) {
+      return startOfDay(a).getTime() === startOfDay(b).getTime();
+    }
+
+    function dayLabel(dateValue) {
+      const today = startOfDay(new Date());
+      const target = startOfDay(dateValue);
+      const diffDays = Math.round((target - today) / 86400000);
+      if (diffDays === 0) return "today";
+      if (diffDays === 1) return "tomorrow";
+      return target.toLocaleDateString(region().locale, { weekday: "long" });
+    }
+
+    function getSunWindowForDate(data, dateValue, fallbackStartHour, fallbackEndHour) {
+      const targetDay = startOfDay(dateValue);
+      let sunrise = null;
+      let sunset = null;
+
+      if (data.daily && data.daily.time) {
+        const index = data.daily.time.findIndex(day => sameDay(new Date(day), targetDay));
+        if (index >= 0) {
+          sunrise = data.daily.sunrise && data.daily.sunrise[index] ? new Date(data.daily.sunrise[index]) : null;
+          sunset = data.daily.sunset && data.daily.sunset[index] ? new Date(data.daily.sunset[index]) : null;
+        }
+      }
+
+      const fallbackStart = new Date(targetDay);
+      fallbackStart.setHours(fallbackStartHour, 0, 0, 0);
+      const fallbackEnd = new Date(targetDay);
+      fallbackEnd.setHours(fallbackEndHour, 0, 0, 0);
+
+      return {
+        start: sunrise || fallbackStart,
+        end: sunset || fallbackEnd
+      };
+    }
+
+    function buildHourlyRows(data) {
+      return data.hourly.time.map((time, i) => ({
         time: new Date(time),
         hour: new Date(time).getHours(),
         temp: data.hourly.temperature_2m[i],
@@ -1013,91 +1081,47 @@
         rainProb: data.hourly.precipitation_probability[i] ?? 0,
         wind: data.hourly.wind_speed_10m[i] || 0
       }));
-
-      const next12 = rows.filter(row => row.time >= now && row.time <= new Date(now.getTime() + 12 * 60 * 60 * 1000));
-      const windowRows = next12.filter(row => row.hour >= task.hours[0] && row.hour <= task.hours[1]);
-      const useful = windowRows.length ? windowRows : next12;
-      const past24 = rows.filter(row => row.time < now && row.time >= new Date(now.getTime() - 24 * 60 * 60 * 1000));
-
-      const maxRain = Math.max(...useful.map(row => row.rainProb), 0);
-      const rainTotal = useful.reduce((sum, row) => sum + row.precip, 0);
-      const recentRain = past24.reduce((sum, row) => sum + row.precip, 0);
-      const maxWind = Math.max(...useful.map(row => row.wind), 0);
-      const avgTemp = useful.length ? useful.reduce((sum, row) => sum + row.temp, 0) / useful.length : data.current.temperature_2m;
-
-      let score = 100;
-      const reasons = [];
-
-      if ((data.current.precipitation || data.current.rain || 0) > 0) {
-        score -= 35;
-        reasons.push("it is raining now");
-      }
-      if (maxRain > task.rainProb) {
-        score -= Math.min(35, (maxRain - task.rainProb) * 0.75);
-        reasons.push("rain risk is higher than ideal");
-      }
-      if (rainTotal > 0.8) {
-        score -= 20;
-        reasons.push("rain is expected soon");
-      }
-      if (maxWind > task.windMaxMph) {
-        score -= Math.min(25, (maxWind - task.windMaxMph) * 1.2);
-        reasons.push("wind may be too strong");
-      }
-      if (avgTemp < task.tempMinC) {
-        score -= 18;
-        reasons.push("it may be too cold");
-      }
-      if (avgTemp > task.tempMaxC) {
-        score -= 18;
-        reasons.push("it may be too hot");
-      }
-      if (task.drySensitive && recentRain > 2.5) {
-        score -= 22;
-        reasons.push("surfaces may still be wet");
-      }
-
-      const goodSlots = useful.filter(row =>
-        row.rainProb <= task.rainProb &&
-        row.precip < 0.2 &&
-        row.wind <= task.windMaxMph &&
-        row.temp >= task.tempMinC &&
-        row.temp <= task.tempMaxC
-      );
-
-      let best = "No ideal window";
-      if (goodSlots.length) {
-        const first = goodSlots[0].time;
-        const last = new Date(goodSlots[goodSlots.length - 1].time.getTime() + 60 * 60 * 1000);
-        best = `${formatTime(first)}–${formatTime(last)}`;
-      }
-
-      let status = "GO";
-      let css = "";
-      if (score < 45) {
-        status = "NO";
-        css = "no";
-      } else if (score < 70) {
-        status = "CAUTION";
-        css = "caution";
-      }
-
-      let reason = "Good day for it. Conditions look suitable.";
-      if (status === "CAUTION") reason = `Possible, but not ideal: ${reasons.slice(0, 2).join(" and ") || "conditions are mixed"}.`;
-      if (status === "NO") reason = `Best to leave it today: ${reasons.slice(0, 2).join(" and ") || "conditions are poor"}.`;
-
-      return {
-        status,
-        css,
-        reason,
-        best,
-        rain: `${Math.round(maxRain)}% max`,
-        windMph: maxWind,
-        tempC: avgTemp
-      };
     }
 
-    function formatTime(date) {
+    function findRainEnds(rows, fromTime) {
+      const nextRows = rows.filter(row => row.time >= fromTime && row.time <= new Date(fromTime.getTime() + 18 * 60 * 60 * 1000));
+      const rainingNowOrSoon = nextRows.find(row => row.precip > 0.1 || row.rainProb >= 60);
+      if (!rainingNowOrSoon) return null;
+
+      for (const row of nextRows) {
+        if (row.time <= rainingNowOrSoon.time) continue;
+        const following = nextRows.filter(next => next.time >= row.time && next.time <= new Date(row.time.getTime() + 2 * 60 * 60 * 1000));
+        if (following.length >= 2 && following.every(next => next.precip <= 0.1 && next.rainProb < 50)) return row.time;
+      }
+      return null;
+    }
+
+    function analyseDay(data, task, dateValue, isToday) {
+      const taskKey = selected;
+      const now = new Date();
+      const dayStart = startOfDay(dateValue);
+      const rows = buildHourlyRows(data);
+      const daylight = getSunWindowForDate(data, dayStart, task.hours[0], task.hours[1]);
+
+      const taskStart = new Date(dayStart);
+      taskStart.setHours(task.hours[0], 0, 0, 0);
+      const taskEnd = new Date(dayStart);
+      taskEnd.setHours(task.hours[1], 0, 0, 0);
+
+      const effectiveStartBase = isOutdoorDaylightTask(taskKey)
+        ? new Date(Math.max(taskStart.getTime(), daylight.start.getTime()))
+        : taskStart;
+      const effectiveEnd = isOutdoorDaylightTask(taskKey)
+        ? new Date(Math.min(taskEnd.getTime(), daylight.end.getTime()))
+        : taskEnd;
+      const effectiveStart = isToday ? new Date(Math.max(effectiveStartBase.getTime(), now.getTime())) : effectiveStartBase;
+
+      const useful = rows.filter(row => row.time >= effectiveStart && row.time <= effectiveEnd);
+      const prior24End = isToday ? now : effectiveStartBase;
+      const past24 = rows.filter(row => row.time < prior24End && row.time >= new Date(prior24End.getTime() - 24 * 60 * 60 * 1000));
+
+      const maxRain = useful.length ? Math.max(...useful.map(row => row.rainProb), 0) : 100;
+      const rainTotal = useful.reduce(date) {
       return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     }
 
