@@ -865,22 +865,83 @@
       });
     }
 
-    async function geocode(query) {
-      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=1&language=en&format=json`;
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Could not search that location.");
-      const data = await response.json();
-      if (!data.results || !data.results.length) throw new Error("Location not found. Try a nearby town or city.");
-      const place = data.results[0];
+    function preferredCountryCode() {
       return {
-        latitude: place.latitude,
-        longitude: place.longitude,
-        countryCode: place.country_code,
-        name: [place.name, place.admin1, place.country_code].filter(Boolean).join(", ")
-      };
+        UK: "GB",
+        IE: "IE",
+        US: "US",
+        CA: "CA",
+        AU: "AU",
+        NZ: "NZ"
+      }[currentRegionKey] || "GB";
     }
 
-    async function getWeather(latitude, longitude) {
+    function cleanPostcode(value) {
+      return value.trim().toUpperCase().replace(/\s+/g, "");
+    }
+
+    function looksLikeUkPostcodeOrOutcode(value) {
+      const cleaned = cleanPostcode(value);
+      return /^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(cleaned) || /^[A-Z]{1,2}\d[A-Z\d]?$/.test(cleaned);
+    }
+
+    function looksLikePostalCode(value) {
+      const cleaned = value.trim().toUpperCase();
+      if (currentRegionKey === "UK") return looksLikeUkPostcodeOrOutcode(cleaned);
+      if (currentRegionKey === "US") return /^\d{5}(-\d{4})?$/.test(cleaned);
+      if (currentRegionKey === "CA") return /^[A-Z]\d[A-Z][ -]?\d[A-Z]\d$/.test(cleaned) || /^[A-Z]\d[A-Z]$/.test(cleaned);
+      if (currentRegionKey === "AU" || currentRegionKey === "NZ") return /^\d{4}$/.test(cleaned);
+      return false;
+    }
+
+    async function geocodeUkPostcode(query) {
+      const cleaned = cleanPostcode(query);
+      const isFullPostcode = /^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(cleaned);
+
+      if (isFullPostcode) {
+        const response = await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(cleaned)}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.result && data.result.latitude && data.result.longitude) {
+            return {
+              latitude: data.result.latitude,
+              longitude: data.result.longitude,
+              countryCode: "GB",
+              name: [data.result.postcode, data.result.admin_district, "GB"].filter(Boolean).join(", ")
+            };
+          }
+        }
+      }
+
+      const outcode = cleaned.replace(/\d[A-Z]{2}$/, "");
+      const outcodeResponse = await fetch(`https://api.postcodes.io/outcodes/${encodeURIComponent(outcode)}`);
+      if (outcodeResponse.ok) {
+        const outcodeData = await outcodeResponse.json();
+        if (outcodeData.result && outcodeData.result.latitude && outcodeData.result.longitude) {
+          return {
+            latitude: outcodeData.result.latitude,
+            longitude: outcodeData.result.longitude,
+            countryCode: "GB",
+            name: [outcodeData.result.outcode, outcodeData.result.admin_district?.[0], "GB"].filter(Boolean).join(", ")
+          };
+        }
+      }
+
+      throw new Error("Postcode not found. Try a full UK postcode, outward postcode like BA14, or a nearby town.");
+    }
+
+    async function geocodeInternationalPostcode(query) {
+      const country = preferredCountryCode();
+      let postalCode = query.trim().toUpperCase();
+
+      if (currentRegionKey === "US") postalCode = postalCode.slice(0, 5);
+      if (currentRegionKey === "CA") postalCode = postalCode.replace(/\s+/g, "");
+
+      const attempts = [postalCode];
+      if (currentRegionKey === "CA" && postalCode.length > 3) attempts.push(postalCode.slice(0, 3));
+
+      for (const attempt of attempts) {
+        const response = await fetch(`https:(latitude, longitude) {
       const params = new URLSearchParams({
         latitude,
         longitude,
