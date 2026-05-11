@@ -1121,7 +1121,172 @@
       const past24 = rows.filter(row => row.time < prior24End && row.time >= new Date(prior24End.getTime() - 24 * 60 * 60 * 1000));
 
       const maxRain = useful.length ? Math.max(...useful.map(row => row.rainProb), 0) : 100;
-      const rainTotal = useful.reduce(date) {
+      const rainTotal = useful.reduce((sum, row) => sum + row.precip, 0);
+      const recentRain = past24.reduce((sum, row) => sum + row.precip, 0);
+      const maxWind = useful.length ? Math.max(...useful.map(row => row.wind), 0) : 0;
+      const avgTemp = useful.length ? useful.reduce((sum, row) => sum + row.temp, 0) / useful.length : data.current.temperature_2m;
+      const currentRain = isToday ? (data.current.precipitation || data.current.rain || 0) : 0;
+      const rainEndsAt = isToday ? findRainEnds(rows, now) : null;
+
+      let score = 100;
+      const blockers = [];
+      const cautions = [];
+      const positives = [];
+
+      if (!useful.length) {
+        score -= 50;
+        blockers.push("there is no sensible daylight window left");
+      }
+
+      if (isToday && isOutdoorDaylightTask(taskKey) && now > effectiveEnd) {
+        score -= 45;
+        blockers.push("it is too late in the day for this job");
+      }
+
+      if (currentRain > 0) {
+        score -= 35;
+        blockers.push("it is raining now");
+      }
+
+      if (maxRain > task.rainProb) {
+        score -= Math.min(35, (maxRain - task.rainProb) * 0.75);
+        cautions.push("rain risk is higher than ideal");
+      }
+
+      if (rainTotal > 0.8) {
+        score -= 20;
+        cautions.push("rain is expected during the usable window");
+      }
+
+      if (maxWind > task.windMaxMph) {
+        score -= Math.min(25, (maxWind - task.windMaxMph) * 1.2);
+        cautions.push("wind may be too strong");
+      }
+
+      if (avgTemp < task.tempMinC) {
+        score -= 18;
+        cautions.push("it may be too cold");
+      }
+
+      if (avgTemp > task.tempMaxC) {
+        score -= 18;
+        cautions.push("it may be too hot");
+      }
+
+      if (isDryGroundTask(taskKey) && recentRain > 1.5) {
+        score -= recentRain > 4 ? 35 : 22;
+        const wetReason = taskKey === "grass" ? "the grass is likely still wet from earlier rain" : "surfaces may still be wet from earlier rain";
+        if (recentRain > 4) blockers.push(wetReason);
+        else cautions.push(wetReason);
+      }
+
+      if (isDryingTask(taskKey) && useful.length) {
+        const remainingDryHours = useful.filter(row => row.rainProb <= task.rainProb && row.precip < 0.2 && row.wind <= task.windMaxMph && row.temp >= task.tempMinC).length;
+        if (remainingDryHours < 3) {
+          score -= 35;
+          blockers.push("there are not enough dry daylight hours for washing to dry properly");
+        }
+      }
+
+      if (taskKey === "grass" && isWinterRestPeriod(dayStart)) {
+        score -= 28;
+        cautions.push("it is the winter rest period, so grass cutting is usually best avoided unless growth is active and the ground is dry");
+      }
+
+      if (taskKey === "grass" && avgTemp < 6) {
+        score -= 30;
+        blockers.push("it is too cold for a useful grass cut");
+      }
+
+      if (useful.length && blockers.length === 0) {
+        positives.push("there is a usable daylight window");
+      }
+
+      const goodSlots = useful.filter(row =>
+        row.rainProb <= task.rainProb &&
+        row.precip < 0.2 &&
+        row.wind <= task.windMaxMph &&
+        row.temp >= task.tempMinC &&
+        row.temp <= task.tempMaxC
+      );
+
+      let best = "No sensible window";
+      if (goodSlots.length) {
+        const first = goodSlots[0].time;
+        const last = new Date(goodSlots[goodSlots.length - 1].time.getTime() + 60 * 60 * 1000);
+        best = `${formatTime(first)}–${formatTime(last)}`;
+      }
+
+      let status = "GO";
+      let css = "";
+      if (score < 45 || blockers.length) {
+        status = "NO";
+        css = "no";
+      } else if (score < 72 || cautions.length) {
+        status = "CAUTION";
+        css = "caution";
+      }
+
+      return {
+        date: dayStart,
+        label: dayLabel(dayStart),
+        status,
+        css,
+        score,
+        blockers,
+        cautions,
+        positives,
+        best,
+        rainEndsAt,
+        rain: useful.length ? `${Math.round(maxRain)}% max` : "N/A",
+        windMph: maxWind,
+        tempC: avgTemp
+      };
+    }
+
+    function findNextBetterDay(data, task, todayResult) {
+      if (!data.daily || !data.daily.time) return null;
+      const today = startOfDay(new Date());
+      const candidates = data.daily.time
+        .map(day => startOfDay(new Date(day)))
+        .filter(day => day > today)
+        .map(day => analyseDay(data, task, day, false))
+        .filter(result => result.status !== "NO");
+
+      if (!candidates.length) return null;
+      const goCandidate = candidates.find(result => result.status === "GO");
+      return goCandidate || candidates[0];
+    }
+
+    function buildRecommendation(todayResult, nextBetter) {
+      if (todayResult.status === "GO") return `Recommendation: do it ${todayResult.label} during ${todayResult.best}.`;
+      if (nextBetter) return `Recommendation: leave it ${todayResult.label}; the next better window looks like ${nextBetter.label}, ${nextBetter.best}.`;
+      return `Recommendation: leave it ${todayResult.label} and reassess when the forecast improves.`;
+    }
+
+    function analyse(data, task) {
+      const today = startOfDay(new Date());
+      const todayResult = analyseDay(data, task, today, true);
+      const nextBetter = findNextBetterDay(data, task, todayResult);
+      const rainText = todayResult.rainEndsAt ? ` Rain appears to ease around ${formatTime(todayResult.rainEndsAt)}.` : "";
+      const recommendation = buildRecommendation(todayResult, nextBetter);
+
+      let reason = `SITREP: GO. ${formatList(todayResult.positives)}. Best window: ${todayResult.best}. ${recommendation}`;
+      if (todayResult.status === "CAUTION") reason = `SITREP: CAUTION.${rainText} Possible, but ${formatList(todayResult.cautions)}. Best window: ${todayResult.best}. ${recommendation}`;
+      if (todayResult.status === "NO") reason = `SITREP: NO-GO.${rainText} ${formatList([...todayResult.blockers, ...todayResult.cautions].slice(0, 3))}. ${recommendation}`;
+
+      return {
+        status: todayResult.status,
+        css: todayResult.css,
+        reason,
+        best: todayResult.best,
+        rain: todayResult.rain,
+        windMph: todayResult.windMph,
+        tempC: todayResult.tempC
+      };
+    }
+
+    function formatTime(date) {
       return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     }
 
