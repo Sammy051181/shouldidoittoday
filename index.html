@@ -1627,6 +1627,100 @@
         </div>
       </section>
 
+      <section class="bbq-seo-hub" id="bbqHub" aria-labelledby="bbqTitle">
+        <div class="bbq-hero">
+          <div>
+            <p class="eyebrow">🔥 BBQ weather checker</p>
+            <h2 id="bbqTitle">Should I BBQ today?</h2>
+            <p id="bbqIntro">Check whether today, tomorrow or this weekend looks suitable for a BBQ using local rain risk, wind, temperature, storm risk and the best outdoor cooking window.</p>
+            <div class="bbq-actions">
+              <button class="bbq-primary" type="button" id="bbqQuickCheck">Check BBQ weather</button>
+              <a class="bbq-secondary" href="#bbqChecklist">BBQ checklist</a>
+              <a class="bbq-secondary" href="#bbqHub">BBQ hub</a>
+            </div>
+          </div>
+
+          <div class="bbq-card">
+            <h3 id="bbqScoreTitle">BBQ GO / CAUTION / WARNING</h3>
+            <p>BBQ weather is not just about rain. Wind, gusts, storms, heat, cold and timing can all affect whether it is a good idea to cook outdoors.</p>
+            <div class="mini-score" aria-label="BBQ decision meanings">
+              <div class="mini-go">GO</div>
+              <div class="mini-caution">CAUTION</div>
+              <div class="mini-no">WARNING</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bbq-grid">
+          <div class="bbq-panel">
+            <h3>What makes BBQ a GO?</h3>
+            <p>A good BBQ window normally has low rain risk, manageable wind and comfortable outdoor temperatures.</p>
+            <ul>
+              <li>Low rain risk</li>
+              <li>Light to moderate wind</li>
+              <li>Comfortable temperature</li>
+              <li>Useful lunch or evening window</li>
+            </ul>
+          </div>
+          <div class="bbq-panel">
+            <h3>When is BBQ a CAUTION?</h3>
+            <p>BBQ may still be possible, but you may need shelter, extra layers, a wind-aware setup or a shorter cooking window.</p>
+            <ul>
+              <li>Showers nearby</li>
+              <li>Windy conditions</li>
+              <li>Cool evening temperatures</li>
+              <li>Limited dry window</li>
+            </ul>
+          </div>
+          <div class="bbq-panel">
+            <h3>When is BBQ a WARNING?</h3>
+            <p>Thunder, lightning, storms or very strong gusts can make outdoor cooking unsafe.</p>
+            <ul>
+              <li>Thunder or lightning risk</li>
+              <li>Storm risk</li>
+              <li>Very strong gusts</li>
+              <li>Unsafe exposed cooking area</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bbq-checklist-block" id="bbqChecklist">
+          <div class="checklist-head">
+            <div>
+              <h2 id="bbqChecklistTitle">BBQ checklist for today’s conditions</h2>
+              <p>The checklist updates automatically when you run a BBQ weather check.</p>
+            </div>
+          </div>
+
+          <div class="checklist-recommendation" id="bbqChecklistRecommendation">
+            <div>
+              <strong>Recommended BBQ checklist</strong>
+              <span id="bbqChecklistMode">Basic BBQ checklist</span>
+              <p id="bbqChecklistReason">Check your BBQ weather and this will update automatically based on rain, wind, temperature and storm risk.</p>
+            </div>
+            <button type="button" id="applyRecommendedBbqChecklist">Use recommendation</button>
+          </div>
+
+          <div class="bbq-checklist-grid" id="bbqChecklistGrid"></div>
+        </div>
+      </section>
+
+      <section class="seo-internal-links bbq-links-block" id="bbqLinks" aria-label="BBQ weather and checklist tools">
+        <div class="seo-internal-links-inner">
+          <h2 id="bbqLinksTitle">BBQ weather and checklist tools</h2>
+          <p id="bbqLinksIntro">Use the BBQ weather checker to decide whether today, tomorrow or this weekend looks suitable for outdoor cooking.</p>
+          <div class="seo-link-grid" id="bbqLinkGrid">
+            <a href="#bbqHub">Should I BBQ today?</a>
+            <a href="/?task=should-i-bbq-today&period=today#main">Check BBQ weather today</a>
+            <a href="/?task=should-i-bbq-today&period=tomorrow#main">Check BBQ weather tomorrow</a>
+            <a href="/?task=should-i-bbq-today&period=weekend#main">Should I BBQ this weekend?</a>
+            <a href="#bbqChecklist">BBQ checklist for today’s weather</a>
+            <a href="#bbqChecklist">BBQ packing and setup list</a>
+          </div>
+        </div>
+      </section>
+
+      
       <section class="seo-internal-links" aria-label="More regional weather-based decision checks">
         <div class="seo-internal-links-inner">
           <h2 id="regionalMoreTitle">More weather checks</h2>
@@ -1754,6 +1848,57 @@
       hot:{label:"Hot weather camping checklist",groups:{"Sun protection":["Sun cream","Sun hat","Sunglasses","Light long sleeves","After-sun"],"Hydration":["Extra water","Reusable bottles","Electrolytes","Cool box","Ice packs"],"Pitch comfort":["Shade tarp","Ventilated tent","Light sleeping bag","Insect repellent","Camp chair"],"Safety":["Avoid midday pitching","Keep food cool","Check fire rules","Plan water refills","Watch for heat stress"]}}
     };
 
+
+    const BBQ_CHECKLISTS={
+      basic:{
+        label:"Basic BBQ checklist",
+        groups:{
+          "Cooking kit":["BBQ or grill","Fuel or gas","Lighter or matches","Tongs","Heatproof gloves"],
+          "Food prep":["Food in cool box","Marinades or seasoning","Chopping board","Serving tray","Kitchen roll"],
+          "Comfort":["Outdoor table","Chairs","Bin bag","Hand wipes","Drinks"],
+          "Safety":["Water nearby","Safe flat surface","Keep children back","Check wind direction","Fully extinguish after cooking"]
+        }
+      },
+      wet:{
+        label:"Wet weather BBQ checklist",
+        groups:{
+          "Shelter":["Gazebo or covered area","Waterproof jacket","Dry seating","Covered food prep area","Non-slip footwear"],
+          "Cooking setup":["Keep BBQ uncovered when lit","Keep fuel dry","Use wind-safe position","Keep food covered","Avoid cooking in heavy rain"],
+          "Food and comfort":["Warm drinks","Covered serving dishes","Extra napkins","Dry storage box","Spare towel"],
+          "Safety":["Never BBQ indoors","Avoid enclosed shelters","Keep electrics dry","Watch slippery ground","Stop if conditions worsen"]
+        }
+      },
+      windy:{
+        label:"Windy weather BBQ checklist",
+        groups:{
+          "Wind setup":["Sheltered cooking spot","Secure loose items","Avoid exposed areas","Position BBQ away from fences","Check gusts"],
+          "Cooking kit":["Long tongs","Heatproof gloves","Lid if suitable","Wind-safe lighter","Stable table"],
+          "Comfort":["Warm layer","Weighted tablecloth clips","Covered food trays","Secure bin bag","Windproof jacket"],
+          "Safety":["Do not cook in dangerous gusts","Keep flames away from people","Check local fire advice","Keep water nearby","Extinguish fully"]
+        }
+      },
+      hot:{
+        label:"Hot weather BBQ checklist",
+        groups:{
+          "Heat comfort":["Shade","Sun cream","Sun hat","Extra water","Cool box with ice packs"],
+          "Food safety":["Keep raw meat chilled","Separate raw and cooked food","Use clean utensils","Cook food thoroughly","Do not leave food in sun"],
+          "Cooking setup":["Avoid dry grass","Check fire risk","Use stable surface","Keep water nearby","Avoid peak heat if needed"],
+          "Guests":["Cold drinks","Light seating area","Shade for children","Shade for pets","Watch for heat stress"]
+        }
+      },
+      cold:{
+        label:"Cold weather BBQ checklist",
+        groups:{
+          "Warmth":["Warm coat","Hat or gloves","Outdoor heater if safe","Blankets","Hot drinks"],
+          "Cooking":["Allow more cooking time","Keep food covered","Use lid if suitable","Pre-warm serving dishes","Good lighting"],
+          "Comfort":["Dry seating","Windbreak","Warm side dishes","Sheltered table","Shorter outdoor plan"],
+          "Safety":["Good visibility","Stable surface","Avoid icy ground","Keep BBQ outside only","Fully extinguish after use"]
+        }
+      }
+    };
+
+    let recommendedBbqChecklistType="basic";
+    
     let recommendedChecklistType="basic";
 
     const RULES={
@@ -1815,8 +1960,11 @@
       applyRegion(false);
       setPeriodTab();
       renderChecklist("basic");
+      renderBbqChecklist("basic");
       bindChecklistFilters();
       bindCampingQuickCheck();
+      bindBbqQuickCheck();
+      bindBbqChecklist();
       bindPlantsQuickCheck();
 
       const taskParam=params.get("task");
@@ -1909,13 +2057,21 @@
       updatePlantVisibility();
     }
 
-    function updateCampingVisibility(){
+       function updateCampingVisibility(){
       const showCamping=selected==="camping";
+      const showBbq=selected==="bbq";
+
       const campingHub=document.getElementById("camping");
       const campingLinks=document.getElementById("campingLinks");
+      const bbqHub=document.getElementById("bbqHub");
+      const bbqLinks=document.getElementById("bbqLinks");
 
       if(campingHub)campingHub.classList.toggle("show",showCamping);
       if(campingLinks)campingLinks.classList.toggle("show",showCamping);
+      if(bbqHub)bbqHub.classList.toggle("show",showBbq);
+      if(bbqLinks)bbqLinks.classList.toggle("show",showBbq);
+
+      updateBbqRegionalText();
     }
 
     function updatePlantVisibility(){
@@ -1980,6 +2136,121 @@
         else if(locationInput.value.trim())checkFromText();
         else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
       });
+    }
+
+        function updateBbqRegionalText(){
+      const isUSStyle=currentRegionKey==="US"||currentRegionKey==="CA";
+      const isAU=currentRegionKey==="AU";
+
+      const title=document.getElementById("bbqTitle");
+      const intro=document.getElementById("bbqIntro");
+      const scoreTitle=document.getElementById("bbqScoreTitle");
+      const checklistTitle=document.getElementById("bbqChecklistTitle");
+      const linksTitle=document.getElementById("bbqLinksTitle");
+      const linksIntro=document.getElementById("bbqLinksIntro");
+      const linkGrid=document.getElementById("bbqLinkGrid");
+
+      const activity=isUSStyle?"grill":"BBQ";
+      const activityLower=isUSStyle?"grill":"BBQ";
+
+      if(title)title.textContent=isUSStyle?"Should I grill today?":"Should I BBQ today?";
+      if(intro)intro.textContent=isUSStyle
+        ?"Check whether today, tomorrow or this weekend looks suitable for grilling using local rain risk, wind, temperature, storm risk and the best outdoor cooking window."
+        :"Check whether today, tomorrow or this weekend looks suitable for a BBQ using local rain risk, wind, temperature, storm risk and the best outdoor cooking window.";
+
+      if(scoreTitle)scoreTitle.textContent=`${activity} GO / CAUTION / WARNING`;
+      if(checklistTitle)checklistTitle.textContent=`${activity} checklist for today’s conditions`;
+      if(linksTitle)linksTitle.textContent=`${activity} weather and checklist tools`;
+      if(linksIntro)linksIntro.textContent=`Use the ${activityLower} weather checker to decide whether today, tomorrow or this weekend looks suitable for outdoor cooking.`;
+
+      if(linkGrid){
+        const regionParam=currentRegionKey==="UK"?"":`region=${currentRegionKey.toLowerCase()}&`;
+        const taskSlug=isUSStyle?"should-i-grill-today":"should-i-bbq-today";
+        linkGrid.innerHTML=`
+          <a href="#bbqHub">${isUSStyle?"Should I grill today?":"Should I BBQ today?"}</a>
+          <a href="/?${regionParam}task=${taskSlug}&period=today#main">Check ${activityLower} weather today</a>
+          <a href="/?${regionParam}task=${taskSlug}&period=tomorrow#main">Check ${activityLower} weather tomorrow</a>
+          <a href="/?${regionParam}task=${taskSlug}&period=weekend#main">Should I ${isUSStyle?"grill":"BBQ"} this weekend?</a>
+          <a href="#bbqChecklist">${activity} checklist for today’s weather</a>
+          <a href="#bbqChecklist">${activity} packing and setup list</a>
+          ${isAU?'<a href="#bbqHub">Check fire risk before BBQs</a>':''}
+        `;
+      }
+    }
+
+    function bindBbqQuickCheck(){
+      const button=document.getElementById("bbqQuickCheck");
+      if(!button)return;
+      button.addEventListener("click",()=>{
+        selected="bbq";
+        selectedPeriod="today";
+        setPeriodTab();
+        renderTasks();
+        updateHintAndQuestion();
+        updateCampingVisibility();
+        document.getElementById("main").scrollIntoView({behavior:"smooth",block:"start"});
+
+        if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
+        else if(locationInput.value.trim())checkFromText();
+        else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
+      });
+    }
+
+    function renderBbqChecklist(type){
+      const grid=document.getElementById("bbqChecklistGrid");
+      if(!grid)return;
+      const data=BBQ_CHECKLISTS[type]||BBQ_CHECKLISTS.basic;
+      const groups=data.groups||data;
+      grid.innerHTML=Object.entries(groups).map(([heading,items])=>`
+        <div class="bbq-checklist-card">
+          <h3>${heading}</h3>
+          <ul>${items.map(item=>`<li>${item}</li>`).join("")}</ul>
+        </div>
+      `).join("");
+    }
+
+    function updateBbqChecklistRecommendation(type,reason,autoApply=false){
+      recommendedBbqChecklistType=type||"basic";
+      const mode=document.getElementById("bbqChecklistMode");
+      const reasonEl=document.getElementById("bbqChecklistReason");
+      const label=(BBQ_CHECKLISTS[recommendedBbqChecklistType]||BBQ_CHECKLISTS.basic).label;
+      if(mode)mode.textContent=label;
+      if(reasonEl)reasonEl.textContent=reason||"This recommendation is based on the local BBQ forecast.";
+      if(autoApply){
+        renderBbqChecklist(recommendedBbqChecklistType);
+      }
+    }
+
+    function chooseBbqChecklist(r){
+      const reasons=(r.why||[]).join(" ").toLowerCase();
+      const status=(r.status||"").toLowerCase();
+
+      if(status.includes("warning")||reasons.includes("storm")||reasons.includes("thunder")||reasons.includes("lightning")||reasons.includes("gust")){
+        return{type:"windy",reason:"The BBQ result has a safety warning or wind concern. Check gusts, storm risk and shelter before cooking outdoors."};
+      }
+      if(reasons.includes("wind")||reasons.includes("gust")){
+        return{type:"windy",reason:"Wind is a key issue in this forecast, so choose a sheltered cooking position and secure loose items."};
+      }
+      if(reasons.includes("rain")||reasons.includes("wet")||reasons.includes("showers")){
+        return{type:"wet",reason:"Rain or showers are a key issue, so plan shelter, covered food prep and a shorter cooking window."};
+      }
+      if(reasons.includes("cold")||reasons.includes("cool")){
+        return{type:"cold",reason:"The forecast looks cool, so plan warm layers, hot drinks and a shorter outdoor setup."};
+      }
+      if(reasons.includes("heat")||reasons.includes("too hot")||reasons.includes("hot")){
+        return{type:"hot",reason:"The forecast looks hot, so add shade, extra water and keep food chilled until cooking."};
+      }
+      return{type:"basic",reason:"Conditions look broadly manageable, so the basic BBQ checklist is a sensible starting point."};
+    }
+
+    function bindBbqChecklist(){
+      const applyButton=document.getElementById("applyRecommendedBbqChecklist");
+      if(applyButton){
+        applyButton.addEventListener("click",()=>{
+          renderBbqChecklist(recommendedBbqChecklistType);
+          document.getElementById("bbqChecklist").scrollIntoView({behavior:"smooth",block:"start"});
+        });
+      }
     }
 
     function bindPlantsQuickCheck(){
@@ -2426,9 +2697,57 @@
         if(ctx.temp<=2){score-=35;reasons.push("Near-freezing conditions could make surfaces slippery or icy.")}
       }
 
-      if(selected==="bbq"){
-        best=findWindow(ctx.useful.filter(r=>r.time.getHours()>=12&&r.time.getHours()<=20),good,2);
-        if(best==="No sensible window"){score-=25;reasons.push("There is no clean lunch or evening BBQ window.")}
+            if(selected==="bbq"){
+        best=findWindow(ctx.useful.filter(r=>r.time.getHours()>=12&&r.time.getHours()<=21),good,2);
+
+        if(best==="No sensible window"){
+          score-=25;
+          reasons.push("There is no clean lunch or evening BBQ window.");
+        }
+
+        if(ctx.storm){
+          score-=55;
+          reasons.unshift("Thunder, lightning or storm risk is a serious outdoor cooking safety concern.");
+        }
+
+        if(ctx.maxGust>38){
+          score-=35;
+          reasons.push("Very strong gusts could make outdoor cooking unsafe or difficult.");
+        }else if(ctx.maxGust>28){
+          score-=18;
+          reasons.push("Gusts may make BBQ setup and cooking less comfortable.");
+        }
+
+        if(ctx.rainTotal>2){
+          score-=18;
+          reasons.push("Rain may make outdoor cooking less comfortable, so shelter and timing matter.");
+        }
+
+        if(ctx.maxTemp>=30){
+          score-=14;
+          reasons.push("Heat may make outdoor cooking uncomfortable and food storage more important.");
+        }
+
+        if(ctx.temp<8){
+          score-=14;
+          reasons.push("It may feel cold for guests sitting outside.");
+        }
+
+        let status="GO",css="";
+
+        if(ctx.storm||ctx.maxGust>40){
+          status="WARNING";
+          css="no";
+        }else if(score<72){
+          status="CAUTION";
+          css="caution";
+        }
+
+        const australiaNote=currentRegionKey==="AU"
+          ?" In Australia, also check local fire restrictions before lighting a BBQ."
+          :"";
+
+        return{...result(status,css,ctx,best,reasons,`Recommendation: use the best sheltered cooking window, keep food covered, and avoid BBQs during thunder, lightning or dangerous wind.${australiaNote}`)};
       }
 
       if(selected==="run"){
@@ -2597,9 +2916,14 @@
 
       updateFeatureVisibility();
 
-      if(selected==="camping"){
+            if(selected==="camping"){
         const recommendation=chooseCampingChecklist(r);
         updateChecklistRecommendation(recommendation.type,recommendation.reason,true);
+      }
+
+      if(selected==="bbq"){
+        const recommendation=chooseBbqChecklist(r);
+        updateBbqChecklistRecommendation(recommendation.type,recommendation.reason,true);
       }
     }
 
