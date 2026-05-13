@@ -1,13 +1,242 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Should I grill today? | Should I Do It Today?</title>
-  <meta name="description" content="Check wind, rain and comfort before grilling today. Get a local GO / CAUTION / NO-GO weather SITREP." />
+
+  <title>Should I Grill Today? | Local Weather Check</title>
+  <meta name="description" content="Check if today is suitable for grilling using local rain, wind, temperature and storm risk." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/us/should-i-grill-today/" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What makes a good BBQ window?","acceptedAnswer":{"@type":"Answer","text":"A practical lunch or evening slot with manageable wind, low rain risk and comfortable temperatures."}},{"@type":"Question","name":"Should I BBQ if it might shower?","acceptedAnswer":{"@type":"Answer","text":"Only if you have cover or a backup plan. Wind and storm risk matter more than a small shower."}}]}</script>
-  <style>body{margin:0;font-family:Inter,Arial,sans-serif;color:#122033;background:#f8ffff;line-height:1.6}.wrap{width:min(860px,calc(100% - 28px));margin:0 auto;padding:28px 0 56px}a{color:#0f766e}.hero{background:#fff;border:1px solid #dbe7ef;border-radius:28px;padding:28px;box-shadow:0 18px 55px rgba(15,23,42,.08)}h1{font-size:clamp(2rem,6vw,4rem);line-height:.95;letter-spacing:-.06em;margin:0 0 14px}p,li{color:#64748b}.btn{display:inline-block;background:#0f766e;color:#fff;text-decoration:none;font-weight:900;padding:14px 18px;border-radius:16px;margin:10px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}.card{background:#fff;border:1px solid #dbe7ef;border-radius:22px;padding:22px}@media(max-width:760px){.grid{grid-template-columns:1fr}}</style>
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Should I Do It Today?" />
+  <meta property="og:title" content="Should I Grill Today? | Local Weather Check" />
+  <meta property="og:description" content="Check if today is suitable for grilling using local rain, wind, temperature and storm risk." />
+  <meta property="og:url" content="https://shouldidoittoday.com/us/should-i-grill-today/" />
+  <meta property="og:image" content="https://shouldidoittoday.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Should I Grill Today? | Local Weather Check" />
+  <meta name="twitter:description" content="Check if today is suitable for grilling using local rain, wind, temperature and storm risk." />
+  <meta name="twitter:image" content="https://shouldidoittoday.com/og-image.png" />
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I grill in light rain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only if you have a safe outdoor setup and conditions are mild. Never grill in an enclosed space."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How windy is too windy for grilling?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If wind affects flame control or makes cooking unsafe, wait."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is thunderstorm risk a NO-GO?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Lightning and severe weather are a NO-GO."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I grill today or this weekend?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the weekend option to compare conditions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does temperature matter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, because comfort and cooling food can both be affected."
+      }
+    }
+  ]
+}
+  </script>
+
+  <style>
+    :root {
+      --bg:#f5f8f1;
+      --ink:#162119;
+      --soft:#24352a;
+      --muted:#607063;
+      --line:#dce8da;
+      --card:#ffffff;
+      --green:#16783c;
+      --green2:#22c55e;
+      --amber:#b45309;
+      --red:#b91c1c;
+      --shadow:0 18px 55px rgba(20,36,25,.10);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 82% 5%, rgba(34,197,94,.16), transparent 28%),
+        linear-gradient(180deg,#fbfdf9 0%,var(--bg) 52%,#fff 100%);
+      line-height:1.55;
+    }
+    .page{width:min(1040px,calc(100% - 28px));margin:0 auto}
+    header{display:flex;justify-content:space-between;align-items:center;padding:18px 0;gap:14px}
+    .brand{font-weight:950;text-decoration:none;color:var(--ink);letter-spacing:-.04em}
+    .brand strong{color:var(--green2)}
+    .home-link{color:var(--green);font-weight:800;text-decoration:none}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start;padding:26px 0 20px}
+    .hero-card,.check-card,.panel{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow)}
+    .hero-card{padding:30px}
+    .kicker{display:inline-flex;padding:7px 11px;border-radius:999px;background:#ecfdf5;color:var(--green);font-weight:900;font-size:.88rem;margin-bottom:12px}
+    h1{font-size:clamp(2.1rem,5vw,4.2rem);line-height:.96;letter-spacing:-.065em;margin:0}
+    .lead{font-size:1.13rem;color:var(--muted);margin:16px 0 0}
+    .check-card{padding:20px;position:sticky;top:14px}
+    .check-card h2{margin:0 0 8px;font-size:1.25rem;letter-spacing:-.04em}
+    .check-card p{margin:0 0 14px;color:var(--muted)}
+    .button{display:block;text-align:center;background:var(--green);color:#fff;text-decoration:none;font-weight:950;border-radius:16px;padding:14px 16px;box-shadow:0 12px 24px rgba(22,120,60,.18)}
+    .button:hover{background:#115f31}
+    .small-note{font-size:.88rem;color:var(--muted);margin-top:10px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
+    .panel{padding:22px}
+    .panel h2,.panel h3{margin:0 0 10px;letter-spacing:-.04em;line-height:1.1}
+    .panel p{color:var(--muted);margin:0 0 10px}
+    ul{margin:0;padding-left:1.15rem;color:var(--muted)}
+    li+li{margin-top:5px}
+    .go h3{color:var(--green)} .caution h3{color:var(--amber)} .nogo h3{color:var(--red)}
+    details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 15px}
+    details+details{margin-top:8px}
+    summary{font-weight:900;cursor:pointer}
+    details p{margin:8px 0 0;color:var(--muted)}
+    .related{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .related a{display:block;padding:11px 12px;border:1px solid var(--line);border-radius:15px;background:#fbfefb;color:var(--green);font-weight:850;text-decoration:none}
+    footer{padding:28px 0;color:var(--muted);font-size:.86rem;text-align:center}
+    @media(max-width:760px){
+      .page{width:min(100% - 18px,1040px)}
+      header{padding:12px 0}
+      .hero{grid-template-columns:1fr;padding-top:12px}
+      .hero-card{padding:20px;border-radius:22px}
+      .check-card{position:relative;top:0;border-radius:22px;padding:16px;order:-1}
+      .grid{grid-template-columns:1fr}
+      .related{grid-template-columns:1fr}
+    }
+  </style>
 </head>
-<body><main class="wrap"><p><a href="/">← Back to checker</a></p><section class="hero"><h1>Should I grill today?</h1><p>Check wind, rain and comfort before grilling today.</p><a class="btn" href="/?region=us&task=should-i-grill-today">Open the local grill checker</a></section><section class="grid"><div class="card"><h2>What this checks</h2><ul><li>Local rain risk and recent rain</li><li>Wind and temperature</li><li>Daylight and practical timing</li><li>Task-specific issues that make the job poor value or unsafe</li></ul></div><div class="card"><h2>FAQs</h2><h3>What makes a good BBQ window?</h3><p>A practical lunch or evening slot with manageable wind, low rain risk and comfortable temperatures.</p><h3>Should I BBQ if it might shower?</h3><p>Only if you have cover or a backup plan. Wind and storm risk matter more than a small shower.</p></div></section></main></body></html>
+<body>
+  <div class="page">
+    <header>
+      <a class="brand" href="/">Should I Do It <strong>Today?</strong></a>
+      <a class="home-link" href="/">Open checker</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <div class="kicker">US local weather decision</div>
+          <h1>Should I grill today?</h1>
+          <p class="lead">Use local weather to decide whether grilling outside is a GO, CAUTION or NO-GO.</p>
+        </div>
+
+        <aside class="check-card">
+          <h2>Check your local conditions</h2>
+          <p>Open the live checker, use your location or enter a postcode, ZIP code, town or city.</p>
+          <a class="button" href="/?region=us&task=should-i-grill-today&period=today#main">Check now</a>
+          <p class="small-note">You can switch between today, tomorrow and this weekend.</p>
+        </aside>
+      </section>
+
+      <section class="panel">
+        <h2>Quick answer</h2>
+        <p>A good grilling day needs a dry window, comfortable temperatures and manageable wind. Storms and strong wind are the biggest problems.</p>
+      </section>
+
+      <section class="grid" aria-label="Weather decision rules">
+        <div class="panel go">
+          <h3>GO when...</h3>
+          <ul>
+            <li>There is a dry lunch or evening window.</li>
+<li>Wind is manageable.</li>
+<li>Temperatures are comfortable.</li>
+<li>Storm risk is low.</li>
+          </ul>
+        </div>
+        <div class="panel caution">
+          <h3>CAUTION when...</h3>
+          <ul>
+            <li>Showers are possible.</li>
+<li>Wind may affect cooking or smoke.</li>
+<li>It may cool down later.</li>
+<li>You may need a safe covered area.</li>
+          </ul>
+        </div>
+        <div class="panel nogo">
+          <h3>NO-GO when...</h3>
+          <ul>
+            <li>Rain or thunderstorms are likely.</li>
+<li>Wind is strong enough to make grilling difficult.</li>
+<li>Lightning risk exists.</li>
+<li>Outdoor cooking would be unsafe.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>FAQs</h2>
+        
+        <details>
+          <summary>Can I grill in light rain?</summary>
+          <p>Only if you have a safe outdoor setup and conditions are mild. Never grill in an enclosed space.</p>
+        </details>
+
+        <details>
+          <summary>How windy is too windy for grilling?</summary>
+          <p>If wind affects flame control or makes cooking unsafe, wait.</p>
+        </details>
+
+        <details>
+          <summary>Is thunderstorm risk a NO-GO?</summary>
+          <p>Yes. Lightning and severe weather are a NO-GO.</p>
+        </details>
+
+        <details>
+          <summary>Should I grill today or this weekend?</summary>
+          <p>Use the weekend option to compare conditions.</p>
+        </details>
+
+        <details>
+          <summary>Does temperature matter?</summary>
+          <p>Yes, because comfort and cooling food can both be affected.</p>
+        </details>
+      </section>
+
+      <section class="panel">
+        <h2>Related weather checks</h2>
+        <div class="related">
+          <a href="/us/should-i-mow-the-lawn-today/">Us › Should I Mow The Lawn Today</a>
+<a href="/us/should-i-wash-my-car-today/">Us › Should I Wash My Car Today</a>
+<a href="/us/should-i-walk-my-dog-today/">Us › Should I Walk My Dog Today</a>
+<a href="/us/do-i-need-a-jacket-today/">Us › Do I Need A Jacket Today</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>Practical weather-based guidance only. Always check actual local conditions. Weather data by Open-Meteo.</footer>
+  </div>
+</body>
+</html>
