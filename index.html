@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Should I Do It Today? | Weather-Based GO / CAUTION / NO-GO Checker</title>
-  <meta name="description" content="Get a simple local GO, CAUTION or NO-GO weather answer for cutting grass, washing the car, hanging washing, BBQs, dog walks and camping weather checks." />
+  <meta name="description" content="Get a simple local weather-based answer for cutting grass, washing the car, hanging washing, BBQs, dog walks, camping and whether you should water your plants today." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Should I Do It Today?" />
   <meta property="og:title" content="Should I Do It Today?" />
-  <meta property="og:description" content="A simple local weather-based GO / CAUTION / NO-GO checker for everyday outdoor jobs, camping and weekend activities." />
+  <meta property="og:description" content="A simple local weather-based checker for outdoor jobs, camping, weekend activities and watering plants." />
   <meta property="og:url" content="https://shouldidoittoday.com/" />
   <meta property="og:image" content="https://shouldidoittoday.com/og-image.png" />
   <meta property="og:image:secure_url" content="https://shouldidoittoday.com/og-image.png" />
@@ -22,7 +22,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Should I Do It Today?" />
-  <meta name="twitter:description" content="A simple local weather-based GO / CAUTION / NO-GO checker for everyday outdoor jobs, camping and weekend activities." />
+  <meta name="twitter:description" content="A simple local weather-based checker for outdoor jobs, camping, weekend activities and watering plants." />
   <meta name="twitter:image" content="https://shouldidoittoday.com/og-image.png" />
 
   <script type="application/ld+json">
@@ -33,7 +33,7 @@
     "url": "https://shouldidoittoday.com/",
     "applicationCategory": "WeatherApplication",
     "operatingSystem": "Any",
-    "description": "A simple weather-based decision tool for everyday outdoor jobs, camping and weekend activities."
+    "description": "A simple weather-based decision tool for everyday outdoor jobs, camping, watering plants and weekend activities."
   }
   </script>
 
@@ -42,6 +42,30 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Should I water my plants today?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the plant watering checker to compare recent rain, expected rain, temperature, wind and soil moisture signals. A WATER result means watering is likely useful, CHECK SOIL means check the soil first, and WAIT means rain or recent moisture may be enough."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time to water plants?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The best time to water most outdoor plants is usually early morning. Evening can also work, especially in hot weather, but avoid leaving foliage wet overnight where disease is a concern."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you water plants at night?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can water plants at night if they are very dry, but morning is usually better. If watering at night, water the soil rather than soaking leaves."
+        }
+      },
       {
         "@type": "Question",
         "name": "Should I go camping today?",
@@ -566,7 +590,7 @@
       color:var(--amber);
       border-color:rgba(180,83,9,.18);
       box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 18px 34px rgba(180,83,9,.14);
-      font-size:clamp(1.45rem,3vw,2.2rem);
+      font-size:clamp(1.35rem,3vw,2.1rem);
     }
 
     .answer.no{
@@ -652,7 +676,8 @@
       letter-spacing:-.02em;
     }
 
-    .camping-seo-hub{
+    .camping-seo-hub,
+    .plants-seo-hub{
       display:none;
       margin:38px 0 0;
       border:1px solid rgba(22,120,60,.18);
@@ -665,15 +690,18 @@
       overflow:hidden;
     }
 
-    .camping-seo-hub.show{
+    .camping-seo-hub.show,
+    .plants-seo-hub.show{
       display:block;
     }
 
-    .camping-links-block{
+    .camping-links-block,
+    .plants-links-block{
       display:none;
     }
 
-    .camping-links-block.show{
+    .camping-links-block.show,
+    .plants-links-block.show{
       display:block;
     }
 
@@ -1050,7 +1078,7 @@
       .facts{grid-template-columns:repeat(2,1fr)}
       .fact{padding:12px}
 
-      .camping-seo-hub{margin-top:24px;border-radius:24px}
+      .camping-seo-hub,.plants-seo-hub{margin-top:24px;border-radius:24px}
       .camping-hero{padding:18px;gap:14px}
       .camping-hero h2{font-size:1.65rem}
       .camping-hero p{font-size:.95rem}
@@ -1160,13 +1188,13 @@
           </div>
 
           <h1 id="title" class="visual-title">Should I Do It Today?</h1>
-          <p class="lead">Get a practical local weather-based GO, CAUTION or NO-GO for everyday outdoor jobs and activities like mowing, hanging washing, washing the car, BBQs, running, dog walks and camping.</p>
+          <p class="lead">Get a practical local weather-based answer for everyday outdoor jobs and activities like mowing, hanging washing, washing the car, BBQs, running, dog walks, camping and watering plants.</p>
 
           <div class="benefit-row" aria-label="Key benefits">
             <div class="benefit">⚡ Fast answer</div>
             <div class="benefit">📍 Local forecast</div>
             <div class="benefit">🧠 Plain-English reasons</div>
-            <div class="benefit">⛺ Camping weather check</div>
+            <div class="benefit">💧 Plant watering help</div>
           </div>
         </div>
 
@@ -1234,6 +1262,79 @@
           <div class="fact"><span>Rain risk</span><strong id="rain">—</strong></div>
           <div class="fact"><span>Wind</span><strong id="wind">—</strong></div>
           <div class="fact"><span>Temperature</span><strong id="temp">—</strong></div>
+        </div>
+      </section>
+
+      <section class="plants-seo-hub" id="plantsHub" aria-labelledby="plantsTitle">
+        <div class="camping-hero">
+          <div>
+            <p class="eyebrow">💧 Plant watering checker</p>
+            <h2 id="plantsTitle">Should I water my plants today?</h2>
+            <p>Check whether your plants are likely to need watering using recent rain, expected rain, temperature, wind, humidity and near-surface soil moisture signals.</p>
+            <div class="camping-actions">
+              <button class="camping-primary" type="button" id="plantsQuickCheck">Check plant watering</button>
+              <a class="camping-secondary" href="#plantsBestTime">Best time to water</a>
+              <a class="camping-secondary" href="#plantsLinks">Plant watering guides</a>
+            </div>
+          </div>
+
+          <div class="camping-card">
+            <h3>Water / Check soil / Wait</h3>
+            <p>Outdoor plants do not always need watering just because it is dry right now. Pots, baskets and new plants dry faster, while garden beds may still have enough moisture after recent rain.</p>
+            <div class="mini-score" aria-label="Plant watering decision meanings">
+              <div class="mini-go">WATER</div>
+              <div class="mini-caution">CHECK SOIL</div>
+              <div class="mini-no">WAIT</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="camping-grid">
+          <div class="camping-panel" id="plantsBestTime">
+            <h3>Best time to water plants</h3>
+            <p>Early morning is usually best because water can soak into the soil before the warmest part of the day.</p>
+            <ul>
+              <li>Morning is usually best</li>
+              <li>Evening can work in hot weather</li>
+              <li>Avoid watering leaves late at night</li>
+              <li>Water the soil, not just the foliage</li>
+            </ul>
+          </div>
+          <div class="camping-panel" id="plantsNight">
+            <h3>Can you water plants at night?</h3>
+            <p>You can if plants are very dry, but it is usually better to water the soil in the morning or early evening.</p>
+            <ul>
+              <li>Useful in heatwaves</li>
+              <li>Better for dry pots than wet foliage</li>
+              <li>Avoid soaking leaves overnight</li>
+              <li>Check soil before watering</li>
+            </ul>
+          </div>
+          <div class="camping-panel" id="plantsAway">
+            <h3>Watering plants while away</h3>
+            <p>If you are away for a few days, pots and baskets are usually the first to suffer. Consider self-watering pots, watering globes, drip kits or asking someone to check them.</p>
+            <ul>
+              <li>Group pots in shade</li>
+              <li>Water deeply before leaving</li>
+              <li>Use self-watering options</li>
+              <li>Prioritise new plants and baskets</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="seo-internal-links plants-links-block" id="plantsLinks" aria-label="Plant watering tools and guides">
+        <div class="seo-internal-links-inner">
+          <h2>Plant watering tools and guides</h2>
+          <p>Use these plant watering checks to build your watering topic cluster without creating broken pages yet.</p>
+          <div class="seo-link-grid">
+            <a href="#plantsHub">Should I water my plants today?</a>
+            <a href="/?task=should-i-water-my-plants-today&period=today#main">Check plant watering today</a>
+            <a href="/?task=should-i-water-my-plants-today&period=tomorrow#main">Check plant watering tomorrow</a>
+            <a href="#plantsBestTime">Best time to water plants</a>
+            <a href="#plantsNight">Can you water plants at night?</a>
+            <a href="#plantsAway">How to water plants while away</a>
+          </div>
         </div>
       </section>
 
@@ -1358,7 +1459,7 @@
 
   <script>
     const REGIONS={
-      UK:{name:"UK",locale:"en-GB",tempUnit:"C",windUnit:"mph",placeholder:"Postcode, town or city",tasks:{grass:{icon:"🌱",label:"Cut grass",question:"Should I cut the grass today?",slug:"should-i-cut-the-grass-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Hang washing",question:"Can I hang washing out today?",slug:"can-i-hang-washing-out-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"BBQ",question:"Should I BBQ today?",slug:"should-i-bbq-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk the dog today?",slug:"should-i-walk-the-dog-today"},jacket:{icon:"🧥",label:"Need coat",question:"Do I need a coat today?",slug:"do-i-need-a-coat-today"},run:{icon:"🏃",label:"Go running",question:"Should I go for a run today?",slug:"should-i-go-for-a-run-today"},windows:{icon:"🪟",label:"Clean windows",question:"Should I clean the windows today?",slug:"should-i-clean-the-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water the plants today?",slug:"should-i-water-the-plants-today"}}},
+      UK:{name:"UK",locale:"en-GB",tempUnit:"C",windUnit:"mph",placeholder:"Postcode, town or city",tasks:{grass:{icon:"🌱",label:"Cut grass",question:"Should I cut the grass today?",slug:"should-i-cut-the-grass-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Hang washing",question:"Can I hang washing out today?",slug:"can-i-hang-washing-out-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"BBQ",question:"Should I BBQ today?",slug:"should-i-bbq-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk the dog today?",slug:"should-i-walk-the-dog-today"},jacket:{icon:"🧥",label:"Need coat",question:"Do I need a coat today?",slug:"do-i-need-a-coat-today"},run:{icon:"🏃",label:"Go running",question:"Should I go for a run today?",slug:"should-i-go-for-a-run-today"},windows:{icon:"🪟",label:"Clean windows",question:"Should I clean the windows today?",slug:"should-i-clean-the-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}}},
       IE:{name:"Ireland",locale:"en-IE",tempUnit:"C",windUnit:"kmh",placeholder:"Town or city",tasks:null},
       US:{name:"US",locale:"en-US",tempUnit:"F",windUnit:"mph",placeholder:"ZIP code, city or state",tasks:{grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Dry laundry",question:"Can I dry laundry outside today?",slug:"can-i-dry-laundry-outside-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"Grill",question:"Should I grill today?",slug:"should-i-grill-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk my dog today?",slug:"should-i-walk-my-dog-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},run:{icon:"🏃",label:"Run",question:"Should I run today?",slug:"should-i-run-today"},windows:{icon:"🪟",label:"Wash windows",question:"Should I wash windows today?",slug:"should-i-wash-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}}},
       CA:{name:"Canada",locale:"en-CA",tempUnit:"C",windUnit:"kmh",placeholder:"Postal code, town or city",tasks:null},
@@ -1368,8 +1469,8 @@
 
     REGIONS.IE.tasks=REGIONS.UK.tasks;
     REGIONS.CA.tasks=REGIONS.US.tasks;
-    REGIONS.AU.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},dog:{icon:"🐕",label:"Walk dog",question:"Is it too hot to walk the dog today?",slug:"is-it-too-hot-to-walk-the-dog-today"}};
-    REGIONS.NZ.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"}};
+    REGIONS.AU.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},dog:{icon:"🐕",label:"Walk dog",question:"Is it too hot to walk the dog today?",slug:"is-it-too-hot-to-walk-the-dog-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}};
+    REGIONS.NZ.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}};
 
     const EXTRA_OUTDOOR_TASKS={
       camping:{icon:"⛺",label:"Camping",question:"Should I go camping today?",slug:"should-i-go-camping"},
@@ -1424,8 +1525,9 @@
     const REGION_MORE_LINKS={
       UK:{
         title:"More UK weather checks",
-        intro:"UK GO / CAUTION / NO-GO checks for common outdoor jobs and activities.",
+        intro:"UK weather-based checks for common outdoor jobs and activities.",
         links:[
+          ["/?task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],
           ["/?task=should-i-go-camping&period=today#main","Should I go camping today?"],
           ["/?task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],
           ["/uk/should-i-cut-the-grass-today/","Should I cut the grass today?"],
@@ -1436,14 +1538,14 @@
           ["/uk/should-i-clean-the-windows-today/","Should I clean the windows today?"],
           ["/uk/should-i-walk-the-dog-today/","Should I walk the dog today?"],
           ["/uk/should-i-go-for-a-run-today/","Should I go for a run today?"],
-          ["/uk/do-i-need-a-coat-today/","Do I need a coat today?"],
-          ["/uk/should-i-water-the-plants-today/","Should I water the plants today?"]
+          ["/uk/do-i-need-a-coat-today/","Do I need a coat today?"]
         ]
       },
       US:{
         title:"More USA weather checks",
-        intro:"USA GO / CAUTION / NO-GO checks for common outdoor jobs and activities.",
+        intro:"USA weather-based checks for common outdoor jobs and activities.",
         links:[
+          ["/?region=us&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],
           ["/?region=us&task=should-i-go-camping&period=today#main","Should I go camping today?"],
           ["/?region=us&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],
           ["/us/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],
@@ -1452,71 +1554,22 @@
           ["/us/do-i-need-a-jacket-today/","Do I need a jacket today?"],
           ["/us/should-i-walk-my-dog-today/","Should I walk my dog today?"],
           ["/?region=us&task=should-i-paint-outside-today&period=today#main","Should I paint outside today?"],
-          ["/?region=us&task=should-i-run-today&period=today#main","Should I run today?"],
-          ["/?region=us&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"]
+          ["/?region=us&task=should-i-run-today&period=today#main","Should I run today?"]
         ]
       },
-      IE:{title:"More Ireland weather checks",intro:"Ireland GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/?region=ie&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=ie&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/ie/should-i-cut-the-grass-today/","Should I cut the grass today?"],["/?region=ie&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=ie&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=ie&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=ie&task=should-i-walk-the-dog-today&period=today#main","Should I walk the dog today?"]]},
-      AU:{title:"More Australia weather checks",intro:"Australia GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/?region=au&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=au&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/au/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=au&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=au&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=au&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=au&task=is-it-too-hot-to-walk-the-dog-today&period=today#main","Is it too hot to walk the dog today?"]]},
-      CA:{title:"More Canada weather checks",intro:"Canada GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/?region=ca&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=ca&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/ca/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=ca&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=ca&task=should-i-grill-today&period=today#main","Should I grill today?"],["/?region=ca&task=do-i-need-a-jacket-today&period=today#main","Do I need a jacket today?"],["/?region=ca&task=should-i-walk-my-dog-today&period=today#main","Should I walk my dog today?"]]},
-      NZ:{title:"More New Zealand weather checks",intro:"New Zealand GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/?region=nz&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=nz&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/nz/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=nz&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=nz&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=nz&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=nz&task=do-i-need-a-coat-today&period=today#main","Do I need a coat today?"]]}
+      IE:{title:"More Ireland weather checks",intro:"Ireland weather-based checks for common outdoor jobs.",links:[["/?region=ie&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],["/?region=ie&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=ie&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/ie/should-i-cut-the-grass-today/","Should I cut the grass today?"],["/?region=ie&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=ie&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=ie&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=ie&task=should-i-walk-the-dog-today&period=today#main","Should I walk the dog today?"]]},
+      AU:{title:"More Australia weather checks",intro:"Australia weather-based checks for common outdoor jobs.",links:[["/?region=au&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],["/?region=au&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=au&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/au/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=au&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=au&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=au&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=au&task=is-it-too-hot-to-walk-the-dog-today&period=today#main","Is it too hot to walk the dog today?"]]},
+      CA:{title:"More Canada weather checks",intro:"Canada weather-based checks for common outdoor jobs.",links:[["/?region=ca&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],["/?region=ca&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=ca&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/ca/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=ca&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=ca&task=should-i-grill-today&period=today#main","Should I grill today?"],["/?region=ca&task=do-i-need-a-jacket-today&period=today#main","Do I need a jacket today?"],["/?region=ca&task=should-i-walk-my-dog-today&period=today#main","Should I walk my dog today?"]]},
+      NZ:{title:"More New Zealand weather checks",intro:"New Zealand weather-based checks for common outdoor jobs.",links:[["/?region=nz&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],["/?region=nz&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=nz&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/nz/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=nz&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=nz&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=nz&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=nz&task=do-i-need-a-coat-today&period=today#main","Do I need a coat today?"]]}
     };
 
     const CHECKLISTS={
-      basic:{
-        label:"Basic camping checklist",
-        groups:{
-          "Shelter":["Tent","Groundsheet or footprint","Tent pegs","Mallet","Guy lines"],
-          "Sleep":["Sleeping bag","Sleeping mat","Pillow","Warm layer","Eye mask or ear plugs"],
-          "Cooking":["Camping stove","Gas or fuel","Lighter or matches","Pan or kettle","Mug, plate and cutlery"],
-          "Safety":["Torch or headtorch","First aid kit","Power bank","Water bottle","Bin bag"]
-        }
-      },
-      wet:{
-        label:"Wet weather camping checklist",
-        groups:{
-          "Wet weather gear":["Waterproof jacket","Waterproof trousers","Spare socks","Dry bags","Towel"],
-          "Tent extras":["Extra pegs","Guy lines","Groundsheet","Microfibre cloth","Tent repair tape"],
-          "Comfort":["Warm dry clothes","Waterproof footwear","Plastic bags for wet kit","Camp chair","Hot drink supplies"],
-          "Before you go":["Check ground conditions","Avoid low pitches","Check wind exposure","Pack in waterproof bags","Plan a dry pitching window"]
-        }
-      },
-      cold:{
-        label:"Cold night camping checklist",
-        groups:{
-          "Warm sleep setup":["Warm sleeping bag","Insulated mat","Thermal base layer","Warm hat","Extra blanket"],
-          "Clothing":["Fleece or insulated jacket","Gloves","Thick socks","Waterproof outer layer","Spare dry clothes"],
-          "Food and drink":["Hot drinks","Easy warm meal","High-energy snacks","Stove fuel","Water bottle"],
-          "Night safety":["Headtorch","Power bank","Emergency blanket","Check overnight low","Keep clothes dry"]
-        }
-      },
-      family:{
-        label:"Family camping checklist",
-        groups:{
-          "Family basics":["Larger tent","Extra blankets","Children’s sleeping bags","Camp chairs","Picnic blanket"],
-          "Food":["Easy breakfasts","Snacks","Cool box","Reusable bottles","Washing-up kit"],
-          "Kids":["Warm layers","Waterproofs","Simple games","Sun cream","Spare shoes"],
-          "Practical extras":["First aid kit","Wet wipes","Bin bags","Lantern","Toilet roll"]
-        }
-      },
-      windy:{
-        label:"Windy weather camping checklist",
-        groups:{
-          "Tent security":["Strong tent pegs","Extra guy lines","Mallet","Tent repair tape","Check peg angle"],
-          "Pitch choice":["Choose sheltered pitch","Avoid exposed ridges","Avoid loose ground","Avoid pitching under unsafe trees","Face tent correctly to wind"],
-          "Camp comfort":["Windproof layer","Warm hat","Secure loose kit","Heavy-duty bags","Lantern instead of candles"],
-          "Before you commit":["Check gusts","Check campsite exposure","Check tent wind rating","Have a backup plan","Do not pitch in storms"]
-        }
-      },
-      hot:{
-        label:"Hot weather camping checklist",
-        groups:{
-          "Sun protection":["Sun cream","Sun hat","Sunglasses","Light long sleeves","After-sun"],
-          "Hydration":["Extra water","Reusable bottles","Electrolytes","Cool box","Ice packs"],
-          "Pitch comfort":["Shade tarp","Ventilated tent","Light sleeping bag","Insect repellent","Camp chair"],
-          "Safety":["Avoid midday pitching","Keep food cool","Check fire rules","Plan water refills","Watch for heat stress"]
-        }
-      }
+      basic:{label:"Basic camping checklist",groups:{"Shelter":["Tent","Groundsheet or footprint","Tent pegs","Mallet","Guy lines"],"Sleep":["Sleeping bag","Sleeping mat","Pillow","Warm layer","Eye mask or ear plugs"],"Cooking":["Camping stove","Gas or fuel","Lighter or matches","Pan or kettle","Mug, plate and cutlery"],"Safety":["Torch or headtorch","First aid kit","Power bank","Water bottle","Bin bag"]}},
+      wet:{label:"Wet weather camping checklist",groups:{"Wet weather gear":["Waterproof jacket","Waterproof trousers","Spare socks","Dry bags","Towel"],"Tent extras":["Extra pegs","Guy lines","Groundsheet","Microfibre cloth","Tent repair tape"],"Comfort":["Warm dry clothes","Waterproof footwear","Plastic bags for wet kit","Camp chair","Hot drink supplies"],"Before you go":["Check ground conditions","Avoid low pitches","Check wind exposure","Pack in waterproof bags","Plan a dry pitching window"]}},
+      cold:{label:"Cold night camping checklist",groups:{"Warm sleep setup":["Warm sleeping bag","Insulated mat","Thermal base layer","Warm hat","Extra blanket"],"Clothing":["Fleece or insulated jacket","Gloves","Thick socks","Waterproof outer layer","Spare dry clothes"],"Food and drink":["Hot drinks","Easy warm meal","High-energy snacks","Stove fuel","Water bottle"],"Night safety":["Headtorch","Power bank","Emergency blanket","Check overnight low","Keep clothes dry"]}},
+      family:{label:"Family camping checklist",groups:{"Family basics":["Larger tent","Extra blankets","Children’s sleeping bags","Camp chairs","Picnic blanket"],"Food":["Easy breakfasts","Snacks","Cool box","Reusable bottles","Washing-up kit"],"Kids":["Warm layers","Waterproofs","Simple games","Sun cream","Spare shoes"],"Practical extras":["First aid kit","Wet wipes","Bin bags","Lantern","Toilet roll"]}},
+      windy:{label:"Windy weather camping checklist",groups:{"Tent security":["Strong tent pegs","Extra guy lines","Mallet","Tent repair tape","Check peg angle"],"Pitch choice":["Choose sheltered pitch","Avoid exposed ridges","Avoid loose ground","Avoid pitching under unsafe trees","Face tent correctly to wind"],"Camp comfort":["Windproof layer","Warm hat","Secure loose kit","Heavy-duty bags","Lantern instead of candles"],"Before you commit":["Check gusts","Check campsite exposure","Check tent wind rating","Have a backup plan","Do not pitch in storms"]}},
+      hot:{label:"Hot weather camping checklist",groups:{"Sun protection":["Sun cream","Sun hat","Sunglasses","Light long sleeves","After-sun"],"Hydration":["Extra water","Reusable bottles","Electrolytes","Cool box","Ice packs"],"Pitch comfort":["Shade tarp","Ventilated tent","Light sleeping bag","Insect repellent","Camp chair"],"Safety":["Avoid midday pitching","Keep food cool","Check fire rules","Plan water refills","Watch for heat stress"]}}
     };
 
     let recommendedChecklistType="basic";
@@ -1531,7 +1584,7 @@
       jacket:{rainProb:45,windMaxMph:34,tempMinC:12,tempMaxC:100,hours:[6,23],minHours:1},
       run:{rainProb:60,windMaxMph:35,tempMinC:2,tempMaxC:25,hours:[5,22],minHours:1},
       windows:{rainProb:25,windMaxMph:24,tempMinC:4,tempMaxC:25,hours:[8,17],minHours:2},
-      plants:{rainProb:45,windMaxMph:35,tempMinC:4,tempMaxC:32,hours:[6,21],minHours:1},
+      plants:{rainProb:45,windMaxMph:35,tempMinC:4,tempMaxC:34,hours:[6,21],minHours:1},
       camping:{rainProb:35,windMaxMph:22,tempMinC:5,tempMaxC:30,hours:[10,22],minHours:4},
       hiking:{rainProb:45,windMaxMph:32,tempMinC:3,tempMaxC:26,hours:[7,19],minHours:3},
       beach:{rainProb:30,windMaxMph:24,tempMinC:18,tempMaxC:33,hours:[10,18],minHours:3},
@@ -1582,11 +1635,13 @@
       renderChecklist("basic");
       bindChecklistFilters();
       bindCampingQuickCheck();
+      bindPlantsQuickCheck();
 
       const taskParam=params.get("task");
       if(taskParam){
         const found=Object.entries(region().tasks).find(([,task])=>task.slug===taskParam);
         if(found)selected=found[0];
+        else if(taskParam==="should-i-water-the-plants-today")selected="plants";
       }
 
       const loc=params.get("location");
@@ -1648,7 +1703,7 @@
           document.querySelectorAll("[data-task]").forEach(btn=>btn.classList.remove("active"));
           button.classList.add("active");
           updateHintAndQuestion();
-          updateCampingVisibility();
+          updateFeatureVisibility();
 
           if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
           else if(locationInput.value.trim())checkFromText();
@@ -1657,7 +1712,7 @@
       });
 
       updateHintAndQuestion();
-      updateCampingVisibility();
+      updateFeatureVisibility();
     }
 
     function updateHintAndQuestion(){
@@ -1667,6 +1722,11 @@
       document.getElementById("question").textContent=periodQuestion(task,selectedPeriod);
     }
 
+    function updateFeatureVisibility(){
+      updateCampingVisibility();
+      updatePlantVisibility();
+    }
+
     function updateCampingVisibility(){
       const showCamping=selected==="camping";
       const campingHub=document.getElementById("camping");
@@ -1674,6 +1734,15 @@
 
       if(campingHub)campingHub.classList.toggle("show",showCamping);
       if(campingLinks)campingLinks.classList.toggle("show",showCamping);
+    }
+
+    function updatePlantVisibility(){
+      const showPlants=selected==="plants";
+      const plantsHub=document.getElementById("plantsHub");
+      const plantsLinks=document.getElementById("plantsLinks");
+
+      if(plantsHub)plantsHub.classList.toggle("show",showPlants);
+      if(plantsLinks)plantsLinks.classList.toggle("show",showPlants);
     }
 
     function periodQuestion(task,period){
@@ -1705,7 +1774,7 @@
         selectedPeriod=tab.dataset.period;
         setPeriodTab();
         updateHintAndQuestion();
-        updateCampingVisibility();
+        updateFeatureVisibility();
 
         if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
         else if(locationInput.value.trim())checkFromText();
@@ -1722,7 +1791,25 @@
         setPeriodTab();
         renderTasks();
         updateHintAndQuestion();
-        updateCampingVisibility();
+        updateFeatureVisibility();
+        document.getElementById("main").scrollIntoView({behavior:"smooth",block:"start"});
+
+        if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
+        else if(locationInput.value.trim())checkFromText();
+        else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
+      });
+    }
+
+    function bindPlantsQuickCheck(){
+      const button=document.getElementById("plantsQuickCheck");
+      if(!button)return;
+      button.addEventListener("click",()=>{
+        selected="plants";
+        selectedPeriod="today";
+        setPeriodTab();
+        renderTasks();
+        updateHintAndQuestion();
+        updateFeatureVisibility();
         document.getElementById("main").scrollIntoView({behavior:"smooth",block:"start"});
 
         if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
@@ -2023,13 +2110,6 @@
       if(selectedPeriod==="today")return [today];
       if(selectedPeriod==="tomorrow")return [startOfDay(hoursAfter(today,24))];
 
-      /*
-        Weekend now means Friday, Saturday and Sunday.
-        - Monday to Thursday: checks the coming Friday, Saturday and Sunday.
-        - Friday: checks Friday, Saturday and Sunday.
-        - Saturday: checks Saturday and Sunday.
-        - Sunday: checks Sunday.
-      */
       const day=today.getDay();
       let daysToFriday=(5-day+7)%7;
 
@@ -2081,7 +2161,7 @@
 
     function scoreValue(status){
       if(["GO","WATER","TAKE ONE"].includes(status))return 3;
-      if(["CAUTION","CHECK","MAYBE","DAY ONLY"].includes(status))return 2;
+      if(["CAUTION","CHECK","CHECK SOIL","MAYBE","DAY ONLY"].includes(status))return 2;
       if(["WAIT","NO","NO-GO","WARNING"].includes(status))return 1;
       return 0;
     }
@@ -2089,6 +2169,12 @@
     function result(status,css,ctx,best,reasons,rec){
       const lead=status==="GO"
         ?"Good conditions look likely."
+        :status==="WATER"
+        ?"Watering looks useful."
+        :status==="CHECK SOIL"
+        ?"Check the soil before watering."
+        :status==="WAIT"
+        ?"Waiting is likely better."
         :status==="CAUTION"
         ?"Possible, but check the details."
         :status==="NO-GO"
@@ -2097,7 +2183,7 @@
         ?"Warning conditions are possible."
         :"Check the details before deciding.";
 
-      return{status,css,best,reason:`${lead} ${reasons.slice(0,3).join(" ")} ${rec}`.trim(),why:reasons.slice(0,5),rain:`${Math.round(ctx.rainProb)}% max`,windMph:ctx.maxWind,tempC:selected==="jacket"?ctx.minFeels:ctx.temp,score:scoreValue(status),date:ctx.day,label:dayLabel(ctx.day)};
+      return{status,css,best,reason:`${lead} ${reasons.slice(0,3).join(" ")} ${rec}`.trim(),why:reasons.slice(0,5),rain:`${Math.round(ctx.rainProb)}% max`,windMph:ctx.maxWind,tempC:selected==="jacket"?ctx.minFeels:selected==="plants"?ctx.maxTemp:ctx.temp,score:scoreValue(status),date:ctx.day,label:dayLabel(ctx.day)};
     }
 
     function nextBetter(data,task){
@@ -2105,13 +2191,14 @@
       for(const dayStr of rows.slice(1)){
         const day=startOfDay(new Date(dayStr));
         const r=analyseDay(data,task,day,false);
-        if(["GO","WATER","TAKE ONE","CAUTION","CHECK","MAYBE"].includes(r.status)&&r.best!=="No sensible window")return r;
+        if(["GO","WATER","TAKE ONE","CAUTION","CHECK","CHECK SOIL","MAYBE"].includes(r.status)&&r.best!=="No sensible window")return r;
       }
       return null;
     }
 
     function recommend(status,today,next){
       if(["GO","WATER","TAKE ONE"].includes(status))return`Recommendation: use the best window ${today.best}.`;
+      if(status==="CHECK SOIL")return`Recommendation: check the soil during the best window ${today.best}.`;
       if(next&&next.best!=="No sensible window")return`Recommendation: leave it for now; the next better window looks like ${next.label}, ${next.best}.`;
       return"Recommendation: leave it for now and reassess when the forecast improves.";
     }
@@ -2192,11 +2279,6 @@
 
         let status="GO",css="";
 
-        /*
-          Camping is different from jobs like painting or mowing.
-          Rain usually means CAUTION, not NO-GO, because people can camp in rain.
-          Red WARNING is reserved for thunder, lightning, storm risk or very strong gusts.
-        */
         if(ctx.storm){
           status="WARNING";
           css="no";
@@ -2247,19 +2329,37 @@
       }
 
       if(selected==="plants"){
-        score=35;reasons=[];
-        best=findWindow(ctx.useful.filter(r=>[6,7,8,9,18,19,20].includes(r.time.getHours())),r=>r.precip<0.1&&r.rainProb<55,1);
+        score=42;
+        reasons=[];
+        best=findWindow(ctx.useful.filter(r=>[6,7,8,9,18,19,20].includes(r.time.getHours())),r=>r.precip<0.1&&r.rainProb<60,1);
+
         if(ctx.currentRain>0){score-=35;reasons.push("It is raining now.")}
-        if(ctx.rainNext24>=2){score-=28;reasons.push("Useful rain is expected, so garden beds may not need watering.")}
-        else{score+=8;reasons.push("No useful rain is expected soon.")}
-        if(ctx.rainPast24>=5){score-=35;reasons.push("There has already been enough recent rain for most outdoor plants.")}
-        else if(ctx.rainPast72<1){score+=ctx.maxTemp>=18?18:8;reasons.push("It has been fairly dry recently.")}
-        if(ctx.maxTemp<15){score-=30;reasons.push("It is cool, so established outdoor plants usually need little extra water.")}
+        if(ctx.rainNext24>=2){score-=30;reasons.push("Useful rain is expected in the next 24 hours.")}
+        else{score+=10;reasons.push("No useful rain is expected soon.")}
+
+        if(ctx.rainPast24>=5){score-=32;reasons.push("There has already been useful recent rain.")}
+        else if(ctx.rainPast72<1){score+=18;reasons.push("It has been fairly dry recently.")}
+
+        if(ctx.maxTemp>=25){score+=14;reasons.push("Warm conditions can dry pots, baskets and shallow soil faster.")}
+        else if(ctx.maxTemp<15){score-=18;reasons.push("Cooler conditions mean established outdoor plants may need less water.")}
+
+        if(ctx.maxWind>=18){score+=8;reasons.push("Wind can dry pots, baskets and surface soil faster.")}
+        if(ctx.avgHumidity!==null&&ctx.avgHumidity<50){score+=8;reasons.push("Lower humidity can dry plants and soil faster.")}
         if(ctx.soil!==null&&ctx.soil<0.22){score+=16;reasons.push("Near-surface soil moisture looks low.")}
-        let status="CHECK",css="caution";
-        if(score>=75&&ctx.maxTemp>=18){status="WATER";css=""}
+
+        let status="CHECK SOIL",css="caution";
+        if(score>=76&&ctx.rainNext24<2&&ctx.currentRain<=0){status="WATER";css=""}
         if(score<45){status="WAIT";css="no"}
-        return{...result(status,css,ctx,best,reasons,"Recommendation: check the soil first. Water pots, baskets, new plants and covered plants only if dry.")};
+
+        if(status==="WATER"){
+          return{...result(status,css,ctx,best,reasons,"Recommendation: water the soil deeply during the best window. Prioritise pots, baskets, new plants, tomatoes and plants under cover.")};
+        }
+
+        if(status==="WAIT"){
+          return{...result(status,css,ctx,best,reasons,"Recommendation: wait for now unless pots, baskets or new plants are visibly dry. Check soil before watering.")};
+        }
+
+        return{...result(status,css,ctx,best,reasons,"Recommendation: push a finger into the soil. Water pots, baskets, new plants and covered plants only if the soil feels dry.")};
       }
 
       if(selected==="jacket"){
@@ -2285,7 +2385,8 @@
       let chosen=results.slice().sort((a,b)=>b.score-a.score)[0]||results[0];
       const next=nextBetter(data,task);
       const periodText=selectedPeriod==="weekend"?`Best weekend option: ${chosen.label}. `:"";
-      chosen.reason=periodText+chosen.reason+" "+recommend(chosen.status,chosen,next);
+      const addGenericRecommendation=!["plants","camping"].includes(selected);
+      chosen.reason=periodText+chosen.reason+(addGenericRecommendation?" "+recommend(chosen.status,chosen,next):"");
       return chosen;
     }
 
@@ -2312,7 +2413,7 @@
       document.getElementById("temp").textContent=formatTemp(r.tempC);
       document.getElementById("whyList").innerHTML=(r.why&&r.why.length?r.why:["There is not enough forecast detail to give a stronger reason."]).map(item=>`<li>${item}</li>`).join("");
 
-      updateCampingVisibility();
+      updateFeatureVisibility();
 
       if(selected==="camping"){
         const recommendation=chooseCampingChecklist(r);
@@ -2328,7 +2429,7 @@
       document.getElementById("answer").textContent="CHECK";
       document.getElementById("whyList").innerHTML="<li>Try a nearby town, city or full postcode.</li>";
       ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—");
-      updateCampingVisibility();
+      updateFeatureVisibility();
       setTimeout(scrollResultIntoView,80);
     }
 
