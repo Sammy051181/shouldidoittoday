@@ -1134,7 +1134,7 @@
 
     function looksLikeUkPostcodeOrOutcode(value){
       const c=cleanPostcode(value);
-      return new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$").test(c)||new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?$").test(c);
+      return new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$").test(c)||new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?$" ).test(c);
     }
 
     function looksLikePostalCode(value){
@@ -1406,7 +1406,7 @@
 
     function scoreValue(status){
       if(["GO","WATER","TAKE ONE"].includes(status))return 3;
-      if(["CAUTION","CHECK","MAYBE"].includes(status))return 2;
+      if(["CAUTION","CHECK","MAYBE","DAY ONLY"].includes(status))return 2;
       if(["WAIT","NO","NO-GO"].includes(status))return 1;
       return 0;
     }
@@ -1433,7 +1433,7 @@
       for(const dayStr of rows.slice(1)){
         const day=startOfDay(new Date(dayStr));
         const r=analyseDay(data,task,day,false);
-        if(["GO","WATER","TAKE ONE","CAUTION","CHECK"].includes(r.status)&&r.best!=="No sensible window")return r;
+        if(["GO","WATER","TAKE ONE","CAUTION","CHECK","MAYBE"].includes(r.status)&&r.best!=="No sensible window")return r;
       }
 
       return null;
@@ -1533,4 +1533,212 @@
       }
 
       if(selected==="beach"){
-        if(ctx.maxTemp<18){score-=25;reasons.push("It may feel cool for a beach day
+        if(ctx.maxTemp<18){score-=25;reasons.push("It may feel cool for a beach day.")}
+        if(ctx.maxWind>22){score-=22;reasons.push("Wind may make the beach feel less comfortable.")}
+        if(ctx.rainProb>30){score-=22;reasons.push("Rain risk could spoil the beach window.")}
+        if(ctx.storm){score-=40;reasons.push("Storm risk makes the beach a poor choice.")}
+      }
+
+      if(selected==="fishing"){
+        if(ctx.maxWind>28){score-=24;reasons.push("Wind may make fishing difficult or exposed spots uncomfortable.")}
+        if(ctx.storm){score-=45;reasons.push("Storm risk is unsafe near open water.")}
+        if(ctx.maxTemp<4){score-=16;reasons.push("It may feel very cold sitting still for long periods.")}
+      }
+
+      if(selected==="golf"){
+        if(ctx.maxWind>25){score-=22;reasons.push("Wind may make golf more difficult.")}
+        if(ctx.rainTotal>1.5){score-=20;reasons.push("Rain may make the course wet or play less comfortable.")}
+        if(ctx.storm){score-=45;reasons.push("Storm risk is unsafe on open ground.")}
+      }
+
+      if(selected==="cycling"){
+        if(ctx.maxWind>28){score-=24;reasons.push("Wind may make cycling harder, especially on exposed roads.")}
+        if(ctx.rainTotal>1.5){score-=18;reasons.push("Rain may make roads or paths slippery.")}
+        if(ctx.maxTemp>=29){score-=24;reasons.push("Heat may make cycling harder and increase hydration risk.")}
+        if(ctx.storm){score-=45;reasons.push("Storm risk is unsafe for cycling.")}
+      }
+
+      if(selected==="plants"){
+        score=35;reasons=[];
+        best=findWindow(ctx.useful.filter(r=>[6,7,8,9,18,19,20].includes(r.time.getHours())),r=>r.precip<0.1&&r.rainProb<55,1);
+        if(ctx.currentRain>0){score-=35;reasons.push("It is raining now.")}
+        if(ctx.rainNext24>=2){score-=28;reasons.push("Useful rain is expected, so garden beds may not need watering.")}
+        else{score+=8;reasons.push("No useful rain is expected soon.")}
+        if(ctx.rainPast24>=5){score-=35;reasons.push("There has already been enough recent rain for most outdoor plants.")}
+        else if(ctx.rainPast72<1){score+=ctx.maxTemp>=18?18:8;reasons.push("It has been fairly dry recently.")}
+        if(ctx.maxTemp<15){score-=30;reasons.push("It is cool, so established outdoor plants usually need little extra water.")}
+        if(ctx.soil!==null&&ctx.soil<0.22){score+=16;reasons.push("Near-surface soil moisture looks low.")}
+
+        let status="CHECK",css="caution";
+        if(score>=75&&ctx.maxTemp>=18){status="WATER";css=""}
+        if(score<45){status="WAIT";css="no"}
+
+        return{...result(status,css,ctx,best,reasons,"Recommendation: check the soil first. Water pots, baskets, new plants and covered plants only if dry.")};
+      }
+
+      if(selected==="jacket"){
+        let status="NO",css="no";
+        reasons=[];
+        if(ctx.minFeels<=11){status="TAKE ONE";css="";reasons.push("It will feel cold enough for a coat.")}
+        else if(ctx.minFeels<=15||ctx.rainNext24>0.5||ctx.maxWind>18){status="MAYBE";css="caution";reasons.push("A light layer or waterproof may be useful.")}
+        else{reasons.push("It looks mild enough without a coat.")}
+
+        return{...result(status,css,ctx,status==="NO"?"Not needed":"Take one",reasons,status==="NO"?"Recommendation: no coat needed unless you personally feel the cold.":"Recommendation: take a layer or waterproof if you will be out for long.")};
+      }
+
+      if(best==="No sensible window"){score-=20;reasons.push("There is no proper usable window.")}
+      if(!reasons.length)reasons.push("There is a usable weather window.");
+
+      let status="GO",css="";
+      if(score<45){status="NO-GO";css="no"}
+      else if(score<72){status="CAUTION";css="caution"}
+
+      return{...result(status,css,ctx,best,reasons,"")};
+    }
+
+    function analyse(data,task){
+      const days=getTargetDays(data);
+      const results=days.map(day=>analyseDay(data,task,day,startOfDay(day).getTime()===startOfDay(new Date()).getTime()));
+      let chosen=results.slice().sort((a,b)=>b.score-a.score)[0]||results[0];
+      const next=nextBetter(data,task);
+      const periodText=selectedPeriod==="weekend"?`Best weekend option: ${chosen.label}. `:"";
+      chosen.reason=periodText+chosen.reason+" "+recommend(chosen.status,chosen,next);
+      return chosen;
+    }
+
+    function loading(){
+      document.getElementById("result").classList.add("show");
+      document.getElementById("answer").className="answer loading";
+      document.getElementById("answer").textContent="…";
+      document.getElementById("reason").textContent="Checking the local forecast…";
+      document.getElementById("whyList").innerHTML="<li>Fetching weather data and applying task-specific rules.</li>";
+      ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—");
+    }
+
+    function render(place,r){
+      const task=taskConfig();
+      document.getElementById("question").textContent=`${periodQuestion(task,selectedPeriod)} — ${place}`;
+      document.getElementById("reason").textContent=r.reason;
+      document.getElementById("answer").className=`answer ${r.css}`;
+      document.getElementById("answer").textContent=r.status;
+      document.getElementById("bestTime").textContent=r.best;
+      document.getElementById("rain").textContent=r.rain;
+      document.getElementById("wind").textContent=formatWind(r.windMph);
+      document.getElementById("temp").textContent=formatTemp(r.tempC);
+      document.getElementById("whyList").innerHTML=(r.why&&r.why.length?r.why:["There is not enough forecast detail to give a stronger reason."]).map(item=>`<li>${item}</li>`).join("");
+    }
+
+    function showError(message){
+      document.getElementById("result").classList.add("show");
+      document.getElementById("question").textContent="Could not complete check";
+      document.getElementById("reason").textContent=message;
+      document.getElementById("answer").className="answer caution";
+      document.getElementById("answer").textContent="CHECK";
+      document.getElementById("whyList").innerHTML="<li>Try a nearby town, city or full postcode.</li>";
+      ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—");
+    }
+
+    function analyseAndRender(place,data){
+      const r=analyse(data,taskConfig());
+      render(place.name||place,r);
+    }
+
+    async function checkFromText(){
+      const validation=validateLocationInput(locationInput.value);
+      if(!validation.ok){showError(validation.message);setLocationStatus("Type another location",false);return}
+
+      const query=validation.value;
+
+      try{
+        loading();
+        setLocationStatus("Checking typed location…",true);
+        const place=await geocode(query);
+        setRegionFromCountryCode(place.countryCode);
+        const data=await getWeather(place.latitude,place.longitude);
+        lastPlace=place;
+        lastWeather=data;
+        analyseAndRender(place,data);
+        setLocationStatus(`Using ${place.name}`,false);
+      }catch(err){
+        setLocationStatus("Type another location",false);
+        showError(err.message||"Something went wrong. Try another location.");
+      }
+    }
+
+    async function checkFromCoords(latitude,longitude,placeName){
+      try{
+        loading();
+        const data=await getWeather(latitude,longitude);
+        setRegionFromTimezone(data.timezone);
+        const resolved=await reverseGeocodeCoords(latitude,longitude,data.timezone);
+        if(resolved.countryCode)setRegionFromCountryCode(resolved.countryCode);
+        const display=resolved.name||placeName||"your current location";
+        lastPlace={name:display,latitude,longitude,countryCode:resolved.countryCode};
+        lastWeather=data;
+        analyseAndRender(lastPlace,data);
+        setLocationStatus(`Using ${display}`,false);
+      }catch(err){
+        setLocationStatus("Type a postcode, ZIP code, town or city",false);
+        showError(err.message||"Could not check your current location.");
+      }
+    }
+
+    function autoDetectLocationOnLoad(){
+      if(!navigator.geolocation){
+        setLocationStatus("Type a postcode, ZIP code, town or city",false);
+        return;
+      }
+
+      setLocationStatus("Trying to detect your location…",true);
+
+      navigator.geolocation.getCurrentPosition(async pos=>{
+        const c=pos.coords;
+        detectedLocation={latitude:c.latitude,longitude:c.longitude,name:"your device location"};
+        locationInput.value="";
+        await checkFromCoords(c.latitude,c.longitude,"your device location");
+      },()=>{
+        setLocationStatus("Type a postcode, ZIP code, town or city",false);
+      },{
+        enableHighAccuracy:false,
+        timeout:8000,
+        maximumAge:600000
+      });
+    }
+
+    function useMyLocation(){
+      if(!navigator.geolocation){
+        showError("Your browser does not support location checks. Enter a town or city instead.");
+        return;
+      }
+
+      setLocationStatus("Requesting location permission…",true);
+
+      navigator.geolocation.getCurrentPosition(async pos=>{
+        const c=pos.coords;
+        detectedLocation={latitude:c.latitude,longitude:c.longitude,name:"your device location"};
+        locationInput.value="";
+        await checkFromCoords(c.latitude,c.longitude,"your device location");
+      },()=>{
+        setLocationStatus("Location permission not granted",false);
+        showError("Location permission was not granted. Enter a town or city instead.");
+      },{
+        enableHighAccuracy:false,
+        timeout:8000,
+        maximumAge:600000
+      });
+    }
+
+    regionSelect.addEventListener("change",()=>{
+      currentRegionKey=regionSelect.value;
+      applyRegion(true);
+      setLocationStatus(`Using ${region().name} wording`,false);
+    });
+
+    document.getElementById("checkBtn").addEventListener("click",checkFromText);
+    document.getElementById("geoBtn").addEventListener("click",useMyLocation);
+    locationInput.addEventListener("keydown",e=>{if(e.key==="Enter")checkFromText()});
+
+    init();
+  </script>
+</body>
+</html>
