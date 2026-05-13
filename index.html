@@ -680,30 +680,66 @@
     }
 
     @media (max-width:760px){
-      main{padding-top:18px}
-      .hero-logo-lockup{max-width:360px;margin-left:auto;margin-right:auto}
-      header{align-items:flex-start}
+      .page{width:min(100% - 18px,1120px)}
+      header{align-items:center;padding:10px 0 6px}
+      .brand .weather-icon{width:38px;height:30px}
+      .brand-wordmark{font-size:.86rem}
       .top-help{display:none}
-      .checker-head{display:block}
-      .region-row{align-items:flex-start;flex-direction:column}
-      .region-row select{width:100%}
-      .search-row{grid-template-columns:1fr}
-      .btn{width:100%}
-      .tasks{grid-template-columns:repeat(2,1fr)}
-      .result-top{grid-template-columns:1fr}
-      .answer{min-height:86px}
+
+      main{padding:10px 0 34px}
+      .hero{gap:14px}
+      .checker-card{padding:12px;border-radius:22px;box-shadow:0 16px 42px rgba(20,36,25,.12)}
+      .checker-head{display:block;margin-bottom:10px}
+      .checker-head h2{font-size:1.05rem}
+      .checker-head p{font-size:.86rem}
+      .region-row{align-items:flex-start;flex-direction:column;gap:6px;margin-bottom:10px}
+      .region-row select{width:100%;min-width:0;padding:9px 13px}
+      .period-tabs{gap:5px;padding:5px;border-radius:17px;margin-bottom:10px}
+      .period-tab{padding:9px 5px;border-radius:13px;font-size:.88rem}
+      .search-card{padding:8px;border-radius:19px}
+      .search-row{grid-template-columns:1fr;gap:7px}
+      .search-input{padding:13px 12px;border-radius:14px;font-size:16px}
+      .btn{width:100%;padding:13px 12px;border-radius:14px}
+      .status-pill{min-height:34px;padding:8px 10px;font-size:.82rem;border-radius:14px}
+
+      .hero-copy{text-align:center;padding-top:2px}
+      .hero-logo-lockup{max-width:230px;margin:8px auto 10px}
+      .lead{margin-top:8px;font-size:.98rem;line-height:1.45}
+      .benefit-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px}
+      .benefit{justify-content:center;padding:8px 9px;font-size:.8rem}
+
+      .task-area{margin-top:18px}
+      .section-title{display:block;margin-bottom:10px}
+      .section-title h2{font-size:1.08rem}
+      .section-title p{margin-top:3px;font-size:.82rem}
+      .tasks{grid-template-columns:repeat(2,1fr);gap:8px}
+      .task{min-height:66px;padding:9px 7px;border-radius:17px;font-size:.86rem}
+      .task span{font-size:1.25rem;margin-bottom:3px}
+
+      .result{margin-top:22px;border-radius:24px}
+      .result::before{width:7px}
+      .result-top{grid-template-columns:1fr;gap:12px;padding:16px 14px 16px 21px}
+      .answer{min-height:82px;border-radius:20px;font-size:clamp(1.65rem,10vw,2.55rem)}
+      .question{font-size:1.2rem}
+      .reason{font-size:.96rem}
+      .why-wrap{padding:10px 12px;border-radius:15px}
       .facts{grid-template-columns:repeat(2,1fr)}
-      .section-title{display:block}
-      .section-title p{margin-top:4px}
-      .seo-link-grid{grid-template-columns:1fr}
+      .fact{padding:12px}
+
+      .seo-internal-links{margin-top:22px;padding:16px;border-radius:21px}
+      .seo-link-grid{grid-template-columns:1fr;gap:7px}
+      .seo-link-grid a{font-size:.84rem;padding:10px 11px}
     }
 
     @media (max-width:430px){
-      .page{width:min(100% - 20px,1120px)}
-      .tasks{grid-template-columns:1fr}
+      .page{width:min(100% - 14px,1120px)}
+      .hero-logo-lockup{max-width:205px}
+      .benefit-row{grid-template-columns:1fr}
+      .tasks{grid-template-columns:repeat(2,1fr)}
+      .task{min-height:62px;font-size:.82rem}
       .facts{grid-template-columns:1fr}
       h1{font-size:clamp(2.8rem,18vw,4.2rem)}
-      .checker-card{padding:13px;border-radius:24px}
+      .checker-card{padding:11px;border-radius:20px}
     }
   </style>
 
@@ -823,7 +859,7 @@
           <div class="search-card">
             <div class="search-row">
               <label class="sr-only" for="locationInput">Enter your location</label>
-              <input id="locationInput" class="search-input" type="search" placeholder="Enter postcode, ZIP code, town or city for best accuracy" autocomplete="off" maxlength="80"/>
+              <input id="locationInput" class="search-input" type="search" placeholder="Postcode, ZIP, town or city" autocomplete="off" maxlength="80"/>
               <button id="checkBtn" class="btn btn-primary" type="button">Check</button>
             </div>
             <button id="geoBtn" class="btn btn-secondary" type="button">Use my location</button>
@@ -831,14 +867,6 @@
 
           <div class="status-pill" id="locationStatus"><span>Trying to detect your location…</span></div>
         </aside>
-      </section>
-
-      <section class="task-area" aria-label="Choose a task">
-        <div class="section-title">
-          <h2>Choose the job</h2>
-          <p id="hint">Selected: cut grass</p>
-        </div>
-        <div class="tasks" id="taskButtons" aria-label="Choose a task"></div>
       </section>
 
       <section class="result" id="result" aria-live="polite">
@@ -859,6 +887,14 @@
           <div class="fact"><span>Wind</span><strong id="wind">—</strong></div>
           <div class="fact"><span>Temperature</span><strong id="temp">—</strong></div>
         </div>
+      </section>
+
+      <section class="task-area" aria-label="Choose a task">
+        <div class="section-title">
+          <h2>Choose the job</h2>
+          <p id="hint">Selected: cut grass</p>
+        </div>
+        <div class="tasks" id="taskButtons" aria-label="Choose a task"></div>
       </section>
 
       <section class="seo-internal-links" aria-label="More weather-based decision checks">
@@ -888,12 +924,12 @@
 
   <script>
     const REGIONS={
-      UK:{name:"UK",locale:"en-GB",tempUnit:"C",windUnit:"mph",placeholder:"Enter postcode, town or city for best accuracy",tasks:{grass:{icon:"🌱",label:"Cut grass",question:"Should I cut the grass today?",slug:"should-i-cut-the-grass-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Hang washing",question:"Can I hang washing out today?",slug:"can-i-hang-washing-out-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"BBQ",question:"Should I BBQ today?",slug:"should-i-bbq-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk the dog today?",slug:"should-i-walk-the-dog-today"},jacket:{icon:"🧥",label:"Need coat",question:"Do I need a coat today?",slug:"do-i-need-a-coat-today"},run:{icon:"🏃",label:"Go running",question:"Should I go for a run today?",slug:"should-i-go-for-a-run-today"},windows:{icon:"🪟",label:"Clean windows",question:"Should I clean the windows today?",slug:"should-i-clean-the-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water the plants today?",slug:"should-i-water-the-plants-today"}}},
-      IE:{name:"Ireland",locale:"en-IE",tempUnit:"C",windUnit:"kmh",placeholder:"Enter town or city for best accuracy",tasks:null},
-      US:{name:"US",locale:"en-US",tempUnit:"F",windUnit:"mph",placeholder:"Enter ZIP code, city or state for best accuracy",tasks:{grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Dry laundry",question:"Can I dry laundry outside today?",slug:"can-i-dry-laundry-outside-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"Grill",question:"Should I grill today?",slug:"should-i-grill-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk my dog today?",slug:"should-i-walk-my-dog-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},run:{icon:"🏃",label:"Run",question:"Should I run today?",slug:"should-i-run-today"},windows:{icon:"🪟",label:"Wash windows",question:"Should I wash windows today?",slug:"should-i-wash-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}}},
-      CA:{name:"Canada",locale:"en-CA",tempUnit:"C",windUnit:"kmh",placeholder:"Enter postal code, town or city for best accuracy",tasks:null},
-      AU:{name:"Australia",locale:"en-AU",tempUnit:"C",windUnit:"kmh",placeholder:"Enter postcode, suburb, town or city for best accuracy",tasks:null},
-      NZ:{name:"New Zealand",locale:"en-NZ",tempUnit:"C",windUnit:"kmh",placeholder:"Enter postcode, town or city for best accuracy",tasks:null}
+      UK:{name:"UK",locale:"en-GB",tempUnit:"C",windUnit:"mph",placeholder:"Postcode, town or city",tasks:{grass:{icon:"🌱",label:"Cut grass",question:"Should I cut the grass today?",slug:"should-i-cut-the-grass-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Hang washing",question:"Can I hang washing out today?",slug:"can-i-hang-washing-out-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"BBQ",question:"Should I BBQ today?",slug:"should-i-bbq-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk the dog today?",slug:"should-i-walk-the-dog-today"},jacket:{icon:"🧥",label:"Need coat",question:"Do I need a coat today?",slug:"do-i-need-a-coat-today"},run:{icon:"🏃",label:"Go running",question:"Should I go for a run today?",slug:"should-i-go-for-a-run-today"},windows:{icon:"🪟",label:"Clean windows",question:"Should I clean the windows today?",slug:"should-i-clean-the-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water the plants today?",slug:"should-i-water-the-plants-today"}}},
+      IE:{name:"Ireland",locale:"en-IE",tempUnit:"C",windUnit:"kmh",placeholder:"Town or city",tasks:null},
+      US:{name:"US",locale:"en-US",tempUnit:"F",windUnit:"mph",placeholder:"ZIP code, city or state",tasks:{grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Dry laundry",question:"Can I dry laundry outside today?",slug:"can-i-dry-laundry-outside-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"Grill",question:"Should I grill today?",slug:"should-i-grill-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk my dog today?",slug:"should-i-walk-my-dog-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},run:{icon:"🏃",label:"Run",question:"Should I run today?",slug:"should-i-run-today"},windows:{icon:"🪟",label:"Wash windows",question:"Should I wash windows today?",slug:"should-i-wash-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}}},
+      CA:{name:"Canada",locale:"en-CA",tempUnit:"C",windUnit:"kmh",placeholder:"Postal code, town or city",tasks:null},
+      AU:{name:"Australia",locale:"en-AU",tempUnit:"C",windUnit:"kmh",placeholder:"Postcode, suburb or city",tasks:null},
+      NZ:{name:"New Zealand",locale:"en-NZ",tempUnit:"C",windUnit:"kmh",placeholder:"Postcode, town or city",tasks:null}
     };
 
     REGIONS.IE.tasks=REGIONS.UK.tasks;
@@ -1636,11 +1672,20 @@
       document.getElementById("answer").textContent="CHECK";
       document.getElementById("whyList").innerHTML="<li>Try a nearby town, city or full postcode.</li>";
       ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—");
+      setTimeout(scrollResultIntoView,80);
     }
 
     function analyseAndRender(place,data){
       const r=analyse(data,taskConfig());
       render(place.name||place,r);
+      setTimeout(scrollResultIntoView,80);
+    }
+
+    function scrollResultIntoView(){
+      const result=document.getElementById("result");
+      if(!result||!result.classList.contains("show"))return;
+      const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      result.scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});
     }
 
     async function checkFromText(){
