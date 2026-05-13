@@ -47,7 +47,7 @@
         "name": "Should I go camping today?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use the camping weather checker to compare local rain risk, wind, temperature, overnight conditions and daylight. A GO means conditions look suitable, CAUTION means check the details, and NO-GO means waiting is likely better."
+          "text": "Use the camping weather checker to compare local rain risk, wind, temperature, overnight conditions and daylight. A GO means conditions look suitable, CAUTION means pack and plan for the conditions, and WARNING means there may be thunder, lightning, storm risk or dangerous wind."
         }
       },
       {
@@ -55,7 +55,7 @@
         "name": "What weather is bad for camping?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Heavy or persistent rain, strong wind, storms, cold overnight temperatures, wet ground and poor daylight for pitching can all make camping uncomfortable or unsafe."
+          "text": "Rain can be manageable with the right kit, but thunder, lightning, storms, very strong wind, unsafe ground conditions and severe cold can make camping unsafe."
         }
       },
       {
@@ -574,6 +574,7 @@
       color:var(--red);
       border-color:rgba(185,28,28,.18);
       box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 18px 34px rgba(185,28,28,.14);
+      font-size:clamp(1.35rem,3vw,2rem);
     }
 
     .answer.loading{
@@ -1250,12 +1251,12 @@
           </div>
 
           <div class="camping-card">
-            <h3>Camping GO / CAUTION / NO-GO</h3>
+            <h3>Camping GO / CAUTION / WARNING</h3>
             <p>Camping needs more than a dry afternoon. The checker also looks at overnight rain, tent wind exposure, cold-feel temperature and whether there is enough daylight to arrive and pitch.</p>
             <div class="mini-score" aria-label="Camping decision meanings">
               <div class="mini-go">GO</div>
               <div class="mini-caution">CAUTION</div>
-              <div class="mini-no">NO-GO</div>
+              <div class="mini-no">WARNING</div>
             </div>
           </div>
         </div>
@@ -1282,13 +1283,13 @@
             </ul>
           </div>
           <div class="camping-panel">
-            <h3>When is camping a NO-GO?</h3>
-            <p>Strong wind, storms, heavy overnight rain or cold conditions can make waiting the better option.</p>
+            <h3>When is camping a WARNING?</h3>
+            <p>Thunder, lightning, storms or very strong gusts can make camping unsafe, especially on exposed pitches.</p>
             <ul>
+              <li>Thunder or lightning risk</li>
               <li>Storm risk</li>
-              <li>High overnight rain</li>
-              <li>Strong tent-level winds</li>
-              <li>Cold, wet or exposed conditions</li>
+              <li>Very strong gusts</li>
+              <li>Unsafe exposed conditions</li>
             </ul>
           </div>
         </div>
@@ -1766,8 +1767,8 @@
       const reasons=(r.why||[]).join(" ").toLowerCase();
       const status=(r.status||"").toLowerCase();
 
-      if(status.includes("no-go")||reasons.includes("storm")){
-        return{type:"wet",reason:"The camping result warns about poor or risky conditions. Pack for wet weather and consider delaying the trip."};
+      if(status.includes("warning")||reasons.includes("storm")||reasons.includes("thunder")||reasons.includes("lightning")){
+        return{type:"windy",reason:"The camping result has a safety warning. Check thunder, lightning, storm risk and gusts carefully, and consider delaying or using a safer sheltered option."};
       }
       if(reasons.includes("wind")||reasons.includes("gust")){
         return{type:"windy",reason:"Wind is a key issue in this forecast, so add stronger pegs, extra guy lines and choose a sheltered pitch."};
@@ -2015,38 +2016,38 @@
     function isWintry(rows){return rows.some(r=>[56,57,66,67,71,73,75,77,85,86].includes(r.weatherCode))}
     function isWinterRest(day){const m=day.getMonth();return["AU","NZ"].includes(currentRegionKey)?[5,6,7].includes(m):[11,0,1].includes(m)}
 
-   function getTargetDays(data){
-  const dates=(data.daily.time||[]).map(d=>startOfDay(new Date(d)));
-  const today=startOfDay(new Date());
+    function getTargetDays(data){
+      const dates=(data.daily.time||[]).map(d=>startOfDay(new Date(d)));
+      const today=startOfDay(new Date());
 
-  if(selectedPeriod==="today")return [today];
-  if(selectedPeriod==="tomorrow")return [startOfDay(hoursAfter(today,24))];
+      if(selectedPeriod==="today")return [today];
+      if(selectedPeriod==="tomorrow")return [startOfDay(hoursAfter(today,24))];
 
-  /*
-    Weekend now means Friday, Saturday and Sunday.
-    - Monday to Thursday: checks the coming Friday, Saturday and Sunday.
-    - Friday: checks Friday, Saturday and Sunday.
-    - Saturday: checks Saturday and Sunday.
-    - Sunday: checks Sunday.
-  */
-  const day=today.getDay();
-  let daysToFriday=(5-day+7)%7;
+      /*
+        Weekend now means Friday, Saturday and Sunday.
+        - Monday to Thursday: checks the coming Friday, Saturday and Sunday.
+        - Friday: checks Friday, Saturday and Sunday.
+        - Saturday: checks Saturday and Sunday.
+        - Sunday: checks Sunday.
+      */
+      const day=today.getDay();
+      let daysToFriday=(5-day+7)%7;
 
-  if(day===6)daysToFriday=-1;
-  if(day===0)daysToFriday=-2;
+      if(day===6)daysToFriday=-1;
+      if(day===0)daysToFriday=-2;
 
-  const friday=startOfDay(hoursAfter(today,daysToFriday*24));
+      const friday=startOfDay(hoursAfter(today,daysToFriday*24));
 
-  const weekendTargets=[
-    friday,
-    startOfDay(hoursAfter(friday,24)),
-    startOfDay(hoursAfter(friday,48))
-  ].filter(d=>d>=today);
+      const weekendTargets=[
+        friday,
+        startOfDay(hoursAfter(friday,24)),
+        startOfDay(hoursAfter(friday,48))
+      ].filter(d=>d>=today);
 
-  const weekend=dates.filter(d=>weekendTargets.some(target=>target.getTime()===d.getTime()));
+      const weekend=dates.filter(d=>weekendTargets.some(target=>target.getTime()===d.getTime()));
 
-  return weekend.length?weekend:[today];
-}
+      return weekend.length?weekend:[today];
+    }
 
     function context(data,task,day,isToday){
       const now=new Date();
@@ -2081,12 +2082,21 @@
     function scoreValue(status){
       if(["GO","WATER","TAKE ONE"].includes(status))return 3;
       if(["CAUTION","CHECK","MAYBE","DAY ONLY"].includes(status))return 2;
-      if(["WAIT","NO","NO-GO"].includes(status))return 1;
+      if(["WAIT","NO","NO-GO","WARNING"].includes(status))return 1;
       return 0;
     }
 
     function result(status,css,ctx,best,reasons,rec){
-      const lead=status==="GO"?"Good conditions look likely.":status==="CAUTION"?"Possible, but check the details.":status==="NO-GO"?"Waiting is likely the better choice.":"Check the details before deciding.";
+      const lead=status==="GO"
+        ?"Good conditions look likely."
+        :status==="CAUTION"
+        ?"Possible, but check the details."
+        :status==="NO-GO"
+        ?"Waiting is likely the better choice."
+        :status==="WARNING"
+        ?"Warning conditions are possible."
+        :"Check the details before deciding.";
+
       return{status,css,best,reason:`${lead} ${reasons.slice(0,3).join(" ")} ${rec}`.trim(),why:reasons.slice(0,5),rain:`${Math.round(ctx.rainProb)}% max`,windMph:ctx.maxWind,tempC:selected==="jacket"?ctx.minFeels:ctx.temp,score:scoreValue(status),date:ctx.day,label:dayLabel(ctx.day)};
     }
 
@@ -2169,21 +2179,38 @@
         const overnightRain=mm(overnightRows);
         const overnightMinFeels=Math.min(...(overnightRows.length?overnightRows.map(r=>r.apparent):[ctx.minFeels]));
         const overnightMaxWind=max(overnightRows.map(r=>r.wind),0);
+        const overnightMaxGust=max(overnightRows.map(r=>r.gust),0);
 
-        if(ctx.rainPast24>4){score-=24;reasons.push("The ground may already be wet from recent rain.")}
-        if(overnightRain>1){score-=24;reasons.push("There is rain risk during the evening or overnight period.")}
-        if(overnightRain>4){score-=18;reasons.push("Overnight rain could make camping uncomfortable.")}
+        if(ctx.rainPast24>4){score-=18;reasons.push("The ground may already be wet from recent rain.")}
+        if(overnightRain>1){score-=16;reasons.push("There is rain risk during the evening or overnight period.")}
+        if(overnightRain>4){score-=16;reasons.push("Overnight rain could make camping wet or uncomfortable, so pack for wet conditions.")}
         if(overnightMinFeels<7){score-=18;reasons.push("It may feel cold overnight.")}
         if(overnightMaxWind>22){score-=18;reasons.push("Evening or overnight wind may be uncomfortable for tents.")}
-        if(ctx.storm){score-=35;reasons.push("Storm risk is a serious camping concern.")}
-        if(ctx.maxTemp>=30){score-=15;reasons.push("Daytime heat may make pitching and sleeping uncomfortable.")}
-        if(best==="No sensible window"){score-=15;reasons.push("There is not a good daylight arrival or pitching window.")}
+        if(overnightMaxGust>35){score-=22;reasons.push("Strong gusts could make pitching or sleeping in a tent difficult.")}
+        if(ctx.maxTemp>=30){score-=12;reasons.push("Daytime heat may make pitching and sleeping uncomfortable.")}
+        if(best==="No sensible window"){score-=10;reasons.push("There is not a perfect daylight arrival or pitching window.")}
 
         let status="GO",css="";
-        if(score<45){status="NO-GO";css="no"}
-        else if(score<72){status=overnightRain>2||overnightMinFeels<7?"DAY ONLY":"CAUTION";css="caution"}
 
-        return{...result(status,css,ctx,best,reasons,"Recommendation: check the campsite forecast, ground conditions and wind exposure before committing overnight.")};
+        /*
+          Camping is different from jobs like painting or mowing.
+          Rain usually means CAUTION, not NO-GO, because people can camp in rain.
+          Red WARNING is reserved for thunder, lightning, storm risk or very strong gusts.
+        */
+        if(ctx.storm){
+          status="WARNING";
+          css="no";
+          reasons.unshift("Thunder, lightning or storm risk is a serious camping safety concern.");
+        }else if(overnightMaxGust>40){
+          status="WARNING";
+          css="no";
+          reasons.unshift("Very strong gusts could be unsafe for tents, especially on exposed pitches.");
+        }else if(score<72){
+          status="CAUTION";
+          css="caution";
+        }
+
+        return{...result(status,css,ctx,best,reasons,"Recommendation: camping may still be possible in rain, but check the campsite forecast, avoid exposed pitches, pack waterproof kit and do not camp during thunder, lightning or dangerous wind.")};
       }
 
       if(selected==="hiking"){
