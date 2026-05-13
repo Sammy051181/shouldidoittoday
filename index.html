@@ -2015,14 +2015,38 @@
     function isWintry(rows){return rows.some(r=>[56,57,66,67,71,73,75,77,85,86].includes(r.weatherCode))}
     function isWinterRest(day){const m=day.getMonth();return["AU","NZ"].includes(currentRegionKey)?[5,6,7].includes(m):[11,0,1].includes(m)}
 
-    function getTargetDays(data){
-      const dates=(data.daily.time||[]).map(d=>startOfDay(new Date(d)));
-      const today=startOfDay(new Date());
-      if(selectedPeriod==="today")return [today];
-      if(selectedPeriod==="tomorrow")return [startOfDay(hoursAfter(today,24))];
-      const weekend=dates.filter(d=>[0,6].includes(d.getDay())&&d>=today).slice(0,2);
-      return weekend.length?weekend:[today];
-    }
+   function getTargetDays(data){
+  const dates=(data.daily.time||[]).map(d=>startOfDay(new Date(d)));
+  const today=startOfDay(new Date());
+
+  if(selectedPeriod==="today")return [today];
+  if(selectedPeriod==="tomorrow")return [startOfDay(hoursAfter(today,24))];
+
+  /*
+    Weekend now means Friday, Saturday and Sunday.
+    - Monday to Thursday: checks the coming Friday, Saturday and Sunday.
+    - Friday: checks Friday, Saturday and Sunday.
+    - Saturday: checks Saturday and Sunday.
+    - Sunday: checks Sunday.
+  */
+  const day=today.getDay();
+  let daysToFriday=(5-day+7)%7;
+
+  if(day===6)daysToFriday=-1;
+  if(day===0)daysToFriday=-2;
+
+  const friday=startOfDay(hoursAfter(today,daysToFriday*24));
+
+  const weekendTargets=[
+    friday,
+    startOfDay(hoursAfter(friday,24)),
+    startOfDay(hoursAfter(friday,48))
+  ].filter(d=>d>=today);
+
+  const weekend=dates.filter(d=>weekendTargets.some(target=>target.getTime()===d.getTime()));
+
+  return weekend.length?weekend:[today];
+}
 
     function context(data,task,day,isToday){
       const now=new Date();
