@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="preconnect" href="https://geocoding-api.open-meteo.com">
+  <link rel="preconnect" href="https://api.postcodes.io">
+  <link rel="dns-prefetch" href="https://api.zippopotam.us">
 
   <title>Should I Do It Today? | Weather-Based GO / CAUTION / WARNING Checker</title>
   <meta name="description" content="Get a simple local weather-based answer for cutting grass, washing the car, hanging washing, BBQs, dog walks, camping and whether you should water your plants today." />
@@ -87,6 +91,49 @@
     footer{padding:22px 0 28px;color:var(--muted);text-align:center;font-size:.84rem}
     @media(max-width:960px){.hero{grid-template-columns:1fr}.checker-card{position:relative;top:0;order:-1}.hero-copy{text-align:center}.lead{margin-left:auto;margin-right:auto}.benefit-row{justify-content:center}.tasks{grid-template-columns:repeat(5,1fr)}.hub-hero{grid-template-columns:1fr}.hub-grid{grid-template-columns:1fr}.forecast-grid{grid-template-columns:1fr}}
     @media(max-width:760px){.page{width:min(100% - 18px,1120px)}header{padding:10px 0 6px}.top-help{display:none}main{padding:10px 0 34px}.checker-card{padding:12px;border-radius:22px}.region-row{align-items:flex-start;flex-direction:column}.region-row select{width:100%}.search-row{grid-template-columns:1fr}.btn{width:100%}.hero-logo{font-size:3rem}.benefit-row{display:grid;grid-template-columns:1fr 1fr}.tasks{grid-template-columns:repeat(2,1fr)}.task{min-height:66px}.result{border-radius:24px}.result-top{grid-template-columns:1fr;padding:16px 14px 16px 21px}.answer{min-height:82px}.facts{grid-template-columns:repeat(2,1fr)}.forecast-outlook{padding:16px}.forecast-head{display:block}.forecast-row{grid-template-columns:78px 1fr}.hub-hero{padding:18px}.hub-grid{grid-template-columns:1fr}.seo-link-grid{grid-template-columns:1fr}}
+
+    /* ── DARK MODE ─────────────────────────────────────────────────────── */
+    [data-theme="dark"]{--bg:#0d1f11;--ink:#e4f0e6;--soft:#b4cfb8;--muted:#6b8e70;--line:#1b3320;--card:#0f2115;--amberbg:#2a1600;--redbg:#2a0808;--shadow:0 24px 70px rgba(0,0,0,.45)}
+    [data-theme="dark"] body{background:radial-gradient(circle at 82% 5%,rgba(34,197,94,.09),transparent 28%),radial-gradient(circle at 12% 24%,rgba(20,184,166,.06),transparent 24%),linear-gradient(180deg,#091509 0%,var(--bg) 46%,#0b1a0e 100%)}
+    [data-theme="dark"] .checker-card{background:rgba(14,30,18,.92)}
+    [data-theme="dark"] .search-card{background:rgba(11,23,14,.85)}
+    [data-theme="dark"] .search-input{background:#0d2016;color:var(--ink);border-color:var(--line)}
+    [data-theme="dark"] .region-row select{background:#0d2016;color:var(--ink)}
+    [data-theme="dark"] .period-tabs{background:#0a1c0e;border-color:#193020}
+    [data-theme="dark"] .period-tab.active{background:#0f2918;color:var(--green)}
+    [data-theme="dark"] .task{background:#0e2216;color:var(--ink)}
+    [data-theme="dark"] .task:hover{border-color:#2a5e38}
+    [data-theme="dark"] .task.active{background:#0c2c16;color:var(--green2)}
+    [data-theme="dark"] .result{background:linear-gradient(135deg,rgba(12,36,18,.96),rgba(11,26,14,.98) 48%,#0a1d0e)}
+    [data-theme="dark"] .result.caution{background:linear-gradient(135deg,rgba(28,14,0,.96),rgba(11,26,14,.98) 50%,#0a1d0e)}
+    [data-theme="dark"] .result.no{background:linear-gradient(135deg,rgba(28,4,4,.96),rgba(11,26,14,.98) 50%,#0a1d0e)}
+    [data-theme="dark"] .facts .fact{background:#0e2216}
+    [data-theme="dark"] .why-wrap{background:#0c1e10;border-color:#1a3020}
+    [data-theme="dark"] .forecast-card{background:#0e2216;border-color:#1b3320}
+    [data-theme="dark"] .forecast-outlook{background:#0a1c10}
+    [data-theme="dark"] .forecast-summary-box{background:#0c2814;border-color:#1e4228}
+    [data-theme="dark"] .seo-hub{background:rgba(12,28,16,.86)}
+    [data-theme="dark"] .hub-card,[data-theme="dark"] .hub-panel{background:#0e2216}
+    [data-theme="dark"] .seo-internal-links{background:rgba(12,26,15,.72)}
+    [data-theme="dark"] .seo-link-grid a{background:#0e2216}
+    [data-theme="dark"] .seo-link-grid a:hover{background:#112a1c}
+    [data-theme="dark"] .btn-secondary{background:#0e2216;border-color:#1b3320;color:#5ecb8a}
+    [data-theme="dark"] .top-help{background:rgba(11,24,14,.75);border-color:#1b3320}
+    [data-theme="dark"] .status-pill{background:rgba(22,120,60,.18);border-color:rgba(22,120,60,.25)}
+    [data-theme="dark"] .mini-go{background:#0d3318;border-color:#1b5028}
+    [data-theme="dark"] .mini-caution{background:#2a1600;border-color:#3d2200}
+    [data-theme="dark"] .mini-no{background:#2a0808;border-color:#3d1010}
+    [data-theme="dark"] footer{color:var(--muted)}
+    [data-theme="dark"] .benefit{background:rgba(14,34,20,.78);border-color:#1b3320}
+    @media(prefers-color-scheme:dark){:root:not([data-theme="light"]):not([data-theme="dark"]){--bg:#0d1f11;--ink:#e4f0e6;--soft:#b4cfb8;--muted:#6b8e70;--line:#1b3320;--card:#0f2115;--amberbg:#2a1600;--redbg:#2a0808;--shadow:0 24px 70px rgba(0,0,0,.45)}}
+
+    /* ── ENHANCEMENTS ──────────────────────────────────────────────────── */
+    .task{transition:transform .12s ease,border-color .12s ease,background .12s ease,box-shadow .12s ease}
+    .task:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(20,36,25,.12)}
+    .result.show{animation:resultIn .25s ease}
+    @keyframes resultIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    #themeToggle{background:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;cursor:pointer;font-size:.95rem;line-height:1;color:var(--muted);transition:all .15s}
+    #themeToggle:hover{border-color:var(--green);color:var(--green)}
   </style>
 
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="sJMMNaIP1O6fYP2B1ZBbXg" async></script>
@@ -107,7 +154,10 @@
         </svg>
         <span class="brand-wordmark"><span>Should I Do It</span><strong>Today?</strong></span>
       </a>
-      <div class="top-help">Local weather. Simple answer.</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="top-help">Local weather. Simple answer.</div>
+        <button id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+      </div>
     </header>
 
     <main id="main">
@@ -297,6 +347,21 @@
   </div>
 
   <script>
+    /* ── DARK MODE TOGGLE ─────────────────────────────────────────────── */
+    (function(){
+      var html=document.documentElement, btn=document.getElementById('themeToggle');
+      var saved=localStorage.getItem('theme');
+      if(saved){html.dataset.theme=saved;}
+      function updateBtn(){btn.textContent=html.dataset.theme==='dark'?'☀️':'🌙';}
+      updateBtn();
+      btn.addEventListener('click',function(){
+        var d=html.dataset.theme==='dark';
+        html.dataset.theme=d?'light':'dark';
+        localStorage.setItem('theme',html.dataset.theme);
+        updateBtn();
+      });
+    })();
+
     const REGIONS={
       UK:{name:"UK",locale:"en-GB",tempUnit:"C",windUnit:"mph",placeholder:"Postcode, town, city or campsite area",tasks:{
         grass:{icon:"🌱",label:"Cut grass",question:"Should I cut the grass today?",slug:"should-i-cut-the-grass-today"},

@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="preconnect" href="https://geocoding-api.open-meteo.com">
+  <link rel="preconnect" href="https://api.postcodes.io">
+  <link rel="dns-prefetch" href="https://api.zippopotam.us">
   <title>Should I BBQ Today? | UK BBQ Weather Checker</title>
   <meta name="description" content="Check whether the weather is suitable for a BBQ today, tomorrow or this weekend. Get a local GO, CAUTION or WARNING using UK rain risk, wind, temperature and storm signals." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -140,8 +144,9 @@
   <span class="eyebrow">🔥 UK BBQ weather</span>
   <h1>Should I BBQ today?</h1>
   <p class="lead">Get a local GO, CAUTION or WARNING based on your postcode or town — using rain risk, wind, temperature and storm signals for the best outdoor cooking window.</p>
-  <a class="cta-btn" href="/?region=uk&task=should-i-bbq-today&period=today#main">Check my local BBQ weather</a>
-  <span class="cta-sub">Switch between today, tomorrow and this weekend.</span>
+  <div id="cwWidget"></div>
+  <script>window.CWConfig={task:'bbq',region:'UK',taskSlug:'should-i-bbq-today'}</script>
+  <script src="/assets/checker-widget.js"></script>
 </div>
 
 <main class="page">

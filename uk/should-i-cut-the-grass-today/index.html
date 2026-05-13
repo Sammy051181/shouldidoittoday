@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="preconnect" href="https://geocoding-api.open-meteo.com">
+  <link rel="preconnect" href="https://api.postcodes.io">
+  <link rel="dns-prefetch" href="https://api.zippopotam.us">
   <title>Should I Cut the Grass Today? | Local UK Weather Answer</title>
   <meta name="description" content="Get a local GO, CAUTION or NO-GO for cutting the grass today based on UK rain, wind, temperature and recent weather. Covers wet grass, timing and seasonal advice." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -164,8 +168,9 @@
   <span class="eyebrow">🌱 UK grass weather</span>
   <h1>Should I cut the grass today?</h1>
   <p class="lead">Get a local GO, CAUTION or NO-GO based on your postcode or town — using rain risk, wind, temperature and recent weather.</p>
-  <a class="cta-btn" href="/?region=uk&task=should-i-cut-the-grass-today&period=today#main">Check my local grass weather</a>
-  <span class="cta-sub">You can also check tomorrow or the weekend.</span>
+  <div id="cwWidget"></div>
+  <script>window.CWConfig={task:'grass',region:'UK',taskSlug:'should-i-cut-the-grass-today'}</script>
+  <script src="/assets/checker-widget.js"></script>
 </div>
 
 <main class="page">

@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="preconnect" href="https://geocoding-api.open-meteo.com">
+  <link rel="preconnect" href="https://api.postcodes.io">
+  <link rel="dns-prefetch" href="https://api.zippopotam.us">
 
   <title>Last Mow Before Winter | When to Stop Mowing</title>
   <meta name="description" content="Find out when to do the last mow before winter and when to stop mowing as grass growth slows." />
@@ -213,9 +217,9 @@
 
         <aside class="checker-card">
           <h2>Check your local conditions</h2>
-          <p>Use the live checker for a local GO, CAUTION or NO-GO using rain, wind, temperature and recent weather.</p>
-          <a class="button" href="/?region=us&task=should-i-mow-the-lawn-today&period=today#main">Check my local grass weather</a>
-          <p class="small-note">Choose today, tomorrow or the weekend after opening the checker.</p>
+          <div id="cwWidget"></div>
+          <script>window.CWConfig={task:'grass',region:'US',taskSlug:'should-i-mow-the-lawn-today'}</script>
+          <script src="/assets/checker-widget.js"></script>
         </aside>
       </section>
 

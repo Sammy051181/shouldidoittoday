@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="preconnect" href="https://geocoding-api.open-meteo.com">
+  <link rel="preconnect" href="https://api.postcodes.io">
+  <link rel="dns-prefetch" href="https://api.zippopotam.us">
   <title>Can You Cut Grass After Rain? | UK Mowing Weather Advice</title>
   <meta name="description" content="Find out how long to wait after rain before cutting grass in the UK, what affects drying time and how to tell when your lawn is ready to mow." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -128,8 +132,9 @@
   <span class="eyebrow">🌱 UK lawn advice</span>
   <h1>Can you cut grass after rain?</h1>
   <p class="lead">Rain stopping is not the same as the lawn being ready to mow. Here's how to tell the difference — and how long you actually need to wait.</p>
-  <a class="cta-btn" href="/?region=uk&task=should-i-cut-the-grass-today&period=today#main">Check if my lawn is ready now</a>
-  <span class="cta-sub">Get a local GO, CAUTION or NO-GO for your area.</span>
+  <div id="cwWidget"></div>
+  <script>window.CWConfig={task:'grass',region:'UK',taskSlug:'should-i-cut-the-grass-today'}</script>
+  <script src="/assets/checker-widget.js"></script>
 </div>
 
 <main class="page">

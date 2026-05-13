@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="preconnect" href="https://geocoding-api.open-meteo.com">
+  <link rel="preconnect" href="https://api.postcodes.io">
+  <link rel="dns-prefetch" href="https://api.zippopotam.us">
   <title>Should I Water the Plants Today? | UK Garden Weather Check</title>
   <meta name="description" content="Check whether your plants need watering today using local UK rain, recent rainfall, temperature, wind and soil moisture signals. Get a WATER, CHECK SOIL or WAIT answer." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -140,8 +144,9 @@
   <span class="eyebrow">💧 UK plant watering</span>
   <h1>Should I water the plants today?</h1>
   <p class="lead">Get a WATER, CHECK SOIL or WAIT answer based on recent rainfall, today's forecast, temperature, wind and near-surface soil moisture for your UK location.</p>
-  <a class="cta-btn" href="/?region=uk&task=should-i-water-the-plants-today&period=today#main">Check local plant watering conditions</a>
-  <span class="cta-sub">Enter your postcode or town for a local answer.</span>
+  <div id="cwWidget"></div>
+  <script>window.CWConfig={task:'plants',region:'UK',taskSlug:'should-i-water-the-plants-today'}</script>
+  <script src="/assets/checker-widget.js"></script>
 </div>
 
 <main class="page">

@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="preconnect" href="https://geocoding-api.open-meteo.com">
+  <link rel="preconnect" href="https://api.postcodes.io">
+  <link rel="dns-prefetch" href="https://api.zippopotam.us">
   <title>Can You Cut Wet Grass? | UK Lawn Weather Advice</title>
   <meta name="description" content="Find out whether you can cut wet grass, why wet mowing damages lawns, how long to wait after rain, and what the checker looks for when assessing UK grass conditions." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -141,8 +145,9 @@
   <span class="eyebrow">🌱 UK lawn advice</span>
   <h1>Can you cut wet grass?</h1>
   <p class="lead">The honest answer: technically yes, but it almost always causes more problems than it solves. Here's why — and how to tell when conditions are right.</p>
-  <a class="cta-btn" href="/?region=uk&task=should-i-cut-the-grass-today&period=today#main">Check if my lawn is ready to cut</a>
-  <span class="cta-sub">Get a local GO, CAUTION or NO-GO for your postcode or town.</span>
+  <div id="cwWidget"></div>
+  <script>window.CWConfig={task:'grass',region:'UK',taskSlug:'should-i-cut-the-grass-today'}</script>
+  <script src="/assets/checker-widget.js"></script>
 </div>
 
 <main class="page">
