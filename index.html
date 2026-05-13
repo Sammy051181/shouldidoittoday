@@ -897,65 +897,20 @@
         </div>
       </section>
 
-      <!-- Add this inside <main>, ideally just above the existing "More weather checks" section -->
-<section class="seo-internal-links" aria-label="Grass and lawn weather checks">
-  <div class="seo-internal-links-inner">
-    <h2>Grass and lawn weather checks</h2>
-    <p>Popular grass cutting and lawn mowing guides based on rain, wet grass, timing, heat, cold and season.</p>
-
-    <div class="seo-link-grid">
-      <a href="/uk/grass-cutting-weather/">Grass Cutting Weather (UK)</a>
-      <a href="/uk/should-i-cut-the-grass-today/">Should I Cut The Grass Today (UK)</a>
-      <a href="/uk/can-you-cut-wet-grass/">Can You Cut Wet Grass (UK)</a>
-      <a href="/uk/can-you-cut-grass-after-rain/">Can You Cut Grass After Rain (UK)</a>
-      <a href="/uk/can-you-cut-grass-in-the-rain/">Can You Cut Grass In The Rain (UK)</a>
-      <a href="/uk/what-time-can-i-cut-the-grass/">What Time Can I Cut The Grass (UK)</a>
-      <a href="/uk/when-is-the-best-time-to-cut-grass/">When Is The Best Time To Cut Grass (UK)</a>
-      <a href="/uk/first-grass-cut-of-the-year/">First Grass Cut Of The Year (UK)</a>
-      <a href="/uk/last-grass-cut-before-winter/">Last Grass Cut Before Winter (UK)</a>
-      <a href="/uk/can-you-cut-grass-in-winter/">Can You Cut Grass In Winter (UK)</a>
-      <a href="/us/lawn-mowing-weather/">Lawn Mowing Weather (USA)</a>
-      <a href="/us/should-i-mow-the-lawn-today/">Should I Mow The Lawn Today (USA)</a>
-      <a href="/us/can-you-mow-wet-grass/">Can You Mow Wet Grass (USA)</a>
-      <a href="/us/can-you-mow-the-lawn-after-rain/">Can You Mow The Lawn After Rain (USA)</a>
-      <a href="/us/how-soon-after-rain-can-i-mow-the-lawn/">How Soon After Rain Can I Mow The Lawn (USA)</a>
-      <a href="/us/what-time-can-i-start-mowing-my-lawn/">What Time Can I Start Mowing My Lawn (USA)</a>
-      <a href="/us/best-time-to-mow-the-lawn/">Best Time To Mow The Lawn (USA)</a>
-      <a href="/us/how-often-should-you-mow-the-lawn/">How Often Should You Mow The Lawn (USA)</a>
-      <a href="/us/when-is-it-too-hot-to-mow-the-lawn/">When Is It Too Hot To Mow The Lawn (USA)</a>
-      <a href="/us/when-is-it-too-cold-to-mow-the-lawn/">When Is It Too Cold To Mow The Lawn (USA)</a>
-    </div>
-  </div>
-</section>
-      
-      <section class="seo-internal-links" aria-label="More weather-based decision checks">
+      <section class="seo-internal-links" aria-label="Regional grass and lawn weather checks">
         <div class="seo-internal-links-inner">
-          <h2>More weather checks</h2>
-          <p>Country-specific GO / CAUTION / NO-GO checks for common outdoor jobs.</p>
+          <h2 id="regionalGrassTitle">Grass and lawn weather checks</h2>
+          <p id="regionalGrassIntro">Popular grass cutting and lawn mowing guides based on rain, wet grass, timing, heat, cold and season.</p>
+          <div class="seo-link-grid" id="regionalGrassLinks"></div>
+        </div>
+      </section>
 
-         <div class="seo-link-grid">
-  <a href="/uk/should-i-cut-the-grass-today/">Should I cut the grass today?</a>
-  <a href="/uk/can-i-hang-washing-out-today/">Can I hang washing out today?</a>
-  <a href="/uk/should-i-wash-my-car-today/">Should I wash my car today?</a>
-  <a href="/uk/should-i-bbq-today/">Should I BBQ today?</a>
-  <a href="/uk/should-i-paint-outside-today/">Should I paint outside today?</a>
-  <a href="/uk/should-i-clean-the-windows-today/">Should I clean the windows today?</a>
-  <a href="/uk/should-i-walk-the-dog-today/">Should I walk the dog today?</a>
-  <a href="/uk/should-i-go-for-a-run-today/">Should I go for a run today?</a>
-  <a href="/uk/do-i-need-a-coat-today/">Do I need a coat today?</a>
-  <a href="/uk/should-i-water-the-plants-today/">Should I water the plants today?</a>
-
-  <a href="/us/should-i-mow-the-lawn-today/">Should I mow the lawn today? USA</a>
-  <a href="/us/should-i-wash-my-car-today/">Should I wash my car today? USA</a>
-  <a href="/us/should-i-grill-today/">Should I grill today? USA</a>
-  <a href="/us/do-i-need-a-jacket-today/">Do I need a jacket today? USA</a>
-  <a href="/us/should-i-walk-my-dog-today/">Should I walk my dog today? USA</a>
-
-  <a href="/ie/should-i-cut-the-grass-today/">Should I cut the grass today? Ireland</a>
-  <a href="/ca/should-i-mow-the-lawn-today/">Should I mow the lawn today? Canada</a>
-  <a href="/au/should-i-mow-the-lawn-today/">Should I mow the lawn today? Australia</a>
-  <a href="/nz/should-i-mow-the-lawn-today/">Should I mow the lawn today? New Zealand</a>
-</div>
+      <section class="seo-internal-links" aria-label="More regional weather-based decision checks">
+        <div class="seo-internal-links-inner">
+          <h2 id="regionalMoreTitle">More weather checks</h2>
+          <p id="regionalMoreIntro">Country-specific GO / CAUTION / NO-GO checks for common outdoor jobs.</p>
+          <div class="seo-link-grid" id="regionalMoreLinks"></div>
+        </div>
       </section>
     </main>
 
@@ -987,6 +942,150 @@
     };
 
     Object.keys(REGIONS).forEach(key=>{REGIONS[key].tasks={...REGIONS[key].tasks,...EXTRA_OUTDOOR_TASKS}});
+
+    const REGION_GRASS_LINKS={
+      UK:{
+        title:"Grass and lawn weather checks",
+        intro:"UK grass cutting guides based on rain, wet grass, timing, season and recent weather.",
+        links:[
+          ["/uk/grass-cutting-weather/","Grass cutting weather guide"],
+          ["/uk/should-i-cut-the-grass-today/","Should I cut the grass today?"],
+          ["/uk/can-you-cut-wet-grass/","Can you cut wet grass?"],
+          ["/uk/can-you-cut-grass-after-rain/","Can you cut grass after rain?"],
+          ["/uk/can-you-cut-grass-in-the-rain/","Can you cut grass in the rain?"],
+          ["/uk/what-time-can-i-cut-the-grass/","What time can I cut the grass?"],
+          ["/uk/when-is-the-best-time-to-cut-grass/","When is the best time to cut grass?"],
+          ["/uk/first-grass-cut-of-the-year/","First grass cut of the year"],
+          ["/uk/last-grass-cut-before-winter/","Last grass cut before winter"],
+          ["/uk/can-you-cut-grass-in-winter/","Can you cut grass in winter?"]
+        ]
+      },
+      US:{
+        title:"Lawn mowing weather checks",
+        intro:"USA lawn mowing guides based on rain, wet grass, timing, heat, cold and season.",
+        links:[
+          ["/us/lawn-mowing-weather/","Lawn mowing weather guide"],
+          ["/us/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],
+          ["/us/can-you-mow-wet-grass/","Can you mow wet grass?"],
+          ["/us/can-you-mow-the-lawn-after-rain/","Can you mow the lawn after rain?"],
+          ["/us/how-soon-after-rain-can-i-mow-the-lawn/","How soon after rain can I mow?"],
+          ["/us/what-time-can-i-start-mowing-my-lawn/","What time can I start mowing?"],
+          ["/us/best-time-to-mow-the-lawn/","Best time to mow the lawn"],
+          ["/us/how-often-should-you-mow-the-lawn/","How often should you mow the lawn?"],
+          ["/us/when-is-it-too-hot-to-mow-the-lawn/","When is it too hot to mow?"],
+          ["/us/when-is-it-too-cold-to-mow-the-lawn/","When is it too cold to mow?"]
+        ]
+      },
+      IE:{
+        title:"Ireland grass cutting weather checks",
+        intro:"Ireland grass cutting checks using local rain, wind and recent weather.",
+        links:[
+          ["/ie/should-i-cut-the-grass-today/","Should I cut the grass today? Ireland"],
+          ["/?region=ie&task=should-i-cut-the-grass-today&period=today#main","Check grass cutting weather in Ireland"]
+        ]
+      },
+      AU:{
+        title:"Australia lawn mowing weather checks",
+        intro:"Australian lawn mowing checks using heat, rain, wet grass and local conditions.",
+        links:[
+          ["/au/should-i-mow-the-lawn-today/","Should I mow the lawn today? Australia"],
+          ["/?region=au&task=should-i-mow-the-lawn-today&period=today#main","Check lawn mowing weather in Australia"]
+        ]
+      },
+      CA:{
+        title:"Canada lawn mowing weather checks",
+        intro:"Canadian lawn mowing checks using local rain, wind and temperature.",
+        links:[
+          ["/ca/should-i-mow-the-lawn-today/","Should I mow the lawn today? Canada"],
+          ["/?region=ca&task=should-i-mow-the-lawn-today&period=today#main","Check lawn mowing weather in Canada"]
+        ]
+      },
+      NZ:{
+        title:"New Zealand lawn mowing weather checks",
+        intro:"New Zealand lawn mowing checks using local rain, wind and recent weather.",
+        links:[
+          ["/nz/should-i-mow-the-lawn-today/","Should I mow the lawn today? New Zealand"],
+          ["/?region=nz&task=should-i-mow-the-lawn-today&period=today#main","Check lawn mowing weather in New Zealand"]
+        ]
+      }
+    };
+
+    const REGION_MORE_LINKS={
+      UK:{
+        title:"More UK weather checks",
+        intro:"UK GO / CAUTION / NO-GO checks for common outdoor jobs.",
+        links:[
+          ["/uk/should-i-cut-the-grass-today/","Should I cut the grass today?"],
+          ["/uk/can-i-hang-washing-out-today/","Can I hang washing out today?"],
+          ["/uk/should-i-wash-my-car-today/","Should I wash my car today?"],
+          ["/uk/should-i-bbq-today/","Should I BBQ today?"],
+          ["/uk/should-i-paint-outside-today/","Should I paint outside today?"],
+          ["/uk/should-i-clean-the-windows-today/","Should I clean the windows today?"],
+          ["/uk/should-i-walk-the-dog-today/","Should I walk the dog today?"],
+          ["/uk/should-i-go-for-a-run-today/","Should I go for a run today?"],
+          ["/uk/do-i-need-a-coat-today/","Do I need a coat today?"],
+          ["/uk/should-i-water-the-plants-today/","Should I water the plants today?"]
+        ]
+      },
+      US:{
+        title:"More USA weather checks",
+        intro:"USA GO / CAUTION / NO-GO checks for common outdoor jobs.",
+        links:[
+          ["/us/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],
+          ["/us/should-i-wash-my-car-today/","Should I wash my car today?"],
+          ["/us/should-i-grill-today/","Should I grill today?"],
+          ["/us/do-i-need-a-jacket-today/","Do I need a jacket today?"],
+          ["/us/should-i-walk-my-dog-today/","Should I walk my dog today?"],
+          ["/?region=us&task=should-i-paint-outside-today&period=today#main","Should I paint outside today?"],
+          ["/?region=us&task=should-i-run-today&period=today#main","Should I run today?"],
+          ["/?region=us&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"]
+        ]
+      },
+      IE:{
+        title:"More Ireland weather checks",
+        intro:"Ireland GO / CAUTION / NO-GO checks for common outdoor jobs.",
+        links:[
+          ["/ie/should-i-cut-the-grass-today/","Should I cut the grass today?"],
+          ["/?region=ie&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],
+          ["/?region=ie&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],
+          ["/?region=ie&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],
+          ["/?region=ie&task=should-i-walk-the-dog-today&period=today#main","Should I walk the dog today?"]
+        ]
+      },
+      AU:{
+        title:"More Australia weather checks",
+        intro:"Australia GO / CAUTION / NO-GO checks for common outdoor jobs.",
+        links:[
+          ["/au/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],
+          ["/?region=au&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],
+          ["/?region=au&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],
+          ["/?region=au&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],
+          ["/?region=au&task=is-it-too-hot-to-walk-the-dog-today&period=today#main","Is it too hot to walk the dog today?"]
+        ]
+      },
+      CA:{
+        title:"More Canada weather checks",
+        intro:"Canada GO / CAUTION / NO-GO checks for common outdoor jobs.",
+        links:[
+          ["/ca/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],
+          ["/?region=ca&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],
+          ["/?region=ca&task=should-i-grill-today&period=today#main","Should I grill today?"],
+          ["/?region=ca&task=do-i-need-a-jacket-today&period=today#main","Do I need a jacket today?"],
+          ["/?region=ca&task=should-i-walk-my-dog-today&period=today#main","Should I walk my dog today?"]
+        ]
+      },
+      NZ:{
+        title:"More New Zealand weather checks",
+        intro:"New Zealand GO / CAUTION / NO-GO checks for common outdoor jobs.",
+        links:[
+          ["/nz/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],
+          ["/?region=nz&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],
+          ["/?region=nz&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],
+          ["/?region=nz&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],
+          ["/?region=nz&task=do-i-need-a-jacket-today&period=today#main","Do I need a jacket today?"]
+        ]
+      }
+    };
 
     const RULES={
       grass:{rainProb:30,windMaxMph:26,tempMinC:8,tempMaxC:28,hours:[8,18],minHours:2},
@@ -1069,6 +1168,7 @@
       const p=region();
       document.documentElement.lang=p.locale;
       locationInput.placeholder=p.placeholder;
+      renderRegionalLinks();
       renderTasks();
 
       if(shouldCheck){
@@ -1076,6 +1176,27 @@
         else if(locationInput.value.trim())checkFromText();
         else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
       }
+    }
+
+    function renderRegionalLinks(){
+      const grassBlock=REGION_GRASS_LINKS[currentRegionKey]||REGION_GRASS_LINKS.UK;
+      const moreBlock=REGION_MORE_LINKS[currentRegionKey]||REGION_MORE_LINKS.UK;
+
+      const grassTitle=document.getElementById("regionalGrassTitle");
+      const grassIntro=document.getElementById("regionalGrassIntro");
+      const grassGrid=document.getElementById("regionalGrassLinks");
+
+      const moreTitle=document.getElementById("regionalMoreTitle");
+      const moreIntro=document.getElementById("regionalMoreIntro");
+      const moreGrid=document.getElementById("regionalMoreLinks");
+
+      if(grassTitle)grassTitle.textContent=grassBlock.title;
+      if(grassIntro)grassIntro.textContent=grassBlock.intro;
+      if(grassGrid)grassGrid.innerHTML=grassBlock.links.map(([href,label])=>`<a href="${href}">${label}</a>`).join("");
+
+      if(moreTitle)moreTitle.textContent=moreBlock.title;
+      if(moreIntro)moreIntro.textContent=moreBlock.intro;
+      if(moreGrid)moreGrid.innerHTML=moreBlock.links.map(([href,label])=>`<a href="${href}">${label}</a>`).join("");
     }
 
     function renderTasks(){
