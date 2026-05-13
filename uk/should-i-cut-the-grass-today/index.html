@@ -4,23 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Should I Cut the Grass Today? | Local Weather Answer</title>
-  <meta name="description" content="Check if today is suitable for cutting grass using local rain, wind, temperature and recent weather conditions." />
+  <title>Should I Cut the Grass Today? | Local UK Weather Answer</title>
+  <meta name="description" content="Check if today is suitable for cutting grass using local UK rain, wind, temperature and recent weather conditions." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/uk/should-i-cut-the-grass-today/" />
 
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Should I Do It Today?" />
-  <meta property="og:title" content="Should I Cut the Grass Today? | Local Weather Answer" />
-  <meta property="og:description" content="Check if today is suitable for cutting grass using local rain, wind, temperature and recent weather conditions." />
+  <meta property="og:title" content="Should I Cut the Grass Today? | Local UK Weather Answer" />
+  <meta property="og:description" content="Check if today is suitable for cutting grass using local UK rain, wind, temperature and recent weather conditions." />
   <meta property="og:url" content="https://shouldidoittoday.com/uk/should-i-cut-the-grass-today/" />
   <meta property="og:image" content="https://shouldidoittoday.com/og-image.png" />
+  <meta property="og:image:secure_url" content="https://shouldidoittoday.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Should I Do It Today weather-based GO, CAUTION and NO-GO checker." />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Should I Cut the Grass Today? | Local Weather Answer" />
-  <meta name="twitter:description" content="Check if today is suitable for cutting grass using local rain, wind, temperature and recent weather conditions." />
+  <meta name="twitter:title" content="Should I Cut the Grass Today? | Local UK Weather Answer" />
+  <meta name="twitter:description" content="Check if today is suitable for cutting grass using local UK rain, wind, temperature and recent weather conditions." />
   <meta name="twitter:image" content="https://shouldidoittoday.com/og-image.png" />
 
   <script type="application/ld+json">
@@ -30,50 +32,76 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Can I cut grass after rain?",
+      "name": "Can I cut grass if it rained yesterday?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It is better to wait until the grass blades and ground have dried. Cutting wet grass can leave clumps and damage the lawn."
+        "text": "Possibly, but only if the grass blades and ground have dried. If the lawn is still damp underfoot, wait."
       }
     },
     {
       "@type": "Question",
-      "name": "Is it bad to cut grass when it is windy?",
+      "name": "Is it bad to cut wet grass?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Light wind is usually fine, but strong wind can make mowing messy and less safe, especially with debris or uneven ground."
+        "text": "Yes, it can clog the mower, leave clumps, tear grass and create an uneven finish."
       }
     },
     {
       "@type": "Question",
-      "name": "What temperature is too cold to cut grass?",
+      "name": "What is the best weather for cutting grass?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "If the grass is not actively growing, or there is frost or ice risk, it is usually better to wait."
+        "text": "Dry, mild and calm weather with low rain risk is best."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I cut grass in the evening?",
+      "name": "Should I cut grass today or tomorrow?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You can, but avoid cutting too late when light is poor or the grass is becoming damp again."
+        "text": "Use the live checker to compare today, tomorrow and the weekend for your location."
       }
     },
     {
       "@type": "Question",
-      "name": "Is it better to cut grass today or tomorrow?",
+      "name": "Can I cut grass in winter?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use the checker to compare today, tomorrow and the weekend using your local forecast."
+        "text": "Only if it is mild, dry and the grass is still growing. Avoid frost, waterlogged ground and dormant grass."
       }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://shouldidoittoday.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "UK",
+      "item": "https://shouldidoittoday.com/uk/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Should I cut the grass today?",
+      "item": "https://shouldidoittoday.com/uk/should-i-cut-the-grass-today/"
     }
   ]
 }
   </script>
 
   <style>
-    :root {
+    :root{
       --bg:#f5f8f1;
       --ink:#162119;
       --soft:#24352a;
@@ -83,157 +111,195 @@
       --green:#16783c;
       --green2:#22c55e;
       --amber:#b45309;
+      --amber-bg:#fff7ed;
       --red:#b91c1c;
-      --shadow:0 18px 55px rgba(20,36,25,.10);
+      --red-bg:#fff1f2;
+      --shadow:0 20px 60px rgba(20,36,25,.10);
     }
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
+      min-height:100vh;
       font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
       color:var(--ink);
       background:
         radial-gradient(circle at 82% 5%, rgba(34,197,94,.16), transparent 28%),
+        radial-gradient(circle at 10% 22%, rgba(20,184,166,.11), transparent 25%),
         linear-gradient(180deg,#fbfdf9 0%,var(--bg) 52%,#fff 100%);
       line-height:1.55;
     }
-    .page{width:min(1040px,calc(100% - 28px));margin:0 auto}
-    header{display:flex;justify-content:space-between;align-items:center;padding:18px 0;gap:14px}
-    .brand{font-weight:950;text-decoration:none;color:var(--ink);letter-spacing:-.04em}
+    .page{width:min(1060px,calc(100% - 28px));margin:0 auto}
+    header{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 0}
+    .brand{font-weight:950;text-decoration:none;color:var(--ink);letter-spacing:-.045em;font-size:1.08rem}
     .brand strong{color:var(--green2)}
-    .home-link{color:var(--green);font-weight:800;text-decoration:none}
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start;padding:26px 0 20px}
-    .hero-card,.check-card,.panel{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow)}
+    .nav-link{color:var(--green);font-weight:900;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
+    .hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(280px,.92fr);gap:22px;align-items:start;padding:22px 0}
+    .hero-card,.checker-card,.content-block,.decision-card,.topic-card{
+      background:rgba(255,255,255,.9);
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+    }
     .hero-card{padding:30px}
-    .kicker{display:inline-flex;padding:7px 11px;border-radius:999px;background:#ecfdf5;color:var(--green);font-weight:900;font-size:.88rem;margin-bottom:12px}
-    h1{font-size:clamp(2.1rem,5vw,4.2rem);line-height:.96;letter-spacing:-.065em;margin:0}
-    .lead{font-size:1.13rem;color:var(--muted);margin:16px 0 0}
-    .check-card{padding:20px;position:sticky;top:14px}
-    .check-card h2{margin:0 0 8px;font-size:1.25rem;letter-spacing:-.04em}
-    .check-card p{margin:0 0 14px;color:var(--muted)}
+    .kicker{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;background:#ecfdf5;color:var(--green);font-weight:950;font-size:.88rem;margin-bottom:13px}
+    .kicker::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green2)}
+    h1{font-size:clamp(2.15rem,5vw,4.45rem);line-height:.95;letter-spacing:-.065em;margin:0}
+    .lead{font-size:1.13rem;color:var(--muted);margin:16px 0 0;max-width:700px}
+    .checker-card{padding:20px;position:sticky;top:14px}
+    .checker-card h2{margin:0 0 8px;letter-spacing:-.04em;font-size:1.23rem}
+    .checker-card p{margin:0 0 14px;color:var(--muted)}
     .button{display:block;text-align:center;background:var(--green);color:#fff;text-decoration:none;font-weight:950;border-radius:16px;padding:14px 16px;box-shadow:0 12px 24px rgba(22,120,60,.18)}
     .button:hover{background:#115f31}
+    .inline-button{display:inline-block;margin-top:6px}
     .small-note{font-size:.88rem;color:var(--muted);margin-top:10px}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
-    .panel{padding:22px}
-    .panel h2,.panel h3{margin:0 0 10px;letter-spacing:-.04em;line-height:1.1}
-    .panel p{color:var(--muted);margin:0 0 10px}
-    ul{margin:0;padding-left:1.15rem;color:var(--muted)}
+    main{padding-bottom:30px}
+    .content-block{padding:24px;margin:18px 0}
+    .answer-block{border-left:9px solid var(--green)}
+    .content-block h2,.decision-card h2,.topic-card h2{margin:0 0 10px;letter-spacing:-.04em;line-height:1.12}
+    .content-block p,.topic-card p{color:var(--muted);margin:0 0 10px}
+    .decision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+    .decision-card{padding:22px;box-shadow:0 12px 34px rgba(20,36,25,.06)}
+    .decision-card ul{margin:0;padding-left:1.14rem;color:var(--muted)}
     li+li{margin-top:5px}
-    .go h3{color:var(--green)} .caution h3{color:var(--amber)} .nogo h3{color:var(--red)}
+    .go h2{color:var(--green)}
+    .caution h2{color:var(--amber)}
+    .nogo h2{color:var(--red)}
+    .caution{background:linear-gradient(180deg,#fff,#fffaf4)}
+    .nogo{background:linear-gradient(180deg,#fff,#fff7f7)}
     details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 15px}
     details+details{margin-top:8px}
     summary{font-weight:900;cursor:pointer}
     details p{margin:8px 0 0;color:var(--muted)}
-    .related{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-    .related a{display:block;padding:11px 12px;border:1px solid var(--line);border-radius:15px;background:#fbfefb;color:var(--green);font-weight:850;text-decoration:none}
-    footer{padding:28px 0;color:var(--muted);font-size:.86rem;text-align:center}
+    .related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .related-grid a{display:block;padding:11px 12px;border:1px solid var(--line);border-radius:15px;background:#fbfefb;color:var(--green);font-weight:850;text-decoration:none}
+    .related-grid a:hover{border-color:#95e3b0;background:#effdf3}
+    .topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:18px 0}
+    .topic-card{padding:22px;box-shadow:0 12px 34px rgba(20,36,25,.06)}
+    .topic-card a{color:var(--green);font-weight:950;text-decoration:none}
+    footer{padding:26px 0 32px;color:var(--muted);font-size:.86rem;text-align:center}
     @media(max-width:760px){
-      .page{width:min(100% - 18px,1040px)}
+      .page{width:min(100% - 18px,1060px)}
       header{padding:12px 0}
-      .hero{grid-template-columns:1fr;padding-top:12px}
-      .hero-card{padding:20px;border-radius:22px}
-      .check-card{position:relative;top:0;border-radius:22px;padding:16px;order:-1}
-      .grid{grid-template-columns:1fr}
-      .related{grid-template-columns:1fr}
+      .nav-link{font-size:.86rem;padding:7px 10px}
+      .hero{grid-template-columns:1fr;padding-top:8px;gap:14px}
+      .checker-card{position:relative;top:0;order:-1;padding:16px;border-radius:22px}
+      .hero-card{padding:21px;border-radius:23px}
+      .lead{font-size:1rem}
+      .content-block{padding:17px;border-radius:22px}
+      .decision-grid,.topic-grid{grid-template-columns:1fr}
+      .decision-card,.topic-card{padding:17px;border-radius:20px}
+      .related-grid{grid-template-columns:1fr}
+      .inline-button{display:block}
     }
   </style>
+
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="sJMMNaIP1O6fYP2B1ZBbXg" async></script>
 </head>
 <body>
   <div class="page">
     <header>
       <a class="brand" href="/">Should I Do It <strong>Today?</strong></a>
-      <a class="home-link" href="/">Open checker</a>
+      <a class="nav-link" href="/">Open checker</a>
     </header>
 
     <main>
       <section class="hero">
         <div class="hero-card">
-          <div class="kicker">UK local weather decision</div>
+          <div class="kicker">UK grass and lawn weather</div>
           <h1>Should I cut the grass today?</h1>
-          <p class="lead">Use local rain, wind, temperature and recent weather to decide whether it is a GO, CAUTION or NO-GO for cutting the grass.</p>
+          <p class="lead">Get a practical GO, CAUTION or NO-GO for cutting the grass using your local weather.</p>
         </div>
 
-        <aside class="check-card">
+        <aside class="checker-card">
           <h2>Check your local conditions</h2>
-          <p>Open the live checker, use your location or enter a postcode, ZIP code, town or city.</p>
-          <a class="button" href="/?region=uk&task=should-i-cut-the-grass-today&period=today#main">Check now</a>
-          <p class="small-note">You can switch between today, tomorrow and this weekend.</p>
+          <p>Use the live checker for a local GO, CAUTION or NO-GO using rain, wind, temperature and recent weather.</p>
+          <a class="button" href="/?region=uk&task=should-i-cut-the-grass-today&period=today#main">Check my local grass weather</a>
+          <p class="small-note">Choose today, tomorrow or the weekend after opening the checker.</p>
         </aside>
       </section>
 
-      <section class="panel">
-        <h2>Quick answer</h2>
-        <p>A good grass-cutting day is usually dry, mild, not too windy and not immediately after heavy rain. Wet grass can clog the mower, tear the lawn and leave a poor finish.</p>
+      <section class="content-block answer-block">
+        <h2>Short answer</h2>
+        <p>Usually, cut the grass when it is dry enough underfoot, rain is unlikely for a few hours, wind is manageable and there is enough daylight to finish safely.</p>
       </section>
 
-      <section class="grid" aria-label="Weather decision rules">
-        <div class="panel go">
-          <h3>GO when...</h3>
+      <section class="content-block">
+        <h2>Why the weather matters</h2>
+        <p>Grass cutting is very weather-sensitive. Wet grass can clog a mower, leave clumps, tear the lawn and create a poor finish. Very hot, cold, windy or stormy conditions can also make cutting a bad idea.</p>
+        <a class="button inline-button" href="/?region=uk&task=should-i-cut-the-grass-today&period=today#main">Check my local grass weather</a>
+      </section>
+
+      <section class="decision-grid" aria-label="GO CAUTION NO-GO guidance">
+        <article class="decision-card go">
+          <h2>GO when...</h2>
           <ul>
-            <li>The grass is dry or drying well.</li>
+            <li>The grass and ground are dry enough.</li>
 <li>Rain risk is low for the next few hours.</li>
-<li>Wind is manageable and it is still light enough.</li>
-<li>Temperatures are mild enough for normal lawn growth.</li>
+<li>Wind is manageable.</li>
+<li>It is mild enough and still light enough to cut safely.</li>
           </ul>
-        </div>
-        <div class="panel caution">
-          <h3>CAUTION when...</h3>
+        </article>
+
+        <article class="decision-card caution">
+          <h2>CAUTION when...</h2>
           <ul>
-            <li>There has been recent rain and the lawn may still be damp.</li>
-<li>There is a small shower risk later.</li>
-<li>It is getting late in the day.</li>
-<li>It is winter or the grass may not be actively growing.</li>
+            <li>Recent rain may have left the lawn damp.</li>
+<li>Showers are possible later.</li>
+<li>It is late in the day and dew may return.</li>
+<li>It is winter or the grass is not growing much.</li>
           </ul>
-        </div>
-        <div class="panel nogo">
-          <h3>NO-GO when...</h3>
+        </article>
+
+        <article class="decision-card nogo">
+          <h2>NO-GO when...</h2>
           <ul>
-            <li>It is raining now or heavy rain is likely soon.</li>
-<li>The lawn is wet underfoot.</li>
-<li>There is strong wind, frost, ice or storm risk.</li>
+            <li>It is raining now or heavy rain is likely.</li>
+<li>The lawn is wet, boggy or slippery.</li>
+<li>There is frost, ice, storm risk or strong wind.</li>
 <li>The ground is waterlogged.</li>
           </ul>
-        </div>
+        </article>
       </section>
 
-      <section class="panel">
+      <section class="content-block">
         <h2>FAQs</h2>
-        
         <details>
-          <summary>Can I cut grass after rain?</summary>
-          <p>It is better to wait until the grass blades and ground have dried. Cutting wet grass can leave clumps and damage the lawn.</p>
+          <summary>Can I cut grass if it rained yesterday?</summary>
+          <p>Possibly, but only if the grass blades and ground have dried. If the lawn is still damp underfoot, wait.</p>
         </details>
-
         <details>
-          <summary>Is it bad to cut grass when it is windy?</summary>
-          <p>Light wind is usually fine, but strong wind can make mowing messy and less safe, especially with debris or uneven ground.</p>
+          <summary>Is it bad to cut wet grass?</summary>
+          <p>Yes, it can clog the mower, leave clumps, tear grass and create an uneven finish.</p>
         </details>
-
         <details>
-          <summary>What temperature is too cold to cut grass?</summary>
-          <p>If the grass is not actively growing, or there is frost or ice risk, it is usually better to wait.</p>
+          <summary>What is the best weather for cutting grass?</summary>
+          <p>Dry, mild and calm weather with low rain risk is best.</p>
         </details>
-
         <details>
-          <summary>Should I cut grass in the evening?</summary>
-          <p>You can, but avoid cutting too late when light is poor or the grass is becoming damp again.</p>
+          <summary>Should I cut grass today or tomorrow?</summary>
+          <p>Use the live checker to compare today, tomorrow and the weekend for your location.</p>
         </details>
-
         <details>
-          <summary>Is it better to cut grass today or tomorrow?</summary>
-          <p>Use the checker to compare today, tomorrow and the weekend using your local forecast.</p>
+          <summary>Can I cut grass in winter?</summary>
+          <p>Only if it is mild, dry and the grass is still growing. Avoid frost, waterlogged ground and dormant grass.</p>
         </details>
       </section>
 
-      <section class="panel">
-        <h2>Related weather checks</h2>
-        <div class="related">
-          <a href="/uk/should-i-water-the-plants-today/">Uk › Should I Water The Plants Today</a>
-<a href="/uk/should-i-wash-my-car-today/">Uk › Should I Wash My Car Today</a>
-<a href="/uk/should-i-paint-outside-today/">Uk › Should I Paint Outside Today</a>
-<a href="/uk/can-i-hang-washing-out-today/">Uk › Can I Hang Washing Out Today</a>
+      <section class="content-block">
+        <h2>Related grass and lawn checks</h2>
+        <div class="related-grid">
+          <a href="/uk/grass-cutting-weather/">Grass Cutting Weather (UK)</a>
+<a href="/uk/can-you-cut-wet-grass/">Can You Cut Wet Grass (UK)</a>
+<a href="/uk/can-you-cut-grass-after-rain/">Can You Cut Grass After Rain (UK)</a>
+<a href="/uk/when-is-the-best-time-to-cut-grass/">When Is The Best Time To Cut Grass (UK)</a>
+<a href="/uk/what-time-can-i-cut-the-grass/">What Time Can I Cut The Grass (UK)</a>
+<a href="/uk/first-grass-cut-of-the-year/">First Grass Cut Of The Year (UK)</a>
+<a href="/uk/last-grass-cut-before-winter/">Last Grass Cut Before Winter (UK)</a>
+<a href="/uk/can-you-cut-grass-in-winter/">Can You Cut Grass In Winter (UK)</a>
         </div>
       </section>
+
     </main>
 
     <footer>Practical weather-based guidance only. Always check actual local conditions. Weather data by Open-Meteo.</footer>
