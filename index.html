@@ -1011,6 +1011,188 @@
       background:#effdf3;
     }
 
+    .bbq-seo-hub{
+      display:none;
+      margin:38px 0 0;
+      border:1px solid rgba(180,83,9,.20);
+      border-radius:34px;
+      background:
+        radial-gradient(circle at 8% 5%, rgba(245,158,11,.16), transparent 28%),
+        radial-gradient(circle at 92% 10%, rgba(34,197,94,.10), transparent 28%),
+        rgba(255,255,255,.88);
+      box-shadow:var(--shadow-soft);
+      overflow:hidden;
+    }
+
+    .bbq-seo-hub.show{
+      display:block;
+    }
+
+    .bbq-links-block{
+      display:none;
+    }
+
+    .bbq-links-block.show{
+      display:block;
+    }
+
+    .bbq-hero{
+      display:grid;
+      grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);
+      gap:24px;
+      align-items:center;
+      padding:28px;
+    }
+
+    .bbq-hero h2{
+      margin:0;
+      max-width:650px;
+      font-size:clamp(1.75rem,3.5vw,3rem);
+      line-height:1;
+      letter-spacing:-.065em;
+    }
+
+    .bbq-hero p{
+      margin:13px 0 0;
+      color:var(--soft-ink);
+      font-size:1.04rem;
+      font-weight:600;
+    }
+
+    .bbq-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+      margin-top:17px;
+    }
+
+    .bbq-actions a,
+    .bbq-actions button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      border-radius:999px;
+      padding:11px 14px;
+      text-decoration:none;
+      font-weight:950;
+      border:1px solid var(--line);
+      cursor:pointer;
+    }
+
+    .bbq-primary{
+      background:var(--amber);
+      color:#fff;
+      border-color:var(--amber) !important;
+      box-shadow:0 12px 26px rgba(180,83,9,.18);
+    }
+
+    .bbq-secondary{
+      background:#fff;
+      color:var(--amber);
+    }
+
+    .bbq-card{
+      padding:20px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:#fff;
+      box-shadow:0 16px 34px rgba(20,36,25,.08);
+    }
+
+    .bbq-card h3{
+      margin:0 0 8px;
+      font-size:1.15rem;
+      letter-spacing:-.04em;
+    }
+
+    .bbq-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:1px;
+      background:var(--line);
+      border-top:1px solid var(--line);
+    }
+
+    .bbq-panel{
+      background:#fff;
+      padding:22px;
+    }
+
+    .bbq-panel h3{
+      margin:0 0 8px;
+      font-size:1.08rem;
+      letter-spacing:-.035em;
+    }
+
+    .bbq-panel p{
+      margin:0;
+      color:var(--muted);
+      font-weight:620;
+    }
+
+    .bbq-panel ul{
+      margin:12px 0 0;
+      padding-left:1.1rem;
+      color:var(--soft-ink);
+      font-weight:650;
+    }
+
+    .bbq-checklist-block{
+      padding:28px;
+      border-top:1px solid var(--line);
+      background:#fffaf3;
+    }
+
+    .bbq-checklist-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .bbq-checklist-card{
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:#fff;
+      padding:14px;
+    }
+
+    .bbq-checklist-card h3{
+      margin:0 0 8px;
+      font-size:1rem;
+      letter-spacing:-.03em;
+    }
+
+    .bbq-checklist-card ul{
+      margin:0;
+      padding-left:1.05rem;
+      color:var(--muted);
+      font-weight:640;
+      font-size:.93rem;
+    }
+
+    .bbq-checklist-card li+li{margin-top:2px}
+
+    @media (max-width:960px){
+      .bbq-hero{grid-template-columns:1fr}
+      .bbq-grid{grid-template-columns:1fr}
+      .bbq-checklist-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media (max-width:760px){
+      .bbq-seo-hub{margin-top:24px;border-radius:24px}
+      .bbq-hero{padding:18px;gap:14px}
+      .bbq-hero h2{font-size:1.65rem}
+      .bbq-hero p{font-size:.95rem}
+      .bbq-actions{display:grid;grid-template-columns:1fr;gap:8px}
+      .bbq-actions a,.bbq-actions button{width:100%;border-radius:16px}
+      .bbq-card{padding:15px;border-radius:22px}
+      .bbq-panel{padding:16px}
+      .bbq-checklist-block{padding:18px}
+      .bbq-checklist-grid{grid-template-columns:1fr}
+    }
+
+    
     footer{
       padding:22px 0 28px;
       color:var(--muted);
