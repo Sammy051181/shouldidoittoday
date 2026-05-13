@@ -1003,11 +1003,11 @@
         if(found)selected=found[0];
       }
       const loc=params.get("location");
-      if(loc)locationInput.value=loc;
-      renderTasks();
-      if(locationInput.value.trim())checkFromText();
-      else setLocationStatus("Type a location or tap Use my location",false);
-    }
+      if(locationInput.value.trim()){
+  checkFromText();
+}else{
+  autoDetectLocationOnLoad();
+}
 
     function applyRegion(shouldCheck){
       const p=region();
