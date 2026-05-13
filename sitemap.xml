@@ -7,117 +7,285 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://shouldidoittoday.com/uk/should-i-cut-the-grass-today/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://shouldidoittoday.com/uk/can-i-hang-washing-out-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/uk/should-i-wash-my-car-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/uk/should-i-bbq-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/uk/should-i-paint-outside-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/uk/should-i-clean-the-windows-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/uk/should-i-walk-the-dog-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/uk/should-i-go-for-a-run-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/uk/do-i-need-a-coat-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/uk/should-i-water-the-plants-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://shouldidoittoday.com/us/should-i-mow-the-lawn-today/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/us/should-i-wash-my-car-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/us/should-i-grill-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/us/do-i-need-a-jacket-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/us/should-i-walk-my-dog-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/ie/should-i-cut-the-grass-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/ca/should-i-mow-the-lawn-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/au/should-i-mow-the-lawn-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://shouldidoittoday.com/nz/should-i-mow-the-lawn-today/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/grass-cutting-weather/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/should-i-cut-the-grass-today/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/can-you-cut-wet-grass/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/can-you-cut-grass-after-rain/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/can-you-cut-grass-in-the-rain/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/is-it-too-wet-to-cut-the-grass-today/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/when-is-the-best-time-to-cut-grass/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/what-time-can-i-cut-the-grass/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/is-it-too-early-to-cut-the-grass/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/when-should-you-cut-the-grass/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/how-often-should-you-cut-the-grass/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/first-grass-cut-of-the-year/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/when-to-cut-the-grass-after-winter/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/last-grass-cut-before-winter/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/uk/can-you-cut-grass-in-winter/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/lawn-mowing-weather/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/should-i-mow-the-lawn-today/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/can-you-mow-wet-grass/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/can-you-mow-the-lawn-after-rain/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/how-soon-after-rain-can-i-mow-the-lawn/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/can-you-mow-the-lawn-in-the-rain/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/what-time-can-i-start-mowing-my-lawn/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/how-early-is-too-early-to-mow-the-lawn/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/is-it-too-late-to-mow-the-lawn/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/best-time-to-mow-the-lawn/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/how-often-should-you-mow-the-lawn/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/when-is-it-too-hot-to-mow-the-lawn/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/when-is-it-too-cold-to-mow-the-lawn/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/first-lawn-mow-of-the-year/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shouldidoittoday.com/us/last-mow-before-winter/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 </urlset>
