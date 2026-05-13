@@ -826,6 +826,53 @@
       font-weight:620;
     }
 
+    .checklist-recommendation{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:flex-start;
+      margin:0 0 16px;
+      padding:14px;
+      border:1px solid #bae6c6;
+      border-radius:20px;
+      background:#effdf3;
+      color:var(--soft-ink);
+    }
+
+    .checklist-recommendation strong{
+      display:block;
+      margin-bottom:2px;
+      color:var(--green);
+      font-size:.82rem;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .checklist-recommendation span{
+      display:block;
+      font-weight:950;
+      letter-spacing:-.02em;
+    }
+
+    .checklist-recommendation p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:.92rem;
+      font-weight:650;
+    }
+
+    .checklist-recommendation button{
+      flex:0 0 auto;
+      border:1px solid #95e3b0;
+      background:#fff;
+      color:var(--green);
+      border-radius:999px;
+      padding:9px 11px;
+      font-weight:950;
+      cursor:pointer;
+    }
+
     .checklist-controls{
       display:flex;
       gap:8px;
@@ -1001,6 +1048,8 @@
       .checklist-block{padding:18px}
       .checklist-head{display:block}
       .checklist-controls{justify-content:flex-start;margin-top:12px}
+      .checklist-recommendation{display:block}
+      .checklist-recommendation button{width:100%;margin-top:10px;border-radius:15px}
       .checklist-grid{grid-template-columns:1fr}
 
       .seo-internal-links{margin-top:22px;padding:16px;border-radius:21px}
@@ -1245,6 +1294,15 @@
             </div>
           </div>
 
+          <div class="checklist-recommendation" id="campingChecklistRecommendation">
+            <div>
+              <strong>Recommended checklist</strong>
+              <span id="campingChecklistMode">Basic camping checklist</span>
+              <p id="campingChecklistReason">Check your camping weather and this will update automatically based on rain, wind, overnight temperature and ground conditions.</p>
+            </div>
+            <button type="button" id="applyRecommendedChecklist">Use recommendation</button>
+          </div>
+
           <div class="checklist-grid" id="checklistGrid"></div>
         </div>
       </section>
@@ -1395,30 +1453,62 @@
 
     const CHECKLISTS={
       basic:{
-        "Shelter":["Tent","Groundsheet or footprint","Tent pegs","Mallet","Guy lines"],
-        "Sleep":["Sleeping bag","Sleeping mat","Pillow","Warm layer","Eye mask or ear plugs"],
-        "Cooking":["Camping stove","Gas or fuel","Lighter or matches","Pan or kettle","Mug, plate and cutlery"],
-        "Safety":["Torch or headtorch","First aid kit","Power bank","Water bottle","Bin bag"]
+        label:"Basic camping checklist",
+        groups:{
+          "Shelter":["Tent","Groundsheet or footprint","Tent pegs","Mallet","Guy lines"],
+          "Sleep":["Sleeping bag","Sleeping mat","Pillow","Warm layer","Eye mask or ear plugs"],
+          "Cooking":["Camping stove","Gas or fuel","Lighter or matches","Pan or kettle","Mug, plate and cutlery"],
+          "Safety":["Torch or headtorch","First aid kit","Power bank","Water bottle","Bin bag"]
+        }
       },
       wet:{
-        "Wet weather gear":["Waterproof jacket","Waterproof trousers","Spare socks","Dry bags","Towel"],
-        "Tent extras":["Extra pegs","Guy lines","Groundsheet","Microfibre cloth","Tent repair tape"],
-        "Comfort":["Warm dry clothes","Waterproof footwear","Plastic bags for wet kit","Camp chair","Hot drink supplies"],
-        "Before you go":["Check ground conditions","Avoid low pitches","Check wind exposure","Pack in waterproof bags","Plan a dry pitching window"]
+        label:"Wet weather camping checklist",
+        groups:{
+          "Wet weather gear":["Waterproof jacket","Waterproof trousers","Spare socks","Dry bags","Towel"],
+          "Tent extras":["Extra pegs","Guy lines","Groundsheet","Microfibre cloth","Tent repair tape"],
+          "Comfort":["Warm dry clothes","Waterproof footwear","Plastic bags for wet kit","Camp chair","Hot drink supplies"],
+          "Before you go":["Check ground conditions","Avoid low pitches","Check wind exposure","Pack in waterproof bags","Plan a dry pitching window"]
+        }
       },
       cold:{
-        "Warm sleep setup":["Warm sleeping bag","Insulated mat","Thermal base layer","Warm hat","Extra blanket"],
-        "Clothing":["Fleece or insulated jacket","Gloves","Thick socks","Waterproof outer layer","Spare dry clothes"],
-        "Food and drink":["Hot drinks","Easy warm meal","High-energy snacks","Stove fuel","Water bottle"],
-        "Night safety":["Headtorch","Power bank","Emergency blanket","Check overnight low","Keep clothes dry"]
+        label:"Cold night camping checklist",
+        groups:{
+          "Warm sleep setup":["Warm sleeping bag","Insulated mat","Thermal base layer","Warm hat","Extra blanket"],
+          "Clothing":["Fleece or insulated jacket","Gloves","Thick socks","Waterproof outer layer","Spare dry clothes"],
+          "Food and drink":["Hot drinks","Easy warm meal","High-energy snacks","Stove fuel","Water bottle"],
+          "Night safety":["Headtorch","Power bank","Emergency blanket","Check overnight low","Keep clothes dry"]
+        }
       },
       family:{
-        "Family basics":["Larger tent","Extra blankets","Children’s sleeping bags","Camp chairs","Picnic blanket"],
-        "Food":["Easy breakfasts","Snacks","Cool box","Reusable bottles","Washing-up kit"],
-        "Kids":["Warm layers","Waterproofs","Simple games","Sun cream","Spare shoes"],
-        "Practical extras":["First aid kit","Wet wipes","Bin bags","Lantern","Toilet roll"]
+        label:"Family camping checklist",
+        groups:{
+          "Family basics":["Larger tent","Extra blankets","Children’s sleeping bags","Camp chairs","Picnic blanket"],
+          "Food":["Easy breakfasts","Snacks","Cool box","Reusable bottles","Washing-up kit"],
+          "Kids":["Warm layers","Waterproofs","Simple games","Sun cream","Spare shoes"],
+          "Practical extras":["First aid kit","Wet wipes","Bin bags","Lantern","Toilet roll"]
+        }
+      },
+      windy:{
+        label:"Windy weather camping checklist",
+        groups:{
+          "Tent security":["Strong tent pegs","Extra guy lines","Mallet","Tent repair tape","Check peg angle"],
+          "Pitch choice":["Choose sheltered pitch","Avoid exposed ridges","Avoid loose ground","Avoid pitching under unsafe trees","Face tent correctly to wind"],
+          "Camp comfort":["Windproof layer","Warm hat","Secure loose kit","Heavy-duty bags","Lantern instead of candles"],
+          "Before you commit":["Check gusts","Check campsite exposure","Check tent wind rating","Have a backup plan","Do not pitch in storms"]
+        }
+      },
+      hot:{
+        label:"Hot weather camping checklist",
+        groups:{
+          "Sun protection":["Sun cream","Sun hat","Sunglasses","Light long sleeves","After-sun"],
+          "Hydration":["Extra water","Reusable bottles","Electrolytes","Cool box","Ice packs"],
+          "Pitch comfort":["Shade tarp","Ventilated tent","Light sleeping bag","Insect repellent","Camp chair"],
+          "Safety":["Avoid midday pitching","Keep food cool","Check fire rules","Plan water refills","Watch for heat stress"]
+        }
       }
     };
+
+    let recommendedChecklistType="basic";
 
     const RULES={
       grass:{rainProb:30,windMaxMph:26,tempMinC:8,tempMaxC:28,hours:[8,18],minHours:2},
@@ -1620,7 +1710,8 @@
       const grid=document.getElementById("checklistGrid");
       if(!grid)return;
       const data=CHECKLISTS[type]||CHECKLISTS.basic;
-      grid.innerHTML=Object.entries(data).map(([heading,items])=>`
+      const groups=data.groups||data;
+      grid.innerHTML=Object.entries(groups).map(([heading,items])=>`
         <div class="checklist-card">
           <h3>${heading}</h3>
           <ul>${items.map(item=>`<li>${item}</li>`).join("")}</ul>
@@ -1628,14 +1719,63 @@
       `).join("");
     }
 
+    function setActiveChecklistButton(type){
+      document.querySelectorAll("[data-checklist]").forEach(btn=>{
+        btn.classList.toggle("active",btn.dataset.checklist===type);
+      });
+    }
+
+    function updateChecklistRecommendation(type,reason,autoApply=false){
+      recommendedChecklistType=type||"basic";
+      const mode=document.getElementById("campingChecklistMode");
+      const reasonEl=document.getElementById("campingChecklistReason");
+      const label=(CHECKLISTS[recommendedChecklistType]||CHECKLISTS.basic).label;
+      if(mode)mode.textContent=label;
+      if(reasonEl)reasonEl.textContent=reason||"This recommendation is based on the local camping forecast.";
+      if(autoApply){
+        renderChecklist(recommendedChecklistType);
+        setActiveChecklistButton(recommendedChecklistType);
+      }
+    }
+
+    function chooseCampingChecklist(r){
+      const reasons=(r.why||[]).join(" ").toLowerCase();
+      const status=(r.status||"").toLowerCase();
+
+      if(status.includes("no-go")||reasons.includes("storm")){
+        return{type:"wet",reason:"The camping result warns about poor or risky conditions. Pack for wet weather and consider delaying the trip."};
+      }
+      if(reasons.includes("wind")||reasons.includes("gust")){
+        return{type:"windy",reason:"Wind is a key issue in this forecast, so add stronger pegs, extra guy lines and choose a sheltered pitch."};
+      }
+      if(reasons.includes("overnight rain")||reasons.includes("rain risk")||reasons.includes("wet")||reasons.includes("ground")){
+        return{type:"wet",reason:"Rain or wet ground is a key issue in this forecast, so add waterproof layers, dry bags, a groundsheet and spare socks."};
+      }
+      if(reasons.includes("cold overnight")||reasons.includes("feel cold")||reasons.includes("too cold")){
+        return{type:"cold",reason:"The forecast suggests a cold night, so add a warmer sleeping bag, insulated mat, thermal layer and hat."};
+      }
+      if(reasons.includes("heat")||reasons.includes("too hot")||reasons.includes("hot")){
+        return{type:"hot",reason:"The forecast suggests warm or hot conditions, so add extra water, sun protection, shade and cool storage for food."};
+      }
+      return{type:"basic",reason:"Conditions look broadly manageable, so the basic camping checklist is a sensible starting point."};
+    }
+
     function bindChecklistFilters(){
       document.querySelectorAll("[data-checklist]").forEach(button=>{
         button.addEventListener("click",()=>{
-          document.querySelectorAll("[data-checklist]").forEach(btn=>btn.classList.remove("active"));
-          button.classList.add("active");
+          setActiveChecklistButton(button.dataset.checklist);
           renderChecklist(button.dataset.checklist);
         });
       });
+
+      const applyButton=document.getElementById("applyRecommendedChecklist");
+      if(applyButton){
+        applyButton.addEventListener("click",()=>{
+          renderChecklist(recommendedChecklistType);
+          setActiveChecklistButton(recommendedChecklistType);
+          document.getElementById("campingChecklist").scrollIntoView({behavior:"smooth",block:"start"});
+        });
+      }
     }
 
     function validateLocationInput(value){
@@ -2096,6 +2236,11 @@
       document.getElementById("wind").textContent=formatWind(r.windMph);
       document.getElementById("temp").textContent=formatTemp(r.tempC);
       document.getElementById("whyList").innerHTML=(r.why&&r.why.length?r.why:["There is not enough forecast detail to give a stronger reason."]).map(item=>`<li>${item}</li>`).join("");
+
+      if(selected==="camping"){
+        const recommendation=chooseCampingChecklist(r);
+        updateChecklistRecommendation(recommendation.type,recommendation.reason,true);
+      }
     }
 
     function showError(message){
