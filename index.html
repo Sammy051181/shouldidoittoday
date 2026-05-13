@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Should I Do It Today? | Weather-Based GO / CAUTION / NO-GO Checker</title>
+  <title>Should I Do It Today? | Weather-Based GO / CAUTION / WARNING Checker</title>
   <meta name="description" content="Get a simple local weather-based answer for cutting grass, washing the car, hanging washing, BBQs, dog walks, camping and whether you should water your plants today." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/" />
@@ -15,1282 +15,51 @@
   <meta property="og:description" content="A simple local weather-based checker for outdoor jobs, camping, weekend activities and watering plants." />
   <meta property="og:url" content="https://shouldidoittoday.com/" />
   <meta property="og:image" content="https://shouldidoittoday.com/og-image.png" />
-  <meta property="og:image:secure_url" content="https://shouldidoittoday.com/og-image.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Should I Do It Today weather-based GO, CAUTION and NO-GO checker." />
-
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Should I Do It Today?" />
-  <meta name="twitter:description" content="A simple local weather-based checker for outdoor jobs, camping, weekend activities and watering plants." />
-  <meta name="twitter:image" content="https://shouldidoittoday.com/og-image.png" />
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Should I Do It Today?",
-    "url": "https://shouldidoittoday.com/",
-    "applicationCategory": "WeatherApplication",
-    "operatingSystem": "Any",
-    "description": "A simple weather-based decision tool for everyday outdoor jobs, camping, watering plants and weekend activities."
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Should I Do It Today?",
+    "url":"https://shouldidoittoday.com/",
+    "applicationCategory":"WeatherApplication",
+    "operatingSystem":"Any",
+    "description":"A simple weather-based decision tool for everyday outdoor jobs, camping, watering plants and weekend activities."
   }
   </script>
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Should I water my plants today?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the plant watering checker to compare recent rain, expected rain, temperature, wind and soil moisture signals. A WATER result means watering is likely useful, CHECK SOIL means check the soil first, and WAIT means rain or recent moisture may be enough."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best time to water plants?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The best time to water most outdoor plants is usually early morning. Evening can also work, especially in hot weather, but avoid leaving foliage wet overnight where disease is a concern."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can you water plants at night?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "You can water plants at night if they are very dry, but morning is usually better. If watering at night, water the soil rather than soaking leaves."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Should I go camping today?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the camping weather checker to compare local rain risk, wind, temperature, overnight conditions and daylight. A GO means conditions look suitable, CAUTION means pack and plan for the conditions, and WARNING means there may be thunder, lightning, storm risk or dangerous wind."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What weather is bad for camping?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Rain can be manageable with the right kit, but thunder, lightning, storms, very strong wind, unsafe ground conditions and severe cold can make camping unsafe."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What should I pack for camping in wet or windy weather?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Useful wet or windy weather camping items include waterproof layers, spare dry clothes, a groundsheet, strong tent pegs, guy lines, dry bags, warm layers and a torch or lantern."
-        }
-      }
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Should I go camping this weekend?","acceptedAnswer":{"@type":"Answer","text":"Use the camping weekend weather checker to compare Friday, Saturday and Sunday. It shows morning, afternoon, evening and overnight conditions, plus a week-ahead summary if you are staying longer."}},
+      {"@type":"Question","name":"Should I water my plants today?","acceptedAnswer":{"@type":"Answer","text":"Use the plant watering checker to compare recent rain, expected rain, temperature, wind and soil moisture signals. WATER means watering is likely useful, CHECK SOIL means check first, and WAIT means rain or moisture may be enough."}},
+      {"@type":"Question","name":"What weather is bad for camping?","acceptedAnswer":{"@type":"Answer","text":"Rain can be manageable with the right kit, but thunder, lightning, storms, very strong wind, unsafe ground conditions and severe cold can make camping unsafe."}}
     ]
   }
   </script>
 
   <style>
-    :root{
-      --bg:#f5f8f1;
-      --bg2:#eef7ed;
-      --ink:#162119;
-      --soft-ink:#24352a;
-      --muted:#607063;
-      --line:#dce8da;
-      --card:#ffffff;
-      --card2:#fbfefb;
-      --green:#16783c;
-      --green2:#22c55e;
-      --teal:#0f766e;
-      --teal2:#14b8a6;
-      --amber:#b45309;
-      --amber-bg:#fff7ed;
-      --red:#b91c1c;
-      --red-bg:#fff1f2;
-      --blue:#2563eb;
-      --shadow:0 24px 70px rgba(20,36,25,.12);
-      --shadow-soft:0 12px 34px rgba(20,36,25,.08);
-      --radius:28px;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(circle at 82% 5%, rgba(34,197,94,.18), transparent 28%),
-        radial-gradient(circle at 12% 24%, rgba(20,184,166,.12), transparent 24%),
-        linear-gradient(180deg,#fbfdf9 0%,var(--bg) 46%,#ffffff 100%);
-      line-height:1.5;
-    }
-
-    button,input,select{font:inherit}
-    button{touch-action:manipulation}
-
-    .skip{
-      position:absolute;
-      left:-999px;
-      top:12px;
-      z-index:99;
-      background:var(--ink);
-      color:#fff;
-      padding:10px 14px;
-      border-radius:12px;
-      text-decoration:none;
-    }
-    .skip:focus{left:12px}
-
-    .page{
-      width:min(1120px,calc(100% - 28px));
-      margin:0 auto;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-    }
-
-    header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:1rem;
-      padding:18px 0;
-    }
-
-    .brand{
-      display:inline-flex;
-      align-items:center;
-      gap:11px;
-      text-decoration:none;
-      color:var(--ink);
-    }
-
-    .weather-icon{
-      flex:0 0 auto;
-      overflow:visible;
-      filter:drop-shadow(0 10px 18px rgba(15,118,110,.14));
-    }
-
-    .brand .weather-icon{width:48px;height:38px}
-
-    .brand-wordmark{
-      display:grid;
-      line-height:.95;
-      font-weight:950;
-      letter-spacing:-.055em;
-      font-size:1.03rem;
-    }
-
-    .brand-wordmark strong{
-      color:var(--green2);
-      font-size:1.15em;
-      letter-spacing:-.065em;
-    }
-
-    .top-help{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      color:var(--muted);
-      font-size:.91rem;
-      font-weight:800;
-      background:rgba(255,255,255,.72);
-      border:1px solid rgba(220,232,218,.9);
-      border-radius:999px;
-      padding:8px 12px;
-      box-shadow:0 8px 24px rgba(20,36,25,.05);
-    }
-
-    .top-help::before{
-      content:"";
-      width:8px;
-      height:8px;
-      border-radius:999px;
-      background:var(--green2);
-      box-shadow:0 0 0 5px rgba(34,197,94,.12);
-    }
-
-    main{flex:1;padding:26px 0 52px}
-
-    .hero{
-      display:grid;
-      grid-template-columns:minmax(0,1.04fr) minmax(330px,.96fr);
-      gap:28px;
-      align-items:start;
-    }
-
-    .hero-copy{padding-top:18px}
-
-    .hero-logo-lockup{
-      display:block;
-      margin:0 0 22px;
-      max-width:470px;
-    }
-
-    .hero-vector-logo{
-      display:block;
-      width:100%;
-      height:auto;
-      overflow:visible;
-      filter:drop-shadow(0 18px 34px rgba(20,36,25,.09));
-    }
-
-    .visual-title{
-      position:absolute;
-      width:1px;
-      height:1px;
-      padding:0;
-      margin:-1px;
-      overflow:hidden;
-      clip:rect(0,0,0,0);
-      white-space:nowrap;
-      border:0;
-    }
-
-    h1{
-      margin:0;
-      max-width:740px;
-      font-size:clamp(2.2rem,5vw,4.6rem);
-      line-height:.95;
-      letter-spacing:-.065em;
-      font-weight:1000;
-    }
-
-    h1 strong{color:var(--green2)}
-
-    .lead{
-      margin:18px 0 0;
-      max-width:650px;
-      color:var(--muted);
-      font-size:clamp(1.05rem,1.6vw,1.24rem);
-    }
-
-    .benefit-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:9px;
-      margin:22px 0 0;
-    }
-
-    .benefit{
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      padding:9px 11px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:rgba(255,255,255,.78);
-      color:var(--soft-ink);
-      font-weight:850;
-      font-size:.92rem;
-    }
-
-    .checker-card{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.88);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(14px);
-      padding:18px;
-      position:sticky;
-      top:14px;
-      z-index:1;
-    }
-
-    .checker-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-      margin-bottom:13px;
-    }
-
-    .checker-head h2{
-      margin:0;
-      letter-spacing:-.04em;
-      font-size:1.22rem;
-    }
-
-    .checker-head p{
-      margin:3px 0 0;
-      color:var(--muted);
-      font-size:.92rem;
-    }
-
-    .region-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin:0 0 12px;
-      color:var(--muted);
-      font-size:.91rem;
-      font-weight:800;
-    }
-
-    .region-row select{
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:#fff;
-      color:var(--ink);
-      padding:8px 32px 8px 13px;
-      cursor:pointer;
-      outline:none;
-      min-width:148px;
-    }
-
-    .period-tabs{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:8px;
-      background:#eef7ed;
-      border:1px solid #d4ead1;
-      border-radius:20px;
-      padding:6px;
-      margin-bottom:12px;
-    }
-
-    .period-tab{
-      border:0;
-      border-radius:15px;
-      background:transparent;
-      color:var(--muted);
-      font-weight:950;
-      padding:10px 8px;
-      cursor:pointer;
-    }
-
-    .period-tab.active{
-      background:#fff;
-      color:var(--green);
-      box-shadow:0 8px 18px rgba(20,36,25,.08);
-    }
-
-    .search-card{
-      padding:10px;
-      border:1px solid var(--line);
-      border-radius:24px;
-      background:var(--card2);
-    }
-
-    .search-row{
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:8px;
-      align-items:center;
-    }
-
-    .search-input{
-      min-width:0;
-      width:100%;
-      border:1px solid var(--line);
-      border-radius:17px;
-      padding:14px 14px;
-      outline:none;
-      color:var(--ink);
-      background:#fff;
-    }
-
-    .search-input:focus,.region-row select:focus{
-      border-color:var(--teal2);
-      box-shadow:0 0 0 4px rgba(20,184,166,.14);
-    }
-
-    .btn{
-      border:0;
-      border-radius:17px;
-      padding:14px 16px;
-      cursor:pointer;
-      font-weight:950;
-      white-space:nowrap;
-      transition:transform .15s ease,background .15s ease,box-shadow .15s ease;
-    }
-
-    .btn:hover{transform:translateY(-1px)}
-    .btn-primary{background:var(--green);color:#fff;box-shadow:0 10px 22px rgba(22,120,60,.18)}
-    .btn-primary:hover{background:#115f31}
-    .btn-secondary{width:100%;margin-top:8px;background:#ecfdf8;color:var(--teal);border:1px solid #b7ebe3}
-    .btn-secondary:hover{background:#dcf8f1}
-
-    .status-pill{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      min-height:38px;
-      padding:8px 11px;
-      border-radius:17px;
-      background:rgba(22,120,60,.07);
-      color:var(--green);
-      border:1px solid rgba(22,120,60,.15);
-      font-size:.89rem;
-      font-weight:850;
-      margin-top:11px;
-    }
-
-    .pulse{
-      width:8px;
-      height:8px;
-      flex:0 0 auto;
-      border-radius:999px;
-      background:var(--teal2);
-      box-shadow:0 0 0 5px rgba(20,184,166,.16);
-    }
-
-    .sr-only{
-      position:absolute;
-      width:1px;
-      height:1px;
-      padding:0;
-      margin:-1px;
-      overflow:hidden;
-      clip:rect(0,0,0,0);
-      white-space:nowrap;
-      border:0;
-    }
-
-    .task-area{
-      margin:30px 0 0;
-      grid-column:1 / -1;
-    }
-
-    .section-title{
-      display:flex;
-      align-items:end;
-      justify-content:space-between;
-      gap:16px;
-      margin:0 0 12px;
-    }
-
-    .section-title h2{
-      margin:0;
-      font-size:1.25rem;
-      letter-spacing:-.04em;
-    }
-
-    .section-title p{
-      margin:0;
-      color:var(--muted);
-      font-size:.93rem;
-      font-weight:750;
-    }
-
-    .tasks{
-      display:grid;
-      grid-template-columns:repeat(10,minmax(0,1fr));
-      gap:10px;
-    }
-
-    .task{
-      border:1px solid var(--line);
-      border-radius:21px;
-      background:#fff;
-      color:var(--ink);
-      padding:12px 8px;
-      cursor:pointer;
-      font-weight:900;
-      box-shadow:0 6px 20px rgba(20,36,25,.05);
-      transition:transform .15s ease,border-color .15s ease,background .15s ease,box-shadow .15s ease;
-      min-height:84px;
-    }
-
-    .task:hover{
-      transform:translateY(-2px);
-      border-color:#aee8c4;
-      box-shadow:0 14px 28px rgba(20,36,25,.09);
-    }
-
-    .task.active{
-      border-color:#95e3b0;
-      background:#effdf3;
-      color:var(--green);
-      box-shadow:0 12px 28px rgba(22,120,60,.10);
-    }
-
-    .task span{display:block;font-size:1.5rem;margin-bottom:5px}
-
-    .result{
-      display:none;
-      margin:34px 0 0;
-      border:2px solid rgba(22,120,60,.18);
-      border-radius:34px;
-      background:linear-gradient(135deg,rgba(236,253,243,.96),rgba(255,255,255,.98) 48%,#fff);
-      box-shadow:0 30px 95px rgba(20,36,25,.18);
-      overflow:hidden;
-      text-align:left;
-      position:relative;
-    }
-
-    .result::before{
-      content:"";
-      position:absolute;
-      inset:0 auto 0 0;
-      width:11px;
-      background:var(--green);
-    }
-
-    .result.show{
-      display:block;
-      animation:resultPop .22s ease-out;
-    }
-
-    .result.caution{
-      border-color:rgba(180,83,9,.28);
-      background:linear-gradient(135deg,rgba(255,247,237,.96),rgba(255,255,255,.98) 50%,#fff);
-    }
-
-    .result.caution::before{background:var(--amber)}
-
-    .result.no{
-      border-color:rgba(185,28,28,.28);
-      background:linear-gradient(135deg,rgba(255,241,242,.96),rgba(255,255,255,.98) 50%,#fff);
-    }
-
-    .result.no::before{background:var(--red)}
-
-    @keyframes resultPop{
-      from{opacity:0;transform:translateY(8px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-
-    .result-top{
-      display:grid;
-      grid-template-columns:220px minmax(0,1fr);
-      gap:20px;
-      align-items:stretch;
-      padding:22px 22px 22px 32px;
-    }
-
-    .answer{
-      min-height:172px;
-      border-radius:28px;
-      display:grid;
-      place-items:center;
-      text-align:center;
-      padding:18px;
-      background:#dcfce7;
-      color:var(--green);
-      border:1px solid rgba(22,120,60,.16);
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 18px 34px rgba(22,120,60,.16);
-      font-size:clamp(2rem,4.2vw,3.1rem);
-      line-height:.86;
-      letter-spacing:-.06em;
-      font-weight:1000;
-      text-transform:uppercase;
-    }
-
-    .answer.caution{
-      background:var(--amber-bg);
-      color:var(--amber);
-      border-color:rgba(180,83,9,.18);
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 18px 34px rgba(180,83,9,.14);
-      font-size:clamp(1.35rem,3vw,2.1rem);
-    }
-
-    .answer.no{
-      background:var(--red-bg);
-      color:var(--red);
-      border-color:rgba(185,28,28,.18);
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 18px 34px rgba(185,28,28,.14);
-      font-size:clamp(1.35rem,3vw,2rem);
-    }
-
-    .answer.loading{
-      background:#f4f7f2;
-      color:var(--muted);
-      box-shadow:none;
-    }
-
-    .question{
-      margin:2px 0 8px;
-      font-weight:1000;
-      font-size:clamp(1.45rem,2.6vw,2rem);
-      letter-spacing:-.05em;
-      line-height:1.08;
-    }
-
-    .reason{
-      margin:0;
-      color:var(--soft-ink);
-      font-size:1.08rem;
-      font-weight:650;
-    }
-
-    .why-wrap{
-      margin-top:13px;
-      padding:12px 14px;
-      border:1px solid #e4eee2;
-      border-radius:18px;
-      background:#fbfefb;
-    }
-
-    .why-title{
-      margin:0 0 6px;
-      color:var(--ink);
-      font-size:.84rem;
-      font-weight:950;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-
-    .why{
-      margin:0;
-      padding-left:1.1rem;
-      color:var(--muted);
-    }
-
-    .why li+li{margin-top:2px}
-
-    .facts{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:1px;
-      background:var(--line);
-      border-top:1px solid var(--line);
-    }
-
-    .fact{
-      background:#fff;
-      padding:15px;
-    }
-
-    .fact span{
-      display:block;
-      color:var(--muted);
-      font-size:.78rem;
-      font-weight:950;
-      margin-bottom:4px;
-      text-transform:uppercase;
-      letter-spacing:.07em;
-    }
-
-    .fact strong{
-      display:block;
-      font-size:1rem;
-      letter-spacing:-.02em;
-    }
-
-    .camping-seo-hub,
-    .plants-seo-hub{
-      display:none;
-      margin:38px 0 0;
-      border:1px solid rgba(22,120,60,.18);
-      border-radius:34px;
-      background:
-        radial-gradient(circle at 8% 5%, rgba(34,197,94,.15), transparent 28%),
-        radial-gradient(circle at 92% 10%, rgba(20,184,166,.12), transparent 28%),
-        rgba(255,255,255,.86);
-      box-shadow:var(--shadow-soft);
-      overflow:hidden;
-    }
-
-    .camping-seo-hub.show,
-    .plants-seo-hub.show{
-      display:block;
-    }
-
-    .camping-links-block,
-    .plants-links-block{
-      display:none;
-    }
-
-    .camping-links-block.show,
-    .plants-links-block.show{
-      display:block;
-    }
-
-    .camping-hero{
-      display:grid;
-      grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);
-      gap:24px;
-      align-items:center;
-      padding:28px;
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      gap:7px;
-      align-items:center;
-      margin:0 0 9px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid #bae6c6;
-      background:#effdf3;
-      color:var(--green);
-      font-size:.82rem;
-      font-weight:950;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-
-    .camping-hero h2{
-      margin:0;
-      max-width:650px;
-      font-size:clamp(1.75rem,3.5vw,3rem);
-      line-height:1;
-      letter-spacing:-.065em;
-    }
-
-    .camping-hero p{
-      margin:13px 0 0;
-      color:var(--soft-ink);
-      font-size:1.04rem;
-      font-weight:600;
-    }
-
-    .camping-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:9px;
-      margin-top:17px;
-    }
-
-    .camping-actions a,
-    .camping-actions button{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      border-radius:999px;
-      padding:11px 14px;
-      text-decoration:none;
-      font-weight:950;
-      border:1px solid var(--line);
-      cursor:pointer;
-    }
-
-    .camping-primary{
-      background:var(--green);
-      color:#fff;
-      border-color:var(--green) !important;
-      box-shadow:0 12px 26px rgba(22,120,60,.18);
-    }
-
-    .camping-secondary{
-      background:#fff;
-      color:var(--green);
-    }
-
-    .camping-card{
-      padding:20px;
-      border:1px solid var(--line);
-      border-radius:28px;
-      background:#fff;
-      box-shadow:0 16px 34px rgba(20,36,25,.08);
-    }
-
-    .camping-card h3{
-      margin:0 0 8px;
-      font-size:1.15rem;
-      letter-spacing:-.04em;
-    }
-
-    .mini-score{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:8px;
-      margin-top:13px;
-    }
-
-    .mini-score div{
-      border-radius:17px;
-      padding:10px;
-      font-weight:950;
-      text-align:center;
-      border:1px solid var(--line);
-    }
-
-    .mini-go{background:#dcfce7;color:var(--green)}
-    .mini-caution{background:var(--amber-bg);color:var(--amber)}
-    .mini-no{background:var(--red-bg);color:var(--red)}
-
-    .camping-grid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:1px;
-      background:var(--line);
-      border-top:1px solid var(--line);
-    }
-
-    .camping-panel{
-      background:#fff;
-      padding:22px;
-    }
-
-    .camping-panel h3{
-      margin:0 0 8px;
-      font-size:1.08rem;
-      letter-spacing:-.035em;
-    }
-
-    .camping-panel p{
-      margin:0;
-      color:var(--muted);
-      font-weight:620;
-    }
-
-    .camping-panel ul{
-      margin:12px 0 0;
-      padding-left:1.1rem;
-      color:var(--soft-ink);
-      font-weight:650;
-    }
-
-    .checklist-block{
-      padding:28px;
-      border-top:1px solid var(--line);
-      background:#fbfefb;
-    }
-
-    .checklist-head{
-      display:flex;
-      justify-content:space-between;
-      gap:20px;
-      align-items:end;
-      margin-bottom:16px;
-    }
-
-    .checklist-head h2{
-      margin:0;
-      font-size:clamp(1.45rem,2.6vw,2.2rem);
-      letter-spacing:-.055em;
-    }
-
-    .checklist-head p{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-weight:620;
-    }
-
-    .checklist-recommendation{
-      display:flex;
-      justify-content:space-between;
-      gap:14px;
-      align-items:flex-start;
-      margin:0 0 16px;
-      padding:14px;
-      border:1px solid #bae6c6;
-      border-radius:20px;
-      background:#effdf3;
-      color:var(--soft-ink);
-    }
-
-    .checklist-recommendation strong{
-      display:block;
-      margin-bottom:2px;
-      color:var(--green);
-      font-size:.82rem;
-      font-weight:1000;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-
-    .checklist-recommendation span{
-      display:block;
-      font-weight:950;
-      letter-spacing:-.02em;
-    }
-
-    .checklist-recommendation p{
-      margin:4px 0 0;
-      color:var(--muted);
-      font-size:.92rem;
-      font-weight:650;
-    }
-
-    .checklist-recommendation button{
-      flex:0 0 auto;
-      border:1px solid #95e3b0;
-      background:#fff;
-      color:var(--green);
-      border-radius:999px;
-      padding:9px 11px;
-      font-weight:950;
-      cursor:pointer;
-    }
-
-    .checklist-controls{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
-    .checklist-filter{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:999px;
-      padding:9px 11px;
-      cursor:pointer;
-      color:var(--soft-ink);
-      font-weight:900;
-    }
-
-    .checklist-filter.active{
-      border-color:#95e3b0;
-      background:#effdf3;
-      color:var(--green);
-    }
-
-    .checklist-grid{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:10px;
-    }
-
-    .checklist-card{
-      border:1px solid var(--line);
-      border-radius:20px;
-      background:#fff;
-      padding:14px;
-    }
-
-    .checklist-card h3{
-      margin:0 0 8px;
-      font-size:1rem;
-      letter-spacing:-.03em;
-    }
-
-    .checklist-card ul{
-      margin:0;
-      padding-left:1.05rem;
-      color:var(--muted);
-      font-weight:640;
-      font-size:.93rem;
-    }
-
-    .checklist-card li+li{margin-top:2px}
-
-    .seo-internal-links{
-      margin:34px auto 0;
-      padding:24px;
-      border:1px solid var(--line);
-      border-radius:26px;
-      background:rgba(255,255,255,.72);
-      box-shadow:0 10px 28px rgba(20,36,25,.04);
-    }
-
-    .seo-internal-links h2{
-      margin:0 0 6px;
-      font-size:1.15rem;
-      letter-spacing:-.04em;
-    }
-
-    .seo-internal-links p{
-      margin:0 0 14px;
-      color:var(--muted);
-      font-size:.92rem;
-    }
-
-    .seo-link-grid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:8px;
-    }
-
-    .seo-link-grid a{
-      display:block;
-      padding:10px 11px;
-      border:1px solid var(--line);
-      border-radius:15px;
-      background:#fbfefb;
-      color:var(--green);
-      text-decoration:none;
-      font-weight:850;
-      font-size:.9rem;
-    }
-
-    .seo-link-grid a:hover{
-      border-color:#95e3b0;
-      background:#effdf3;
-    }
-
-    .bbq-seo-hub{
-      display:none;
-      margin:38px 0 0;
-      border:1px solid rgba(180,83,9,.20);
-      border-radius:34px;
-      background:
-        radial-gradient(circle at 8% 5%, rgba(245,158,11,.16), transparent 28%),
-        radial-gradient(circle at 92% 10%, rgba(34,197,94,.10), transparent 28%),
-        rgba(255,255,255,.88);
-      box-shadow:var(--shadow-soft);
-      overflow:hidden;
-    }
-
-    .bbq-seo-hub.show{
-      display:block;
-    }
-
-    .bbq-links-block{
-      display:none;
-    }
-
-    .bbq-links-block.show{
-      display:block;
-    }
-
-    .bbq-hero{
-      display:grid;
-      grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);
-      gap:24px;
-      align-items:center;
-      padding:28px;
-    }
-
-    .bbq-hero h2{
-      margin:0;
-      max-width:650px;
-      font-size:clamp(1.75rem,3.5vw,3rem);
-      line-height:1;
-      letter-spacing:-.065em;
-    }
-
-    .bbq-hero p{
-      margin:13px 0 0;
-      color:var(--soft-ink);
-      font-size:1.04rem;
-      font-weight:600;
-    }
-
-    .bbq-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:9px;
-      margin-top:17px;
-    }
-
-    .bbq-actions a,
-    .bbq-actions button{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      border-radius:999px;
-      padding:11px 14px;
-      text-decoration:none;
-      font-weight:950;
-      border:1px solid var(--line);
-      cursor:pointer;
-    }
-
-    .bbq-primary{
-      background:var(--amber);
-      color:#fff;
-      border-color:var(--amber) !important;
-      box-shadow:0 12px 26px rgba(180,83,9,.18);
-    }
-
-    .bbq-secondary{
-      background:#fff;
-      color:var(--amber);
-    }
-
-    .bbq-card{
-      padding:20px;
-      border:1px solid var(--line);
-      border-radius:28px;
-      background:#fff;
-      box-shadow:0 16px 34px rgba(20,36,25,.08);
-    }
-
-    .bbq-card h3{
-      margin:0 0 8px;
-      font-size:1.15rem;
-      letter-spacing:-.04em;
-    }
-
-    .bbq-grid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:1px;
-      background:var(--line);
-      border-top:1px solid var(--line);
-    }
-
-    .bbq-panel{
-      background:#fff;
-      padding:22px;
-    }
-
-    .bbq-panel h3{
-      margin:0 0 8px;
-      font-size:1.08rem;
-      letter-spacing:-.035em;
-    }
-
-    .bbq-panel p{
-      margin:0;
-      color:var(--muted);
-      font-weight:620;
-    }
-
-    .bbq-panel ul{
-      margin:12px 0 0;
-      padding-left:1.1rem;
-      color:var(--soft-ink);
-      font-weight:650;
-    }
-
-    .bbq-checklist-block{
-      padding:28px;
-      border-top:1px solid var(--line);
-      background:#fffaf3;
-    }
-
-    .bbq-checklist-grid{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:10px;
-    }
-
-    .bbq-checklist-card{
-      border:1px solid var(--line);
-      border-radius:20px;
-      background:#fff;
-      padding:14px;
-    }
-
-    .bbq-checklist-card h3{
-      margin:0 0 8px;
-      font-size:1rem;
-      letter-spacing:-.03em;
-    }
-
-    .bbq-checklist-card ul{
-      margin:0;
-      padding-left:1.05rem;
-      color:var(--muted);
-      font-weight:640;
-      font-size:.93rem;
-    }
-
-    .bbq-checklist-card li+li{margin-top:2px}
-
-    @media (max-width:960px){
-      .bbq-hero{grid-template-columns:1fr}
-      .bbq-grid{grid-template-columns:1fr}
-      .bbq-checklist-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    }
-
-    @media (max-width:760px){
-      .bbq-seo-hub{margin-top:24px;border-radius:24px}
-      .bbq-hero{padding:18px;gap:14px}
-      .bbq-hero h2{font-size:1.65rem}
-      .bbq-hero p{font-size:.95rem}
-      .bbq-actions{display:grid;grid-template-columns:1fr;gap:8px}
-      .bbq-actions a,.bbq-actions button{width:100%;border-radius:16px}
-      .bbq-card{padding:15px;border-radius:22px}
-      .bbq-panel{padding:16px}
-      .bbq-checklist-block{padding:18px}
-      .bbq-checklist-grid{grid-template-columns:1fr}
-    }
-
-    
-    footer{
-      padding:22px 0 28px;
-      color:var(--muted);
-      text-align:center;
-      font-size:.84rem;
-    }
-
-    @media (max-width:960px){
-      .hero{grid-template-columns:1fr;gap:18px}
-      .checker-card{position:relative;top:0;order:-1}
-      .hero-copy{text-align:center;padding-top:10px}
-      .hero-logo-lockup{margin-left:auto;margin-right:auto}
-      .lead{margin-left:auto;margin-right:auto}
-      .benefit-row{justify-content:center}
-      .tasks{grid-template-columns:repeat(5,1fr)}
-      .camping-hero{grid-template-columns:1fr}
-      .camping-grid{grid-template-columns:1fr}
-      .checklist-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    }
-
-    @media (max-width:760px){
-      .page{width:min(100% - 18px,1120px)}
-      header{align-items:center;padding:10px 0 6px}
-      .brand .weather-icon{width:38px;height:30px}
-      .brand-wordmark{font-size:.86rem}
-      .top-help{display:none}
-
-      main{padding:10px 0 34px}
-      .hero{gap:14px}
-      .checker-card{padding:12px;border-radius:22px;box-shadow:0 16px 42px rgba(20,36,25,.12)}
-      .checker-head{display:block;margin-bottom:10px}
-      .checker-head h2{font-size:1.05rem}
-      .checker-head p{font-size:.86rem}
-      .region-row{align-items:flex-start;flex-direction:column;gap:6px;margin-bottom:10px}
-      .region-row select{width:100%;min-width:0;padding:9px 13px}
-      .period-tabs{gap:5px;padding:5px;border-radius:17px;margin-bottom:10px}
-      .period-tab{padding:9px 5px;border-radius:13px;font-size:.88rem}
-      .search-card{padding:8px;border-radius:19px}
-      .search-row{grid-template-columns:1fr;gap:7px}
-      .search-input{padding:13px 12px;border-radius:14px;font-size:16px}
-      .btn{width:100%;padding:13px 12px;border-radius:14px}
-      .status-pill{min-height:34px;padding:8px 10px;font-size:.82rem;border-radius:14px}
-
-      .hero-copy{text-align:center;padding-top:2px}
-      .hero-logo-lockup{max-width:230px;margin:8px auto 10px}
-      .lead{margin-top:8px;font-size:.98rem;line-height:1.45}
-      .benefit-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px}
-      .benefit{justify-content:center;padding:8px 9px;font-size:.8rem}
-
-      .task-area{margin-top:18px}
-      .section-title{display:block;margin-bottom:10px}
-      .section-title h2{font-size:1.08rem}
-      .section-title p{margin-top:3px;font-size:.82rem}
-      .tasks{grid-template-columns:repeat(2,1fr);gap:8px}
-      .task{min-height:66px;padding:9px 7px;border-radius:17px;font-size:.86rem}
-      .task span{font-size:1.25rem;margin-bottom:3px}
-
-      .result{margin-top:22px;border-radius:24px}
-      .result::before{width:7px}
-      .result-top{grid-template-columns:1fr;gap:12px;padding:16px 14px 16px 21px}
-      .answer{min-height:82px;border-radius:20px;font-size:clamp(1.65rem,10vw,2.55rem)}
-      .question{font-size:1.2rem}
-      .reason{font-size:.96rem}
-      .why-wrap{padding:10px 12px;border-radius:15px}
-      .facts{grid-template-columns:repeat(2,1fr)}
-      .fact{padding:12px}
-
-      .camping-seo-hub,.plants-seo-hub{margin-top:24px;border-radius:24px}
-      .camping-hero{padding:18px;gap:14px}
-      .camping-hero h2{font-size:1.65rem}
-      .camping-hero p{font-size:.95rem}
-      .camping-actions{display:grid;grid-template-columns:1fr;gap:8px}
-      .camping-actions a,.camping-actions button{width:100%;border-radius:16px}
-      .camping-card{padding:15px;border-radius:22px}
-      .mini-score{grid-template-columns:1fr}
-      .camping-panel{padding:16px}
-      .checklist-block{padding:18px}
-      .checklist-head{display:block}
-      .checklist-controls{justify-content:flex-start;margin-top:12px}
-      .checklist-recommendation{display:block}
-      .checklist-recommendation button{width:100%;margin-top:10px;border-radius:15px}
-      .checklist-grid{grid-template-columns:1fr}
-
-      .seo-internal-links{margin-top:22px;padding:16px;border-radius:21px}
-      .seo-link-grid{grid-template-columns:1fr;gap:7px}
-      .seo-link-grid a{font-size:.84rem;padding:10px 11px}
-    }
-
-    @media (max-width:430px){
-      .page{width:min(100% - 14px,1120px)}
-      .hero-logo-lockup{max-width:205px}
-      .benefit-row{grid-template-columns:1fr}
-      .tasks{grid-template-columns:repeat(2,1fr)}
-      .task{min-height:62px;font-size:.82rem}
-      .facts{grid-template-columns:1fr}
-      h1{font-size:clamp(2.8rem,18vw,4.2rem)}
-      .checker-card{padding:11px;border-radius:20px}
-    }
+    :root{--bg:#f5f8f1;--ink:#162119;--soft:#24352a;--muted:#607063;--line:#dce8da;--card:#fff;--green:#16783c;--green2:#22c55e;--amber:#b45309;--amberbg:#fff7ed;--red:#b91c1c;--redbg:#fff1f2;--teal:#0f766e;--shadow:0 24px 70px rgba(20,36,25,.12);--radius:28px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 82% 5%,rgba(34,197,94,.18),transparent 28%),radial-gradient(circle at 12% 24%,rgba(20,184,166,.12),transparent 24%),linear-gradient(180deg,#fbfdf9 0%,var(--bg) 46%,#fff 100%);line-height:1.5}
+    button,input,select{font:inherit}.skip{position:absolute;left:-999px;top:12px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:12px;text-decoration:none}.skip:focus{left:12px}
+    .page{width:min(1120px,calc(100% - 28px));margin:0 auto;min-height:100vh;display:flex;flex-direction:column}header{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:18px 0}.brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}.brand svg{width:48px;height:38px;filter:drop-shadow(0 10px 18px rgba(15,118,110,.14))}.brand-wordmark{display:grid;line-height:.95;font-weight:950;letter-spacing:-.055em;font-size:1.03rem}.brand-wordmark strong{color:var(--green2);font-size:1.15em}.top-help{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.91rem;font-weight:800;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:999px;padding:8px 12px}
+    main{flex:1;padding:26px 0 52px}.hero{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(330px,.96fr);gap:28px;align-items:start}.hero-copy{padding-top:18px}.hero-logo{font-size:clamp(3.2rem,8vw,6rem);line-height:.9;font-weight:1000;letter-spacing:-.08em;margin:0}.hero-logo strong{display:block;color:var(--green2)}.visual-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.lead{margin:18px 0 0;max-width:650px;color:var(--muted);font-size:clamp(1.05rem,1.6vw,1.24rem)}.benefit-row{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0 0}.benefit{display:inline-flex;align-items:center;gap:7px;padding:9px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.78);font-weight:850;font-size:.92rem}
+    .checker-card{border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.88);box-shadow:var(--shadow);padding:18px;position:sticky;top:14px}.checker-head h2{margin:0;letter-spacing:-.04em;font-size:1.22rem}.checker-head p{margin:3px 0 13px;color:var(--muted);font-size:.92rem}.region-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px;color:var(--muted);font-size:.91rem;font-weight:800}.region-row select{border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);padding:8px 32px 8px 13px;cursor:pointer;outline:none;min-width:148px}
+    .period-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#eef7ed;border:1px solid #d4ead1;border-radius:20px;padding:6px;margin-bottom:12px}.period-tab{border:0;border-radius:15px;background:transparent;color:var(--muted);font-weight:950;padding:10px 8px;cursor:pointer}.period-tab.active{background:#fff;color:var(--green);box-shadow:0 8px 18px rgba(20,36,25,.08)}
+    .search-card{padding:10px;border:1px solid var(--line);border-radius:24px;background:#fbfefb}.search-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.search-input{min-width:0;width:100%;border:1px solid var(--line);border-radius:17px;padding:14px;outline:none;background:#fff}.search-input:focus,.region-row select:focus{border-color:#14b8a6;box-shadow:0 0 0 4px rgba(20,184,166,.14)}.btn{border:0;border-radius:17px;padding:14px 16px;cursor:pointer;font-weight:950;white-space:nowrap}.btn-primary{background:var(--green);color:#fff;box-shadow:0 10px 22px rgba(22,120,60,.18)}.btn-secondary{width:100%;margin-top:8px;background:#ecfdf8;color:var(--teal);border:1px solid #b7ebe3}.status-pill{display:flex;align-items:center;gap:8px;min-height:38px;padding:8px 11px;border-radius:17px;background:rgba(22,120,60,.07);color:var(--green);border:1px solid rgba(22,120,60,.15);font-size:.89rem;font-weight:850;margin-top:11px}.pulse{width:8px;height:8px;border-radius:999px;background:#14b8a6;box-shadow:0 0 0 5px rgba(20,184,166,.16)}
+    .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.task-area{margin:30px 0 0}.section-title{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 12px}.section-title h2{margin:0;font-size:1.25rem;letter-spacing:-.04em}.section-title p{margin:0;color:var(--muted);font-size:.93rem;font-weight:750}.tasks{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:10px}.task{border:1px solid var(--line);border-radius:21px;background:#fff;color:var(--ink);padding:12px 8px;cursor:pointer;font-weight:900;box-shadow:0 6px 20px rgba(20,36,25,.05);min-height:84px}.task:hover{transform:translateY(-2px);border-color:#aee8c4}.task.active{border-color:#95e3b0;background:#effdf3;color:var(--green);box-shadow:0 12px 28px rgba(22,120,60,.10)}.task span{display:block;font-size:1.5rem;margin-bottom:5px}
+    .result{display:none;margin:34px 0 0;border:2px solid rgba(22,120,60,.18);border-radius:34px;background:linear-gradient(135deg,rgba(236,253,243,.96),rgba(255,255,255,.98) 48%,#fff);box-shadow:0 30px 95px rgba(20,36,25,.18);overflow:hidden;text-align:left;position:relative}.result.show{display:block}.result::before{content:"";position:absolute;inset:0 auto 0 0;width:11px;background:var(--green)}.result.caution{border-color:rgba(180,83,9,.28);background:linear-gradient(135deg,rgba(255,247,237,.96),rgba(255,255,255,.98) 50%,#fff)}.result.caution::before{background:var(--amber)}.result.no{border-color:rgba(185,28,28,.28);background:linear-gradient(135deg,rgba(255,241,242,.96),rgba(255,255,255,.98) 50%,#fff)}.result.no::before{background:var(--red)}
+    .result-top{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:stretch;padding:22px 22px 22px 32px}.answer{min-height:172px;border-radius:28px;display:grid;place-items:center;text-align:center;padding:18px;background:#dcfce7;color:var(--green);border:1px solid rgba(22,120,60,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 18px 34px rgba(22,120,60,.16);font-size:clamp(2rem,4.2vw,3.1rem);line-height:.86;letter-spacing:-.06em;font-weight:1000;text-transform:uppercase}.answer.caution{background:var(--amberbg);color:var(--amber);font-size:clamp(1.35rem,3vw,2.1rem)}.answer.no{background:var(--redbg);color:var(--red);font-size:clamp(1.35rem,3vw,2rem)}.answer.loading{background:#f4f7f2;color:var(--muted);box-shadow:none}.question{margin:2px 0 8px;font-weight:1000;font-size:clamp(1.45rem,2.6vw,2rem);letter-spacing:-.05em;line-height:1.08}.reason{margin:0;color:var(--soft);font-size:1.08rem;font-weight:650}.why-wrap{margin-top:13px;padding:12px 14px;border:1px solid #e4eee2;border-radius:18px;background:#fbfefb}.why-title{margin:0 0 6px;font-size:.84rem;font-weight:950;text-transform:uppercase;letter-spacing:.08em}.why{margin:0;padding-left:1.1rem;color:var(--muted)}
+    .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.fact{background:#fff;padding:15px}.fact span{display:block;color:var(--muted);font-size:.78rem;font-weight:950;margin-bottom:4px;text-transform:uppercase;letter-spacing:.07em}.fact strong{display:block;font-size:1rem}
+    .forecast-outlook{display:none;padding:22px;border-top:1px solid var(--line);background:#fbfefb}.forecast-outlook.show{display:block}.forecast-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:14px}.forecast-head h2{margin:0;font-size:1.35rem;letter-spacing:-.045em}.forecast-head p{margin:6px 0 0;color:var(--muted);font-weight:650}.forecast-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.forecast-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:0 10px 24px rgba(20,36,25,.05)}.forecast-card h3{margin:0 0 8px;font-size:1.02rem;letter-spacing:-.035em}.forecast-mini{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.84rem;font-weight:800;margin-bottom:9px}.forecast-row{display:grid;grid-template-columns:88px 1fr;gap:8px;padding:7px 0;border-top:1px solid #edf4eb;font-size:.92rem}.forecast-row strong{color:var(--soft);font-size:.84rem}.forecast-row span{color:var(--muted);font-weight:700}.forecast-summary-box{margin-top:12px;border:1px solid #bae6c6;border-radius:20px;padding:14px;background:#effdf3;color:var(--soft);font-weight:700}.forecast-summary-box strong{display:block;color:var(--green);margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
+    .seo-hub{display:none;margin:38px 0 0;border:1px solid rgba(22,120,60,.18);border-radius:34px;background:radial-gradient(circle at 8% 5%,rgba(34,197,94,.15),transparent 28%),radial-gradient(circle at 92% 10%,rgba(20,184,166,.12),transparent 28%),rgba(255,255,255,.86);box-shadow:0 12px 34px rgba(20,36,25,.08);overflow:hidden}.seo-hub.show{display:block}.hub-hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:24px;align-items:center;padding:28px}.eyebrow{display:inline-flex;gap:7px;align-items:center;margin:0 0 9px;padding:7px 10px;border-radius:999px;border:1px solid #bae6c6;background:#effdf3;color:var(--green);font-size:.82rem;font-weight:950;text-transform:uppercase;letter-spacing:.08em}.hub-hero h2{margin:0;max-width:650px;font-size:clamp(1.75rem,3.5vw,3rem);line-height:1;letter-spacing:-.065em}.hub-hero p{margin:13px 0 0;color:var(--soft);font-size:1.04rem;font-weight:600}.hub-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.hub-actions a,.hub-actions button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 14px;text-decoration:none;font-weight:950;border:1px solid var(--line);cursor:pointer}.hub-primary{background:var(--green);color:#fff;border-color:var(--green)!important}.hub-secondary{background:#fff;color:var(--green)}.hub-card{padding:20px;border:1px solid var(--line);border-radius:28px;background:#fff;box-shadow:0 16px 34px rgba(20,36,25,.08)}.mini-score{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.mini-score div{border-radius:17px;padding:10px;font-weight:950;text-align:center;border:1px solid var(--line)}.mini-go{background:#dcfce7;color:var(--green)}.mini-caution{background:var(--amberbg);color:var(--amber)}.mini-no{background:var(--redbg);color:var(--red)}.hub-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}.hub-panel{background:#fff;padding:22px}.hub-panel h3{margin:0 0 8px;font-size:1.08rem;letter-spacing:-.035em}.hub-panel p{margin:0;color:var(--muted);font-weight:620}.hub-panel ul{margin:12px 0 0;padding-left:1.1rem;color:var(--soft);font-weight:650}
+    .seo-internal-links{margin:34px auto 0;padding:24px;border:1px solid var(--line);border-radius:26px;background:rgba(255,255,255,.72);box-shadow:0 10px 28px rgba(20,36,25,.04)}.seo-internal-links h2{margin:0 0 6px;font-size:1.15rem;letter-spacing:-.04em}.seo-internal-links p{margin:0 0 14px;color:var(--muted);font-size:.92rem}.seo-link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.seo-link-grid a{display:block;padding:10px 11px;border:1px solid var(--line);border-radius:15px;background:#fbfefb;color:var(--green);text-decoration:none;font-weight:850;font-size:.9rem}.seo-link-grid a:hover{border-color:#95e3b0;background:#effdf3}
+    footer{padding:22px 0 28px;color:var(--muted);text-align:center;font-size:.84rem}
+    @media(max-width:960px){.hero{grid-template-columns:1fr}.checker-card{position:relative;top:0;order:-1}.hero-copy{text-align:center}.lead{margin-left:auto;margin-right:auto}.benefit-row{justify-content:center}.tasks{grid-template-columns:repeat(5,1fr)}.hub-hero{grid-template-columns:1fr}.hub-grid{grid-template-columns:1fr}.forecast-grid{grid-template-columns:1fr}}
+    @media(max-width:760px){.page{width:min(100% - 18px,1120px)}header{padding:10px 0 6px}.top-help{display:none}main{padding:10px 0 34px}.checker-card{padding:12px;border-radius:22px}.region-row{align-items:flex-start;flex-direction:column}.region-row select{width:100%}.search-row{grid-template-columns:1fr}.btn{width:100%}.hero-logo{font-size:3rem}.benefit-row{display:grid;grid-template-columns:1fr 1fr}.tasks{grid-template-columns:repeat(2,1fr)}.task{min-height:66px}.result{border-radius:24px}.result-top{grid-template-columns:1fr;padding:16px 14px 16px 21px}.answer{min-height:82px}.facts{grid-template-columns:repeat(2,1fr)}.forecast-outlook{padding:16px}.forecast-head{display:block}.forecast-row{grid-template-columns:78px 1fr}.hub-hero{padding:18px}.hub-grid{grid-template-columns:1fr}.seo-link-grid{grid-template-columns:1fr}}
   </style>
 
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="sJMMNaIP1O6fYP2B1ZBbXg" async></script>
@@ -1302,13 +71,12 @@
   <div class="page">
     <header>
       <a class="brand" href="/" aria-label="Should I Do It Today home">
-        <svg class="weather-icon" viewBox="0 0 110 78" role="img" aria-label="Weather check logo">
+        <svg viewBox="0 0 110 78" role="img" aria-label="Weather check logo">
           <circle cx="31" cy="24" r="16" fill="#fbbf24"/>
           <path d="M31 2v9M9 24h9M15 8l7 7M48 8l-7 7" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
           <path d="M30 62h49c11 0 20-9 20-20s-9-20-20-20c-5 0-9 1-13 4C62 16 52 10 40 10c-15 0-27 11-28 26C6 39 3 45 3 51c0 6 5 11 12 11h15z" fill="#fff" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M36 43l11 11 25-29" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M80 60c0 4-3 8-8 8s-8-4-8-8c0-6 8-16 8-16s8 10 8 16z" fill="#3b82f6"/>
-          <path d="M88 50h14M84 59h16M89 68h9" stroke="#7dd3fc" stroke-width="5" stroke-linecap="round"/>
         </svg>
         <span class="brand-wordmark"><span>Should I Do It</span><strong>Today?</strong></span>
       </a>
@@ -1318,74 +86,21 @@
     <main id="main">
       <section class="hero" aria-labelledby="title">
         <div class="hero-copy">
-          <div class="hero-logo-lockup" aria-hidden="true">
-            <svg class="hero-vector-logo" viewBox="0 0 720 620" focusable="false">
-              <defs>
-                <linearGradient id="siditSun" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0" stop-color="#fde047"/>
-                  <stop offset="1" stop-color="#f59e0b"/>
-                </linearGradient>
-                <linearGradient id="siditBlue" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0" stop-color="#1d4ed8"/>
-                  <stop offset="0.55" stop-color="#38bdf8"/>
-                  <stop offset="1" stop-color="#1d4ed8"/>
-                </linearGradient>
-                <linearGradient id="siditGreen" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0" stop-color="#65d936"/>
-                  <stop offset="1" stop-color="#16a34a"/>
-                </linearGradient>
-                <linearGradient id="siditRain" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0" stop-color="#60a5fa"/>
-                  <stop offset="1" stop-color="#2563eb"/>
-                </linearGradient>
-              </defs>
-
-              <g transform="translate(0,4)">
-                <circle cx="265" cy="112" r="58" fill="url(#siditSun)" opacity=".98"/>
-                <g stroke="#fbbf24" stroke-width="15" stroke-linecap="round">
-                  <path d="M265 30v-28"/>
-                  <path d="M200 56l-24-24"/>
-                  <path d="M170 120l-42-3"/>
-                  <path d="M198 176l-28 26"/>
-                  <path d="M332 54l24-27"/>
-                </g>
-
-                <path d="M147 264h84c-15-19-15-50 4-70 18-20 46-27 72-18 1-36 18-66 48-84 43-25 98-16 130 21 15 17 23 38 25 60 31-3 61 15 72 45 13 36-5 76-41 90-12 4-24 5-36 3" fill="none" stroke="url(#siditBlue)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M327 214l47 54 111-126" fill="none" stroke="url(#siditGreen)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M450 286c0 21-13 34-28 34s-28-13-28-34c0-19 28-61 28-61s28 42 28 61z" fill="url(#siditRain)" opacity=".96"/>
-                <path d="M523 286c0 21-13 34-28 34s-28-13-28-34c0-19 28-61 28-61s28 42 28 61z" fill="url(#siditRain)" opacity=".96"/>
-                <g stroke="#7dd3fc" stroke-width="15" stroke-linecap="round" opacity=".92">
-                  <path d="M575 210h42c18 0 31-12 31-29 0-16-13-29-29-29h-6"/>
-                  <path d="M553 252h91"/>
-                  <path d="M572 292h54"/>
-                </g>
-              </g>
-
-              <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-weight="900" text-anchor="middle" letter-spacing="-5">
-                <text x="360" y="405" font-size="92" fill="#122033">Should I</text>
-                <text x="360" y="490" font-size="84" fill="#122033">Do It</text>
-                <text id="logoPeriodWord" x="360" y="592" font-size="112" fill="url(#siditGreen)">Today?</text>
-              </g>
-            </svg>
-          </div>
-
+          <p class="hero-logo" aria-hidden="true">Should I<br>Do It <strong id="logoPeriodWord">Today?</strong></p>
           <h1 id="title" class="visual-title">Should I Do It Today?</h1>
           <p class="lead">Get a practical local weather-based answer for everyday outdoor jobs and activities like mowing, hanging washing, washing the car, BBQs, running, dog walks, camping and watering plants.</p>
-
           <div class="benefit-row" aria-label="Key benefits">
             <div class="benefit">⚡ Fast answer</div>
             <div class="benefit">📍 Local forecast</div>
             <div class="benefit">🧠 Plain-English reasons</div>
-            <div class="benefit">💧 Plant watering help</div>
+            <div class="benefit">⛺ Weekend camping outlook</div>
           </div>
         </div>
 
         <aside class="checker-card" aria-label="Weather decision checker">
           <div class="checker-head">
-            <div>
-              <h2>Check your local conditions</h2>
-              <p>Use auto-location or enter a postcode, ZIP code, town or city.</p>
-            </div>
+            <h2>Check your local conditions</h2>
+            <p>Use auto-location or enter a postcode, ZIP code, town, city or campsite area.</p>
           </div>
 
           <div class="region-row">
@@ -1409,7 +124,7 @@
           <div class="search-card">
             <div class="search-row">
               <label class="sr-only" for="locationInput">Enter your location</label>
-              <input id="locationInput" class="search-input" type="search" placeholder="Postcode, ZIP, town or city" autocomplete="off" maxlength="80"/>
+              <input id="locationInput" class="search-input" type="search" placeholder="Postcode, ZIP, town, city or campsite area" autocomplete="off" maxlength="80"/>
               <button id="checkBtn" class="btn btn-primary" type="button">Check</button>
             </div>
             <button id="geoBtn" class="btn btn-secondary" type="button">Use my location</button>
@@ -1424,7 +139,7 @@
           <h2>What are you checking?</h2>
           <p id="hint">Selected: cut grass</p>
         </div>
-        <div class="tasks" id="taskButtons" aria-label="Choose a task"></div>
+        <div class="tasks" id="taskButtons"></div>
       </section>
 
       <section class="result" id="result" aria-live="polite">
@@ -1445,288 +160,88 @@
           <div class="fact"><span>Wind</span><strong id="wind">—</strong></div>
           <div class="fact"><span>Temperature</span><strong id="temp">—</strong></div>
         </div>
-      </section>
 
-      <section class="plants-seo-hub" id="plantsHub" aria-labelledby="plantsTitle">
-        <div class="camping-hero">
-          <div>
-            <p class="eyebrow">💧 Plant watering checker</p>
-            <h2 id="plantsTitle">Should I water my plants today?</h2>
-            <p>Check whether your plants are likely to need watering using recent rain, expected rain, temperature, wind, humidity and near-surface soil moisture signals.</p>
-            <div class="camping-actions">
-              <button class="camping-primary" type="button" id="plantsQuickCheck">Check plant watering</button>
-              <a class="camping-secondary" href="#plantsBestTime">Best time to water</a>
-              <a class="camping-secondary" href="#plantsLinks">Plant watering guides</a>
+        <div class="forecast-outlook" id="forecastOutlook">
+          <div class="forecast-head">
+            <div>
+              <h2 id="forecastTitle">Weekend camping outlook</h2>
+              <p id="forecastIntro">Friday, Saturday and Sunday broken into morning, afternoon, evening and overnight.</p>
             </div>
           </div>
-
-          <div class="camping-card">
-            <h3>Water / Check soil / Wait</h3>
-            <p>Outdoor plants do not always need watering just because it is dry right now. Pots, baskets and new plants dry faster, while garden beds may still have enough moisture after recent rain.</p>
-            <div class="mini-score" aria-label="Plant watering decision meanings">
-              <div class="mini-go">WATER</div>
-              <div class="mini-caution">CHECK SOIL</div>
-              <div class="mini-no">WAIT</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="camping-grid">
-          <div class="camping-panel" id="plantsBestTime">
-            <h3>Best time to water plants</h3>
-            <p>Early morning is usually best because water can soak into the soil before the warmest part of the day.</p>
-            <ul>
-              <li>Morning is usually best</li>
-              <li>Evening can work in hot weather</li>
-              <li>Avoid watering leaves late at night</li>
-              <li>Water the soil, not just the foliage</li>
-            </ul>
-          </div>
-          <div class="camping-panel" id="plantsNight">
-            <h3>Can you water plants at night?</h3>
-            <p>You can if plants are very dry, but it is usually better to water the soil in the morning or early evening.</p>
-            <ul>
-              <li>Useful in heatwaves</li>
-              <li>Better for dry pots than wet foliage</li>
-              <li>Avoid soaking leaves overnight</li>
-              <li>Check soil before watering</li>
-            </ul>
-          </div>
-          <div class="camping-panel" id="plantsAway">
-            <h3>Watering plants while away</h3>
-            <p>If you are away for a few days, pots and baskets are usually the first to suffer. Consider self-watering pots, watering globes, drip kits or asking someone to check them.</p>
-            <ul>
-              <li>Group pots in shade</li>
-              <li>Water deeply before leaving</li>
-              <li>Use self-watering options</li>
-              <li>Prioritise new plants and baskets</li>
-            </ul>
+          <div class="forecast-grid" id="forecastGrid"></div>
+          <div class="forecast-summary-box">
+            <strong>Highlights</strong>
+            <div id="forecastSummary">Run a weekend camping check to see the detailed outlook.</div>
           </div>
         </div>
       </section>
 
-      <section class="seo-internal-links plants-links-block" id="plantsLinks" aria-label="Plant watering tools and guides">
-        <div class="seo-internal-links-inner">
-          <h2>Plant watering tools and guides</h2>
-          <p>Use these plant watering checks to build your watering topic cluster without creating broken pages yet.</p>
-          <div class="seo-link-grid">
-            <a href="#plantsHub">Should I water my plants today?</a>
-            <a href="/?task=should-i-water-my-plants-today&period=today#main">Check plant watering today</a>
-            <a href="/?task=should-i-water-my-plants-today&period=tomorrow#main">Check plant watering tomorrow</a>
-            <a href="#plantsBestTime">Best time to water plants</a>
-            <a href="#plantsNight">Can you water plants at night?</a>
-            <a href="#plantsAway">How to water plants while away</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="camping-seo-hub" id="camping" aria-labelledby="campingTitle">
-        <div class="camping-hero">
+      <section class="seo-hub" id="campingHub">
+        <div class="hub-hero">
           <div>
             <p class="eyebrow">⛺ Camping weather checker</p>
-            <h2 id="campingTitle">Should I go camping today?</h2>
-            <p>Check whether today, tomorrow or this weekend looks suitable for camping using local rain risk, wind, temperature, overnight conditions and daylight for pitching.</p>
-            <div class="camping-actions">
-              <button class="camping-primary" type="button" id="campingQuickCheck">Check camping weather</button>
-              <a class="camping-secondary" href="#campingChecklist">Camping checklist</a>
-              <a class="camping-secondary" href="#camping">Camping hub</a>
+            <h2>Should I go camping this weekend?</h2>
+            <p>Check Friday, Saturday and Sunday with symbols for morning, afternoon, evening and overnight. Rain normally means CAUTION; thunder, lightning and dangerous gusts trigger WARNING.</p>
+            <div class="hub-actions">
+              <button class="hub-primary" type="button" id="campingQuickCheck">Check weekend camping weather</button>
+              <a class="hub-secondary" href="#forecastOutlook">Weekend outlook</a>
             </div>
           </div>
-
-          <div class="camping-card">
+          <div class="hub-card">
             <h3>Camping GO / CAUTION / WARNING</h3>
-            <p>Camping needs more than a dry afternoon. The checker also looks at overnight rain, tent wind exposure, cold-feel temperature and whether there is enough daylight to arrive and pitch.</p>
-            <div class="mini-score" aria-label="Camping decision meanings">
-              <div class="mini-go">GO</div>
-              <div class="mini-caution">CAUTION</div>
-              <div class="mini-no">WARNING</div>
-            </div>
+            <p>Camping needs more than a dry afternoon. The checker looks at rain, wind, gusts, storms, cold nights and arrival/pitching conditions.</p>
+            <div class="mini-score"><div class="mini-go">GO</div><div class="mini-caution">CAUTION</div><div class="mini-no">WARNING</div></div>
           </div>
         </div>
-
-        <div class="camping-grid">
-          <div class="camping-panel">
-            <h3>What makes camping a GO?</h3>
-            <p>A good camping day normally has a useful dry window, manageable wind, mild overnight conditions and enough daylight to pitch safely.</p>
-            <ul>
-              <li>Low rain risk</li>
-              <li>Light to moderate wind</li>
-              <li>Comfortable overnight temperature</li>
-              <li>Dry or drying ground</li>
-            </ul>
-          </div>
-          <div class="camping-panel">
-            <h3>When is camping a CAUTION?</h3>
-            <p>Camping may still be possible, but you should check the campsite forecast and pack for changing conditions.</p>
-            <ul>
-              <li>Showers or damp ground</li>
-              <li>Windy exposed pitches</li>
-              <li>Cool overnight feel</li>
-              <li>Limited pitching window</li>
-            </ul>
-          </div>
-          <div class="camping-panel">
-            <h3>When is camping a WARNING?</h3>
-            <p>Thunder, lightning, storms or very strong gusts can make camping unsafe, especially on exposed pitches.</p>
-            <ul>
-              <li>Thunder or lightning risk</li>
-              <li>Storm risk</li>
-              <li>Very strong gusts</li>
-              <li>Unsafe exposed conditions</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="checklist-block" id="campingChecklist">
-          <div class="checklist-head">
-            <div>
-              <h2>Camping checklist for today’s conditions</h2>
-              <p>The checklist updates automatically when you run a camping weather check, then you can manually switch checklist type if needed.</p>
-            </div>
-            <div class="checklist-controls" aria-label="Choose checklist type">
-              <button class="checklist-filter active" type="button" data-checklist="basic">Basic</button>
-              <button class="checklist-filter" type="button" data-checklist="wet">Wet weather</button>
-              <button class="checklist-filter" type="button" data-checklist="cold">Cold night</button>
-              <button class="checklist-filter" type="button" data-checklist="family">Family</button>
-            </div>
-          </div>
-
-          <div class="checklist-recommendation" id="campingChecklistRecommendation">
-            <div>
-              <strong>Recommended checklist</strong>
-              <span id="campingChecklistMode">Basic camping checklist</span>
-              <p id="campingChecklistReason">Check your camping weather and this will update automatically based on rain, wind, overnight temperature and ground conditions.</p>
-            </div>
-            <button type="button" id="applyRecommendedChecklist">Use recommendation</button>
-          </div>
-
-          <div class="checklist-grid" id="checklistGrid"></div>
+        <div class="hub-grid">
+          <div class="hub-panel"><h3>GO</h3><p>A useful dry window, manageable wind and mild overnight conditions.</p></div>
+          <div class="hub-panel"><h3>CAUTION</h3><p>Rain, damp ground, cold nights or windy exposed pitches. Pack and plan properly.</p></div>
+          <div class="hub-panel"><h3>WARNING</h3><p>Thunder, lightning, storms or very strong gusts. Avoid exposed camping.</p></div>
         </div>
       </section>
 
-      <section class="seo-internal-links camping-links-block" id="campingLinks" aria-label="Camping weather and checklist tools">
-        <div class="seo-internal-links-inner">
-          <h2>Camping weather and checklist tools</h2>
-          <p>Use the camping weather checker and checklist to decide whether today, tomorrow or this weekend looks suitable for camping.</p>
-          <div class="seo-link-grid">
-            <a href="#camping">Should I go camping today?</a>
-            <a href="/?task=should-i-go-camping&period=today#main">Check camping weather today</a>
-            <a href="/?task=should-i-go-camping&period=tomorrow#main">Check camping weather tomorrow</a>
-            <a href="/?task=should-i-go-camping&period=weekend#main">Should I go camping this weekend?</a>
-            <a href="#campingChecklist">Camping checklist for today’s conditions</a>
-            <a href="#campingChecklist">Camping packing list</a>
+      <section class="seo-hub" id="plantsHub">
+        <div class="hub-hero">
+          <div>
+            <p class="eyebrow">💧 Plant watering checker</p>
+            <h2>Should I water my plants today?</h2>
+            <p>Check recent rain, expected rain, temperature, wind, humidity and near-surface soil moisture signals.</p>
+            <div class="hub-actions">
+              <button class="hub-primary" type="button" id="plantsQuickCheck">Check plant watering</button>
+              <a class="hub-secondary" href="#plantsLinks">Plant watering guides</a>
+            </div>
+          </div>
+          <div class="hub-card">
+            <h3>Water / Check soil / Wait</h3>
+            <p>Pots, baskets and new plants dry faster. Garden beds may still have enough moisture after recent rain.</p>
+            <div class="mini-score"><div class="mini-go">WATER</div><div class="mini-caution">CHECK SOIL</div><div class="mini-no">WAIT</div></div>
           </div>
         </div>
       </section>
 
-      <section class="seo-internal-links" aria-label="Regional grass and lawn weather checks">
-        <div class="seo-internal-links-inner">
-          <h2 id="regionalGrassTitle">Grass and lawn weather checks</h2>
-          <p id="regionalGrassIntro">Popular grass cutting and lawn mowing guides based on rain, wet grass, timing, heat, cold and season.</p>
-          <div class="seo-link-grid" id="regionalGrassLinks"></div>
-        </div>
-      </section>
-
-      <section class="bbq-seo-hub" id="bbqHub" aria-labelledby="bbqTitle">
-        <div class="bbq-hero">
+      <section class="seo-hub" id="bbqHub">
+        <div class="hub-hero">
           <div>
             <p class="eyebrow">🔥 BBQ weather checker</p>
             <h2 id="bbqTitle">Should I BBQ today?</h2>
-            <p id="bbqIntro">Check whether today, tomorrow or this weekend looks suitable for a BBQ using local rain risk, wind, temperature, storm risk and the best outdoor cooking window.</p>
-            <div class="bbq-actions">
-              <button class="bbq-primary" type="button" id="bbqQuickCheck">Check BBQ weather</button>
-              <a class="bbq-secondary" href="#bbqChecklist">BBQ checklist</a>
-              <a class="bbq-secondary" href="#bbqHub">BBQ hub</a>
+            <p id="bbqIntro">Check rain risk, wind, temperature, storm risk and the best outdoor cooking window.</p>
+            <div class="hub-actions">
+              <button class="hub-primary" type="button" id="bbqQuickCheck">Check BBQ weather</button>
+              <a class="hub-secondary" href="#main">Back to checker</a>
             </div>
           </div>
-
-          <div class="bbq-card">
+          <div class="hub-card">
             <h3 id="bbqScoreTitle">BBQ GO / CAUTION / WARNING</h3>
-            <p>BBQ weather is not just about rain. Wind, gusts, storms, heat, cold and timing can all affect whether it is a good idea to cook outdoors.</p>
-            <div class="mini-score" aria-label="BBQ decision meanings">
-              <div class="mini-go">GO</div>
-              <div class="mini-caution">CAUTION</div>
-              <div class="mini-no">WARNING</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bbq-grid">
-          <div class="bbq-panel">
-            <h3>What makes BBQ a GO?</h3>
-            <p>A good BBQ window normally has low rain risk, manageable wind and comfortable outdoor temperatures.</p>
-            <ul>
-              <li>Low rain risk</li>
-              <li>Light to moderate wind</li>
-              <li>Comfortable temperature</li>
-              <li>Useful lunch or evening window</li>
-            </ul>
-          </div>
-          <div class="bbq-panel">
-            <h3>When is BBQ a CAUTION?</h3>
-            <p>BBQ may still be possible, but you may need shelter, extra layers, a wind-aware setup or a shorter cooking window.</p>
-            <ul>
-              <li>Showers nearby</li>
-              <li>Windy conditions</li>
-              <li>Cool evening temperatures</li>
-              <li>Limited dry window</li>
-            </ul>
-          </div>
-          <div class="bbq-panel">
-            <h3>When is BBQ a WARNING?</h3>
-            <p>Thunder, lightning, storms or very strong gusts can make outdoor cooking unsafe.</p>
-            <ul>
-              <li>Thunder or lightning risk</li>
-              <li>Storm risk</li>
-              <li>Very strong gusts</li>
-              <li>Unsafe exposed cooking area</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="bbq-checklist-block" id="bbqChecklist">
-          <div class="checklist-head">
-            <div>
-              <h2 id="bbqChecklistTitle">BBQ checklist for today’s conditions</h2>
-              <p>The checklist updates automatically when you run a BBQ weather check.</p>
-            </div>
-          </div>
-
-          <div class="checklist-recommendation" id="bbqChecklistRecommendation">
-            <div>
-              <strong>Recommended BBQ checklist</strong>
-              <span id="bbqChecklistMode">Basic BBQ checklist</span>
-              <p id="bbqChecklistReason">Check your BBQ weather and this will update automatically based on rain, wind, temperature and storm risk.</p>
-            </div>
-            <button type="button" id="applyRecommendedBbqChecklist">Use recommendation</button>
-          </div>
-
-          <div class="bbq-checklist-grid" id="bbqChecklistGrid"></div>
-        </div>
-      </section>
-
-      <section class="seo-internal-links bbq-links-block" id="bbqLinks" aria-label="BBQ weather and checklist tools">
-        <div class="seo-internal-links-inner">
-          <h2 id="bbqLinksTitle">BBQ weather and checklist tools</h2>
-          <p id="bbqLinksIntro">Use the BBQ weather checker to decide whether today, tomorrow or this weekend looks suitable for outdoor cooking.</p>
-          <div class="seo-link-grid" id="bbqLinkGrid">
-            <a href="#bbqHub">Should I BBQ today?</a>
-            <a href="/?task=should-i-bbq-today&period=today#main">Check BBQ weather today</a>
-            <a href="/?task=should-i-bbq-today&period=tomorrow#main">Check BBQ weather tomorrow</a>
-            <a href="/?task=should-i-bbq-today&period=weekend#main">Should I BBQ this weekend?</a>
-            <a href="#bbqChecklist">BBQ checklist for today’s weather</a>
-            <a href="#bbqChecklist">BBQ packing and setup list</a>
+            <p>Wind, gusts, storms, heat, cold and timing can all affect whether it is a good idea to cook outdoors.</p>
+            <div class="mini-score"><div class="mini-go">GO</div><div class="mini-caution">CAUTION</div><div class="mini-no">WARNING</div></div>
           </div>
         </div>
       </section>
 
-      
-      <section class="seo-internal-links" aria-label="More regional weather-based decision checks">
-        <div class="seo-internal-links-inner">
-          <h2 id="regionalMoreTitle">More weather checks</h2>
-          <p id="regionalMoreIntro">Country-specific GO / CAUTION / NO-GO checks for common outdoor jobs.</p>
-          <div class="seo-link-grid" id="regionalMoreLinks"></div>
-        </div>
+      <section class="seo-internal-links" id="plantsLinks">
+        <h2>Weather checks and guides</h2>
+        <p>Useful checks for common outdoor jobs and camping decisions.</p>
+        <div class="seo-link-grid" id="regionalMoreLinks"></div>
       </section>
     </main>
 
@@ -1735,171 +250,43 @@
 
   <script>
     const REGIONS={
-      UK:{name:"UK",locale:"en-GB",tempUnit:"C",windUnit:"mph",placeholder:"Postcode, town or city",tasks:{grass:{icon:"🌱",label:"Cut grass",question:"Should I cut the grass today?",slug:"should-i-cut-the-grass-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Hang washing",question:"Can I hang washing out today?",slug:"can-i-hang-washing-out-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"BBQ",question:"Should I BBQ today?",slug:"should-i-bbq-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk the dog today?",slug:"should-i-walk-the-dog-today"},jacket:{icon:"🧥",label:"Need coat",question:"Do I need a coat today?",slug:"do-i-need-a-coat-today"},run:{icon:"🏃",label:"Go running",question:"Should I go for a run today?",slug:"should-i-go-for-a-run-today"},windows:{icon:"🪟",label:"Clean windows",question:"Should I clean the windows today?",slug:"should-i-clean-the-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}}},
-      IE:{name:"Ireland",locale:"en-IE",tempUnit:"C",windUnit:"kmh",placeholder:"Town or city",tasks:null},
-      US:{name:"US",locale:"en-US",tempUnit:"F",windUnit:"mph",placeholder:"ZIP code, city or state",tasks:{grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},washing:{icon:"👕",label:"Dry laundry",question:"Can I dry laundry outside today?",slug:"can-i-dry-laundry-outside-today"},paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},bbq:{icon:"🔥",label:"Grill",question:"Should I grill today?",slug:"should-i-grill-today"},dog:{icon:"🐕",label:"Walk dog",question:"Should I walk my dog today?",slug:"should-i-walk-my-dog-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},run:{icon:"🏃",label:"Run",question:"Should I run today?",slug:"should-i-run-today"},windows:{icon:"🪟",label:"Wash windows",question:"Should I wash windows today?",slug:"should-i-wash-windows-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}}},
-      CA:{name:"Canada",locale:"en-CA",tempUnit:"C",windUnit:"kmh",placeholder:"Postal code, town or city",tasks:null},
-      AU:{name:"Australia",locale:"en-AU",tempUnit:"C",windUnit:"kmh",placeholder:"Postcode, suburb or city",tasks:null},
-      NZ:{name:"New Zealand",locale:"en-NZ",tempUnit:"C",windUnit:"kmh",placeholder:"Postcode, town or city",tasks:null}
+      UK:{name:"UK",locale:"en-GB",tempUnit:"C",windUnit:"mph",placeholder:"Postcode, town, city or campsite area",tasks:{
+        grass:{icon:"🌱",label:"Cut grass",question:"Should I cut the grass today?",slug:"should-i-cut-the-grass-today"},
+        washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},
+        washing:{icon:"👕",label:"Hang washing",question:"Can I hang washing out today?",slug:"can-i-hang-washing-out-today"},
+        paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},
+        bbq:{icon:"🔥",label:"BBQ",question:"Should I BBQ today?",slug:"should-i-bbq-today"},
+        dog:{icon:"🐕",label:"Walk dog",question:"Should I walk the dog today?",slug:"should-i-walk-the-dog-today"},
+        jacket:{icon:"🧥",label:"Need coat",question:"Do I need a coat today?",slug:"do-i-need-a-coat-today"},
+        run:{icon:"🏃",label:"Go running",question:"Should I go for a run today?",slug:"should-i-go-for-a-run-today"},
+        windows:{icon:"🪟",label:"Clean windows",question:"Should I clean the windows today?",slug:"should-i-clean-the-windows-today"},
+        plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}
+      }},
+      IE:{name:"Ireland",locale:"en-IE",tempUnit:"C",windUnit:"kmh",placeholder:"Town, city or campsite area",tasks:null},
+      US:{name:"US",locale:"en-US",tempUnit:"F",windUnit:"mph",placeholder:"ZIP code, city, state or campground area",tasks:{
+        grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},
+        washCar:{icon:"🚗",label:"Wash car",question:"Should I wash my car today?",slug:"should-i-wash-my-car-today"},
+        washing:{icon:"👕",label:"Dry laundry",question:"Can I dry laundry outside today?",slug:"can-i-dry-laundry-outside-today"},
+        paint:{icon:"🎨",label:"Paint outside",question:"Should I paint outside today?",slug:"should-i-paint-outside-today"},
+        bbq:{icon:"🔥",label:"Grill",question:"Should I grill today?",slug:"should-i-grill-today"},
+        dog:{icon:"🐕",label:"Walk dog",question:"Should I walk my dog today?",slug:"should-i-walk-my-dog-today"},
+        jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},
+        run:{icon:"🏃",label:"Run",question:"Should I run today?",slug:"should-i-run-today"},
+        windows:{icon:"🪟",label:"Wash windows",question:"Should I wash windows today?",slug:"should-i-wash-windows-today"},
+        plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}
+      }},
+      CA:{name:"Canada",locale:"en-CA",tempUnit:"C",windUnit:"kmh",placeholder:"Postal code, town, city or campground area",tasks:null},
+      AU:{name:"Australia",locale:"en-AU",tempUnit:"C",windUnit:"kmh",placeholder:"Postcode, suburb, city or campsite area",tasks:null},
+      NZ:{name:"New Zealand",locale:"en-NZ",tempUnit:"C",windUnit:"kmh",placeholder:"Postcode, town, city or campsite area",tasks:null}
     };
 
     REGIONS.IE.tasks=REGIONS.UK.tasks;
     REGIONS.CA.tasks=REGIONS.US.tasks;
-    REGIONS.AU.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},dog:{icon:"🐕",label:"Walk dog",question:"Is it too hot to walk the dog today?",slug:"is-it-too-hot-to-walk-the-dog-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}};
-    REGIONS.NZ.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},plants:{icon:"💧",label:"Water plants",question:"Should I water my plants today?",slug:"should-i-water-my-plants-today"}};
+    REGIONS.AU.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"},dog:{icon:"🐕",label:"Walk dog",question:"Is it too hot to walk the dog today?",slug:"is-it-too-hot-to-walk-the-dog-today"}};
+    REGIONS.NZ.tasks={...REGIONS.UK.tasks,grass:{icon:"🌱",label:"Mow lawn",question:"Should I mow the lawn today?",slug:"should-i-mow-the-lawn-today"},jacket:{icon:"🧥",label:"Need jacket",question:"Do I need a jacket today?",slug:"do-i-need-a-jacket-today"}};
 
-    const EXTRA_OUTDOOR_TASKS={
-      camping:{icon:"⛺",label:"Camping",question:"Should I go camping today?",slug:"should-i-go-camping"},
-      hiking:{icon:"🥾",label:"Hiking",question:"Should I go hiking today?",slug:"should-i-go-hiking"},
-      beach:{icon:"🏖️",label:"Beach",question:"Should I go to the beach today?",slug:"should-i-go-to-the-beach"},
-      fishing:{icon:"🎣",label:"Fishing",question:"Should I go fishing today?",slug:"should-i-go-fishing"},
-      golf:{icon:"⛳",label:"Golf",question:"Should I play golf today?",slug:"should-i-play-golf"},
-      cycling:{icon:"🚲",label:"Cycling",question:"Should I go cycling today?",slug:"should-i-go-cycling"}
-    };
-
-    Object.keys(REGIONS).forEach(key=>{REGIONS[key].tasks={...REGIONS[key].tasks,...EXTRA_OUTDOOR_TASKS}});
-
-    const REGION_GRASS_LINKS={
-      UK:{
-        title:"Grass and lawn weather checks",
-        intro:"UK grass cutting guides based on rain, wet grass, timing, season and recent weather.",
-        links:[
-          ["/uk/grass-cutting-weather/","Grass cutting weather guide"],
-          ["/uk/should-i-cut-the-grass-today/","Should I cut the grass today?"],
-          ["/uk/can-you-cut-wet-grass/","Can you cut wet grass?"],
-          ["/uk/can-you-cut-grass-after-rain/","Can you cut grass after rain?"],
-          ["/uk/can-you-cut-grass-in-the-rain/","Can you cut grass in the rain?"],
-          ["/uk/what-time-can-i-cut-the-grass/","What time can I cut the grass?"],
-          ["/uk/when-is-the-best-time-to-cut-grass/","When is the best time to cut grass?"],
-          ["/uk/first-grass-cut-of-the-year/","First grass cut of the year"],
-          ["/uk/last-grass-cut-before-winter/","Last grass cut before winter"],
-          ["/uk/can-you-cut-grass-in-winter/","Can you cut grass in winter?"]
-        ]
-      },
-      US:{
-        title:"Lawn mowing weather checks",
-        intro:"USA lawn mowing guides based on rain, wet grass, timing, heat, cold and season.",
-        links:[
-          ["/us/lawn-mowing-weather/","Lawn mowing weather guide"],
-          ["/us/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],
-          ["/us/can-you-mow-wet-grass/","Can you mow wet grass?"],
-          ["/us/can-you-mow-the-lawn-after-rain/","Can you mow the lawn after rain?"],
-          ["/us/how-soon-after-rain-can-i-mow-the-lawn/","How soon after rain can I mow?"],
-          ["/us/what-time-can-i-start-mowing-my-lawn/","What time can I start mowing?"],
-          ["/us/best-time-to-mow-the-lawn/","Best time to mow the lawn"],
-          ["/us/how-often-should-you-mow-the-lawn/","How often should you mow the lawn?"],
-          ["/us/when-is-it-too-hot-to-mow-the-lawn/","When is it too hot to mow?"],
-          ["/us/when-is-it-too-cold-to-mow-the-lawn/","When is it too cold to mow?"]
-        ]
-      },
-      IE:{title:"Ireland grass cutting weather checks",intro:"Ireland grass cutting checks using local rain, wind and recent weather.",links:[["/ie/should-i-cut-the-grass-today/","Should I cut the grass today? Ireland"],["/?region=ie&task=should-i-cut-the-grass-today&period=today#main","Check grass cutting weather in Ireland"]]},
-      AU:{title:"Australia lawn mowing weather checks",intro:"Australian lawn mowing checks using heat, rain, wet grass and local conditions.",links:[["/au/should-i-mow-the-lawn-today/","Should I mow the lawn today? Australia"],["/?region=au&task=should-i-mow-the-lawn-today&period=today#main","Check lawn mowing weather in Australia"]]},
-      CA:{title:"Canada lawn mowing weather checks",intro:"Canadian lawn mowing checks using local rain, wind and temperature.",links:[["/ca/should-i-mow-the-lawn-today/","Should I mow the lawn today? Canada"],["/?region=ca&task=should-i-mow-the-lawn-today&period=today#main","Check lawn mowing weather in Canada"]]},
-      NZ:{title:"New Zealand lawn mowing weather checks",intro:"New Zealand lawn mowing checks using local rain, wind and recent weather.",links:[["/nz/should-i-mow-the-lawn-today/","Should I mow the lawn today? New Zealand"],["/?region=nz&task=should-i-mow-the-lawn-today&period=today#main","Check lawn mowing weather in New Zealand"]]}
-    };
-
-    const REGION_MORE_LINKS={
-      UK:{
-        title:"More UK weather checks",
-        intro:"UK weather-based checks for common outdoor jobs and activities.",
-        links:[
-          ["/?task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],
-          ["/?task=should-i-go-camping&period=today#main","Should I go camping today?"],
-          ["/?task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],
-          ["/uk/should-i-cut-the-grass-today/","Should I cut the grass today?"],
-          ["/uk/can-i-hang-washing-out-today/","Can I hang washing out today?"],
-          ["/uk/should-i-wash-my-car-today/","Should I wash my car today?"],
-          ["/uk/should-i-bbq-today/","Should I BBQ today?"],
-          ["/uk/should-i-paint-outside-today/","Should I paint outside today?"],
-          ["/uk/should-i-clean-the-windows-today/","Should I clean the windows today?"],
-          ["/uk/should-i-walk-the-dog-today/","Should I walk the dog today?"],
-          ["/uk/should-i-go-for-a-run-today/","Should I go for a run today?"],
-          ["/uk/do-i-need-a-coat-today/","Do I need a coat today?"]
-        ]
-      },
-      US:{
-        title:"More USA weather checks",
-        intro:"USA weather-based checks for common outdoor jobs and activities.",
-        links:[
-          ["/?region=us&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],
-          ["/?region=us&task=should-i-go-camping&period=today#main","Should I go camping today?"],
-          ["/?region=us&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],
-          ["/us/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],
-          ["/us/should-i-wash-my-car-today/","Should I wash my car today?"],
-          ["/us/should-i-grill-today/","Should I grill today?"],
-          ["/us/do-i-need-a-jacket-today/","Do I need a jacket today?"],
-          ["/us/should-i-walk-my-dog-today/","Should I walk my dog today?"],
-          ["/?region=us&task=should-i-paint-outside-today&period=today#main","Should I paint outside today?"],
-          ["/?region=us&task=should-i-run-today&period=today#main","Should I run today?"]
-        ]
-      },
-      IE:{title:"More Ireland weather checks",intro:"Ireland weather-based checks for common outdoor jobs.",links:[["/?region=ie&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],["/?region=ie&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=ie&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/ie/should-i-cut-the-grass-today/","Should I cut the grass today?"],["/?region=ie&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=ie&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=ie&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=ie&task=should-i-walk-the-dog-today&period=today#main","Should I walk the dog today?"]]},
-      AU:{title:"More Australia weather checks",intro:"Australia weather-based checks for common outdoor jobs.",links:[["/?region=au&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],["/?region=au&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=au&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/au/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=au&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=au&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=au&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=au&task=is-it-too-hot-to-walk-the-dog-today&period=today#main","Is it too hot to walk the dog today?"]]},
-      CA:{title:"More Canada weather checks",intro:"Canada weather-based checks for common outdoor jobs.",links:[["/?region=ca&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],["/?region=ca&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=ca&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/ca/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=ca&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=ca&task=should-i-grill-today&period=today#main","Should I grill today?"],["/?region=ca&task=do-i-need-a-jacket-today&period=today#main","Do I need a jacket today?"],["/?region=ca&task=should-i-walk-my-dog-today&period=today#main","Should I walk my dog today?"]]},
-      NZ:{title:"More New Zealand weather checks",intro:"New Zealand weather-based checks for common outdoor jobs.",links:[["/?region=nz&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"],["/?region=nz&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=nz&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/nz/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=nz&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=nz&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=nz&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=nz&task=do-i-need-a-coat-today&period=today#main","Do I need a coat today?"]]}
-    };
-
-    const CHECKLISTS={
-      basic:{label:"Basic camping checklist",groups:{"Shelter":["Tent","Groundsheet or footprint","Tent pegs","Mallet","Guy lines"],"Sleep":["Sleeping bag","Sleeping mat","Pillow","Warm layer","Eye mask or ear plugs"],"Cooking":["Camping stove","Gas or fuel","Lighter or matches","Pan or kettle","Mug, plate and cutlery"],"Safety":["Torch or headtorch","First aid kit","Power bank","Water bottle","Bin bag"]}},
-      wet:{label:"Wet weather camping checklist",groups:{"Wet weather gear":["Waterproof jacket","Waterproof trousers","Spare socks","Dry bags","Towel"],"Tent extras":["Extra pegs","Guy lines","Groundsheet","Microfibre cloth","Tent repair tape"],"Comfort":["Warm dry clothes","Waterproof footwear","Plastic bags for wet kit","Camp chair","Hot drink supplies"],"Before you go":["Check ground conditions","Avoid low pitches","Check wind exposure","Pack in waterproof bags","Plan a dry pitching window"]}},
-      cold:{label:"Cold night camping checklist",groups:{"Warm sleep setup":["Warm sleeping bag","Insulated mat","Thermal base layer","Warm hat","Extra blanket"],"Clothing":["Fleece or insulated jacket","Gloves","Thick socks","Waterproof outer layer","Spare dry clothes"],"Food and drink":["Hot drinks","Easy warm meal","High-energy snacks","Stove fuel","Water bottle"],"Night safety":["Headtorch","Power bank","Emergency blanket","Check overnight low","Keep clothes dry"]}},
-      family:{label:"Family camping checklist",groups:{"Family basics":["Larger tent","Extra blankets","Children’s sleeping bags","Camp chairs","Picnic blanket"],"Food":["Easy breakfasts","Snacks","Cool box","Reusable bottles","Washing-up kit"],"Kids":["Warm layers","Waterproofs","Simple games","Sun cream","Spare shoes"],"Practical extras":["First aid kit","Wet wipes","Bin bags","Lantern","Toilet roll"]}},
-      windy:{label:"Windy weather camping checklist",groups:{"Tent security":["Strong tent pegs","Extra guy lines","Mallet","Tent repair tape","Check peg angle"],"Pitch choice":["Choose sheltered pitch","Avoid exposed ridges","Avoid loose ground","Avoid pitching under unsafe trees","Face tent correctly to wind"],"Camp comfort":["Windproof layer","Warm hat","Secure loose kit","Heavy-duty bags","Lantern instead of candles"],"Before you commit":["Check gusts","Check campsite exposure","Check tent wind rating","Have a backup plan","Do not pitch in storms"]}},
-      hot:{label:"Hot weather camping checklist",groups:{"Sun protection":["Sun cream","Sun hat","Sunglasses","Light long sleeves","After-sun"],"Hydration":["Extra water","Reusable bottles","Electrolytes","Cool box","Ice packs"],"Pitch comfort":["Shade tarp","Ventilated tent","Light sleeping bag","Insect repellent","Camp chair"],"Safety":["Avoid midday pitching","Keep food cool","Check fire rules","Plan water refills","Watch for heat stress"]}}
-    };
-
-
-    const BBQ_CHECKLISTS={
-      basic:{
-        label:"Basic BBQ checklist",
-        groups:{
-          "Cooking kit":["BBQ or grill","Fuel or gas","Lighter or matches","Tongs","Heatproof gloves"],
-          "Food prep":["Food in cool box","Marinades or seasoning","Chopping board","Serving tray","Kitchen roll"],
-          "Comfort":["Outdoor table","Chairs","Bin bag","Hand wipes","Drinks"],
-          "Safety":["Water nearby","Safe flat surface","Keep children back","Check wind direction","Fully extinguish after cooking"]
-        }
-      },
-      wet:{
-        label:"Wet weather BBQ checklist",
-        groups:{
-          "Shelter":["Gazebo or covered area","Waterproof jacket","Dry seating","Covered food prep area","Non-slip footwear"],
-          "Cooking setup":["Keep BBQ uncovered when lit","Keep fuel dry","Use wind-safe position","Keep food covered","Avoid cooking in heavy rain"],
-          "Food and comfort":["Warm drinks","Covered serving dishes","Extra napkins","Dry storage box","Spare towel"],
-          "Safety":["Never BBQ indoors","Avoid enclosed shelters","Keep electrics dry","Watch slippery ground","Stop if conditions worsen"]
-        }
-      },
-      windy:{
-        label:"Windy weather BBQ checklist",
-        groups:{
-          "Wind setup":["Sheltered cooking spot","Secure loose items","Avoid exposed areas","Position BBQ away from fences","Check gusts"],
-          "Cooking kit":["Long tongs","Heatproof gloves","Lid if suitable","Wind-safe lighter","Stable table"],
-          "Comfort":["Warm layer","Weighted tablecloth clips","Covered food trays","Secure bin bag","Windproof jacket"],
-          "Safety":["Do not cook in dangerous gusts","Keep flames away from people","Check local fire advice","Keep water nearby","Extinguish fully"]
-        }
-      },
-      hot:{
-        label:"Hot weather BBQ checklist",
-        groups:{
-          "Heat comfort":["Shade","Sun cream","Sun hat","Extra water","Cool box with ice packs"],
-          "Food safety":["Keep raw meat chilled","Separate raw and cooked food","Use clean utensils","Cook food thoroughly","Do not leave food in sun"],
-          "Cooking setup":["Avoid dry grass","Check fire risk","Use stable surface","Keep water nearby","Avoid peak heat if needed"],
-          "Guests":["Cold drinks","Light seating area","Shade for children","Shade for pets","Watch for heat stress"]
-        }
-      },
-      cold:{
-        label:"Cold weather BBQ checklist",
-        groups:{
-          "Warmth":["Warm coat","Hat or gloves","Outdoor heater if safe","Blankets","Hot drinks"],
-          "Cooking":["Allow more cooking time","Keep food covered","Use lid if suitable","Pre-warm serving dishes","Good lighting"],
-          "Comfort":["Dry seating","Windbreak","Warm side dishes","Sheltered table","Shorter outdoor plan"],
-          "Safety":["Good visibility","Stable surface","Avoid icy ground","Keep BBQ outside only","Fully extinguish after use"]
-        }
-      }
-    };
-
-    let recommendedBbqChecklistType="basic";
-    
-    let recommendedChecklistType="basic";
+    const EXTRA={camping:{icon:"⛺",label:"Camping",question:"Should I go camping today?",slug:"should-i-go-camping"},hiking:{icon:"🥾",label:"Hiking",question:"Should I go hiking today?",slug:"should-i-go-hiking"},beach:{icon:"🏖️",label:"Beach",question:"Should I go to the beach today?",slug:"should-i-go-to-the-beach"},fishing:{icon:"🎣",label:"Fishing",question:"Should I go fishing today?",slug:"should-i-go-fishing"},golf:{icon:"⛳",label:"Golf",question:"Should I play golf today?",slug:"should-i-play-golf"},cycling:{icon:"🚲",label:"Cycling",question:"Should I go cycling today?",slug:"should-i-go-cycling"}};
+    Object.keys(REGIONS).forEach(k=>REGIONS[k].tasks={...REGIONS[k].tasks,...EXTRA});
 
     const RULES={
       grass:{rainProb:30,windMaxMph:26,tempMinC:8,tempMaxC:28,hours:[8,18],minHours:2},
@@ -1921,78 +308,45 @@
     };
 
     const COUNTRY_TO_REGION={GB:"UK",IE:"IE",US:"US",CA:"CA",AU:"AU",NZ:"NZ"};
-    let selected="grass";
-    let selectedPeriod="today";
-    let currentRegionKey=getInitialRegion();
-    let detectedLocation=null;
-    let lastPlace=null;
-    let lastWeather=null;
+    let selected="grass", selectedPeriod="today", currentRegionKey=getInitialRegion(), detectedLocation=null, lastPlace=null, lastWeather=null;
 
-    const locationInput=document.getElementById("locationInput");
-    const taskButtons=document.getElementById("taskButtons");
-    const hint=document.getElementById("hint");
-    const locationStatus=document.getElementById("locationStatus");
-    const regionSelect=document.getElementById("regionSelect");
+    const locationInput=document.getElementById("locationInput"), taskButtons=document.getElementById("taskButtons"), hint=document.getElementById("hint"), locationStatus=document.getElementById("locationStatus"), regionSelect=document.getElementById("regionSelect");
 
-    function getInitialRegion(){
-      const lang=(navigator.language||"en-GB").toUpperCase();
-      if(lang.includes("US"))return"US";
-      if(lang.includes("CA"))return"CA";
-      if(lang.includes("AU"))return"AU";
-      if(lang.includes("NZ"))return"NZ";
-      if(lang.includes("IE"))return"IE";
-      return"UK";
-    }
-
+    function getInitialRegion(){const l=(navigator.language||"en-GB").toUpperCase(); if(l.includes("US"))return"US"; if(l.includes("CA"))return"CA"; if(l.includes("AU"))return"AU"; if(l.includes("NZ"))return"NZ"; if(l.includes("IE"))return"IE"; return"UK"}
     function region(){return REGIONS[currentRegionKey]||REGIONS.UK}
-    function taskConfig(taskKey=selected){return Object.assign({},RULES[taskKey],region().tasks[taskKey])}
+    function taskConfig(k=selected){return Object.assign({},RULES[k],region().tasks[k])}
+    function startOfDay(d){const x=new Date(d);x.setHours(0,0,0,0);return x}
+    function makeTime(day,h){const x=new Date(day);x.setHours(h,0,0,0);return x}
+    function hoursAfter(d,h){return new Date(d.getTime()+h*3600000)}
+    function hoursBefore(d,h){return new Date(d.getTime()-h*3600000)}
+    function rowsBetween(rows,a,b){return rows.filter(r=>r.time>=a&&r.time<=b)}
+    function sum(a){return a.reduce((t,v)=>t+v,0)}
+    function avg(a,f=0){return a.length?sum(a)/a.length:f}
+    function max(a,f=0){return a.length?Math.max(...a):f}
+    function min(a,f=0){return a.length?Math.min(...a):f}
+    function mm(rows){return sum(rows.map(r=>r.precip))}
+    function formatTime(d){return d.toLocaleTimeString(region().locale,{hour:"2-digit",minute:"2-digit"})}
+    function formatTemp(c){return region().tempUnit==="F"?`${Math.round(c*9/5+32)}°F`:`${Math.round(c)}°C`}
+    function formatWind(m){return region().windUnit==="kmh"?`${Math.round(m*1.60934)} km/h`:`${Math.round(m)} mph`}
+    function dayLabel(d){const diff=Math.round((startOfDay(d)-startOfDay(new Date()))/86400000); if(diff===0)return"today"; if(diff===1)return"tomorrow"; return d.toLocaleDateString(region().locale,{weekday:"long"})}
 
     function init(){
-      const params=new URLSearchParams(window.location.search);
-
-      const regionParam=(params.get("region")||"").toUpperCase();
-      if(REGIONS[regionParam])currentRegionKey=regionParam;
-      regionSelect.value=currentRegionKey;
-
-      const periodParam=(params.get("period")||"").toLowerCase();
-      if(["today","tomorrow","weekend"].includes(periodParam))selectedPeriod=periodParam;
-
-      applyRegion(false);
-      setPeriodTab();
-      renderChecklist("basic");
-      renderBbqChecklist("basic");
-      bindChecklistFilters();
-      bindCampingQuickCheck();
-      bindBbqQuickCheck();
-      bindBbqChecklist();
-      bindPlantsQuickCheck();
+      const params=new URLSearchParams(location.search);
+      const rp=(params.get("region")||"").toUpperCase(); if(REGIONS[rp])currentRegionKey=rp; regionSelect.value=currentRegionKey;
+      const pp=(params.get("period")||"").toLowerCase(); if(["today","tomorrow","weekend"].includes(pp))selectedPeriod=pp;
+      applyRegion(false); setPeriodTab(); bindQuickButtons();
 
       const taskParam=params.get("task");
-      if(taskParam){
-        const found=Object.entries(region().tasks).find(([,task])=>task.slug===taskParam);
-        if(found)selected=found[0];
-        else if(taskParam==="should-i-water-the-plants-today")selected="plants";
-      }
-
-      const loc=params.get("location");
-      if(loc)locationInput.value=loc;
-
+      if(taskParam){const found=Object.entries(region().tasks).find(([,t])=>t.slug===taskParam); if(found)selected=found[0]; else if(taskParam==="should-i-water-the-plants-today")selected="plants";}
+      const loc=params.get("location"); if(loc)locationInput.value=loc;
       renderTasks();
-
-      if(locationInput.value.trim()){
-        checkFromText();
-      }else{
-        autoDetectLocationOnLoad();
-      }
+      if(locationInput.value.trim())checkFromText(); else autoDetectLocationOnLoad();
     }
 
     function applyRegion(shouldCheck){
-      const p=region();
-      document.documentElement.lang=p.locale;
-      locationInput.placeholder=p.placeholder;
-      renderRegionalLinks();
-      renderTasks();
-
+      document.documentElement.lang=region().locale;
+      locationInput.placeholder=selected==="camping"?"Campsite name, nearest town, postcode or city":region().placeholder;
+      renderLinks(); renderTasks();
       if(shouldCheck){
         if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
         else if(locationInput.value.trim())checkFromText();
@@ -2000,1031 +354,112 @@
       }
     }
 
-    function renderRegionalLinks(){
-      const grassBlock=REGION_GRASS_LINKS[currentRegionKey]||REGION_GRASS_LINKS.UK;
-      const moreBlock=REGION_MORE_LINKS[currentRegionKey]||REGION_MORE_LINKS.UK;
-
-      const grassTitle=document.getElementById("regionalGrassTitle");
-      const grassIntro=document.getElementById("regionalGrassIntro");
-      const grassGrid=document.getElementById("regionalGrassLinks");
-
-      const moreTitle=document.getElementById("regionalMoreTitle");
-      const moreIntro=document.getElementById("regionalMoreIntro");
-      const moreGrid=document.getElementById("regionalMoreLinks");
-
-      if(grassTitle)grassTitle.textContent=grassBlock.title;
-      if(grassIntro)grassIntro.textContent=grassBlock.intro;
-      if(grassGrid)grassGrid.innerHTML=grassBlock.links.map(([href,label])=>`<a href="${href}">${label}</a>`).join("");
-
-      if(moreTitle)moreTitle.textContent=moreBlock.title;
-      if(moreIntro)moreIntro.textContent=moreBlock.intro;
-      if(moreGrid)moreGrid.innerHTML=moreBlock.links.map(([href,label])=>`<a href="${href}">${label}</a>`).join("");
+    function renderLinks(){
+      const prefix=currentRegionKey==="UK"?"":`region=${currentRegionKey.toLowerCase()}&`;
+      const isUS=currentRegionKey==="US"||currentRegionKey==="CA";
+      const bbqSlug=isUS?"should-i-grill-today":"should-i-bbq-today";
+      const bbqText=isUS?"Should I grill today?":"Should I BBQ today?";
+      document.getElementById("regionalMoreLinks").innerHTML=[
+        [`/?${prefix}task=should-i-go-camping&period=weekend#main`,"Should I go camping this weekend?"],
+        [`/?${prefix}task=should-i-go-camping&period=today#main`,"Should I go camping today?"],
+        [`/?${prefix}task=should-i-water-my-plants-today&period=today#main`,"Should I water my plants today?"],
+        [`/?${prefix}task=${bbqSlug}&period=today#main`,bbqText],
+        [`/?${prefix}task=should-i-wash-my-car-today&period=today#main`,"Should I wash my car today?"],
+        [`/?${prefix}task=should-i-paint-outside-today&period=today#main`,"Should I paint outside today?"],
+        [`/?${prefix}task=should-i-go-hiking&period=today#main`,"Should I go hiking today?"],
+        [`/?${prefix}task=should-i-go-cycling&period=today#main`,"Should I go cycling today?"],
+        [`/?${prefix}task=should-i-go-fishing&period=today#main`,"Should I go fishing today?"]
+      ].map(([h,l])=>`<a href="${h}">${l}</a>`).join("");
     }
 
     function renderTasks(){
-      const p=region();
-      if(!p.tasks[selected])selected="grass";
-
-      taskButtons.innerHTML=Object.entries(p.tasks).map(([key,task])=>`<button class="task ${key===selected?"active":""}" type="button" data-task="${key}"><span>${task.icon}</span>${task.label}</button>`).join("");
-
-      document.querySelectorAll("[data-task]").forEach(button=>{
-        button.addEventListener("click",()=>{
-          selected=button.dataset.task;
-          document.querySelectorAll("[data-task]").forEach(btn=>btn.classList.remove("active"));
-          button.classList.add("active");
-          updateHintAndQuestion();
-          updateFeatureVisibility();
-
-          if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
-          else if(locationInput.value.trim())checkFromText();
-          else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
-        });
-      });
-
-      updateHintAndQuestion();
-      updateFeatureVisibility();
+      if(!region().tasks[selected])selected="grass";
+      taskButtons.innerHTML=Object.entries(region().tasks).map(([k,t])=>`<button class="task ${k===selected?"active":""}" type="button" data-task="${k}"><span>${t.icon}</span>${t.label}</button>`).join("");
+      document.querySelectorAll("[data-task]").forEach(b=>b.addEventListener("click",()=>{selected=b.dataset.task; renderTasks(); updateHintAndQuestion(); updateFeatureVisibility(); if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather); else if(locationInput.value.trim())checkFromText(); else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);}));
+      updateHintAndQuestion(); updateFeatureVisibility();
     }
 
-    function updateHintAndQuestion(){
-      const task=taskConfig();
-      const periodLabel={today:"today",tomorrow:"tomorrow",weekend:"this weekend"}[selectedPeriod];
-      hint.textContent=`Selected: ${task.label.toLowerCase()} • ${periodLabel}`;
-      document.getElementById("question").textContent=periodQuestion(task,selectedPeriod);
-    }
+    function updateHintAndQuestion(){const t=taskConfig(); const pl={today:"today",tomorrow:"tomorrow",weekend:"this weekend"}[selectedPeriod]; hint.textContent=`Selected: ${t.label.toLowerCase()} • ${pl}`; document.getElementById("question").textContent=periodQuestion(t,selectedPeriod); locationInput.placeholder=selected==="camping"?"Campsite name, nearest town, postcode or city":region().placeholder}
+    function periodQuestion(t,p){if(p==="today")return t.question; if(p==="tomorrow")return t.question.replace(" today"," tomorrow").replace(" Today"," Tomorrow"); return t.question.replace(" today"," this weekend").replace(" Today"," This Weekend")}
+    function updateFeatureVisibility(){document.getElementById("campingHub").classList.toggle("show",selected==="camping"); document.getElementById("plantsHub").classList.toggle("show",selected==="plants"); document.getElementById("bbqHub").classList.toggle("show",selected==="bbq"); updateBbqRegionalText(); if(selected!=="camping"||selectedPeriod!=="weekend")document.getElementById("forecastOutlook").classList.remove("show")}
+    function updateBbqRegionalText(){const us=currentRegionKey==="US"||currentRegionKey==="CA"; document.getElementById("bbqTitle").textContent=us?"Should I grill today?":"Should I BBQ today?"; document.getElementById("bbqIntro").textContent=us?"Check whether today, tomorrow or this weekend looks suitable for grilling using local rain risk, wind, temperature and storm risk.":"Check whether today, tomorrow or this weekend looks suitable for a BBQ using local rain risk, wind, temperature and storm risk."; document.getElementById("bbqScoreTitle").textContent=us?"Grill GO / CAUTION / WARNING":"BBQ GO / CAUTION / WARNING"}
+    function setPeriodTab(){document.querySelectorAll("[data-period]").forEach(tab=>tab.classList.toggle("active",tab.dataset.period===selectedPeriod)); document.getElementById("logoPeriodWord").textContent={today:"Today?",tomorrow:"Tomorrow?",weekend:"Weekend?"}[selectedPeriod]||"Today?"}
+    document.querySelectorAll("[data-period]").forEach(tab=>tab.addEventListener("click",()=>{selectedPeriod=tab.dataset.period; setPeriodTab(); updateHintAndQuestion(); updateFeatureVisibility(); if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather); else if(locationInput.value.trim())checkFromText(); else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name)}));
+    function bindQuickButtons(){document.getElementById("campingQuickCheck").addEventListener("click",()=>quick("camping","weekend")); document.getElementById("plantsQuickCheck").addEventListener("click",()=>quick("plants","today")); document.getElementById("bbqQuickCheck").addEventListener("click",()=>quick("bbq","today"))}
+    function quick(task,period){selected=task; selectedPeriod=period; setPeriodTab(); renderTasks(); document.getElementById("main").scrollIntoView({behavior:"smooth",block:"start"}); if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather); else if(locationInput.value.trim())checkFromText(); else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name)}
 
-    function updateFeatureVisibility(){
-      updateCampingVisibility();
-      updatePlantVisibility();
-    }
-
-       function updateCampingVisibility(){
-      const showCamping=selected==="camping";
-      const showBbq=selected==="bbq";
-
-      const campingHub=document.getElementById("camping");
-      const campingLinks=document.getElementById("campingLinks");
-      const bbqHub=document.getElementById("bbqHub");
-      const bbqLinks=document.getElementById("bbqLinks");
-
-      if(campingHub)campingHub.classList.toggle("show",showCamping);
-      if(campingLinks)campingLinks.classList.toggle("show",showCamping);
-      if(bbqHub)bbqHub.classList.toggle("show",showBbq);
-      if(bbqLinks)bbqLinks.classList.toggle("show",showBbq);
-
-      updateBbqRegionalText();
-    }
-
-    function updatePlantVisibility(){
-      const showPlants=selected==="plants";
-      const plantsHub=document.getElementById("plantsHub");
-      const plantsLinks=document.getElementById("plantsLinks");
-
-      if(plantsHub)plantsHub.classList.toggle("show",showPlants);
-      if(plantsLinks)plantsLinks.classList.toggle("show",showPlants);
-    }
-
-    function periodQuestion(task,period){
-      if(period==="today")return task.question;
-      if(period==="tomorrow")return task.question.replace(" today"," tomorrow").replace(" Today"," Tomorrow");
-      return task.question.replace(" today"," this weekend").replace(" Today"," This Weekend");
-    }
-
-    function updateHeroLogoPeriod(){
-      const logoWord=document.getElementById("logoPeriodWord");
-      if(!logoWord)return;
-
-      const values={today:{text:"Today?",size:"100",spacing:"-5"},tomorrow:{text:"Tomorrow?",size:"100",spacing:"-5"},weekend:{text:"Weekend?",size:"100",spacing:"-5"}};
-      const value=values[selectedPeriod]||values.today;
-      logoWord.textContent=value.text;
-      logoWord.setAttribute("font-size",value.size);
-      logoWord.setAttribute("letter-spacing",value.spacing);
-    }
-
-    function setPeriodTab(){
-      document.querySelectorAll("[data-period]").forEach(tab=>{
-        tab.classList.toggle("active",tab.dataset.period===selectedPeriod);
-      });
-      updateHeroLogoPeriod();
-    }
-
-    document.querySelectorAll("[data-period]").forEach(tab=>{
-      tab.addEventListener("click",()=>{
-        selectedPeriod=tab.dataset.period;
-        setPeriodTab();
-        updateHintAndQuestion();
-        updateFeatureVisibility();
-
-        if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
-        else if(locationInput.value.trim())checkFromText();
-        else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
-      });
-    });
-
-    function bindCampingQuickCheck(){
-      const button=document.getElementById("campingQuickCheck");
-      if(!button)return;
-      button.addEventListener("click",()=>{
-        selected="camping";
-        selectedPeriod="today";
-        setPeriodTab();
-        renderTasks();
-        updateHintAndQuestion();
-        updateFeatureVisibility();
-        document.getElementById("main").scrollIntoView({behavior:"smooth",block:"start"});
-
-        if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
-        else if(locationInput.value.trim())checkFromText();
-        else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
-      });
-    }
-
-        function updateBbqRegionalText(){
-      const isUSStyle=currentRegionKey==="US"||currentRegionKey==="CA";
-      const isAU=currentRegionKey==="AU";
-
-      const title=document.getElementById("bbqTitle");
-      const intro=document.getElementById("bbqIntro");
-      const scoreTitle=document.getElementById("bbqScoreTitle");
-      const checklistTitle=document.getElementById("bbqChecklistTitle");
-      const linksTitle=document.getElementById("bbqLinksTitle");
-      const linksIntro=document.getElementById("bbqLinksIntro");
-      const linkGrid=document.getElementById("bbqLinkGrid");
-
-      const activity=isUSStyle?"grill":"BBQ";
-      const activityLower=isUSStyle?"grill":"BBQ";
-
-      if(title)title.textContent=isUSStyle?"Should I grill today?":"Should I BBQ today?";
-      if(intro)intro.textContent=isUSStyle
-        ?"Check whether today, tomorrow or this weekend looks suitable for grilling using local rain risk, wind, temperature, storm risk and the best outdoor cooking window."
-        :"Check whether today, tomorrow or this weekend looks suitable for a BBQ using local rain risk, wind, temperature, storm risk and the best outdoor cooking window.";
-
-      if(scoreTitle)scoreTitle.textContent=`${activity} GO / CAUTION / WARNING`;
-      if(checklistTitle)checklistTitle.textContent=`${activity} checklist for today’s conditions`;
-      if(linksTitle)linksTitle.textContent=`${activity} weather and checklist tools`;
-      if(linksIntro)linksIntro.textContent=`Use the ${activityLower} weather checker to decide whether today, tomorrow or this weekend looks suitable for outdoor cooking.`;
-
-      if(linkGrid){
-        const regionParam=currentRegionKey==="UK"?"":`region=${currentRegionKey.toLowerCase()}&`;
-        const taskSlug=isUSStyle?"should-i-grill-today":"should-i-bbq-today";
-        linkGrid.innerHTML=`
-          <a href="#bbqHub">${isUSStyle?"Should I grill today?":"Should I BBQ today?"}</a>
-          <a href="/?${regionParam}task=${taskSlug}&period=today#main">Check ${activityLower} weather today</a>
-          <a href="/?${regionParam}task=${taskSlug}&period=tomorrow#main">Check ${activityLower} weather tomorrow</a>
-          <a href="/?${regionParam}task=${taskSlug}&period=weekend#main">Should I ${isUSStyle?"grill":"BBQ"} this weekend?</a>
-          <a href="#bbqChecklist">${activity} checklist for today’s weather</a>
-          <a href="#bbqChecklist">${activity} packing and setup list</a>
-          ${isAU?'<a href="#bbqHub">Check fire risk before BBQs</a>':''}
-        `;
-      }
-    }
-
-    function bindBbqQuickCheck(){
-      const button=document.getElementById("bbqQuickCheck");
-      if(!button)return;
-      button.addEventListener("click",()=>{
-        selected="bbq";
-        selectedPeriod="today";
-        setPeriodTab();
-        renderTasks();
-        updateHintAndQuestion();
-        updateCampingVisibility();
-        document.getElementById("main").scrollIntoView({behavior:"smooth",block:"start"});
-
-        if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
-        else if(locationInput.value.trim())checkFromText();
-        else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
-      });
-    }
-
-    function renderBbqChecklist(type){
-      const grid=document.getElementById("bbqChecklistGrid");
-      if(!grid)return;
-      const data=BBQ_CHECKLISTS[type]||BBQ_CHECKLISTS.basic;
-      const groups=data.groups||data;
-      grid.innerHTML=Object.entries(groups).map(([heading,items])=>`
-        <div class="bbq-checklist-card">
-          <h3>${heading}</h3>
-          <ul>${items.map(item=>`<li>${item}</li>`).join("")}</ul>
-        </div>
-      `).join("");
-    }
-
-    function updateBbqChecklistRecommendation(type,reason,autoApply=false){
-      recommendedBbqChecklistType=type||"basic";
-      const mode=document.getElementById("bbqChecklistMode");
-      const reasonEl=document.getElementById("bbqChecklistReason");
-      const label=(BBQ_CHECKLISTS[recommendedBbqChecklistType]||BBQ_CHECKLISTS.basic).label;
-      if(mode)mode.textContent=label;
-      if(reasonEl)reasonEl.textContent=reason||"This recommendation is based on the local BBQ forecast.";
-      if(autoApply){
-        renderBbqChecklist(recommendedBbqChecklistType);
-      }
-    }
-
-    function chooseBbqChecklist(r){
-      const reasons=(r.why||[]).join(" ").toLowerCase();
-      const status=(r.status||"").toLowerCase();
-
-      if(status.includes("warning")||reasons.includes("storm")||reasons.includes("thunder")||reasons.includes("lightning")||reasons.includes("gust")){
-        return{type:"windy",reason:"The BBQ result has a safety warning or wind concern. Check gusts, storm risk and shelter before cooking outdoors."};
-      }
-      if(reasons.includes("wind")||reasons.includes("gust")){
-        return{type:"windy",reason:"Wind is a key issue in this forecast, so choose a sheltered cooking position and secure loose items."};
-      }
-      if(reasons.includes("rain")||reasons.includes("wet")||reasons.includes("showers")){
-        return{type:"wet",reason:"Rain or showers are a key issue, so plan shelter, covered food prep and a shorter cooking window."};
-      }
-      if(reasons.includes("cold")||reasons.includes("cool")){
-        return{type:"cold",reason:"The forecast looks cool, so plan warm layers, hot drinks and a shorter outdoor setup."};
-      }
-      if(reasons.includes("heat")||reasons.includes("too hot")||reasons.includes("hot")){
-        return{type:"hot",reason:"The forecast looks hot, so add shade, extra water and keep food chilled until cooking."};
-      }
-      return{type:"basic",reason:"Conditions look broadly manageable, so the basic BBQ checklist is a sensible starting point."};
-    }
-
-    function bindBbqChecklist(){
-      const applyButton=document.getElementById("applyRecommendedBbqChecklist");
-      if(applyButton){
-        applyButton.addEventListener("click",()=>{
-          renderBbqChecklist(recommendedBbqChecklistType);
-          document.getElementById("bbqChecklist").scrollIntoView({behavior:"smooth",block:"start"});
-        });
-      }
-    }
-
-    function bindPlantsQuickCheck(){
-      const button=document.getElementById("plantsQuickCheck");
-      if(!button)return;
-      button.addEventListener("click",()=>{
-        selected="plants";
-        selectedPeriod="today";
-        setPeriodTab();
-        renderTasks();
-        updateHintAndQuestion();
-        updateFeatureVisibility();
-        document.getElementById("main").scrollIntoView({behavior:"smooth",block:"start"});
-
-        if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
-        else if(locationInput.value.trim())checkFromText();
-        else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
-      });
-    }
-
-    function renderChecklist(type){
-      const grid=document.getElementById("checklistGrid");
-      if(!grid)return;
-      const data=CHECKLISTS[type]||CHECKLISTS.basic;
-      const groups=data.groups||data;
-      grid.innerHTML=Object.entries(groups).map(([heading,items])=>`
-        <div class="checklist-card">
-          <h3>${heading}</h3>
-          <ul>${items.map(item=>`<li>${item}</li>`).join("")}</ul>
-        </div>
-      `).join("");
-    }
-
-    function setActiveChecklistButton(type){
-      document.querySelectorAll("[data-checklist]").forEach(btn=>{
-        btn.classList.toggle("active",btn.dataset.checklist===type);
-      });
-    }
-
-    function updateChecklistRecommendation(type,reason,autoApply=false){
-      recommendedChecklistType=type||"basic";
-      const mode=document.getElementById("campingChecklistMode");
-      const reasonEl=document.getElementById("campingChecklistReason");
-      const label=(CHECKLISTS[recommendedChecklistType]||CHECKLISTS.basic).label;
-      if(mode)mode.textContent=label;
-      if(reasonEl)reasonEl.textContent=reason||"This recommendation is based on the local camping forecast.";
-      if(autoApply){
-        renderChecklist(recommendedChecklistType);
-        setActiveChecklistButton(recommendedChecklistType);
-      }
-    }
-
-    function chooseCampingChecklist(r){
-      const reasons=(r.why||[]).join(" ").toLowerCase();
-      const status=(r.status||"").toLowerCase();
-
-      if(status.includes("warning")||reasons.includes("storm")||reasons.includes("thunder")||reasons.includes("lightning")){
-        return{type:"windy",reason:"The camping result has a safety warning. Check thunder, lightning, storm risk and gusts carefully, and consider delaying or using a safer sheltered option."};
-      }
-      if(reasons.includes("wind")||reasons.includes("gust")){
-        return{type:"windy",reason:"Wind is a key issue in this forecast, so add stronger pegs, extra guy lines and choose a sheltered pitch."};
-      }
-      if(reasons.includes("overnight rain")||reasons.includes("rain risk")||reasons.includes("wet")||reasons.includes("ground")){
-        return{type:"wet",reason:"Rain or wet ground is a key issue in this forecast, so add waterproof layers, dry bags, a groundsheet and spare socks."};
-      }
-      if(reasons.includes("cold overnight")||reasons.includes("feel cold")||reasons.includes("too cold")){
-        return{type:"cold",reason:"The forecast suggests a cold night, so add a warmer sleeping bag, insulated mat, thermal layer and hat."};
-      }
-      if(reasons.includes("heat")||reasons.includes("too hot")||reasons.includes("hot")){
-        return{type:"hot",reason:"The forecast suggests warm or hot conditions, so add extra water, sun protection, shade and cool storage for food."};
-      }
-      return{type:"basic",reason:"Conditions look broadly manageable, so the basic camping checklist is a sensible starting point."};
-    }
-
-    function bindChecklistFilters(){
-      document.querySelectorAll("[data-checklist]").forEach(button=>{
-        button.addEventListener("click",()=>{
-          setActiveChecklistButton(button.dataset.checklist);
-          renderChecklist(button.dataset.checklist);
-        });
-      });
-
-      const applyButton=document.getElementById("applyRecommendedChecklist");
-      if(applyButton){
-        applyButton.addEventListener("click",()=>{
-          renderChecklist(recommendedChecklistType);
-          setActiveChecklistButton(recommendedChecklistType);
-          document.getElementById("campingChecklist").scrollIntoView({behavior:"smooth",block:"start"});
-        });
-      }
-    }
-
-    function validateLocationInput(value){
-      const trimmed=value.trim();
-      if(!trimmed)return{ok:false,message:"Enter a town, city or postcode."};
-      if(trimmed.length>80)return{ok:false,message:"Location is too long. Try a town, city or postcode."};
-      for(let i=0;i<trimmed.length;i+=1){const code=trimmed.charCodeAt(i);if(code<32||code===127)return{ok:false,message:"Location contains unsupported characters."};}
-      if(trimmed.includes("<")||trimmed.includes(">"))return{ok:false,message:"Location contains unsupported characters."};
-      return{ok:true,value:trimmed};
-    }
-
-    function setLocationStatus(text,active=true){
-      locationStatus.textContent="";
-      if(active){const pulse=document.createElement("span");pulse.className="pulse";locationStatus.appendChild(pulse);}
-      const label=document.createElement("span");label.textContent=text;locationStatus.appendChild(label);
-    }
-
+    function setLocationStatus(text,active=true){locationStatus.textContent=""; if(active){const p=document.createElement("span");p.className="pulse";locationStatus.appendChild(p)} const s=document.createElement("span");s.textContent=text;locationStatus.appendChild(s)}
     function preferredCountryCode(){return{UK:"GB",IE:"IE",US:"US",CA:"CA",AU:"AU",NZ:"NZ"}[currentRegionKey]||"GB"}
-
-    function setRegionFromCountryCode(code){
-      const newRegion=COUNTRY_TO_REGION[code]||currentRegionKey;
-      if(newRegion!==currentRegionKey){currentRegionKey=newRegion;regionSelect.value=currentRegionKey;applyRegion(false);}
-    }
-
-    function setRegionFromTimezone(tz){
-      if(!tz)return;
-      if(tz==="Europe/London")setRegionFromCountryCode("GB");
-      else if(tz==="Europe/Dublin")setRegionFromCountryCode("IE");
-      else if(tz.startsWith("Australia/"))setRegionFromCountryCode("AU");
-      else if(tz.startsWith("Pacific/Auckland")||tz.startsWith("Pacific/Chatham"))setRegionFromCountryCode("NZ");
-    }
-
+    function setRegionFromCountryCode(code){const nr=COUNTRY_TO_REGION[code]||currentRegionKey; if(nr!==currentRegionKey){currentRegionKey=nr;regionSelect.value=currentRegionKey;applyRegion(false)}}
+    function setRegionFromTimezone(tz){if(!tz)return; if(tz==="Europe/London")setRegionFromCountryCode("GB"); else if(tz==="Europe/Dublin")setRegionFromCountryCode("IE"); else if(tz.startsWith("Australia/"))setRegionFromCountryCode("AU"); else if(tz.startsWith("Pacific/Auckland")||tz.startsWith("Pacific/Chatham"))setRegionFromCountryCode("NZ")}
     const US_STATES={AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",DE:"Delaware",FL:"Florida",GA:"Georgia",HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",MI:"Michigan",MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",NJ:"New Jersey",NM:"New Mexico",NY:"New York",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VT:"Vermont",VA:"Virginia",WA:"Washington",WV:"West Virginia",WI:"Wisconsin",WY:"Wyoming",DC:"District of Columbia"};
-
-    function parseUsCityState(value){
-      if(currentRegionKey!=="US")return null;
-      const parts=value.split(",").map(p=>p.trim()).filter(Boolean);
-      if(parts.length<2)return null;
-      const city=parts[0];
-      const stateRaw=parts[1].toUpperCase().replaceAll(".","");
-      return{city,stateName:US_STATES[stateRaw]||parts[1]};
-    }
-
-    function cleanPostcode(value){return value.trim().toUpperCase().replaceAll(" ","")}
-
-    function looksLikeUkPostcodeOrOutcode(value){
-      const c=cleanPostcode(value);
-      return new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$").test(c)||new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?$" ).test(c);
-    }
-
-    function looksLikePostalCode(value){
-      const c=value.trim().toUpperCase();
-      if(currentRegionKey==="UK")return looksLikeUkPostcodeOrOutcode(c);
-      if(currentRegionKey==="US")return new RegExp("^[0-9]{5}(-[0-9]{4})?$").test(c);
-      if(currentRegionKey==="CA")return new RegExp("^[A-Z][0-9][A-Z][ -]?[0-9][A-Z][0-9]$").test(c)||new RegExp("^[A-Z][0-9][A-Z]$").test(c);
-      if(currentRegionKey==="AU"||currentRegionKey==="NZ")return new RegExp("^[0-9]{4}$").test(c);
-      return false;
-    }
-
-    async function geocodeUkPostcode(query){
-      const cleaned=cleanPostcode(query);
-      const full=new RegExp("^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$").test(cleaned);
-      if(full){const r=await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(cleaned)}`);if(r.ok){const d=await r.json();if(d.result)return{latitude:d.result.latitude,longitude:d.result.longitude,countryCode:"GB",name:[d.result.postcode,d.result.admin_district,"GB"].filter(Boolean).join(", ")};}}
-      const outcode=cleaned.replace(new RegExp("[0-9][A-Z]{2}$"),"");
-      const r=await fetch(`https://api.postcodes.io/outcodes/${encodeURIComponent(outcode)}`);
-      if(r.ok){const d=await r.json();if(d.result)return{latitude:d.result.latitude,longitude:d.result.longitude,countryCode:"GB",name:[d.result.outcode,Array.isArray(d.result.admin_district)?d.result.admin_district[0]:d.result.admin_district,"GB"].filter(Boolean).join(", ")};}
-      throw new Error("Postcode not found. Try a full UK postcode, an outward postcode like BA14, or a nearby town.");
-    }
-
-    async function geocodeInternationalPostcode(query){
-      const country=preferredCountryCode();
-      let postal=query.trim().toUpperCase();
-      if(currentRegionKey==="US")postal=postal.slice(0,5);
-      if(currentRegionKey==="CA")postal=postal.replaceAll(" ","");
-      const attempts=[postal];
-      if(currentRegionKey==="CA"&&postal.length>3)attempts.push(postal.slice(0,3));
-      for(const attempt of attempts){
-        const r=await fetch(`https://api.zippopotam.us/${country}/${encodeURIComponent(attempt)}`);
-        if(!r.ok)continue;
-        const d=await r.json();
-        const p=d.places&&d.places[0];
-        if(p)return{latitude:Number(p.latitude),longitude:Number(p.longitude),countryCode:country,name:[p["place name"],p.state,country].filter(Boolean).join(", ")};
-      }
-      throw new Error("Postal code not found. Try a nearby town or city.");
-    }
-
-    async function geocodeIrishEircodeApprox(query){
-      const key=query.trim().toUpperCase().replaceAll(" ","").slice(0,3);
-      if(new RegExp("^D(0[1-9]|1[0-8]|2[024])$").test(key))return{latitude:53.3498,longitude:-6.2603,countryCode:"IE",name:`${key}, Dublin, IE approximate area`};
-      throw new Error("Eircode-level lookup is not precise yet. Try the nearest town or city, e.g. Dublin, Cork or Galway.");
-    }
-
-    const UK_PLACE_ALIASES={"bradford on avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},"bradford upon avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},"bradford-on-avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},trowbridge:{latitude:51.3186,longitude:-2.2080,countryCode:"GB",name:"Trowbridge, Wiltshire, GB"}};
-
+    function parseUsCityState(v){if(currentRegionKey!=="US")return null; const p=v.split(",").map(x=>x.trim()).filter(Boolean); if(p.length<2)return null; const st=p[1].toUpperCase().replaceAll(".",""); return{city:p[0],stateName:US_STATES[st]||p[1]}}
+    function cleanPostcode(v){return v.trim().toUpperCase().replaceAll(" ","")}
+    function looksLikeUkPostcodeOrOutcode(v){const c=cleanPostcode(v); return /^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$/.test(c)||/^[A-Z]{1,2}[0-9][A-Z0-9]?$/.test(c)}
+    function looksLikePostalCode(v){const c=v.trim().toUpperCase(); if(currentRegionKey==="UK")return looksLikeUkPostcodeOrOutcode(c); if(currentRegionKey==="US")return /^[0-9]{5}(-[0-9]{4})?$/.test(c); if(currentRegionKey==="CA")return /^[A-Z][0-9][A-Z][ -]?[0-9][A-Z][0-9]$/.test(c)||/^[A-Z][0-9][A-Z]$/.test(c); if(currentRegionKey==="AU"||currentRegionKey==="NZ")return /^[0-9]{4}$/.test(c); return false}
+    async function geocodeUkPostcode(q){const cleaned=cleanPostcode(q); const full=/^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$/.test(cleaned); if(full){const r=await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(cleaned)}`); if(r.ok){const d=await r.json(); if(d.result)return{latitude:d.result.latitude,longitude:d.result.longitude,countryCode:"GB",name:[d.result.postcode,d.result.admin_district,"GB"].filter(Boolean).join(", ")}}} const outcode=cleaned.replace(/[0-9][A-Z]{2}$/,""); const r=await fetch(`https://api.postcodes.io/outcodes/${encodeURIComponent(outcode)}`); if(r.ok){const d=await r.json(); if(d.result)return{latitude:d.result.latitude,longitude:d.result.longitude,countryCode:"GB",name:[d.result.outcode,Array.isArray(d.result.admin_district)?d.result.admin_district[0]:d.result.admin_district,"GB"].filter(Boolean).join(", ")}} throw new Error("Postcode not found. Try a full postcode, outward postcode like BA14, or nearby town.")}
+    async function geocodeInternationalPostcode(q){const country=preferredCountryCode(); let postal=q.trim().toUpperCase(); if(currentRegionKey==="US")postal=postal.slice(0,5); if(currentRegionKey==="CA")postal=postal.replaceAll(" ",""); const attempts=[postal]; if(currentRegionKey==="CA"&&postal.length>3)attempts.push(postal.slice(0,3)); for(const attempt of attempts){const r=await fetch(`https://api.zippopotam.us/${country}/${encodeURIComponent(attempt)}`); if(!r.ok)continue; const d=await r.json(); const p=d.places&&d.places[0]; if(p)return{latitude:Number(p.latitude),longitude:Number(p.longitude),countryCode:country,name:[p["place name"],p.state,country].filter(Boolean).join(", ")}} throw new Error("Postal code not found. Try a nearby town or city.")}
+    async function geocodeIrishEircodeApprox(q){const key=q.trim().toUpperCase().replaceAll(" ","").slice(0,3); if(/^D(0[1-9]|1[0-8]|2[024])$/.test(key))return{latitude:53.3498,longitude:-6.2603,countryCode:"IE",name:`${key}, Dublin, IE approximate area`}; throw new Error("Eircode lookup is approximate. Try the nearest town or city.")}
+    const UK_PLACE_ALIASES={"bradford on avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},"bradford-on-avon":{latitude:51.3470,longitude:-2.2527,countryCode:"GB",name:"Bradford-on-Avon, Wiltshire, GB"},trowbridge:{latitude:51.3186,longitude:-2.2080,countryCode:"GB",name:"Trowbridge, Wiltshire, GB"}};
     function normalise(s){return s.trim().toLowerCase().replaceAll("-"," ").replaceAll("_"," ").split(" ").filter(Boolean).join(" ")}
-    function getLocalAlias(query){if(currentRegionKey!=="UK")return null;return UK_PLACE_ALIASES[normalise(query)]||null}
-
-    function selectBestPlace(results,preferredCountry,query){
-      const countryMatches=results.filter(r=>r.country_code===preferredCountry);
-      const candidates=countryMatches.length?countryMatches:results;
-      const parsed=parseUsCityState(query);
-      if(parsed){const match=candidates.find(r=>(r.admin1||"").toLowerCase().includes(parsed.stateName.toLowerCase()));if(match)return match;}
-      return candidates[0];
-    }
-
-    function buildSearchVariants(query){
-      const t=query.trim();
-      const v=[t];
-      const parsed=parseUsCityState(t);
-      if(parsed){v.unshift(parsed.city);v.push(`${parsed.city}, ${parsed.stateName}`);}
-      if(currentRegionKey==="UK"){
-        v.push(`${t}, UK`,`${t}, England`,`${t}, Scotland`,`${t}, Wales`);
-        const h=t.replace(/ on /gi,"-on-").replace(/ upon /gi,"-upon-");
-        if(h!==t)v.push(h,`${h}, UK`);
-      }
-      return[...new Set(v.map(x=>x.trim()).filter(Boolean))];
-    }
-
-    async function geocode(query){
-      const trimmed=query.trim();
-      const preferred=preferredCountryCode();
-      const alias=getLocalAlias(trimmed);
-      if(alias)return alias;
-      if(currentRegionKey==="UK"&&looksLikeUkPostcodeOrOutcode(trimmed))return geocodeUkPostcode(trimmed);
-      if(currentRegionKey==="IE"&&cleanPostcode(trimmed).length===7)return geocodeIrishEircodeApprox(trimmed);
-      if(["US","CA","AU","NZ"].includes(currentRegionKey)&&looksLikePostalCode(trimmed))return geocodeInternationalPostcode(trimmed);
-      for(const variant of buildSearchVariants(trimmed)){
-        const url=`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(variant)}&count=10&language=en&format=json`;
-        const r=await fetch(url);
-        if(!r.ok)continue;
-        const d=await r.json();
-        if(!d.results||!d.results.length)continue;
-        const place=selectBestPlace(d.results,preferred,trimmed);
-        return{latitude:place.latitude,longitude:place.longitude,countryCode:place.country_code,name:[place.name,place.admin1,place.country_code].filter(Boolean).join(", ")};
-      }
-      throw new Error("Location not found. Try a postcode, a nearby larger town, or include the county.");
-    }
-
-    async function reverseGeocodeCoords(lat,lon,timezone){
-      const rounded=`${lat.toFixed(3)}, ${lon.toFixed(3)}`;
-      if(timezone==="Europe/London"||currentRegionKey==="UK"){
-        try{const r=await fetch(`https://api.postcodes.io/postcodes?lon=${encodeURIComponent(lon)}&lat=${encodeURIComponent(lat)}&limit=1`);if(r.ok){const d=await r.json();const p=d.result&&d.result[0];if(p)return{name:[p.admin_district,p.region,"GB"].filter(Boolean).join(", "),countryCode:"GB"};}}catch(e){}
-      }
-      return{name:`your device location near ${rounded}`,countryCode:null};
-    }
-
-    async function getWeather(latitude,longitude){
-      const params=new URLSearchParams({
-        latitude,longitude,
-        hourly:"temperature_2m,apparent_temperature,precipitation,precipitation_probability,weather_code,wind_speed_10m,wind_gusts_10m,relative_humidity_2m,cloud_cover,evapotranspiration,soil_moisture_0_to_1cm,soil_moisture_1_to_3cm,uv_index",
-        current:"temperature_2m,apparent_temperature,precipitation,rain,weather_code,wind_speed_10m",
-        daily:"sunrise,sunset",
-        timezone:"auto",
-        forecast_days:"7",
-        past_days:"3",
-        wind_speed_unit:"mph"
-      });
-      const r=await fetch(`https://api.open-meteo.com/v1/forecast?${params.toString()}`);
-      if(!r.ok)throw new Error("Weather check failed.");
-      return r.json();
-    }
-
-    function startOfDay(d){const x=new Date(d);x.setHours(0,0,0,0);return x}
-    function makeTime(day,h){const x=new Date(day);x.setHours(h,0,0,0);return x}
-    function hoursAfter(d,h){return new Date(d.getTime()+h*3600000)}
-    function hoursBefore(d,h){return new Date(d.getTime()-h*3600000)}
-    function rowsBetween(rows,from,to){return rows.filter(r=>r.time>=from&&r.time<=to)}
-    function sum(a){return a.reduce((t,v)=>t+v,0)}
-    function avg(a,f=0){return a.length?sum(a)/a.length:f}
-    function max(a,f=0){return a.length?Math.max(...a):f}
-    function mm(rows){return sum(rows.map(r=>r.precip))}
-    function formatTime(d){return d.toLocaleTimeString(region().locale,{hour:"2-digit",minute:"2-digit"})}
-    function formatTemp(c){return region().tempUnit==="F"?`${Math.round(c*9/5+32)}°F`:`${Math.round(c)}°C`}
-    function formatWind(m){return region().windUnit==="kmh"?`${Math.round(m*1.60934)} km/h`:`${Math.round(m)} mph`}
-
-    function dayLabel(d){
-      const diff=Math.round((startOfDay(d)-startOfDay(new Date()))/86400000);
-      if(diff===0)return"today";
-      if(diff===1)return"tomorrow";
-      return d.toLocaleDateString(region().locale,{weekday:"long"});
-    }
-
-    function buildRows(data){
-      return data.hourly.time.map((t,i)=>({
-        time:new Date(t),
-        temp:data.hourly.temperature_2m[i],
-        apparent:data.hourly.apparent_temperature?data.hourly.apparent_temperature[i]:data.hourly.temperature_2m[i],
-        precip:data.hourly.precipitation[i]||0,
-        rainProb:data.hourly.precipitation_probability[i]||0,
-        weatherCode:data.hourly.weather_code?data.hourly.weather_code[i]||0:0,
-        wind:data.hourly.wind_speed_10m[i]||0,
-        gust:data.hourly.wind_gusts_10m?data.hourly.wind_gusts_10m[i]||0:0,
-        humidity:data.hourly.relative_humidity_2m?data.hourly.relative_humidity_2m[i]:null,
-        uv:data.hourly.uv_index?data.hourly.uv_index[i]||0:0,
-        evap:data.hourly.evapotranspiration?data.hourly.evapotranspiration[i]||0:0,
-        soil:data.hourly.soil_moisture_1_to_3cm?data.hourly.soil_moisture_1_to_3cm[i]:null
-      }));
-    }
-
-    function findWindow(rows,predicate,minHours){
-      let run=[];
-      let best=[];
-      for(const row of rows){
-        if(predicate(row))run.push(row);
-        else{if(run.length>best.length)best=run;run=[];}
-      }
-      if(run.length>best.length)best=run;
-      if(best.length<minHours)return"No sensible window";
-      return `${formatTime(best[0].time)}–${formatTime(hoursAfter(best[best.length-1].time,1))}`;
-    }
-
+    function getLocalAlias(q){if(currentRegionKey!=="UK")return null; return UK_PLACE_ALIASES[normalise(q)]||null}
+    function selectBestPlace(results,preferred,query){const countryMatches=results.filter(r=>r.country_code===preferred); const cand=countryMatches.length?countryMatches:results; const parsed=parseUsCityState(query); if(parsed){const m=cand.find(r=>(r.admin1||"").toLowerCase().includes(parsed.stateName.toLowerCase())); if(m)return m} return cand[0]}
+    function buildSearchVariants(q){const t=q.trim(); const v=[t]; const parsed=parseUsCityState(t); if(parsed){v.unshift(parsed.city);v.push(`${parsed.city}, ${parsed.stateName}`)} if(selected==="camping")v.push(t.replace(/\bcampsite\b/gi,"").replace(/\bcampground\b/gi,"").trim()); if(currentRegionKey==="UK"){v.push(`${t}, UK`,`${t}, England`,`${t}, Scotland`,`${t}, Wales`); const h=t.replace(/ on /gi,"-on-").replace(/ upon /gi,"-upon-"); if(h!==t)v.push(h,`${h}, UK`)} return[...new Set(v.map(x=>x.trim()).filter(Boolean))]}
+    async function geocode(q){const trimmed=q.trim(); const preferred=preferredCountryCode(); const alias=getLocalAlias(trimmed); if(alias)return alias; if(currentRegionKey==="UK"&&looksLikeUkPostcodeOrOutcode(trimmed))return geocodeUkPostcode(trimmed); if(currentRegionKey==="IE"&&cleanPostcode(trimmed).length===7)return geocodeIrishEircodeApprox(trimmed); if(["US","CA","AU","NZ"].includes(currentRegionKey)&&looksLikePostalCode(trimmed))return geocodeInternationalPostcode(trimmed); for(const variant of buildSearchVariants(trimmed)){const r=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(variant)}&count=10&language=en&format=json`); if(!r.ok)continue; const d=await r.json(); if(!d.results||!d.results.length)continue; const p=selectBestPlace(d.results,preferred,trimmed); return{latitude:p.latitude,longitude:p.longitude,countryCode:p.country_code,name:[p.name,p.admin1,p.country_code].filter(Boolean).join(", ")}} throw new Error(selected==="camping"?"Location not found. Try the nearest town, village, postcode or campsite area rather than the exact campsite name.":"Location not found. Try a postcode, a nearby larger town, or include the county.")}
+    async function reverseGeocodeCoords(lat,lon,tz){const rounded=`${lat.toFixed(3)}, ${lon.toFixed(3)}`; if(tz==="Europe/London"||currentRegionKey==="UK"){try{const r=await fetch(`https://api.postcodes.io/postcodes?lon=${encodeURIComponent(lon)}&lat=${encodeURIComponent(lat)}&limit=1`); if(r.ok){const d=await r.json(); const p=d.result&&d.result[0]; if(p)return{name:[p.admin_district,p.region,"GB"].filter(Boolean).join(", "),countryCode:"GB"}}}catch(e){}} return{name:`your device location near ${rounded}`,countryCode:null}}
+    async function getWeather(latitude,longitude){const params=new URLSearchParams({latitude,longitude,hourly:"temperature_2m,apparent_temperature,precipitation,precipitation_probability,weather_code,wind_speed_10m,wind_gusts_10m,relative_humidity_2m,cloud_cover,evapotranspiration,soil_moisture_1_to_3cm,uv_index",current:"temperature_2m,apparent_temperature,precipitation,rain,weather_code,wind_speed_10m",daily:"sunrise,sunset",timezone:"auto",forecast_days:"10",past_days:"3",wind_speed_unit:"mph"}); const r=await fetch(`https://api.open-meteo.com/v1/forecast?${params.toString()}`); if(!r.ok)throw new Error("Weather check failed."); return r.json()}
+    function buildRows(data){return data.hourly.time.map((t,i)=>({time:new Date(t),temp:data.hourly.temperature_2m[i],apparent:data.hourly.apparent_temperature?data.hourly.apparent_temperature[i]:data.hourly.temperature_2m[i],precip:data.hourly.precipitation[i]||0,rainProb:data.hourly.precipitation_probability[i]||0,weatherCode:data.hourly.weather_code?data.hourly.weather_code[i]||0:0,wind:data.hourly.wind_speed_10m[i]||0,gust:data.hourly.wind_gusts_10m?data.hourly.wind_gusts_10m[i]||0:0,humidity:data.hourly.relative_humidity_2m?data.hourly.relative_humidity_2m[i]:null,cloud:data.hourly.cloud_cover?data.hourly.cloud_cover[i]||0:0,evap:data.hourly.evapotranspiration?data.hourly.evapotranspiration[i]||0:0,soil:data.hourly.soil_moisture_1_to_3cm?data.hourly.soil_moisture_1_to_3cm[i]:null}))}
+    function findWindow(rows,predicate,minHours){let run=[],best=[]; for(const row of rows){if(predicate(row))run.push(row); else{if(run.length>best.length)best=run;run=[]}} if(run.length>best.length)best=run; if(best.length<minHours)return"No sensible window"; return`${formatTime(best[0].time)}–${formatTime(hoursAfter(best[best.length-1].time,1))}`}
     function isStorm(rows){return rows.some(r=>r.weatherCode>=95)}
     function isWintry(rows){return rows.some(r=>[56,57,66,67,71,73,75,77,85,86].includes(r.weatherCode))}
-    function isWinterRest(day){const m=day.getMonth();return["AU","NZ"].includes(currentRegionKey)?[5,6,7].includes(m):[11,0,1].includes(m)}
-
-    function getTargetDays(data){
-      const dates=(data.daily.time||[]).map(d=>startOfDay(new Date(d)));
-      const today=startOfDay(new Date());
-
-      if(selectedPeriod==="today")return [today];
-      if(selectedPeriod==="tomorrow")return [startOfDay(hoursAfter(today,24))];
-
-      const day=today.getDay();
-      let daysToFriday=(5-day+7)%7;
-
-      if(day===6)daysToFriday=-1;
-      if(day===0)daysToFriday=-2;
-
-      const friday=startOfDay(hoursAfter(today,daysToFriday*24));
-
-      const weekendTargets=[
-        friday,
-        startOfDay(hoursAfter(friday,24)),
-        startOfDay(hoursAfter(friday,48))
-      ].filter(d=>d>=today);
-
-      const weekend=dates.filter(d=>weekendTargets.some(target=>target.getTime()===d.getTime()));
-
-      return weekend.length?weekend:[today];
-    }
-
-    function context(data,task,day,isToday){
-      const now=new Date();
-      const rows=buildRows(data);
-      const start=makeTime(day,task.hours[0]);
-      const end=makeTime(day,task.hours[1]);
-      const base=isToday?now:start;
-      const useful=rowsBetween(rows,isToday?new Date(Math.max(start,now)):start,end);
-      const next12=rowsBetween(rows,base,hoursAfter(base,12));
-      const next24=rowsBetween(rows,base,hoursAfter(base,24));
-      const past24=rowsBetween(rows,hoursBefore(base,24),base);
-      const past72=rowsBetween(rows,hoursBefore(base,72),base);
-      return{
-        rows,day,useful,base,next12,next24,past24,past72,
-        currentRain:isToday?(data.current.precipitation||data.current.rain||0):0,
-        temp:avg(useful.map(r=>r.temp),data.current.temperature_2m),
-        maxTemp:max(useful.map(r=>r.temp),data.current.temperature_2m),
-        minFeels:Math.min(...(useful.length?useful.map(r=>r.apparent):[data.current.apparent_temperature||data.current.temperature_2m])),
-        maxWind:max(useful.map(r=>r.wind),0),
-        maxGust:max(useful.map(r=>r.gust),0),
-        avgHumidity:avg(useful.map(r=>r.humidity).filter(v=>v!==null),null),
-        rainProb:max(useful.map(r=>r.rainProb),0),
-        rainNext12:mm(next12),rainNext24:mm(next24),rainPast24:mm(past24),rainPast72:mm(past72),rainTotal:mm(useful),
-        storm:isStorm(useful)||isStorm(next12),
-        wintry:isWintry(useful)||isWintry(next12),
-        soil:rows.slice().reverse().find(r=>r.time<=base&&r.soil!==null)?.soil??null,
-        evap:sum(useful.map(r=>r.evap)),
-        isToday
-      };
-    }
-
-    function scoreValue(status){
-      if(["GO","WATER","TAKE ONE"].includes(status))return 3;
-      if(["CAUTION","CHECK","CHECK SOIL","MAYBE","DAY ONLY"].includes(status))return 2;
-      if(["WAIT","NO","NO-GO","WARNING"].includes(status))return 1;
-      return 0;
-    }
-
-    function result(status,css,ctx,best,reasons,rec){
-      const lead=status==="GO"
-        ?"Good conditions look likely."
-        :status==="WATER"
-        ?"Watering looks useful."
-        :status==="CHECK SOIL"
-        ?"Check the soil before watering."
-        :status==="WAIT"
-        ?"Waiting is likely better."
-        :status==="CAUTION"
-        ?"Possible, but check the details."
-        :status==="NO-GO"
-        ?"Waiting is likely the better choice."
-        :status==="WARNING"
-        ?"Warning conditions are possible."
-        :"Check the details before deciding.";
-
-      return{status,css,best,reason:`${lead} ${reasons.slice(0,3).join(" ")} ${rec}`.trim(),why:reasons.slice(0,5),rain:`${Math.round(ctx.rainProb)}% max`,windMph:ctx.maxWind,tempC:selected==="jacket"?ctx.minFeels:selected==="plants"?ctx.maxTemp:ctx.temp,score:scoreValue(status),date:ctx.day,label:dayLabel(ctx.day)};
-    }
-
-    function nextBetter(data,task){
-      const rows=data.daily.time||[];
-      for(const dayStr of rows.slice(1)){
-        const day=startOfDay(new Date(dayStr));
-        const r=analyseDay(data,task,day,false);
-        if(["GO","WATER","TAKE ONE","CAUTION","CHECK","CHECK SOIL","MAYBE"].includes(r.status)&&r.best!=="No sensible window")return r;
-      }
-      return null;
-    }
-
-    function recommend(status,today,next){
-      if(["GO","WATER","TAKE ONE"].includes(status))return`Recommendation: use the best window ${today.best}.`;
-      if(status==="CHECK SOIL")return`Recommendation: check the soil during the best window ${today.best}.`;
-      if(next&&next.best!=="No sensible window")return`Recommendation: leave it for now; the next better window looks like ${next.label}, ${next.best}.`;
-      return"Recommendation: leave it for now and reassess when the forecast improves.";
-    }
+    function isWinterRest(day){const m=day.getMonth(); return["AU","NZ"].includes(currentRegionKey)?[5,6,7].includes(m):[11,0,1].includes(m)}
+    function getTargetDays(data){const dates=(data.daily.time||[]).map(d=>startOfDay(new Date(d))); const today=startOfDay(new Date()); if(selectedPeriod==="today")return[today]; if(selectedPeriod==="tomorrow")return[startOfDay(hoursAfter(today,24))]; const day=today.getDay(); let daysToFriday=(5-day+7)%7; if(day===6)daysToFriday=-1; if(day===0)daysToFriday=-2; const friday=startOfDay(hoursAfter(today,daysToFriday*24)); const targets=[friday,startOfDay(hoursAfter(friday,24)),startOfDay(hoursAfter(friday,48))].filter(d=>d>=today); const weekend=dates.filter(d=>targets.some(t=>t.getTime()===d.getTime())); return weekend.length?weekend:[today]}
+    function context(data,task,day,isToday){const now=new Date(), rows=buildRows(data), start=makeTime(day,task.hours[0]), end=makeTime(day,task.hours[1]), base=isToday?now:start, useful=rowsBetween(rows,isToday?new Date(Math.max(start,now)):start,end), next12=rowsBetween(rows,base,hoursAfter(base,12)), next24=rowsBetween(rows,base,hoursAfter(base,24)), past24=rowsBetween(rows,hoursBefore(base,24),base), past72=rowsBetween(rows,hoursBefore(base,72),base); return{rows,day,useful,base,next12,next24,past24,past72,currentRain:isToday?(data.current.precipitation||data.current.rain||0):0,temp:avg(useful.map(r=>r.temp),data.current.temperature_2m),maxTemp:max(useful.map(r=>r.temp),data.current.temperature_2m),minFeels:Math.min(...(useful.length?useful.map(r=>r.apparent):[data.current.apparent_temperature||data.current.temperature_2m])),maxWind:max(useful.map(r=>r.wind),0),maxGust:max(useful.map(r=>r.gust),0),avgHumidity:avg(useful.map(r=>r.humidity).filter(v=>v!==null),null),rainProb:max(useful.map(r=>r.rainProb),0),rainNext12:mm(next12),rainNext24:mm(next24),rainPast24:mm(past24),rainPast72:mm(past72),rainTotal:mm(useful),storm:isStorm(useful)||isStorm(next12),wintry:isWintry(useful)||isWintry(next12),soil:rows.slice().reverse().find(r=>r.time<=base&&r.soil!==null)?.soil??null,evap:sum(useful.map(r=>r.evap)),isToday}}
+    function scoreValue(s){if(["GO","WATER","TAKE ONE"].includes(s))return 3; if(["CAUTION","CHECK","CHECK SOIL","MAYBE","DAY ONLY"].includes(s))return 2; if(["WAIT","NO","NO-GO","WARNING"].includes(s))return 1; return 0}
+    function result(status,css,ctx,best,reasons,rec){const lead=status==="GO"?"Good conditions look likely.":status==="WATER"?"Watering looks useful.":status==="CHECK SOIL"?"Check the soil before watering.":status==="WAIT"?"Waiting is likely better.":status==="CAUTION"?"Possible, but check the details.":status==="WARNING"?"Warning conditions are possible.":status==="NO-GO"?"Waiting is likely the better choice.":"Check the details before deciding."; return{status,css,best,reason:`${lead} ${reasons.slice(0,3).join(" ")} ${rec}`.trim(),why:reasons.slice(0,5),rain:`${Math.round(ctx.rainProb)}% max`,windMph:ctx.maxWind,tempC:selected==="jacket"?ctx.minFeels:selected==="plants"?ctx.maxTemp:ctx.temp,score:scoreValue(status),date:ctx.day,label:dayLabel(ctx.day)}}
+    function nextBetter(data,task){for(const dayStr of (data.daily.time||[]).slice(1)){const day=startOfDay(new Date(dayStr)), r=analyseDay(data,task,day,false); if(["GO","WATER","TAKE ONE","CAUTION","CHECK","CHECK SOIL","MAYBE"].includes(r.status)&&r.best!=="No sensible window")return r} return null}
+    function recommend(status,today,next){if(["GO","WATER","TAKE ONE"].includes(status))return`Recommendation: use the best window ${today.best}.`; if(status==="CHECK SOIL")return`Recommendation: check the soil during the best window ${today.best}.`; if(next&&next.best!=="No sensible window")return`Recommendation: leave it for now; the next better window looks like ${next.label}, ${next.best}.`; return"Recommendation: leave it for now and reassess when the forecast improves."}
 
     function analyseDay(data,task,day,isToday){
-      const ctx=context(data,task,day,isToday);
-      let score=100,reasons=[];
-      const good=row=>row.rainProb<=task.rainProb&&row.precip<0.2&&row.wind<=task.windMaxMph&&row.temp>=task.tempMinC&&row.temp<=task.tempMaxC;
-      let best=findWindow(ctx.useful,good,task.minHours);
-
-      if(!ctx.useful.length){score-=40;reasons.push("There is no sensible daylight window left.")}
-      if(ctx.currentRain>0){score-=selected==="run"||selected==="dog"?10:35;reasons.push("It is raining now.")}
-      if(ctx.storm){score-=45;reasons.push("Storm risk makes this a poor choice.")}
-      if(ctx.wintry){score-=30;reasons.push("Wintry or icy conditions may make this unsafe or ineffective.")}
-      if(ctx.rainProb>task.rainProb){score-=20;reasons.push("Rain risk is higher than ideal.")}
-      if(ctx.maxWind>task.windMaxMph||ctx.maxGust>task.windMaxMph+10){score-=18;reasons.push("Wind may be too strong.")}
-      if(ctx.temp<task.tempMinC){score-=16;reasons.push("It may be too cold.")}
-      if(ctx.temp>task.tempMaxC){score-=16;reasons.push("It may be too hot.")}
-
-      if(selected==="grass"){
-        if(ctx.rainPast24>2){score-=35;reasons.push("The grass is likely wet from recent rain.")}
-        if(isWinterRest(day)){score-=20;reasons.push("It is the winter rest period, so mowing is usually best avoided unless it is dry and mild.")}
-        if(isToday&&new Date().getHours()>=15){score-=22;reasons.push("It is getting late for a useful grass cut.")}
-      }
-
-      if(selected==="washing"){
-        if(best==="No sensible window"){score-=35;reasons.push("There are not enough dry daylight hours for washing to dry properly.")}
-        if(ctx.avgHumidity!==null&&ctx.avgHumidity>82){score-=18;reasons.push("Humidity is high, so drying will be slow.")}
-      }
-
-      if(selected==="paint"){
-        if(ctx.rainPast24>1){score-=35;reasons.push("Surfaces may still be damp from recent rain.")}
-        if(ctx.rainNext12>0.2){score-=35;reasons.push("Rain is possible before paint has time to dry or cure.")}
-      }
-
-      if(selected==="washCar"){
-        if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so the car may not stay clean for long.")}
-        if(ctx.temp<=2){score-=35;reasons.push("Near-freezing temperatures could make washing unsafe or icy.")}
-      }
-
-      if(selected==="windows"){
-        if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so windows may not stay clean.")}
-        if(ctx.temp<=2){score-=35;reasons.push("Near-freezing conditions could make surfaces slippery or icy.")}
-      }
-
-            if(selected==="bbq"){
-        best=findWindow(ctx.useful.filter(r=>r.time.getHours()>=12&&r.time.getHours()<=21),good,2);
-
-        if(best==="No sensible window"){
-          score-=25;
-          reasons.push("There is no clean lunch or evening BBQ window.");
-        }
-
-        if(ctx.storm){
-          score-=55;
-          reasons.unshift("Thunder, lightning or storm risk is a serious outdoor cooking safety concern.");
-        }
-
-        if(ctx.maxGust>38){
-          score-=35;
-          reasons.push("Very strong gusts could make outdoor cooking unsafe or difficult.");
-        }else if(ctx.maxGust>28){
-          score-=18;
-          reasons.push("Gusts may make BBQ setup and cooking less comfortable.");
-        }
-
-        if(ctx.rainTotal>2){
-          score-=18;
-          reasons.push("Rain may make outdoor cooking less comfortable, so shelter and timing matter.");
-        }
-
-        if(ctx.maxTemp>=30){
-          score-=14;
-          reasons.push("Heat may make outdoor cooking uncomfortable and food storage more important.");
-        }
-
-        if(ctx.temp<8){
-          score-=14;
-          reasons.push("It may feel cold for guests sitting outside.");
-        }
-
-        let status="GO",css="";
-
-        if(ctx.storm||ctx.maxGust>40){
-          status="WARNING";
-          css="no";
-        }else if(score<72){
-          status="CAUTION";
-          css="caution";
-        }
-
-        const australiaNote=currentRegionKey==="AU"
-          ?" In Australia, also check local fire restrictions before lighting a BBQ."
-          :"";
-
-        return{...result(status,css,ctx,best,reasons,`Recommendation: use the best sheltered cooking window, keep food covered, and avoid BBQs during thunder, lightning or dangerous wind.${australiaNote}`)};
-      }
-
-      if(selected==="run"){
-        if(ctx.maxTemp>=29){score-=45;reasons.push("It may be too hot for a safe run.")}
-        else if(ctx.maxTemp>=22){score-=15;reasons.push("Heat may make running harder.")}
-      }
-
-      if(selected==="dog"){
-        if(ctx.maxTemp>=28){score-=45;reasons.push("It may be too hot for a safe dog walk.")}
-        else if(ctx.maxTemp>=23){score-=20;reasons.push("Heat may be uncomfortable for dogs, especially on pavements.")}
-      }
-
-      if(selected==="camping"){
-        const overnightStart=makeTime(day,18);
-        const overnightEnd=makeTime(hoursAfter(day,24),9);
-        const overnightRows=rowsBetween(ctx.rows,overnightStart,overnightEnd);
-        const overnightRain=mm(overnightRows);
-        const overnightMinFeels=Math.min(...(overnightRows.length?overnightRows.map(r=>r.apparent):[ctx.minFeels]));
-        const overnightMaxWind=max(overnightRows.map(r=>r.wind),0);
-        const overnightMaxGust=max(overnightRows.map(r=>r.gust),0);
-
-        if(ctx.rainPast24>4){score-=18;reasons.push("The ground may already be wet from recent rain.")}
-        if(overnightRain>1){score-=16;reasons.push("There is rain risk during the evening or overnight period.")}
-        if(overnightRain>4){score-=16;reasons.push("Overnight rain could make camping wet or uncomfortable, so pack for wet conditions.")}
-        if(overnightMinFeels<7){score-=18;reasons.push("It may feel cold overnight.")}
-        if(overnightMaxWind>22){score-=18;reasons.push("Evening or overnight wind may be uncomfortable for tents.")}
-        if(overnightMaxGust>35){score-=22;reasons.push("Strong gusts could make pitching or sleeping in a tent difficult.")}
-        if(ctx.maxTemp>=30){score-=12;reasons.push("Daytime heat may make pitching and sleeping uncomfortable.")}
-        if(best==="No sensible window"){score-=10;reasons.push("There is not a perfect daylight arrival or pitching window.")}
-
-        let status="GO",css="";
-
-        if(ctx.storm){
-          status="WARNING";
-          css="no";
-          reasons.unshift("Thunder, lightning or storm risk is a serious camping safety concern.");
-        }else if(overnightMaxGust>40){
-          status="WARNING";
-          css="no";
-          reasons.unshift("Very strong gusts could be unsafe for tents, especially on exposed pitches.");
-        }else if(score<72){
-          status="CAUTION";
-          css="caution";
-        }
-
-        return{...result(status,css,ctx,best,reasons,"Recommendation: camping may still be possible in rain, but check the campsite forecast, avoid exposed pitches, pack waterproof kit and do not camp during thunder, lightning or dangerous wind.")};
-      }
-
-      if(selected==="hiking"){
-        if(ctx.storm){score-=45;reasons.push("Storm risk is a serious concern for hiking.")}
-        if(ctx.maxGust>35){score-=25;reasons.push("Gusts may be strong on exposed ground.")}
-        if(ctx.rainTotal>2){score-=18;reasons.push("Rain could make paths slippery or visibility poorer.")}
-        if(ctx.maxTemp>=27){score-=25;reasons.push("Heat may make a long walk harder and increase hydration risk.")}
-      }
-
-      if(selected==="beach"){
-        if(ctx.maxTemp<18){score-=25;reasons.push("It may feel cool for a beach day.")}
-        if(ctx.maxWind>22){score-=22;reasons.push("Wind may make the beach feel less comfortable.")}
-        if(ctx.rainProb>30){score-=22;reasons.push("Rain risk could spoil the beach window.")}
-        if(ctx.storm){score-=40;reasons.push("Storm risk makes the beach a poor choice.")}
-      }
-
-      if(selected==="fishing"){
-        if(ctx.maxWind>28){score-=24;reasons.push("Wind may make fishing difficult or exposed spots uncomfortable.")}
-        if(ctx.storm){score-=45;reasons.push("Storm risk is unsafe near open water.")}
-        if(ctx.maxTemp<4){score-=16;reasons.push("It may feel very cold sitting still for long periods.")}
-      }
-
-      if(selected==="golf"){
-        if(ctx.maxWind>25){score-=22;reasons.push("Wind may make golf more difficult.")}
-        if(ctx.rainTotal>1.5){score-=20;reasons.push("Rain may make the course wet or play less comfortable.")}
-        if(ctx.storm){score-=45;reasons.push("Storm risk is unsafe on open ground.")}
-      }
-
-      if(selected==="cycling"){
-        if(ctx.maxWind>28){score-=24;reasons.push("Wind may make cycling harder, especially on exposed roads.")}
-        if(ctx.rainTotal>1.5){score-=18;reasons.push("Rain may make roads or paths slippery.")}
-        if(ctx.maxTemp>=29){score-=24;reasons.push("Heat may make cycling harder and increase hydration risk.")}
-        if(ctx.storm){score-=45;reasons.push("Storm risk is unsafe for cycling.")}
-      }
-
-      if(selected==="plants"){
-        score=42;
-        reasons=[];
-        best=findWindow(ctx.useful.filter(r=>[6,7,8,9,18,19,20].includes(r.time.getHours())),r=>r.precip<0.1&&r.rainProb<60,1);
-
-        if(ctx.currentRain>0){score-=35;reasons.push("It is raining now.")}
-        if(ctx.rainNext24>=2){score-=30;reasons.push("Useful rain is expected in the next 24 hours.")}
-        else{score+=10;reasons.push("No useful rain is expected soon.")}
-
-        if(ctx.rainPast24>=5){score-=32;reasons.push("There has already been useful recent rain.")}
-        else if(ctx.rainPast72<1){score+=18;reasons.push("It has been fairly dry recently.")}
-
-        if(ctx.maxTemp>=25){score+=14;reasons.push("Warm conditions can dry pots, baskets and shallow soil faster.")}
-        else if(ctx.maxTemp<15){score-=18;reasons.push("Cooler conditions mean established outdoor plants may need less water.")}
-
-        if(ctx.maxWind>=18){score+=8;reasons.push("Wind can dry pots, baskets and surface soil faster.")}
-        if(ctx.avgHumidity!==null&&ctx.avgHumidity<50){score+=8;reasons.push("Lower humidity can dry plants and soil faster.")}
-        if(ctx.soil!==null&&ctx.soil<0.22){score+=16;reasons.push("Near-surface soil moisture looks low.")}
-
-        let status="CHECK SOIL",css="caution";
-        if(score>=76&&ctx.rainNext24<2&&ctx.currentRain<=0){status="WATER";css=""}
-        if(score<45){status="WAIT";css="no"}
-
-        if(status==="WATER"){
-          return{...result(status,css,ctx,best,reasons,"Recommendation: water the soil deeply during the best window. Prioritise pots, baskets, new plants, tomatoes and plants under cover.")};
-        }
-
-        if(status==="WAIT"){
-          return{...result(status,css,ctx,best,reasons,"Recommendation: wait for now unless pots, baskets or new plants are visibly dry. Check soil before watering.")};
-        }
-
-        return{...result(status,css,ctx,best,reasons,"Recommendation: push a finger into the soil. Water pots, baskets, new plants and covered plants only if the soil feels dry.")};
-      }
-
-      if(selected==="jacket"){
-        let status="NO",css="no";
-        reasons=[];
-        if(ctx.minFeels<=11){status="TAKE ONE";css="";reasons.push("It will feel cold enough for a coat.")}
-        else if(ctx.minFeels<=15||ctx.rainNext24>0.5||ctx.maxWind>18){status="MAYBE";css="caution";reasons.push("A light layer or waterproof may be useful.")}
-        else{reasons.push("It looks mild enough without a coat.")}
-        return{...result(status,css,ctx,status==="NO"?"Not needed":"Take one",reasons,status==="NO"?"Recommendation: no coat needed unless you personally feel the cold.":"Recommendation: take a layer or waterproof if you will be out for long.")};
-      }
-
-      if(best==="No sensible window"){score-=20;reasons.push("There is no proper usable window.")}
-      if(!reasons.length)reasons.push("There is a usable weather window.");
-      let status="GO",css="";
-      if(score<45){status="NO-GO";css="no"}
-      else if(score<72){status="CAUTION";css="caution"}
-      return{...result(status,css,ctx,best,reasons,"")};
+      const ctx=context(data,task,day,isToday); let score=100,reasons=[]; const good=r=>r.rainProb<=task.rainProb&&r.precip<0.2&&r.wind<=task.windMaxMph&&r.temp>=task.tempMinC&&r.temp<=task.tempMaxC; let best=findWindow(ctx.useful,good,task.minHours);
+      if(!ctx.useful.length){score-=40;reasons.push("There is no sensible daylight window left.")} if(ctx.currentRain>0){score-=selected==="run"||selected==="dog"?10:35;reasons.push("It is raining now.")} if(ctx.storm){score-=45;reasons.push("Storm risk makes this a poor choice.")} if(ctx.wintry){score-=30;reasons.push("Wintry or icy conditions may make this unsafe or ineffective.")} if(ctx.rainProb>task.rainProb){score-=20;reasons.push("Rain risk is higher than ideal.")} if(ctx.maxWind>task.windMaxMph||ctx.maxGust>task.windMaxMph+10){score-=18;reasons.push("Wind may be too strong.")} if(ctx.temp<task.tempMinC){score-=16;reasons.push("It may be too cold.")} if(ctx.temp>task.tempMaxC){score-=16;reasons.push("It may be too hot.")}
+      if(selected==="grass"){if(ctx.rainPast24>2){score-=35;reasons.push("The grass is likely wet from recent rain.")} if(isWinterRest(day)){score-=20;reasons.push("It is the winter rest period, so mowing is usually best avoided unless it is dry and mild.")} if(isToday&&new Date().getHours()>=15){score-=22;reasons.push("It is getting late for a useful grass cut.")}}
+      if(selected==="washing"){if(best==="No sensible window"){score-=35;reasons.push("There are not enough dry daylight hours for washing to dry properly.")} if(ctx.avgHumidity!==null&&ctx.avgHumidity>82){score-=18;reasons.push("Humidity is high, so drying will be slow.")}}
+      if(selected==="paint"){if(ctx.rainPast24>1){score-=35;reasons.push("Surfaces may still be damp from recent rain.")} if(ctx.rainNext12>0.2){score-=35;reasons.push("Rain is possible before paint has time to dry or cure.")}}
+      if(selected==="washCar"){if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so the car may not stay clean for long.")} if(ctx.temp<=2){score-=35;reasons.push("Near-freezing temperatures could make washing unsafe or icy.")}}
+      if(selected==="windows"){if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so windows may not stay clean.")} if(ctx.temp<=2){score-=35;reasons.push("Near-freezing conditions could make surfaces slippery or icy.")}}
+      if(selected==="bbq"){best=findWindow(ctx.useful.filter(r=>r.time.getHours()>=12&&r.time.getHours()<=21),good,2); if(best==="No sensible window"){score-=25;reasons.push("There is no clean lunch or evening BBQ window.")} if(ctx.storm){score-=55;reasons.unshift("Thunder, lightning or storm risk is a serious outdoor cooking safety concern.")} if(ctx.maxGust>38){score-=35;reasons.push("Very strong gusts could make outdoor cooking unsafe or difficult.")} else if(ctx.maxGust>28){score-=18;reasons.push("Gusts may make BBQ setup and cooking less comfortable.")} if(ctx.rainTotal>2){score-=18;reasons.push("Rain may make outdoor cooking less comfortable, so shelter and timing matter.")} let status="GO",css=""; if(ctx.storm||ctx.maxGust>40){status="WARNING";css="no"} else if(score<72){status="CAUTION";css="caution"} const aus=currentRegionKey==="AU"?" In Australia, also check local fire restrictions before lighting a BBQ.":""; return{...result(status,css,ctx,best,reasons,`Recommendation: use the best sheltered cooking window and avoid BBQs during thunder, lightning or dangerous wind.${aus}`)}}
+      if(selected==="run"){if(ctx.maxTemp>=29){score-=45;reasons.push("It may be too hot for a safe run.")} else if(ctx.maxTemp>=22){score-=15;reasons.push("Heat may make running harder.")}}
+      if(selected==="dog"){if(ctx.maxTemp>=28){score-=45;reasons.push("It may be too hot for a safe dog walk.")} else if(ctx.maxTemp>=23){score-=20;reasons.push("Heat may be uncomfortable for dogs, especially on pavements.")}}
+      if(selected==="camping"){const overnightRows=rowsBetween(ctx.rows,makeTime(day,18),makeTime(hoursAfter(day,24),9)); const overnightRain=mm(overnightRows), overnightMinFeels=min(overnightRows.map(r=>r.apparent),ctx.minFeels), overnightMaxWind=max(overnightRows.map(r=>r.wind),0), overnightMaxGust=max(overnightRows.map(r=>r.gust),0), overnightStorm=isStorm(overnightRows); if(ctx.rainPast24>4){score-=18;reasons.push("The ground may already be wet from recent rain.")} if(overnightRain>1){score-=16;reasons.push("There is rain risk during the evening or overnight period.")} if(overnightRain>4){score-=16;reasons.push("Overnight rain could make camping wet or uncomfortable, so pack for wet conditions.")} if(overnightMinFeels<7){score-=18;reasons.push("It may feel cold overnight.")} if(overnightMaxWind>22){score-=18;reasons.push("Evening or overnight wind may be uncomfortable for tents.")} if(overnightMaxGust>35){score-=22;reasons.push("Strong gusts could make pitching or sleeping in a tent difficult.")} let status="GO",css=""; if(ctx.storm||overnightStorm){status="WARNING";css="no";reasons.unshift("Thunder, lightning or storm risk is a serious camping safety concern.")} else if(overnightMaxGust>40){status="WARNING";css="no";reasons.unshift("Very strong gusts could be unsafe for tents, especially on exposed pitches.")} else if(score<72){status="CAUTION";css="caution"} return{...result(status,css,ctx,best,reasons,"Recommendation: camping may still be possible in rain, but check the campsite forecast, avoid exposed pitches, pack waterproof kit and do not camp during thunder, lightning or dangerous wind.")}}
+      if(selected==="plants"){score=42;reasons=[]; best=findWindow(ctx.useful.filter(r=>[6,7,8,9,18,19,20].includes(r.time.getHours())),r=>r.precip<0.1&&r.rainProb<60,1); if(ctx.currentRain>0){score-=35;reasons.push("It is raining now.")} if(ctx.rainNext24>=2){score-=30;reasons.push("Useful rain is expected in the next 24 hours.")} else{score+=10;reasons.push("No useful rain is expected soon.")} if(ctx.rainPast24>=5){score-=32;reasons.push("There has already been useful recent rain.")} else if(ctx.rainPast72<1){score+=18;reasons.push("It has been fairly dry recently.")} if(ctx.maxTemp>=25){score+=14;reasons.push("Warm conditions can dry pots, baskets and shallow soil faster.")} else if(ctx.maxTemp<15){score-=18;reasons.push("Cooler conditions mean established outdoor plants may need less water.")} if(ctx.maxWind>=18){score+=8;reasons.push("Wind can dry pots, baskets and surface soil faster.")} if(ctx.avgHumidity!==null&&ctx.avgHumidity<50){score+=8;reasons.push("Lower humidity can dry plants and soil faster.")} if(ctx.soil!==null&&ctx.soil<0.22){score+=16;reasons.push("Near-surface soil moisture looks low.")} let status="CHECK SOIL",css="caution"; if(score>=76&&ctx.rainNext24<2&&ctx.currentRain<=0){status="WATER";css=""} if(score<45){status="WAIT";css="no"} const rec=status==="WATER"?"Recommendation: water the soil deeply during the best window. Prioritise pots, baskets, new plants, tomatoes and plants under cover.":status==="WAIT"?"Recommendation: wait for now unless pots, baskets or new plants are visibly dry. Check soil before watering.":"Recommendation: push a finger into the soil. Water pots, baskets, new plants and covered plants only if the soil feels dry."; return{...result(status,css,ctx,best,reasons,rec)}}
+      if(selected==="jacket"){let status="NO",css="no";reasons=[]; if(ctx.minFeels<=11){status="TAKE ONE";css="";reasons.push("It will feel cold enough for a coat.")} else if(ctx.minFeels<=15||ctx.rainNext24>0.5||ctx.maxWind>18){status="MAYBE";css="caution";reasons.push("A light layer or waterproof may be useful.")} else{reasons.push("It looks mild enough without a coat.")} return{...result(status,css,ctx,status==="NO"?"Not needed":"Take one",reasons,status==="NO"?"Recommendation: no coat needed unless you personally feel the cold.":"Recommendation: take a layer or waterproof if you will be out for long.")}}
+      if(best==="No sensible window"){score-=20;reasons.push("There is no proper usable window.")} if(!reasons.length)reasons.push("There is a usable weather window."); let status="GO",css=""; if(score<45){status="NO-GO";css="no"} else if(score<72){status="CAUTION";css="caution"} return{...result(status,css,ctx,best,reasons,"")}
     }
 
-    function analyse(data,task){
-      const days=getTargetDays(data);
-      const results=days.map(day=>analyseDay(data,task,day,startOfDay(day).getTime()===startOfDay(new Date()).getTime()));
-      let chosen=results.slice().sort((a,b)=>b.score-a.score)[0]||results[0];
-      const next=nextBetter(data,task);
-      const periodText=selectedPeriod==="weekend"?`Best weekend option: ${chosen.label}. `:"";
-      const addGenericRecommendation=!["plants","camping"].includes(selected);
-      chosen.reason=periodText+chosen.reason+(addGenericRecommendation?" "+recommend(chosen.status,chosen,next):"");
-      return chosen;
-    }
-
-    function loading(){
-      document.getElementById("result").classList.add("show");
-      document.getElementById("answer").className="answer loading";
-      document.getElementById("answer").textContent="…";
-      document.getElementById("reason").textContent="Checking the local forecast…";
-      document.getElementById("whyList").innerHTML="<li>Fetching weather data and applying task-specific rules.</li>";
-      ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—");
-    }
-
-    function render(place,r){
-      const task=taskConfig();
-      const resultBox=document.getElementById("result");
-      resultBox.className=`result show ${r.css||""}`;
-      document.getElementById("question").textContent=`${periodQuestion(task,selectedPeriod)} — ${place}`;
-      document.getElementById("reason").textContent=r.reason;
-      document.getElementById("answer").className=`answer ${r.css}`;
-      document.getElementById("answer").textContent=r.status;
-      document.getElementById("bestTime").textContent=r.best;
-      document.getElementById("rain").textContent=r.rain;
-      document.getElementById("wind").textContent=formatWind(r.windMph);
-      document.getElementById("temp").textContent=formatTemp(r.tempC);
-      document.getElementById("whyList").innerHTML=(r.why&&r.why.length?r.why:["There is not enough forecast detail to give a stronger reason."]).map(item=>`<li>${item}</li>`).join("");
-
-      updateFeatureVisibility();
-
-            if(selected==="camping"){
-        const recommendation=chooseCampingChecklist(r);
-        updateChecklistRecommendation(recommendation.type,recommendation.reason,true);
-      }
-
-      if(selected==="bbq"){
-        const recommendation=chooseBbqChecklist(r);
-        updateBbqChecklistRecommendation(recommendation.type,recommendation.reason,true);
-      }
-    }
-
-    function showError(message){
-      document.getElementById("result").className="result show caution";
-      document.getElementById("question").textContent="Could not complete check";
-      document.getElementById("reason").textContent=message;
-      document.getElementById("answer").className="answer caution";
-      document.getElementById("answer").textContent="CHECK";
-      document.getElementById("whyList").innerHTML="<li>Try a nearby town, city or full postcode.</li>";
-      ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—");
-      updateFeatureVisibility();
-      setTimeout(scrollResultIntoView,80);
-    }
-
-    function analyseAndRender(place,data){
-      const r=analyse(data,taskConfig());
-      render(place.name||place,r);
-      setTimeout(scrollResultIntoView,80);
-    }
-
-    function scrollResultIntoView(){
-      const result=document.getElementById("result");
-      if(!result||!result.classList.contains("show"))return;
-      const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      result.scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});
-    }
-
-    async function checkFromText(){
-      const validation=validateLocationInput(locationInput.value);
-      if(!validation.ok){showError(validation.message);setLocationStatus("Type another location",false);return}
-      const query=validation.value;
-      try{
-        loading();
-        setLocationStatus("Checking typed location…",true);
-        const place=await geocode(query);
-        setRegionFromCountryCode(place.countryCode);
-        const data=await getWeather(place.latitude,place.longitude);
-        lastPlace=place;
-        lastWeather=data;
-        analyseAndRender(place,data);
-        setLocationStatus(`Using ${place.name}`,false);
-      }catch(err){
-        setLocationStatus("Type another location",false);
-        showError(err.message||"Something went wrong. Try another location.");
-      }
-    }
-
-    async function checkFromCoords(latitude,longitude,placeName){
-      try{
-        loading();
-        const data=await getWeather(latitude,longitude);
-        setRegionFromTimezone(data.timezone);
-        const resolved=await reverseGeocodeCoords(latitude,longitude,data.timezone);
-        if(resolved.countryCode)setRegionFromCountryCode(resolved.countryCode);
-        const display=resolved.name||placeName||"your current location";
-        lastPlace={name:display,latitude,longitude,countryCode:resolved.countryCode};
-        lastWeather=data;
-        analyseAndRender(lastPlace,data);
-        setLocationStatus(`Using ${display}`,false);
-      }catch(err){
-        setLocationStatus("Type a postcode, ZIP code, town or city",false);
-        showError(err.message||"Could not check your current location.");
-      }
-    }
-
-    function autoDetectLocationOnLoad(){
-      if(!navigator.geolocation){setLocationStatus("Type a postcode, ZIP code, town or city",false);return;}
-      setLocationStatus("Trying to detect your location…",true);
-      navigator.geolocation.getCurrentPosition(async pos=>{
-        const c=pos.coords;
-        detectedLocation={latitude:c.latitude,longitude:c.longitude,name:"your device location"};
-        locationInput.value="";
-        await checkFromCoords(c.latitude,c.longitude,"your device location");
-      },()=>{setLocationStatus("Type a postcode, ZIP code, town or city",false);},{enableHighAccuracy:false,timeout:8000,maximumAge:600000});
-    }
-
-    function useMyLocation(){
-      if(!navigator.geolocation){showError("Your browser does not support location checks. Enter a town or city instead.");return;}
-      setLocationStatus("Requesting location permission…",true);
-      navigator.geolocation.getCurrentPosition(async pos=>{
-        const c=pos.coords;
-        detectedLocation={latitude:c.latitude,longitude:c.longitude,name:"your device location"};
-        locationInput.value="";
-        await checkFromCoords(c.latitude,c.longitude,"your device location");
-      },()=>{
-        setLocationStatus("Location permission not granted",false);
-        showError("Location permission was not granted. Enter a town or city instead.");
-      },{enableHighAccuracy:false,timeout:8000,maximumAge:600000});
-    }
-
-    regionSelect.addEventListener("change",()=>{
-      currentRegionKey=regionSelect.value;
-      applyRegion(true);
-      setLocationStatus(`Using ${region().name} wording`,false);
-    });
-
+    function analyse(data,task){const days=getTargetDays(data), results=days.map(d=>analyseDay(data,task,d,startOfDay(d).getTime()===startOfDay(new Date()).getTime())); let chosen=results.slice().sort((a,b)=>b.score-a.score)[0]||results[0]; const next=nextBetter(data,task); if(selectedPeriod==="weekend"&&selected==="camping")chosen.reason=`Weekend headline: best overall camping window looks like ${chosen.label}. ${chosen.reason} See the Friday–Sunday outlook below for setup, daytime and overnight detail.`; else if(selectedPeriod==="weekend")chosen.reason=`Best weekend option: ${chosen.label}. ${chosen.reason}`; if(!["plants","camping","bbq"].includes(selected))chosen.reason+=" "+recommend(chosen.status,chosen,next); return chosen}
+    function segmentStats(rows,day,label,startHour,endHour){const start=makeTime(day,startHour), end=endHour<=startHour?makeTime(hoursAfter(day,24),endHour):makeTime(day,endHour), seg=rowsBetween(rows,start,end); return{label,rows:seg,avgTemp:avg(seg.map(r=>r.temp),0),maxTemp:max(seg.map(r=>r.temp),0),minFeels:min(seg.map(r=>r.apparent),0),rainProb:max(seg.map(r=>r.rainProb),0),precip:mm(seg),wind:max(seg.map(r=>r.wind),0),gust:max(seg.map(r=>r.gust),0),cloud:avg(seg.map(r=>r.cloud),0),storm:isStorm(seg)}}
+    function weatherSymbol(s){if(s.storm)return"⛈️"; if(s.gust>=38)return"💨"; if(s.precip>=2||s.rainProb>=65)return"🌧️"; if(s.precip>0.2||s.rainProb>=35)return"🌦️"; if(s.minFeels<=2)return"❄️"; if(s.cloud>=70)return"☁️"; if(s.cloud>=35)return"⛅"; return"☀️"}
+    function segmentLine(s){return`${weatherSymbol(s)} ${formatTemp(s.avgTemp)} · rain ${Math.round(s.rainProb)}% · wind ${formatWind(s.wind)}`}
+    function fullDayStats(rows,day){return segmentStats(rows,day,"Day",0,24)}
+    function overnightStats(rows,day){return segmentStats(rows,day,"Night",18,8)}
+    function buildWeekendForecastCards(data){const rows=buildRows(data), days=getTargetDays(data); return days.map(day=>{const morning=segmentStats(rows,day,"Morning",6,12), afternoon=segmentStats(rows,day,"Afternoon",12,18), evening=segmentStats(rows,day,"Evening",18,23), night=segmentStats(rows,day,"Overnight",23,7), dayStats=fullDayStats(rows,day), nightStats=overnightStats(rows,day), title=day.toLocaleDateString(region().locale,{weekday:"long",day:"numeric",month:"short"}); return{day,title,morning,afternoon,evening,night,dayStats,nightStats,html:`<article class="forecast-card"><h3>${title}</h3><div class="forecast-mini"><span>Day high ${formatTemp(dayStats.maxTemp)}</span><span>Night low ${formatTemp(nightStats.minFeels)}</span><span>Rain ${Math.round(dayStats.rainProb)}%</span></div><div class="forecast-row"><strong>Morning</strong><span>${segmentLine(morning)}</span></div><div class="forecast-row"><strong>Afternoon</strong><span>${segmentLine(afternoon)}</span></div><div class="forecast-row"><strong>Evening</strong><span>${segmentLine(evening)}</span></div><div class="forecast-row"><strong>Overnight</strong><span>${segmentLine(night)}</span></div></article>`}})}
+    function buildWeekAheadSummary(data){const rows=buildRows(data), today=startOfDay(new Date()), dates=(data.daily.time||[]).map(d=>startOfDay(new Date(d))).filter(d=>d>=today).slice(0,7), wet=[], storm=[]; for(const day of dates){const d=fullDayStats(rows,day), n=overnightStats(rows,day), label=day.toLocaleDateString(region().locale,{weekday:"long"}); if(d.storm||n.storm)storm.push(label); if(d.precip>=2||d.rainProb>=55||n.precip>=2||n.rainProb>=55)wet.push(`${label}${n.precip>=1||n.rainProb>=50?" night":""}`)} if(storm.length)return`If staying for the week, keep checking the forecast because storm risk appears around ${storm.slice(0,2).join(" and ")}.`; if(wet.length)return`If staying for the week, the week ahead is mostly manageable, with the main rain signal around ${wet.slice(0,3).join(", ")}.`; return"If staying for the week, the week ahead currently looks mostly dry with no strong rain signal showing."}
+    function buildCampingHighlights(data,cards){if(!cards.length)return"Weekend detail is not available yet."; const friday=cards.find(c=>c.day.getDay()===5)||cards[0], saturday=cards.find(c=>c.day.getDay()===6), sunday=cards.find(c=>c.day.getDay()===0); let arrival; if(friday.evening.storm||friday.night.storm)arrival=`If arriving ${friday.day.getDay()===5?"Friday":"on the first day"}, there is a thunder or storm signal, so check conditions carefully before pitching.`; else if(friday.evening.precip>=1||friday.evening.rainProb>=50)arrival=`If arriving ${friday.day.getDay()===5?"Friday":"on the first day"}, setup looks wet or showery, so plan waterproofs, dry bags and a quick pitching routine.`; else arrival=`If arriving ${friday.day.getDay()===5?"Friday":"on the first day"}, setup currently looks reasonably manageable.`; let weekendTemp=""; if(saturday&&sunday)weekendTemp=` Saturday and Sunday daytime highs look around ${formatTemp(saturday.dayStats.maxTemp)} and ${formatTemp(sunday.dayStats.maxTemp)}, with overnight feels around ${formatTemp(saturday.nightStats.minFeels)} to ${formatTemp(sunday.nightStats.minFeels)}.`; else if(saturday)weekendTemp=` Saturday daytime high looks around ${formatTemp(saturday.dayStats.maxTemp)}, with overnight feel around ${formatTemp(saturday.nightStats.minFeels)}.`; else if(sunday)weekendTemp=` Sunday daytime high looks around ${formatTemp(sunday.dayStats.maxTemp)}, with overnight feel around ${formatTemp(sunday.nightStats.minFeels)}.`; return`${arrival}${weekendTemp} ${buildWeekAheadSummary(data)}`}
+    function renderForecastOutlook(data){const outlook=document.getElementById("forecastOutlook"); if(selected!=="camping"||selectedPeriod!=="weekend"||!data){outlook.classList.remove("show");return} const cards=buildWeekendForecastCards(data); document.getElementById("forecastTitle").textContent="Weekend camping outlook"; document.getElementById("forecastIntro").textContent="Friday, Saturday and Sunday split into morning, afternoon, evening and overnight, with a week-ahead camping note."; document.getElementById("forecastGrid").innerHTML=cards.map(c=>c.html).join(""); document.getElementById("forecastSummary").textContent=buildCampingHighlights(data,cards); outlook.classList.add("show")}
+    function loading(){document.getElementById("result").classList.add("show"); document.getElementById("answer").className="answer loading"; document.getElementById("answer").textContent="…"; document.getElementById("reason").textContent="Checking the local forecast…"; document.getElementById("whyList").innerHTML="<li>Fetching weather data and applying task-specific rules.</li>"; document.getElementById("forecastOutlook").classList.remove("show"); ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—")}
+    function render(place,r){const task=taskConfig(), box=document.getElementById("result"); box.className=`result show ${r.css||""}`; document.getElementById("question").textContent=`${periodQuestion(task,selectedPeriod)} — ${place}`; document.getElementById("reason").textContent=r.reason; document.getElementById("answer").className=`answer ${r.css||""}`; document.getElementById("answer").textContent=r.status; document.getElementById("bestTime").textContent=r.best; document.getElementById("rain").textContent=r.rain; document.getElementById("wind").textContent=formatWind(r.windMph); document.getElementById("temp").textContent=formatTemp(r.tempC); document.getElementById("whyList").innerHTML=(r.why&&r.why.length?r.why:["There is not enough forecast detail to give a stronger reason."]).map(i=>`<li>${i}</li>`).join(""); updateFeatureVisibility(); renderForecastOutlook(lastWeather)}
+    function showError(msg){document.getElementById("result").className="result show caution"; document.getElementById("question").textContent="Could not complete check"; document.getElementById("reason").textContent=msg; document.getElementById("answer").className="answer caution"; document.getElementById("answer").textContent="CHECK"; document.getElementById("whyList").innerHTML="<li>Try a nearby town, city or full postcode.</li>"; document.getElementById("forecastOutlook").classList.remove("show"); ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—"); updateFeatureVisibility(); setTimeout(scrollResultIntoView,80)}
+    function analyseAndRender(place,data){const r=analyse(data,taskConfig()); render(place.name||place,r); setTimeout(scrollResultIntoView,80)}
+    function scrollResultIntoView(){const r=document.getElementById("result"); if(!r||!r.classList.contains("show"))return; const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches; r.scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"})}
+    async function checkFromText(){const q=locationInput.value.trim(); if(!q){showError("Enter a town, city or postcode."); setLocationStatus("Type another location",false);return} if(q.length>80||q.includes("<")||q.includes(">")){showError("Location contains unsupported characters."); setLocationStatus("Type another location",false);return} try{loading(); setLocationStatus("Checking typed location…",true); const place=await geocode(q); setRegionFromCountryCode(place.countryCode); const data=await getWeather(place.latitude,place.longitude); lastPlace=place; lastWeather=data; analyseAndRender(place,data); setLocationStatus(`Using ${place.name}`,false)}catch(e){setLocationStatus("Type another location",false); showError(e.message||"Something went wrong. Try another location.")}}
+    async function checkFromCoords(latitude,longitude,placeName){try{loading(); const data=await getWeather(latitude,longitude); setRegionFromTimezone(data.timezone); const resolved=await reverseGeocodeCoords(latitude,longitude,data.timezone); if(resolved.countryCode)setRegionFromCountryCode(resolved.countryCode); const display=resolved.name||placeName||"your current location"; lastPlace={name:display,latitude,longitude,countryCode:resolved.countryCode}; lastWeather=data; analyseAndRender(lastPlace,data); setLocationStatus(`Using ${display}`,false)}catch(e){setLocationStatus("Type a postcode, ZIP code, town or city",false); showError(e.message||"Could not check your current location.")}}
+    function autoDetectLocationOnLoad(){if(!navigator.geolocation){setLocationStatus("Type a postcode, ZIP code, town or city",false);return} setLocationStatus("Trying to detect your location…",true); navigator.geolocation.getCurrentPosition(async pos=>{const c=pos.coords; detectedLocation={latitude:c.latitude,longitude:c.longitude,name:"your device location"}; locationInput.value=""; await checkFromCoords(c.latitude,c.longitude,"your device location")},()=>setLocationStatus("Type a postcode, ZIP code, town or city",false),{enableHighAccuracy:false,timeout:8000,maximumAge:600000})}
+    function useMyLocation(){if(!navigator.geolocation){showError("Your browser does not support location checks. Enter a town or city instead.");return} setLocationStatus("Requesting location permission…",true); navigator.geolocation.getCurrentPosition(async pos=>{const c=pos.coords; detectedLocation={latitude:c.latitude,longitude:c.longitude,name:"your device location"}; locationInput.value=""; await checkFromCoords(c.latitude,c.longitude,"your device location")},()=>{setLocationStatus("Location permission not granted",false); showError("Location permission was not granted. Enter a town or city instead.")},{enableHighAccuracy:false,timeout:8000,maximumAge:600000})}
+    regionSelect.addEventListener("change",()=>{currentRegionKey=regionSelect.value; applyRegion(true); setLocationStatus(`Using ${region().name} wording`,false)});
     document.getElementById("checkBtn").addEventListener("click",checkFromText);
     document.getElementById("geoBtn").addEventListener("click",useMyLocation);
     locationInput.addEventListener("keydown",e=>{if(e.key==="Enter")checkFromText()});
-
     init();
   </script>
 </body>
