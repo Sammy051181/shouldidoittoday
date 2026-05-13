@@ -652,6 +652,7 @@
     }
 
     .camping-seo-hub{
+      display:none;
       margin:38px 0 0;
       border:1px solid rgba(22,120,60,.18);
       border-radius:34px;
@@ -661,6 +662,18 @@
         rgba(255,255,255,.86);
       box-shadow:var(--shadow-soft);
       overflow:hidden;
+    }
+
+    .camping-seo-hub.show{
+      display:block;
+    }
+
+    .camping-links-block{
+      display:none;
+    }
+
+    .camping-links-block.show{
+      display:block;
     }
 
     .camping-hero{
@@ -1232,7 +1245,7 @@
             <div class="camping-actions">
               <button class="camping-primary" type="button" id="campingQuickCheck">Check camping weather</button>
               <a class="camping-secondary" href="#campingChecklist">Camping checklist</a>
-              <a class="camping-secondary" href="/camping/">Camping hub</a>
+              <a class="camping-secondary" href="#camping">Camping hub</a>
             </div>
           </div>
 
@@ -1284,7 +1297,7 @@
           <div class="checklist-head">
             <div>
               <h2>Camping checklist for today’s conditions</h2>
-              <p>Use this as a crawlable camping packing list and a useful checklist for visitors. Start simple now, then turn it into a printable checklist page later.</p>
+              <p>The checklist updates automatically when you run a camping weather check, then you can manually switch checklist type if needed.</p>
             </div>
             <div class="checklist-controls" aria-label="Choose checklist type">
               <button class="checklist-filter active" type="button" data-checklist="basic">Basic</button>
@@ -1307,20 +1320,17 @@
         </div>
       </section>
 
-      <section class="seo-internal-links" aria-label="Camping weather and checklist pages">
+      <section class="seo-internal-links camping-links-block" id="campingLinks" aria-label="Camping weather and checklist tools">
         <div class="seo-internal-links-inner">
-          <h2>Camping weather and checklist pages</h2>
-          <p>Build these as real pages next so Google has a clear camping topic cluster to crawl.</p>
+          <h2>Camping weather and checklist tools</h2>
+          <p>Use the camping weather checker and checklist to decide whether today, tomorrow or this weekend looks suitable for camping.</p>
           <div class="seo-link-grid">
-            <a href="/camping/">Should I go camping today?</a>
-            <a href="/camping/this-weekend/">Should I go camping this weekend?</a>
-            <a href="/camping/weather-checker/">Camping weather checker</a>
-            <a href="/camping/checklist/">Camping checklist generator</a>
-            <a href="/camping/printable-checklist/">Printable camping checklist</a>
-            <a href="/camping/gear-checklist/">Best camping gear checklist</a>
-            <a href="/camping/cold-weather-camping-checklist/">Cold weather camping checklist</a>
-            <a href="/camping/family-camping-checklist/">Family camping checklist</a>
-            <a href="/camping/food-checklist/">Camping food checklist</a>
+            <a href="#camping">Should I go camping today?</a>
+            <a href="/?task=should-i-go-camping&period=today#main">Check camping weather today</a>
+            <a href="/?task=should-i-go-camping&period=tomorrow#main">Check camping weather tomorrow</a>
+            <a href="/?task=should-i-go-camping&period=weekend#main">Should I go camping this weekend?</a>
+            <a href="#campingChecklist">Camping checklist for today’s conditions</a>
+            <a href="#campingChecklist">Camping packing list</a>
           </div>
         </div>
       </section>
@@ -1415,8 +1425,8 @@
         title:"More UK weather checks",
         intro:"UK GO / CAUTION / NO-GO checks for common outdoor jobs and activities.",
         links:[
-          ["/camping/","Should I go camping today?"],
-          ["/camping/this-weekend/","Should I go camping this weekend?"],
+          ["/?task=should-i-go-camping&period=today#main","Should I go camping today?"],
+          ["/?task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],
           ["/uk/should-i-cut-the-grass-today/","Should I cut the grass today?"],
           ["/uk/can-i-hang-washing-out-today/","Can I hang washing out today?"],
           ["/uk/should-i-wash-my-car-today/","Should I wash my car today?"],
@@ -1433,8 +1443,8 @@
         title:"More USA weather checks",
         intro:"USA GO / CAUTION / NO-GO checks for common outdoor jobs and activities.",
         links:[
-          ["/camping/","Should I go camping today?"],
-          ["/camping/this-weekend/","Should I go camping this weekend?"],
+          ["/?region=us&task=should-i-go-camping&period=today#main","Should I go camping today?"],
+          ["/?region=us&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],
           ["/us/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],
           ["/us/should-i-wash-my-car-today/","Should I wash my car today?"],
           ["/us/should-i-grill-today/","Should I grill today?"],
@@ -1445,10 +1455,10 @@
           ["/?region=us&task=should-i-water-my-plants-today&period=today#main","Should I water my plants today?"]
         ]
       },
-      IE:{title:"More Ireland weather checks",intro:"Ireland GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/camping/","Should I go camping today?"],["/camping/this-weekend/","Should I go camping this weekend?"],["/ie/should-i-cut-the-grass-today/","Should I cut the grass today?"],["/?region=ie&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=ie&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=ie&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=ie&task=should-i-walk-the-dog-today&period=today#main","Should I walk the dog today?"]]},
-      AU:{title:"More Australia weather checks",intro:"Australia GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/camping/","Should I go camping today?"],["/camping/this-weekend/","Should I go camping this weekend?"],["/au/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=au&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=au&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=au&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=au&task=is-it-too-hot-to-walk-the-dog-today&period=today#main","Is it too hot to walk the dog today?"]]},
-      CA:{title:"More Canada weather checks",intro:"Canada GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/camping/","Should I go camping today?"],["/camping/this-weekend/","Should I go camping this weekend?"],["/ca/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=ca&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=ca&task=should-i-grill-today&period=today#main","Should I grill today?"],["/?region=ca&task=do-i-need-a-jacket-today&period=today#main","Do I need a jacket today?"],["/?region=ca&task=should-i-walk-my-dog-today&period=today#main","Should I walk my dog today?"]]},
-      NZ:{title:"More New Zealand weather checks",intro:"New Zealand GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/camping/","Should I go camping today?"],["/camping/this-weekend/","Should I go camping this weekend?"],["/nz/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=nz&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=nz&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=nz&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=nz&task=do-i-need-a-coat-today&period=today#main","Do I need a coat today?"]]}
+      IE:{title:"More Ireland weather checks",intro:"Ireland GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/?region=ie&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=ie&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/ie/should-i-cut-the-grass-today/","Should I cut the grass today?"],["/?region=ie&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=ie&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=ie&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=ie&task=should-i-walk-the-dog-today&period=today#main","Should I walk the dog today?"]]},
+      AU:{title:"More Australia weather checks",intro:"Australia GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/?region=au&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=au&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/au/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=au&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=au&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=au&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=au&task=is-it-too-hot-to-walk-the-dog-today&period=today#main","Is it too hot to walk the dog today?"]]},
+      CA:{title:"More Canada weather checks",intro:"Canada GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/?region=ca&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=ca&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/ca/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=ca&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=ca&task=should-i-grill-today&period=today#main","Should I grill today?"],["/?region=ca&task=do-i-need-a-jacket-today&period=today#main","Do I need a jacket today?"],["/?region=ca&task=should-i-walk-my-dog-today&period=today#main","Should I walk my dog today?"]]},
+      NZ:{title:"More New Zealand weather checks",intro:"New Zealand GO / CAUTION / NO-GO checks for common outdoor jobs.",links:[["/?region=nz&task=should-i-go-camping&period=today#main","Should I go camping today?"],["/?region=nz&task=should-i-go-camping&period=weekend#main","Should I go camping this weekend?"],["/nz/should-i-mow-the-lawn-today/","Should I mow the lawn today?"],["/?region=nz&task=can-i-hang-washing-out-today&period=today#main","Can I hang washing out today?"],["/?region=nz&task=should-i-wash-my-car-today&period=today#main","Should I wash my car today?"],["/?region=nz&task=should-i-bbq-today&period=today#main","Should I BBQ today?"],["/?region=nz&task=do-i-need-a-coat-today&period=today#main","Do I need a coat today?"]]}
     };
 
     const CHECKLISTS={
@@ -1637,6 +1647,7 @@
           document.querySelectorAll("[data-task]").forEach(btn=>btn.classList.remove("active"));
           button.classList.add("active");
           updateHintAndQuestion();
+          updateCampingVisibility();
 
           if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
           else if(locationInput.value.trim())checkFromText();
@@ -1645,6 +1656,7 @@
       });
 
       updateHintAndQuestion();
+      updateCampingVisibility();
     }
 
     function updateHintAndQuestion(){
@@ -1652,6 +1664,15 @@
       const periodLabel={today:"today",tomorrow:"tomorrow",weekend:"this weekend"}[selectedPeriod];
       hint.textContent=`Selected: ${task.label.toLowerCase()} • ${periodLabel}`;
       document.getElementById("question").textContent=periodQuestion(task,selectedPeriod);
+    }
+
+    function updateCampingVisibility(){
+      const showCamping=selected==="camping";
+      const campingHub=document.getElementById("camping");
+      const campingLinks=document.getElementById("campingLinks");
+
+      if(campingHub)campingHub.classList.toggle("show",showCamping);
+      if(campingLinks)campingLinks.classList.toggle("show",showCamping);
     }
 
     function periodQuestion(task,period){
@@ -1683,6 +1704,7 @@
         selectedPeriod=tab.dataset.period;
         setPeriodTab();
         updateHintAndQuestion();
+        updateCampingVisibility();
 
         if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
         else if(locationInput.value.trim())checkFromText();
@@ -1699,7 +1721,9 @@
         setPeriodTab();
         renderTasks();
         updateHintAndQuestion();
+        updateCampingVisibility();
         document.getElementById("main").scrollIntoView({behavior:"smooth",block:"start"});
+
         if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather);
         else if(locationInput.value.trim())checkFromText();
         else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);
@@ -2237,6 +2261,8 @@
       document.getElementById("temp").textContent=formatTemp(r.tempC);
       document.getElementById("whyList").innerHTML=(r.why&&r.why.length?r.why:["There is not enough forecast detail to give a stronger reason."]).map(item=>`<li>${item}</li>`).join("");
 
+      updateCampingVisibility();
+
       if(selected==="camping"){
         const recommendation=chooseCampingChecklist(r);
         updateChecklistRecommendation(recommendation.type,recommendation.reason,true);
@@ -2251,6 +2277,7 @@
       document.getElementById("answer").textContent="CHECK";
       document.getElementById("whyList").innerHTML="<li>Try a nearby town, city or full postcode.</li>";
       ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—");
+      updateCampingVisibility();
       setTimeout(scrollResultIntoView,80);
     }
 
