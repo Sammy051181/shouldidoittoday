@@ -13,7 +13,6 @@
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://shouldidoittoday.com/" />
 
-  <!-- SEO FIX: hreflang alternate tags for regional variants -->
   <link rel="alternate" hreflang="en-GB" href="https://shouldidoittoday.com/" />
   <link rel="alternate" hreflang="en-IE" href="https://shouldidoittoday.com/?region=ie" />
   <link rel="alternate" hreflang="en-US" href="https://shouldidoittoday.com/?region=us" />
@@ -21,8 +20,6 @@
   <link rel="alternate" hreflang="en-AU" href="https://shouldidoittoday.com/?region=au" />
   <link rel="alternate" hreflang="en-NZ" href="https://shouldidoittoday.com/?region=nz" />
   <link rel="alternate" hreflang="x-default" href="https://shouldidoittoday.com/" />
-
-  <!-- SEO FIX: sitemap reference -->
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
   <meta property="og:type" content="website" />
@@ -62,78 +59,533 @@
   </script>
 
   <style>
-    :root{--bg:#f5f8f1;--ink:#162119;--soft:#24352a;--muted:#607063;--line:#dce8da;--card:#fff;--green:#16783c;--green2:#22c55e;--amber:#b45309;--amberbg:#fff7ed;--red:#b91c1c;--redbg:#fff1f2;--teal:#0f766e;--shadow:0 24px 70px rgba(20,36,25,.12);--radius:28px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 82% 5%,rgba(34,197,94,.18),transparent 28%),radial-gradient(circle at 12% 24%,rgba(20,184,166,.12),transparent 24%),linear-gradient(180deg,#fbfdf9 0%,var(--bg) 46%,#fff 100%);line-height:1.5}
-    button,input,select{font:inherit}.skip{position:absolute;left:-999px;top:12px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:12px;text-decoration:none}.skip:focus{left:12px}
-    .page{width:min(1120px,calc(100% - 28px));margin:0 auto;min-height:100vh;display:flex;flex-direction:column}header{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:18px 0}.brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}.brand svg{width:48px;height:38px;filter:drop-shadow(0 10px 18px rgba(15,118,110,.14))}.brand-wordmark{display:grid;line-height:.95;font-weight:950;letter-spacing:-.055em;font-size:1.03rem}.brand-wordmark strong{color:var(--green2);font-size:1.15em}.top-help{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.91rem;font-weight:800;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:999px;padding:8px 12px}
-    main{flex:1;padding:26px 0 52px}.hero{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(330px,.96fr);gap:28px;align-items:start}.hero-copy{padding-top:18px}
+    /* ── DESIGN TOKENS ─────────────────────────────────────────────────── */
+    :root{
+      --bg:#f0f7ff;
+      --bg2:#e8f2ff;
+      --ink:#0f172a;
+      --soft:#1e3a5f;
+      --muted:#64748b;
+      --line:#dbeafe;
+      --card:#fff;
+      --blue:#2563eb;
+      --blue-light:#eff6ff;
+      --blue-mid:#bfdbfe;
+      --navy:#0f172a;
+      --green:#16a34a;
+      --green2:#22c55e;
+      --green-bg:#f0fdf4;
+      --amber:#d97706;
+      --amber-bg:#fffbeb;
+      --red:#dc2626;
+      --red-bg:#fef2f2;
+      --water:#2563eb;
+      --water-bg:#eff6ff;
+      --shadow:0 4px 6px -1px rgba(15,23,42,.07),0 20px 50px rgba(37,99,235,.08);
+      --shadow-card:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);
+      --radius:20px;
+      --radius-sm:12px;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}
+    body{
+      margin:0;min-height:100vh;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      color:var(--ink);
+      background:linear-gradient(160deg,#dbeafe 0%,#eff6ff 30%,#f8fafc 60%,#fff 100%);
+      line-height:1.5;
+    }
+    button,input,select{font:inherit}
+    .skip{position:absolute;left:-999px;top:12px;background:var(--navy);color:#fff;padding:10px 14px;border-radius:12px;text-decoration:none}
+    .skip:focus{left:12px}
+    .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 
-    /* SEO FIX: H1 is now a real visible heading styled to match the logo display text.
-       The old pattern used aria-hidden on the visual element and clipped the real H1 to 1px.
-       Google can technically read clipped H1s but it's fragile and may be discounted.
-       Now the H1 IS the visual element, styled identically to the old .hero-logo paragraph. */
-    .hero-logo{font-size:clamp(3.2rem,8vw,6rem);line-height:.9;font-weight:1000;letter-spacing:-.08em;margin:0}.hero-logo strong{display:block;color:var(--green2)}
+    /* ── LAYOUT ─────────────────────────────────────────────────────────── */
+    .page{width:min(1140px,calc(100% - 32px));margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
 
-    .lead{margin:18px 0 0;max-width:650px;color:var(--muted);font-size:clamp(1.05rem,1.6vw,1.24rem)}.benefit-row{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0 0}.benefit{display:inline-flex;align-items:center;gap:7px;padding:9px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.78);font-weight:850;font-size:.92rem}
-    .checker-card{border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.88);box-shadow:var(--shadow);padding:18px;position:sticky;top:14px}.checker-head h2{margin:0;letter-spacing:-.04em;font-size:1.22rem}.checker-head p{margin:3px 0 13px;color:var(--muted);font-size:.92rem}.region-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px;color:var(--muted);font-size:.91rem;font-weight:800}.region-row select{border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);padding:8px 32px 8px 13px;cursor:pointer;outline:none;min-width:148px}
-    .period-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#eef7ed;border:1px solid #d4ead1;border-radius:20px;padding:6px;margin-bottom:12px}.period-tab{border:0;border-radius:15px;background:transparent;color:var(--muted);font-weight:950;padding:10px 8px;cursor:pointer}.period-tab.active{background:#fff;color:var(--green);box-shadow:0 8px 18px rgba(20,36,25,.08)}
-    .search-card{padding:10px;border:1px solid var(--line);border-radius:24px;background:#fbfefb}.search-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.search-input{min-width:0;width:100%;border:1px solid var(--line);border-radius:17px;padding:14px;outline:none;background:#fff}.search-input:focus,.region-row select:focus{border-color:#14b8a6;box-shadow:0 0 0 4px rgba(20,184,166,.14)}.btn{border:0;border-radius:17px;padding:14px 16px;cursor:pointer;font-weight:950;white-space:nowrap}.btn-primary{background:var(--green);color:#fff;box-shadow:0 10px 22px rgba(22,120,60,.18)}.btn-secondary{width:100%;margin-top:8px;background:#ecfdf8;color:var(--teal);border:1px solid #b7ebe3}.status-pill{display:flex;align-items:center;gap:8px;min-height:38px;padding:8px 11px;border-radius:17px;background:rgba(22,120,60,.07);color:var(--green);border:1px solid rgba(22,120,60,.15);font-size:.89rem;font-weight:850;margin-top:11px}.pulse{width:8px;height:8px;border-radius:999px;background:#14b8a6;box-shadow:0 0 0 5px rgba(20,184,166,.16)}
-    .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.task-area{margin:30px 0 0}.section-title{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 12px}.section-title h2{margin:0;font-size:1.25rem;letter-spacing:-.04em}.section-title p{margin:0;color:var(--muted);font-size:.93rem;font-weight:750}.tasks{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:10px}.task{border:1px solid var(--line);border-radius:21px;background:#fff;color:var(--ink);padding:12px 8px;cursor:pointer;font-weight:900;box-shadow:0 6px 20px rgba(20,36,25,.05);min-height:84px}.task:hover{transform:translateY(-2px);border-color:#aee8c4}.task.active{border-color:#95e3b0;background:#effdf3;color:var(--green);box-shadow:0 12px 28px rgba(22,120,60,.10)}.task span{display:block;font-size:1.5rem;margin-bottom:5px}
-    .result{display:none;margin:34px 0 0;border:2px solid rgba(22,120,60,.18);border-radius:34px;background:linear-gradient(135deg,rgba(236,253,243,.96),rgba(255,255,255,.98) 48%,#fff);box-shadow:0 30px 95px rgba(20,36,25,.18);overflow:hidden;text-align:left;position:relative}.result.show{display:block}.result::before{content:"";position:absolute;inset:0 auto 0 0;width:11px;background:var(--green)}.result.caution{border-color:rgba(180,83,9,.28);background:linear-gradient(135deg,rgba(255,247,237,.96),rgba(255,255,255,.98) 50%,#fff)}.result.caution::before{background:var(--amber)}.result.no{border-color:rgba(185,28,28,.28);background:linear-gradient(135deg,rgba(255,241,242,.96),rgba(255,255,255,.98) 50%,#fff)}.result.no::before{background:var(--red)}
-    .result-top{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:stretch;padding:22px 22px 22px 32px}.answer{min-height:172px;border-radius:28px;display:grid;place-items:center;text-align:center;padding:18px;background:#dcfce7;color:var(--green);border:1px solid rgba(22,120,60,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 18px 34px rgba(22,120,60,.16);font-size:clamp(2rem,4.2vw,3.1rem);line-height:.86;letter-spacing:-.06em;font-weight:1000;text-transform:uppercase}.answer.caution{background:var(--amberbg);color:var(--amber);font-size:clamp(1.35rem,3vw,2.1rem)}.answer.no{background:var(--redbg);color:var(--red);font-size:clamp(1.35rem,3vw,2rem)}.answer.loading{background:#f4f7f2;color:var(--muted);box-shadow:none}.question{margin:2px 0 8px;font-weight:1000;font-size:clamp(1.45rem,2.6vw,2rem);letter-spacing:-.05em;line-height:1.08}.reason{margin:0;color:var(--soft);font-size:1.08rem;font-weight:650}.why-wrap{margin-top:13px;padding:12px 14px;border:1px solid #e4eee2;border-radius:18px;background:#fbfefb}.why-title{margin:0 0 6px;font-size:.84rem;font-weight:950;text-transform:uppercase;letter-spacing:.08em}.why{margin:0;padding-left:1.1rem;color:var(--muted)}
-    .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.fact{background:#fff;padding:15px}.fact span{display:block;color:var(--muted);font-size:.78rem;font-weight:950;margin-bottom:4px;text-transform:uppercase;letter-spacing:.07em}.fact strong{display:block;font-size:1rem}
-    .forecast-outlook{display:none;padding:22px;border-top:1px solid var(--line);background:#fbfefb}.forecast-outlook.show{display:block}.forecast-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:14px}.forecast-head h2{margin:0;font-size:1.35rem;letter-spacing:-.045em}.forecast-head p{margin:6px 0 0;color:var(--muted);font-weight:650}.forecast-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.forecast-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:0 10px 24px rgba(20,36,25,.05)}.forecast-card h3{margin:0 0 8px;font-size:1.02rem;letter-spacing:-.035em}.forecast-mini{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.84rem;font-weight:800;margin-bottom:9px}.forecast-row{display:grid;grid-template-columns:88px 1fr;gap:8px;padding:7px 0;border-top:1px solid #edf4eb;font-size:.92rem}.forecast-row strong{color:var(--soft);font-size:.84rem}.forecast-row span{color:var(--muted);font-weight:700}.forecast-summary-box{margin-top:12px;border:1px solid #bae6c6;border-radius:20px;padding:14px;background:#effdf3;color:var(--soft);font-weight:700}.forecast-summary-box strong{display:block;color:var(--green);margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
-    .seo-hub{display:none;margin:38px 0 0;border:1px solid rgba(22,120,60,.18);border-radius:34px;background:radial-gradient(circle at 8% 5%,rgba(34,197,94,.15),transparent 28%),radial-gradient(circle at 92% 10%,rgba(20,184,166,.12),transparent 28%),rgba(255,255,255,.86);box-shadow:0 12px 34px rgba(20,36,25,.08);overflow:hidden}.seo-hub.show{display:block}.hub-hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:24px;align-items:center;padding:28px}.eyebrow{display:inline-flex;gap:7px;align-items:center;margin:0 0 9px;padding:7px 10px;border-radius:999px;border:1px solid #bae6c6;background:#effdf3;color:var(--green);font-size:.82rem;font-weight:950;text-transform:uppercase;letter-spacing:.08em}.hub-hero h2{margin:0;max-width:650px;font-size:clamp(1.75rem,3.5vw,3rem);line-height:1;letter-spacing:-.065em}.hub-hero p{margin:13px 0 0;color:var(--soft);font-size:1.04rem;font-weight:600}
-    /* SEO FIX: static hub description paragraphs are always visible to crawlers */
-    .hub-static-desc{margin:10px 0 0;color:var(--muted);font-size:.94rem;font-weight:600;max-width:580px}
-    .hub-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.hub-actions a,.hub-actions button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 14px;text-decoration:none;font-weight:950;border:1px solid var(--line);cursor:pointer}.hub-primary{background:var(--green);color:#fff;border-color:var(--green)!important}.hub-secondary{background:#fff;color:var(--green)}.hub-card{padding:20px;border:1px solid var(--line);border-radius:28px;background:#fff;box-shadow:0 16px 34px rgba(20,36,25,.08)}.mini-score{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.mini-score div{border-radius:17px;padding:10px;font-weight:950;text-align:center;border:1px solid var(--line)}.mini-go{background:#dcfce7;color:var(--green)}.mini-caution{background:var(--amberbg);color:var(--amber)}.mini-no{background:var(--redbg);color:var(--red)}.hub-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}.hub-panel{background:#fff;padding:22px}.hub-panel h3{margin:0 0 8px;font-size:1.08rem;letter-spacing:-.035em}.hub-panel p{margin:0;color:var(--muted);font-weight:620}.hub-panel ul{margin:12px 0 0;padding-left:1.1rem;color:var(--soft);font-weight:650}
-    .seo-internal-links{margin:34px auto 0;padding:24px;border:1px solid var(--line);border-radius:26px;background:rgba(255,255,255,.72);box-shadow:0 10px 28px rgba(20,36,25,.04)}.seo-internal-links h2{margin:0 0 6px;font-size:1.15rem;letter-spacing:-.04em}.seo-internal-links p{margin:0 0 14px;color:var(--muted);font-size:.92rem}.seo-link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.seo-link-grid a{display:block;padding:10px 11px;border:1px solid var(--line);border-radius:15px;background:#fbfefb;color:var(--green);text-decoration:none;font-weight:850;font-size:.9rem}.seo-link-grid a:hover{border-color:#95e3b0;background:#effdf3}
-    footer{padding:22px 0 28px;color:var(--muted);text-align:center;font-size:.84rem}
-    @media(max-width:960px){.hero{grid-template-columns:1fr}.checker-card{position:relative;top:0;order:-1}.hero-copy{text-align:center}.lead{margin-left:auto;margin-right:auto}.benefit-row{justify-content:center}.tasks{grid-template-columns:repeat(5,1fr)}.hub-hero{grid-template-columns:1fr}.hub-grid{grid-template-columns:1fr}.forecast-grid{grid-template-columns:1fr}}
-    @media(max-width:760px){.page{width:min(100% - 18px,1120px)}header{padding:10px 0 6px}.top-help{display:none}main{padding:10px 0 34px}.checker-card{padding:12px;border-radius:22px}.region-row{align-items:flex-start;flex-direction:column}.region-row select{width:100%}.search-row{grid-template-columns:1fr}.btn{width:100%}.hero-logo{font-size:3rem}.benefit-row{display:grid;grid-template-columns:1fr 1fr}.tasks{grid-template-columns:repeat(2,1fr)}.task{min-height:66px}.result{border-radius:24px}.result-top{grid-template-columns:1fr;padding:16px 14px 16px 21px}.answer{min-height:82px}.facts{grid-template-columns:repeat(2,1fr)}.forecast-outlook{padding:16px}.forecast-head{display:block}.forecast-row{grid-template-columns:78px 1fr}.hub-hero{padding:18px}.hub-grid{grid-template-columns:1fr}.seo-link-grid{grid-template-columns:1fr}}
+    /* ── HEADER ─────────────────────────────────────────────────────────── */
+    header{
+      display:flex;justify-content:space-between;align-items:center;gap:1rem;
+      padding:18px 0;border-bottom:1px solid var(--line);
+    }
+    .brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy)}
+    .brand-logo-img{height:44px;width:auto;display:block}
+    .brand-wordmark{display:grid;line-height:.95;font-weight:800;letter-spacing:-.04em;font-size:1rem}
+    .brand-wordmark strong{color:var(--blue);font-size:1.12em}
+    .brand-tagline{font-size:.75rem;color:var(--muted);font-weight:500;letter-spacing:.02em;margin-top:1px}
+    .header-right{display:flex;align-items:center;gap:8px}
+    .top-chip{
+      display:flex;align-items:center;gap:6px;
+      background:rgba(255,255,255,.9);border:1px solid var(--line);
+      border-radius:999px;padding:7px 13px;
+      font-size:.84rem;font-weight:600;color:var(--muted);
+    }
+    #themeToggle{
+      background:rgba(255,255,255,.9);border:1px solid var(--line);
+      border-radius:999px;padding:7px 11px;cursor:pointer;
+      font-size:.95rem;line-height:1;color:var(--muted);
+      transition:all .15s;
+    }
+    #themeToggle:hover{border-color:var(--blue);color:var(--blue)}
 
-    /* ── DARK MODE ─────────────────────────────────────────────────────── */
-    [data-theme="dark"]{--bg:#0d1f11;--ink:#e4f0e6;--soft:#b4cfb8;--muted:#6b8e70;--line:#1b3320;--card:#0f2115;--amberbg:#2a1600;--redbg:#2a0808;--shadow:0 24px 70px rgba(0,0,0,.45)}
-    [data-theme="dark"] body{background:radial-gradient(circle at 82% 5%,rgba(34,197,94,.09),transparent 28%),radial-gradient(circle at 12% 24%,rgba(20,184,166,.06),transparent 24%),linear-gradient(180deg,#091509 0%,var(--bg) 46%,#0b1a0e 100%)}
-    [data-theme="dark"] .checker-card{background:rgba(14,30,18,.92)}
-    [data-theme="dark"] .search-card{background:rgba(11,23,14,.85)}
-    [data-theme="dark"] .search-input{background:#0d2016;color:var(--ink);border-color:var(--line)}
-    [data-theme="dark"] .region-row select{background:#0d2016;color:var(--ink)}
-    [data-theme="dark"] .period-tabs{background:#0a1c0e;border-color:#193020}
-    [data-theme="dark"] .period-tab.active{background:#0f2918;color:var(--green)}
-    [data-theme="dark"] .task{background:#0e2216;color:var(--ink)}
-    [data-theme="dark"] .task:hover{border-color:#2a5e38}
-    [data-theme="dark"] .task.active{background:#0c2c16;color:var(--green2)}
-    [data-theme="dark"] .result{background:linear-gradient(135deg,rgba(12,36,18,.96),rgba(11,26,14,.98) 48%,#0a1d0e)}
-    [data-theme="dark"] .result.caution{background:linear-gradient(135deg,rgba(28,14,0,.96),rgba(11,26,14,.98) 50%,#0a1d0e)}
-    [data-theme="dark"] .result.no{background:linear-gradient(135deg,rgba(28,4,4,.96),rgba(11,26,14,.98) 50%,#0a1d0e)}
-    [data-theme="dark"] .facts .fact{background:#0e2216}
-    [data-theme="dark"] .why-wrap{background:#0c1e10;border-color:#1a3020}
-    [data-theme="dark"] .forecast-card{background:#0e2216;border-color:#1b3320}
-    [data-theme="dark"] .forecast-outlook{background:#0a1c10}
-    [data-theme="dark"] .forecast-summary-box{background:#0c2814;border-color:#1e4228}
-    [data-theme="dark"] .seo-hub{background:rgba(12,28,16,.86)}
-    [data-theme="dark"] .hub-card,[data-theme="dark"] .hub-panel{background:#0e2216}
-    [data-theme="dark"] .seo-internal-links{background:rgba(12,26,15,.72)}
-    [data-theme="dark"] .seo-link-grid a{background:#0e2216}
-    [data-theme="dark"] .seo-link-grid a:hover{background:#112a1c}
-    [data-theme="dark"] .btn-secondary{background:#0e2216;border-color:#1b3320;color:#5ecb8a}
-    [data-theme="dark"] .top-help{background:rgba(11,24,14,.75);border-color:#1b3320}
-    [data-theme="dark"] .status-pill{background:rgba(22,120,60,.18);border-color:rgba(22,120,60,.25)}
-    [data-theme="dark"] .mini-go{background:#0d3318;border-color:#1b5028}
-    [data-theme="dark"] .mini-caution{background:#2a1600;border-color:#3d2200}
-    [data-theme="dark"] .mini-no{background:#2a0808;border-color:#3d1010}
-    [data-theme="dark"] footer{color:var(--muted)}
-    [data-theme="dark"] .benefit{background:rgba(14,34,20,.78);border-color:#1b3320}
-    @media(prefers-color-scheme:dark){:root:not([data-theme="light"]):not([data-theme="dark"]){--bg:#0d1f11;--ink:#e4f0e6;--soft:#b4cfb8;--muted:#6b8e70;--line:#1b3320;--card:#0f2115;--amberbg:#2a1600;--redbg:#2a0808;--shadow:0 24px 70px rgba(0,0,0,.45)}}
+    /* ── MAIN ────────────────────────────────────────────────────────────── */
+    main{flex:1;padding:32px 0 60px}
 
-    /* ── ENHANCEMENTS ──────────────────────────────────────────────────── */
-    .task{transition:transform .12s ease,border-color .12s ease,background .12s ease,box-shadow .12s ease}
-    .task:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(20,36,25,.12)}
-    .result.show{animation:resultIn .25s ease}
-    @keyframes resultIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-    #themeToggle{background:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;cursor:pointer;font-size:.95rem;line-height:1;color:var(--muted);transition:all .15s}
-    #themeToggle:hover{border-color:var(--green);color:var(--green)}
+    /* ── HERO ────────────────────────────────────────────────────────────── */
+    .hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);gap:40px;align-items:start}
+    .hero-copy{padding-top:12px}
+    .hero-eyebrow{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.18);
+      border-radius:999px;padding:5px 12px;
+      font-size:.78rem;font-weight:700;color:var(--blue);
+      text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;
+    }
+    .hero-logo{
+      font-size:clamp(3rem,7.5vw,5.5rem);
+      line-height:.9;font-weight:900;
+      letter-spacing:-.06em;margin:0;
+      color:var(--navy);
+    }
+    .hero-logo strong{display:block;color:var(--blue)}
+    .hero-tagline{
+      display:inline-block;margin:14px 0 0;
+      font-size:clamp(1rem,1.6vw,1.2rem);
+      font-weight:700;color:var(--blue);
+      letter-spacing:-.01em;
+    }
+    .lead{
+      margin:8px 0 0;max-width:560px;
+      color:var(--muted);font-size:clamp(1rem,1.4vw,1.1rem);
+    }
+    .benefit-row{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
+    .benefit{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:7px 12px;border:1px solid var(--line);
+      border-radius:999px;background:rgba(255,255,255,.85);
+      font-weight:600;font-size:.85rem;color:var(--soft);
+    }
+
+    /* ── CHECKER CARD ─────────────────────────────────────────────────────── */
+    .checker-card{
+      border:1px solid var(--line);border-radius:var(--radius);
+      background:#fff;box-shadow:var(--shadow);
+      padding:22px;position:sticky;top:14px;
+    }
+    .checker-head h2{margin:0;font-size:1.1rem;font-weight:700;color:var(--navy);letter-spacing:-.03em}
+    .checker-head p{margin:4px 0 16px;color:var(--muted);font-size:.88rem}
+    .region-row{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:10px;margin:0 0 14px;color:var(--muted);font-size:.88rem;font-weight:600;
+    }
+    .region-row select{
+      border:1px solid var(--line);border-radius:999px;
+      background:#fff;color:var(--navy);
+      padding:7px 28px 7px 12px;cursor:pointer;outline:none;min-width:140px;
+    }
+    .region-row select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+
+    /* ── PERIOD TABS ─────────────────────────────────────────────────────── */
+    .period-tabs{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:6px;background:var(--blue-light);border:1px solid var(--blue-mid);
+      border-radius:16px;padding:5px;margin-bottom:14px;
+    }
+    .period-tab{
+      border:0;border-radius:12px;background:transparent;
+      color:var(--muted);font-weight:700;padding:10px 8px;cursor:pointer;
+      font-size:.9rem;transition:all .15s;
+    }
+    .period-tab.active{
+      background:#fff;color:var(--blue);
+      box-shadow:0 2px 8px rgba(37,99,235,.14);
+    }
+    .period-tab:hover:not(.active){color:var(--blue)}
+
+    /* ── SEARCH ──────────────────────────────────────────────────────────── */
+    .search-card{
+      padding:10px;border:1px solid var(--line);
+      border-radius:18px;background:var(--blue-light);
+    }
+    .search-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+    .search-input{
+      min-width:0;width:100%;
+      border:1px solid var(--blue-mid);border-radius:12px;
+      padding:13px 14px;outline:none;background:#fff;
+      color:var(--navy);font-size:.95rem;
+    }
+    .search-input::placeholder{color:var(--muted)}
+    .search-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+    .btn{
+      border:0;border-radius:12px;
+      padding:13px 18px;cursor:pointer;
+      font-weight:700;white-space:nowrap;
+      font-size:.95rem;transition:all .15s;
+    }
+    .btn-primary{
+      background:var(--blue);color:#fff;
+      box-shadow:0 4px 12px rgba(37,99,235,.28);
+    }
+    .btn-primary:hover{background:#1d4ed8}
+    .btn-secondary{
+      width:100%;margin-top:8px;
+      background:#fff;color:var(--blue);
+      border:1px solid var(--blue-mid);
+    }
+    .btn-secondary:hover{background:var(--blue-light)}
+    .status-pill{
+      display:flex;align-items:center;gap:8px;
+      min-height:36px;padding:7px 11px;
+      border-radius:12px;background:rgba(37,99,235,.06);
+      color:var(--blue);border:1px solid rgba(37,99,235,.15);
+      font-size:.85rem;font-weight:600;margin-top:10px;
+    }
+    .pulse{
+      width:8px;height:8px;flex-shrink:0;
+      border-radius:999px;background:var(--blue);
+      box-shadow:0 0 0 4px rgba(37,99,235,.18);
+      animation:pulseAnim 1.4s ease infinite;
+    }
+    @keyframes pulseAnim{
+      0%,100%{box-shadow:0 0 0 4px rgba(37,99,235,.18)}
+      50%{box-shadow:0 0 0 8px rgba(37,99,235,.06)}
+    }
+
+    /* ── TASK AREA ───────────────────────────────────────────────────────── */
+    .task-area{margin:36px 0 0}
+    .section-title{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px}
+    .section-title h2{margin:0;font-size:1.15rem;font-weight:700;color:var(--navy);letter-spacing:-.03em}
+    .section-title p{margin:0;color:var(--muted);font-size:.88rem;font-weight:500}
+    .tasks{
+      display:grid;
+      grid-template-columns:repeat(10,minmax(0,1fr));
+      gap:10px;
+    }
+    .task{
+      border:1.5px solid var(--line);border-radius:16px;
+      background:#fff;color:var(--navy);
+      padding:12px 6px;cursor:pointer;
+      font-weight:700;font-size:.8rem;text-align:center;
+      box-shadow:var(--shadow-card);
+      min-height:80px;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;gap:4px;
+      transition:transform .12s,border-color .12s,background .12s,box-shadow .12s;
+    }
+    .task span{display:block;font-size:1.4rem;margin-bottom:2px}
+    .task:hover{transform:translateY(-2px);border-color:var(--blue-mid);box-shadow:0 4px 16px rgba(37,99,235,.1)}
+    .task.active{
+      border-color:var(--blue);background:var(--blue-light);
+      color:var(--blue);box-shadow:0 4px 16px rgba(37,99,235,.15);
+    }
+
+    /* ── RESULT ──────────────────────────────────────────────────────────── */
+    .result{
+      display:none;margin:36px 0 0;
+      border:1.5px solid rgba(37,99,235,.18);
+      border-radius:24px;
+      background:#fff;
+      box-shadow:0 8px 40px rgba(15,23,42,.1);
+      overflow:hidden;position:relative;
+    }
+    .result::before{
+      content:"";position:absolute;inset:0 auto 0 0;
+      width:5px;background:var(--blue);
+    }
+    .result.show{display:block;animation:resultIn .22s ease}
+    .result.caution::before{background:var(--amber)}
+    .result.no::before{background:var(--red)}
+    .result.caution{border-color:rgba(217,119,6,.22)}
+    .result.no{border-color:rgba(220,38,38,.22)}
+    @keyframes resultIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+    .result-top{
+      display:grid;grid-template-columns:200px minmax(0,1fr);
+      gap:20px;align-items:stretch;
+      padding:24px 24px 24px 30px;
+    }
+    .answer{
+      min-height:160px;border-radius:18px;
+      display:grid;place-items:center;text-align:center;
+      padding:16px;
+      font-size:clamp(2rem,4vw,3rem);
+      line-height:.88;letter-spacing:-.06em;
+      font-weight:900;text-transform:uppercase;
+    }
+    /* GO / default */
+    .answer{
+      background:var(--green-bg);
+      color:var(--green);
+      border:1px solid rgba(22,163,74,.2);
+    }
+    .answer.caution{
+      background:var(--amber-bg);color:var(--amber);
+      font-size:clamp(1.4rem,3vw,2rem);
+      border-color:rgba(217,119,6,.2);
+    }
+    .answer.no{
+      background:var(--red-bg);color:var(--red);
+      font-size:clamp(1.3rem,2.8vw,2rem);
+      border-color:rgba(220,38,38,.2);
+    }
+    .answer.loading{
+      background:var(--blue-light);
+      color:var(--muted);
+      border-color:var(--line);
+      box-shadow:none;
+    }
+    .question{
+      margin:2px 0 8px;font-weight:800;
+      font-size:clamp(1.3rem,2.4vw,1.8rem);
+      letter-spacing:-.04em;line-height:1.1;
+      color:var(--navy);
+    }
+    .reason{margin:0;color:var(--soft);font-size:1rem;font-weight:500;line-height:1.5}
+    .why-wrap{
+      margin-top:14px;padding:12px 14px;
+      border:1px solid var(--line);border-radius:14px;
+      background:var(--blue-light);
+    }
+    .why-title{
+      margin:0 0 6px;font-size:.77rem;font-weight:800;
+      text-transform:uppercase;letter-spacing:.08em;color:var(--blue);
+    }
+    .why{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.93rem}
+    .why li{margin-bottom:3px}
+
+    /* ── FACTS ───────────────────────────────────────────────────────────── */
+    .facts{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:1px;background:var(--line);
+      border-top:1px solid var(--line);
+    }
+    .fact{background:#fff;padding:14px 16px}
+    .fact span{
+      display:block;color:var(--muted);
+      font-size:.72rem;font-weight:700;
+      margin-bottom:4px;text-transform:uppercase;letter-spacing:.07em;
+    }
+    .fact strong{display:block;font-size:.97rem;font-weight:700;color:var(--navy)}
+
+    /* ── FORECAST OUTLOOK ─────────────────────────────────────────────────── */
+    .forecast-outlook{
+      display:none;padding:22px;
+      border-top:1px solid var(--line);
+      background:var(--blue-light);
+    }
+    .forecast-outlook.show{display:block}
+    .forecast-head{
+      display:flex;justify-content:space-between;
+      align-items:end;gap:16px;margin-bottom:16px;
+    }
+    .forecast-head h2{margin:0;font-size:1.2rem;font-weight:700;color:var(--navy);letter-spacing:-.03em}
+    .forecast-head p{margin:5px 0 0;color:var(--muted);font-size:.9rem}
+    .forecast-grid{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;
+    }
+    .forecast-card{
+      background:#fff;border:1px solid var(--line);
+      border-radius:16px;padding:14px;
+      box-shadow:var(--shadow-card);
+    }
+    .forecast-card h3{margin:0 0 10px;font-size:.98rem;font-weight:700;color:var(--navy)}
+    .forecast-mini{
+      display:flex;gap:8px;flex-wrap:wrap;
+      color:var(--muted);font-size:.8rem;font-weight:600;margin-bottom:10px;
+    }
+    .forecast-row{
+      display:grid;grid-template-columns:90px 1fr;
+      gap:8px;padding:6px 0;
+      border-top:1px solid var(--line);font-size:.88rem;
+    }
+    .forecast-row strong{color:var(--navy);font-size:.82rem;font-weight:700}
+    .forecast-row span{color:var(--muted);font-weight:500}
+    .forecast-summary-box{
+      margin-top:14px;border:1px solid var(--blue-mid);
+      border-radius:16px;padding:14px;
+      background:#fff;color:var(--soft);font-weight:500;
+    }
+    .forecast-summary-box strong{
+      display:block;color:var(--blue);
+      margin-bottom:4px;text-transform:uppercase;
+      letter-spacing:.08em;font-size:.75rem;
+    }
+
+    /* ── SEO HUBS ─────────────────────────────────────────────────────────── */
+    .seo-hub{
+      display:none;margin:40px 0 0;
+      border:1.5px solid var(--line);
+      border-radius:24px;background:#fff;
+      box-shadow:var(--shadow-card);overflow:hidden;
+    }
+    .seo-hub.show{display:block}
+    .hub-hero{
+      display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);
+      gap:24px;align-items:center;padding:28px;
+    }
+    .eyebrow{
+      display:inline-flex;gap:7px;align-items:center;
+      margin:0 0 10px;padding:6px 11px;
+      border-radius:999px;border:1px solid var(--blue-mid);
+      background:var(--blue-light);color:var(--blue);
+      font-size:.78rem;font-weight:700;
+      text-transform:uppercase;letter-spacing:.08em;
+    }
+    .hub-hero h2{
+      margin:0;max-width:560px;
+      font-size:clamp(1.6rem,3vw,2.4rem);
+      line-height:1.05;letter-spacing:-.05em;
+      color:var(--navy);font-weight:800;
+    }
+    .hub-hero p{margin:12px 0 0;color:var(--muted);font-size:.97rem}
+    .hub-static-desc{margin:10px 0 0;color:var(--muted);font-size:.9rem;max-width:560px;line-height:1.6}
+    .hub-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+    .hub-actions a,.hub-actions button{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:8px;border-radius:999px;padding:10px 16px;
+      text-decoration:none;font-weight:700;font-size:.9rem;
+      border:1px solid var(--line);cursor:pointer;
+      transition:all .15s;
+    }
+    .hub-primary{background:var(--blue);color:#fff;border-color:var(--blue)!important}
+    .hub-primary:hover{background:#1d4ed8}
+    .hub-secondary{background:#fff;color:var(--blue);border-color:var(--blue-mid)!important}
+    .hub-secondary:hover{background:var(--blue-light)}
+    .hub-card{
+      padding:20px;border:1.5px solid var(--line);
+      border-radius:18px;background:var(--blue-light);
+    }
+    .hub-card h3{margin:0 0 8px;font-size:1rem;font-weight:700;color:var(--navy)}
+    .hub-card p{margin:0;color:var(--muted);font-size:.9rem}
+    .mini-score{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+    .mini-score div{
+      border-radius:12px;padding:10px 6px;
+      font-weight:800;text-align:center;
+      font-size:.82rem;border:1px solid transparent;
+    }
+    .mini-go{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,.2)}
+    .mini-caution{background:var(--amber-bg);color:var(--amber);border-color:rgba(217,119,6,.2)}
+    .mini-no{background:var(--red-bg);color:var(--red);border-color:rgba(220,38,38,.2)}
+    .hub-grid{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:1px;background:var(--line);
+      border-top:1px solid var(--line);
+    }
+    .hub-panel{background:#fff;padding:20px}
+    .hub-panel h3{margin:0 0 7px;font-size:.97rem;font-weight:700;color:var(--navy)}
+    .hub-panel p{margin:0;color:var(--muted);font-size:.88rem}
+    .hub-panel ul{margin:10px 0 0;padding-left:1.1rem;color:var(--soft);font-size:.9rem}
+
+    /* ── SEO LINKS ───────────────────────────────────────────────────────── */
+    .seo-internal-links{
+      margin:40px 0 0;padding:22px;
+      border:1px solid var(--line);border-radius:20px;
+      background:rgba(255,255,255,.8);
+    }
+    .seo-internal-links h2{margin:0 0 5px;font-size:1.1rem;font-weight:700;color:var(--navy);letter-spacing:-.03em}
+    .seo-internal-links p{margin:0 0 14px;color:var(--muted);font-size:.88rem}
+    .seo-link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+    .seo-link-grid a{
+      display:block;padding:10px 13px;
+      border:1px solid var(--line);border-radius:12px;
+      background:#fff;color:var(--blue);
+      text-decoration:none;font-weight:600;font-size:.88rem;
+      transition:all .12s;
+    }
+    .seo-link-grid a:hover{border-color:var(--blue-mid);background:var(--blue-light)}
+
+    /* ── FOOTER ──────────────────────────────────────────────────────────── */
+    footer{
+      padding:22px 0 28px;
+      color:var(--muted);text-align:center;
+      font-size:.82rem;border-top:1px solid var(--line);
+      margin-top:20px;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+    @media(max-width:960px){
+      .hero{grid-template-columns:1fr}
+      .checker-card{position:relative;top:0;order:-1}
+      .hero-copy{text-align:center}
+      .lead{margin-left:auto;margin-right:auto}
+      .benefit-row{justify-content:center}
+      .tasks{grid-template-columns:repeat(5,1fr)}
+      .hub-hero{grid-template-columns:1fr}
+      .hub-grid{grid-template-columns:1fr}
+      .forecast-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:760px){
+      .page{width:min(100% - 20px,1140px)}
+      header{padding:10px 0 8px}
+      .top-chip{display:none}
+      main{padding:14px 0 36px}
+      .checker-card{padding:14px;border-radius:18px}
+      .region-row{align-items:flex-start;flex-direction:column}
+      .region-row select{width:100%}
+      .search-row{grid-template-columns:1fr}
+      .btn{width:100%}
+      .hero-logo{font-size:2.8rem}
+      .benefit-row{display:grid;grid-template-columns:1fr 1fr}
+      .tasks{grid-template-columns:repeat(2,1fr)}
+      .task{min-height:64px}
+      .result{border-radius:20px}
+      .result-top{grid-template-columns:1fr;padding:16px 14px 16px 20px}
+      .answer{min-height:76px;font-size:1.8rem}
+      .facts{grid-template-columns:repeat(2,1fr)}
+      .forecast-outlook{padding:16px}
+      .forecast-head{display:block}
+      .forecast-row{grid-template-columns:78px 1fr}
+      .hub-hero{padding:18px}
+      .hub-grid{grid-template-columns:1fr}
+      .seo-link-grid{grid-template-columns:1fr}
+    }
+
+    /* ── DARK MODE ───────────────────────────────────────────────────────── */
+    [data-theme="dark"]{
+      --bg:#0a1628;
+      --bg2:#0d1e38;
+      --ink:#e2eaf4;
+      --soft:#94aecf;
+      --muted:#64748b;
+      --line:#1e3a5f;
+      --card:#0d1e38;
+      --blue-light:rgba(37,99,235,.12);
+      --blue-mid:rgba(37,99,235,.25);
+      --shadow:0 4px 6px rgba(0,0,0,.3),0 20px 50px rgba(0,0,0,.4);
+      --shadow-card:0 1px 3px rgba(0,0,0,.2),0 8px 24px rgba(0,0,0,.2);
+      --green-bg:rgba(22,163,74,.12);
+      --amber-bg:rgba(217,119,6,.12);
+      --red-bg:rgba(220,38,38,.12);
+    }
+    [data-theme="dark"] body{
+      background:linear-gradient(160deg,#0a1628 0%,#0d1e38 30%,#0a1628 60%,#091220 100%);
+    }
+    [data-theme="dark"] .checker-card,[data-theme="dark"] .seo-internal-links{background:var(--card);border-color:var(--line)}
+    [data-theme="dark"] .search-card{background:rgba(37,99,235,.08)}
+    [data-theme="dark"] .search-input{background:#0d1e38;color:var(--ink);border-color:var(--line)}
+    [data-theme="dark"] .region-row select{background:#0d1e38;color:var(--ink)}
+    [data-theme="dark"] .period-tabs{background:rgba(37,99,235,.1);border-color:var(--line)}
+    [data-theme="dark"] .period-tab.active{background:#0d1e38}
+    [data-theme="dark"] .task{background:#0d1e38;color:var(--ink);border-color:var(--line)}
+    [data-theme="dark"] .task.active{background:rgba(37,99,235,.15);border-color:var(--blue);color:#60a5fa}
+    [data-theme="dark"] .result,[data-theme="dark"] .forecast-card,[data-theme="dark"] .hub-panel,[data-theme="dark"] .fact{background:#0d1e38;border-color:var(--line)}
+    [data-theme="dark"] .why-wrap,[data-theme="dark"] .forecast-outlook,[data-theme="dark"] .forecast-summary-box{background:rgba(37,99,235,.07);border-color:var(--line)}
+    [data-theme="dark"] .seo-hub{background:#0d1e38}
+    [data-theme="dark"] .hub-card{background:rgba(37,99,235,.1);border-color:var(--line)}
+    [data-theme="dark"] .facts{background:var(--line)}
+    [data-theme="dark"] .hub-grid{background:var(--line)}
+    [data-theme="dark"] .seo-link-grid a{background:#0d1e38;border-color:var(--line)}
+    [data-theme="dark"] .seo-link-grid a:hover{background:rgba(37,99,235,.1)}
+    [data-theme="dark"] .brand-wordmark{color:var(--ink)}
+    [data-theme="dark"] .benefit{background:rgba(13,30,56,.9);border-color:var(--line)}
+    [data-theme="dark"] .top-chip,[data-theme="dark"] #themeToggle{background:rgba(13,30,56,.9);border-color:var(--line)}
+    [data-theme="dark"] .header-wordmark{color:var(--ink)}
+    @media(prefers-color-scheme:dark){
+      :root:not([data-theme="light"]):not([data-theme="dark"]){
+        --bg:#0a1628;--bg2:#0d1e38;--ink:#e2eaf4;--soft:#94aecf;--muted:#64748b;
+        --line:#1e3a5f;--card:#0d1e38;
+        --blue-light:rgba(37,99,235,.12);--blue-mid:rgba(37,99,235,.25);
+        --green-bg:rgba(22,163,74,.12);--amber-bg:rgba(217,119,6,.12);--red-bg:rgba(220,38,38,.12);
+      }
+    }
   </style>
 
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="sJMMNaIP1O6fYP2B1ZBbXg" async></script>
@@ -145,17 +597,20 @@
   <div class="page">
     <header>
       <a class="brand" href="/" aria-label="Should I Do It Today home">
-        <svg viewBox="0 0 110 78" role="img" aria-label="Weather check logo">
-          <circle cx="31" cy="24" r="16" fill="#fbbf24"/>
-          <path d="M31 2v9M9 24h9M15 8l7 7M48 8l-7 7" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
-          <path d="M30 62h49c11 0 20-9 20-20s-9-20-20-20c-5 0-9 1-13 4C62 16 52 10 40 10c-15 0-27 11-28 26C6 39 3 45 3 51c0 6 5 11 12 11h15z" fill="#fff" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M36 43l11 11 25-29" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M80 60c0 4-3 8-8 8s-8-4-8-8c0-6 8-16 8-16s8 10 8 16z" fill="#3b82f6"/>
-        </svg>
-        <span class="brand-wordmark"><span>Should I Do It</span><strong>Today?</strong></span>
+        <img
+          src="/assets/should-i-do-it-today-logo.png"
+          alt="Should I Do It Today? logo"
+          class="brand-logo-img"
+          width="44" height="44"
+          onerror="this.style.display='none'"
+        />
+        <div>
+          <div class="brand-wordmark"><span>Should I Do It</span><strong>Today?</strong></div>
+          <div class="brand-tagline">Weather. Decisions. Done.</div>
+        </div>
       </a>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div class="top-help">Local weather. Simple answer.</div>
+      <div class="header-right">
+        <div class="top-chip">Local weather. Simple answer.</div>
         <button id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
       </div>
     </header>
@@ -163,11 +618,10 @@
     <main id="main">
       <section class="hero" aria-labelledby="title">
         <div class="hero-copy">
-          <!-- SEO FIX: H1 is now the real visible heading element, not a clipped sr-only.
-               The aria-hidden paragraph has been replaced with this H1 styled identically.
-               JS updates #logoPeriodWord inside it as before. -->
+          <div class="hero-eyebrow">🌤 Free weather decisions</div>
           <h1 id="title" class="hero-logo">Should I Do It <strong id="logoPeriodWord">Today?</strong></h1>
-          <p class="lead">Get a practical local weather-based answer for everyday outdoor jobs and activities like mowing, hanging washing, washing the car, BBQs, running, dog walks, camping and watering plants.</p>
+          <span class="hero-tagline">Weather. Decisions. Done.</span>
+          <p class="lead">Get a practical local weather answer for everyday outdoor jobs — mowing, hanging washing, BBQs, dog walks, camping, watering plants and more.</p>
           <div class="benefit-row" aria-label="Key benefits">
             <div class="benefit">⚡ Fast answer</div>
             <div class="benefit">📍 Local forecast</div>
@@ -179,12 +633,12 @@
         <aside class="checker-card" aria-label="Weather decision checker">
           <div class="checker-head">
             <h2>Check your local conditions</h2>
-            <p>Use auto-location or enter a postcode, ZIP code, town, city or campsite area.</p>
+            <p>Enter a postcode, ZIP code, town or city to get started.</p>
           </div>
 
           <div class="region-row">
-            <label for="regionSelect">Regional wording</label>
-            <select id="regionSelect" aria-label="Choose regional wording">
+            <label for="regionSelect">Region</label>
+            <select id="regionSelect" aria-label="Choose region">
               <option value="UK">UK</option>
               <option value="IE">Ireland</option>
               <option value="US">US</option>
@@ -206,7 +660,7 @@
               <input id="locationInput" class="search-input" type="search" placeholder="Postcode, ZIP, town, city or campsite area" autocomplete="off" maxlength="80"/>
               <button id="checkBtn" class="btn btn-primary" type="button">Check</button>
             </div>
-            <button id="geoBtn" class="btn btn-secondary" type="button">Use my location</button>
+            <button id="geoBtn" class="btn btn-secondary" type="button">📍 Use my location</button>
           </div>
 
           <div class="status-pill" id="locationStatus"><span>Trying to detect your location…</span></div>
@@ -255,7 +709,6 @@
         </div>
       </section>
 
-      <!-- SEO FIX: camping hub - always-visible static description paragraph added for crawlers -->
       <section class="seo-hub" id="campingHub">
         <div class="hub-hero">
           <div>
@@ -281,7 +734,6 @@
         </div>
       </section>
 
-      <!-- SEO FIX: plants hub - static description added -->
       <section class="seo-hub" id="plantsHub">
         <div class="hub-hero">
           <div>
@@ -302,7 +754,6 @@
         </div>
       </section>
 
-      <!-- SEO FIX: BBQ hub - static description added -->
       <section class="seo-hub" id="bbqHub">
         <div class="hub-hero">
           <div>
@@ -323,9 +774,6 @@
         </div>
       </section>
 
-      <!-- SEO FIX: internal link grid is now hard-coded in HTML so crawlers see it on first pass
-           without needing to execute JavaScript. JS still calls renderLinks() which overwrites
-           this with region-aware links — but if JS is not executed, Google still indexes these links. -->
       <section class="seo-internal-links" id="plantsLinks">
         <h2>Weather checks and guides</h2>
         <p>Useful checks for common outdoor jobs and camping decisions.</p>
@@ -343,7 +791,7 @@
       </section>
     </main>
 
-    <footer>Practical weather-based guidance only. Always check actual local conditions. Weather data by Open-Meteo.</footer>
+    <footer>Practical weather-based guidance only. Always check actual local conditions. Weather data by <a href="https://open-meteo.com" style="color:var(--blue);text-decoration:none" rel="noopener">Open-Meteo</a>.</footer>
   </div>
 
   <script>
@@ -472,7 +920,6 @@
       const isUS=currentRegionKey==="US"||currentRegionKey==="CA";
       const bbqSlug=isUS?"should-i-grill-today":"should-i-bbq-today";
       const bbqText=isUS?"Should I grill today?":"Should I BBQ today?";
-      // SEO FIX: overwrites the static fallback links with region-aware versions after JS loads
       document.getElementById("regionalMoreLinks").innerHTML=[
         [`/?${prefix}task=should-i-go-camping&period=weekend#main`,"Should I go camping this weekend?"],
         [`/?${prefix}task=should-i-go-camping&period=today#main`,"Should I go camping today?"],
@@ -488,7 +935,7 @@
 
     function renderTasks(){
       if(!region().tasks[selected])selected="grass";
-      taskButtons.innerHTML=Object.entries(region().tasks).map(([k,t])=>`<button class="task ${k===selected?"active":""}" type="button" data-task="${k}"><span>${t.icon}</span>${t.label}</button>`).join("");
+      taskButtons.innerHTML=Object.entries(region().tasks).map(([k,t])=>`<button class="task ${k===selected?"active":"" }" type="button" data-task="${k}"><span>${t.icon}</span>${t.label}</button>`).join("");
       document.querySelectorAll("[data-task]").forEach(b=>b.addEventListener("click",()=>{selected=b.dataset.task; renderTasks(); updateHintAndQuestion(); updateFeatureVisibility(); if(lastWeather&&lastPlace)analyseAndRender(lastPlace,lastWeather); else if(locationInput.value.trim())checkFromText(); else if(detectedLocation)checkFromCoords(detectedLocation.latitude,detectedLocation.longitude,detectedLocation.name);}));
       updateHintAndQuestion(); updateFeatureVisibility();
     }
@@ -537,18 +984,18 @@
     function analyseDay(data,task,day,isToday){
       const ctx=context(data,task,day,isToday); let score=100,reasons=[]; const good=r=>r.rainProb<=task.rainProb&&r.precip<0.2&&r.wind<=task.windMaxMph&&r.temp>=task.tempMinC&&r.temp<=task.tempMaxC; let best=findWindow(ctx.useful,good,task.minHours);
       if(!ctx.useful.length){score-=40;reasons.push("There is no sensible daylight window left.")} if(ctx.currentRain>0){score-=selected==="run"||selected==="dog"?10:35;reasons.push("It is raining now.")} if(ctx.storm){score-=45;reasons.push("Storm risk makes this a poor choice.")} if(ctx.wintry){score-=30;reasons.push("Wintry or icy conditions may make this unsafe or ineffective.")} if(ctx.rainProb>task.rainProb){score-=20;reasons.push("Rain risk is higher than ideal.")} if(ctx.maxWind>task.windMaxMph||ctx.maxGust>task.windMaxMph+10){score-=18;reasons.push("Wind may be too strong.")} if(ctx.temp<task.tempMinC){score-=16;reasons.push("It may be too cold.")} if(ctx.temp>task.tempMaxC){score-=16;reasons.push("It may be too hot.")}
-      if(selected==="grass"){if(ctx.rainPast24>2){score-=35;reasons.push("The grass is likely wet from recent rain.")} if(isWinterRest(day)){score-=20;reasons.push("It is the winter rest period, so mowing is usually best avoided unless it is dry and mild.")} if(isToday&&new Date().getHours()>=15){score-=22;reasons.push("It is getting late for a useful grass cut.")}}
-      if(selected==="washing"){if(best==="No sensible window"){score-=35;reasons.push("There are not enough dry daylight hours for washing to dry properly.")} if(ctx.avgHumidity!==null&&ctx.avgHumidity>82){score-=18;reasons.push("Humidity is high, so drying will be slow.")}}
-      if(selected==="paint"){if(ctx.rainPast24>1){score-=35;reasons.push("Surfaces may still be damp from recent rain.")} if(ctx.rainNext12>0.2){score-=35;reasons.push("Rain is possible before paint has time to dry or cure.")}}
-      if(selected==="washCar"){if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so the car may not stay clean for long.")} if(ctx.temp<=2){score-=35;reasons.push("Near-freezing temperatures could make washing unsafe or icy.")}}
-      if(selected==="windows"){if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so windows may not stay clean.")} if(ctx.temp<=2){score-=35;reasons.push("Near-freezing conditions could make surfaces slippery or icy.")}}
-      if(selected==="bbq"){best=findWindow(ctx.useful.filter(r=>r.time.getHours()>=12&&r.time.getHours()<=21),good,2); if(best==="No sensible window"){score-=25;reasons.push("There is no clean lunch or evening BBQ window.")} if(ctx.storm){score-=55;reasons.unshift("Thunder, lightning or storm risk is a serious outdoor cooking safety concern.")} if(ctx.maxGust>38){score-=35;reasons.push("Very strong gusts could make outdoor cooking unsafe or difficult.")} else if(ctx.maxGust>28){score-=18;reasons.push("Gusts may make BBQ setup and cooking less comfortable.")} if(ctx.rainTotal>2){score-=18;reasons.push("Rain may make outdoor cooking less comfortable, so shelter and timing matter.")} let status="GO",css=""; if(ctx.storm||ctx.maxGust>40){status="WARNING";css="no"} else if(score<72){status="CAUTION";css="caution"} const aus=currentRegionKey==="AU"?" In Australia, also check local fire restrictions before lighting a BBQ.":""; return{...result(status,css,ctx,best,reasons,`Recommendation: use the best sheltered cooking window and avoid BBQs during thunder, lightning or dangerous wind.${aus}`)}}
-      if(selected==="run"){if(ctx.maxTemp>=29){score-=45;reasons.push("It may be too hot for a safe run.")} else if(ctx.maxTemp>=22){score-=15;reasons.push("Heat may make running harder.")}}
-      if(selected==="dog"){if(ctx.maxTemp>=28){score-=45;reasons.push("It may be too hot for a safe dog walk.")} else if(ctx.maxTemp>=23){score-=20;reasons.push("Heat may be uncomfortable for dogs, especially on pavements.")}}
-      if(selected==="camping"){const overnightRows=rowsBetween(ctx.rows,makeTime(day,18),makeTime(hoursAfter(day,24),9)); const overnightRain=mm(overnightRows), overnightMinFeels=min(overnightRows.map(r=>r.apparent),ctx.minFeels), overnightMaxWind=max(overnightRows.map(r=>r.wind),0), overnightMaxGust=max(overnightRows.map(r=>r.gust),0), overnightStorm=isStorm(overnightRows); if(ctx.rainPast24>4){score-=18;reasons.push("The ground may already be wet from recent rain.")} if(overnightRain>1){score-=16;reasons.push("There is rain risk during the evening or overnight period.")} if(overnightRain>4){score-=16;reasons.push("Overnight rain could make camping wet or uncomfortable, so pack for wet conditions.")} if(overnightMinFeels<7){score-=18;reasons.push("It may feel cold overnight.")} if(overnightMaxWind>22){score-=18;reasons.push("Evening or overnight wind may be uncomfortable for tents.")} if(overnightMaxGust>35){score-=22;reasons.push("Strong gusts could make pitching or sleeping in a tent difficult.")} let status="GO",css=""; if(ctx.storm||overnightStorm){status="WARNING";css="no";reasons.unshift("Thunder, lightning or storm risk is a serious camping safety concern.")} else if(overnightMaxGust>40){status="WARNING";css="no";reasons.unshift("Very strong gusts could be unsafe for tents, especially on exposed pitches.")} else if(score<72){status="CAUTION";css="caution"} return{...result(status,css,ctx,best,reasons,"Recommendation: camping may still be possible in rain, but check the campsite forecast, avoid exposed pitches, pack waterproof kit and do not camp during thunder, lightning or dangerous wind.")}}
-      if(selected==="plants"){score=42;reasons=[]; best=findWindow(ctx.useful.filter(r=>[6,7,8,9,18,19,20].includes(r.time.getHours())),r=>r.precip<0.1&&r.rainProb<60,1); if(ctx.currentRain>0){score-=35;reasons.push("It is raining now.")} if(ctx.rainNext24>=2){score-=30;reasons.push("Useful rain is expected in the next 24 hours.")} else{score+=10;reasons.push("No useful rain is expected soon.")} if(ctx.rainPast24>=5){score-=32;reasons.push("There has already been useful recent rain.")} else if(ctx.rainPast72<1){score+=18;reasons.push("It has been fairly dry recently.")} if(ctx.maxTemp>=25){score+=14;reasons.push("Warm conditions can dry pots, baskets and shallow soil faster.")} else if(ctx.maxTemp<15){score-=18;reasons.push("Cooler conditions mean established outdoor plants may need less water.")} if(ctx.maxWind>=18){score+=8;reasons.push("Wind can dry pots, baskets and surface soil faster.")} if(ctx.avgHumidity!==null&&ctx.avgHumidity<50){score+=8;reasons.push("Lower humidity can dry plants and soil faster.")} if(ctx.soil!==null&&ctx.soil<0.22){score+=16;reasons.push("Near-surface soil moisture looks low.")} let status="CHECK SOIL",css="caution"; if(score>=76&&ctx.rainNext24<2&&ctx.currentRain<=0){status="WATER";css=""} if(score<45){status="WAIT";css="no"} const rec=status==="WATER"?"Recommendation: water the soil deeply during the best window. Prioritise pots, baskets, new plants, tomatoes and plants under cover.":status==="WAIT"?"Recommendation: wait for now unless pots, baskets or new plants are visibly dry. Check soil before watering.":"Recommendation: push a finger into the soil. Water pots, baskets, new plants and covered plants only if the soil feels dry."; return{...result(status,css,ctx,best,reasons,rec)}}
-      if(selected==="jacket"){let status="NO",css="no";reasons=[]; if(ctx.minFeels<=11){status="TAKE ONE";css="";reasons.push("It will feel cold enough for a coat.")} else if(ctx.minFeels<=15||ctx.rainNext24>0.5||ctx.maxWind>18){status="MAYBE";css="caution";reasons.push("A light layer or waterproof may be useful.")} else{reasons.push("It looks mild enough without a coat.")} return{...result(status,css,ctx,status==="NO"?"Not needed":"Take one",reasons,status==="NO"?"Recommendation: no coat needed unless you personally feel the cold.":"Recommendation: take a layer or waterproof if you will be out for long.")}}
-      if(best==="No sensible window"){score-=20;reasons.push("There is no proper usable window.")} if(!reasons.length)reasons.push("There is a usable weather window."); let status="GO",css=""; if(score<45){status="NO-GO";css="no"} else if(score<72){status="CAUTION";css="caution"} return{...result(status,css,ctx,best,reasons,"")}
+      if(selected==="grass"){if(ctx.rainPast24>2){score-=35;reasons.push("The grass is likely wet from recent rain.")} if(isWinterRest(day)){score-=20;reasons.push("It is the winter rest period, so mowing is usually best avoided unless it is dry and mild.")} if(isToday&&new Date().getHours()>=15){score-=22;reasons.push("It is getting late for a useful grass cut.")}} 
+      if(selected==="washing"){if(best==="No sensible window"){score-=35;reasons.push("There are not enough dry daylight hours for washing to dry properly.")} if(ctx.avgHumidity!==null&&ctx.avgHumidity>82){score-=18;reasons.push("Humidity is high, so drying will be slow.")}} 
+      if(selected==="paint"){if(ctx.rainPast24>1){score-=35;reasons.push("Surfaces may still be damp from recent rain.")} if(ctx.rainNext12>0.2){score-=35;reasons.push("Rain is possible before paint has time to dry or cure.")}} 
+      if(selected==="washCar"){if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so the car may not stay clean for long.")} if(ctx.temp<=2){score-=35;reasons.push("Near-freezing temperatures could make washing unsafe or icy.")}} 
+      if(selected==="windows"){if(ctx.rainNext12>0.5){score-=25;reasons.push("Rain is likely soon, so windows may not stay clean.")} if(ctx.temp<=2){score-=35;reasons.push("Near-freezing conditions could make surfaces slippery or icy.")}} 
+      if(selected==="bbq"){best=findWindow(ctx.useful.filter(r=>r.time.getHours()>=12&&r.time.getHours()<=21),good,2); if(best==="No sensible window"){score-=25;reasons.push("There is no clean lunch or evening BBQ window.")} if(ctx.storm){score-=55;reasons.unshift("Thunder, lightning or storm risk is a serious outdoor cooking safety concern.")} if(ctx.maxGust>38){score-=35;reasons.push("Very strong gusts could make outdoor cooking unsafe or difficult.");} else if(ctx.maxGust>28){score-=18;reasons.push("Gusts may make BBQ setup and cooking less comfortable.")} if(ctx.rainTotal>2){score-=18;reasons.push("Rain may make outdoor cooking less comfortable, so shelter and timing matter.")} let status="GO",css=""; if(ctx.storm||ctx.maxGust>40){status="WARNING";css="no"} else if(score<72){status="CAUTION";css="caution"} const aus=currentRegionKey==="AU"?" In Australia, also check local fire restrictions before lighting a BBQ.":""; return{...result(status,css,ctx,best,reasons,`Recommendation: use the best sheltered cooking window and avoid BBQs during thunder, lightning or dangerous wind.${aus}`)}}
+      if(selected==="run"){if(ctx.maxTemp>=29){score-=45;reasons.push("It may be too hot for a safe run.");} else if(ctx.maxTemp>=22){score-=15;reasons.push("Heat may make running harder.")}} 
+      if(selected==="dog"){if(ctx.maxTemp>=28){score-=45;reasons.push("It may be too hot for a safe dog walk.");} else if(ctx.maxTemp>=23){score-=20;reasons.push("Heat may be uncomfortable for dogs, especially on pavements.")}} 
+      if(selected==="camping"){const overnightRows=rowsBetween(ctx.rows,makeTime(day,18),makeTime(hoursAfter(day,24),9)); const overnightRain=mm(overnightRows), overnightMinFeels=min(overnightRows.map(r=>r.apparent),ctx.minFeels), overnightMaxWind=max(overnightRows.map(r=>r.wind),0), overnightMaxGust=max(overnightRows.map(r=>r.gust),0), overnightStorm=isStorm(overnightRows); if(ctx.rainPast24>4){score-=18;reasons.push("The ground may already be wet from recent rain.")} if(overnightRain>1){score-=16;reasons.push("There is rain risk during the evening or overnight period.")} if(overnightRain>4){score-=16;reasons.push("Overnight rain could make camping wet or uncomfortable, so pack for wet conditions.")} if(overnightMinFeels<7){score-=18;reasons.push("It may feel cold overnight.")} if(overnightMaxWind>22){score-=18;reasons.push("Evening or overnight wind may be uncomfortable for tents.")} if(overnightMaxGust>35){score-=22;reasons.push("Strong gusts could make pitching or sleeping in a tent difficult.")} let status="GO",css=""; if(ctx.storm||overnightStorm){status="WARNING";css="no";reasons.unshift("Thunder, lightning or storm risk is a serious camping safety concern.");} else if(overnightMaxGust>40){status="WARNING";css="no";reasons.unshift("Very strong gusts could be unsafe for tents, especially on exposed pitches.");} else if(score<72){status="CAUTION";css="caution"} return{...result(status,css,ctx,best,reasons,"Recommendation: camping may still be possible in rain, but check the campsite forecast, avoid exposed pitches, pack waterproof kit and do not camp during thunder, lightning or dangerous wind.")}}
+      if(selected==="plants"){score=42;reasons=[]; best=findWindow(ctx.useful.filter(r=>[6,7,8,9,18,19,20].includes(r.time.getHours())),r=>r.precip<0.1&&r.rainProb<60,1); if(ctx.currentRain>0){score-=35;reasons.push("It is raining now.")} if(ctx.rainNext24>=2){score-=30;reasons.push("Useful rain is expected in the next 24 hours.");} else{score+=10;reasons.push("No useful rain is expected soon.")} if(ctx.rainPast24>=5){score-=32;reasons.push("There has already been useful recent rain.");} else if(ctx.rainPast72<1){score+=18;reasons.push("It has been fairly dry recently.")} if(ctx.maxTemp>=25){score+=14;reasons.push("Warm conditions can dry pots, baskets and shallow soil faster.");} else if(ctx.maxTemp<15){score-=18;reasons.push("Cooler conditions mean established outdoor plants may need less water.")} if(ctx.maxWind>=18){score+=8;reasons.push("Wind can dry pots, baskets and surface soil faster.")} if(ctx.avgHumidity!==null&&ctx.avgHumidity<50){score+=8;reasons.push("Lower humidity can dry plants and soil faster.")} if(ctx.soil!==null&&ctx.soil<0.22){score+=16;reasons.push("Near-surface soil moisture looks low.")} let status="CHECK SOIL",css="caution"; if(score>=76&&ctx.rainNext24<2&&ctx.currentRain<=0){status="WATER";css=""} if(score<45){status="WAIT";css="no"} const rec=status==="WATER"?"Recommendation: water the soil deeply during the best window. Prioritise pots, baskets, new plants, tomatoes and plants under cover.":status==="WAIT"?"Recommendation: wait for now unless pots, baskets or new plants are visibly dry. Check soil before watering.":"Recommendation: push a finger into the soil. Water pots, baskets, new plants and covered plants only if the soil feels dry."; return{...result(status,css,ctx,best,reasons,rec)}}
+      if(selected==="jacket"){let status="NO",css="no";reasons=[]; if(ctx.minFeels<=11){status="TAKE ONE";css="";reasons.push("It will feel cold enough for a coat.");} else if(ctx.minFeels<=15||ctx.rainNext24>0.5||ctx.maxWind>18){status="MAYBE";css="caution";reasons.push("A light layer or waterproof may be useful.");} else{reasons.push("It looks mild enough without a coat.");} return{...result(status,css,ctx,status==="NO"?"Not needed":"Take one",reasons,status==="NO"?"Recommendation: no coat needed unless you personally feel the cold.":"Recommendation: take a layer or waterproof if you will be out for long.")}}
+      if(best==="No sensible window"){score-=20;reasons.push("There is no proper usable window.");} if(!reasons.length)reasons.push("There is a usable weather window."); let status="GO",css=""; if(score<45){status="NO-GO";css="no"} else if(score<72){status="CAUTION";css="caution"} return{...result(status,css,ctx,best,reasons,"")}
     }
 
     function analyse(data,task){const days=getTargetDays(data), results=days.map(d=>analyseDay(data,task,d,startOfDay(d).getTime()===startOfDay(new Date()).getTime())); let chosen=results.slice().sort((a,b)=>b.score-a.score)[0]||results[0]; const next=nextBetter(data,task); if(selectedPeriod==="weekend"&&selected==="camping")chosen.reason=`Weekend headline: best overall camping window looks like ${chosen.label}. ${chosen.reason} See the Friday–Sunday outlook below for setup, daytime and overnight detail.`; else if(selectedPeriod==="weekend")chosen.reason=`Best weekend option: ${chosen.label}. ${chosen.reason}`; if(!["plants","camping","bbq"].includes(selected))chosen.reason+=" "+recommend(chosen.status,chosen,next); return chosen}
@@ -562,7 +1009,7 @@
     function buildCampingHighlights(data,cards){if(!cards.length)return"Weekend detail is not available yet."; const friday=cards.find(c=>c.day.getDay()===5)||cards[0], saturday=cards.find(c=>c.day.getDay()===6), sunday=cards.find(c=>c.day.getDay()===0); let arrival; if(friday.evening.storm||friday.night.storm)arrival=`If arriving ${friday.day.getDay()===5?"Friday":"on the first day"}, there is a thunder or storm signal, so check conditions carefully before pitching.`; else if(friday.evening.precip>=1||friday.evening.rainProb>=50)arrival=`If arriving ${friday.day.getDay()===5?"Friday":"on the first day"}, setup looks wet or showery, so plan waterproofs, dry bags and a quick pitching routine.`; else arrival=`If arriving ${friday.day.getDay()===5?"Friday":"on the first day"}, setup currently looks reasonably manageable.`; let weekendTemp=""; if(saturday&&sunday)weekendTemp=` Saturday and Sunday daytime highs look around ${formatTemp(saturday.dayStats.maxTemp)} and ${formatTemp(sunday.dayStats.maxTemp)}, with overnight feels around ${formatTemp(saturday.nightStats.minFeels)} to ${formatTemp(sunday.nightStats.minFeels)}.`; else if(saturday)weekendTemp=` Saturday daytime high looks around ${formatTemp(saturday.dayStats.maxTemp)}, with overnight feel around ${formatTemp(saturday.nightStats.minFeels)}.`; else if(sunday)weekendTemp=` Sunday daytime high looks around ${formatTemp(sunday.dayStats.maxTemp)}, with overnight feel around ${formatTemp(sunday.nightStats.minFeels)}.`; return`${arrival}${weekendTemp} ${buildWeekAheadSummary(data)}`}
     function renderForecastOutlook(data){const outlook=document.getElementById("forecastOutlook"); if(selected!=="camping"||selectedPeriod!=="weekend"||!data){outlook.classList.remove("show");return} const cards=buildWeekendForecastCards(data); document.getElementById("forecastTitle").textContent="Weekend camping outlook"; document.getElementById("forecastIntro").textContent="Friday, Saturday and Sunday split into morning, afternoon, evening and overnight, with a week-ahead camping note."; document.getElementById("forecastGrid").innerHTML=cards.map(c=>c.html).join(""); document.getElementById("forecastSummary").textContent=buildCampingHighlights(data,cards); outlook.classList.add("show")}
     function loading(){document.getElementById("result").classList.add("show"); document.getElementById("answer").className="answer loading"; document.getElementById("answer").textContent="…"; document.getElementById("reason").textContent="Checking the local forecast…"; document.getElementById("whyList").innerHTML="<li>Fetching weather data and applying task-specific rules.</li>"; document.getElementById("forecastOutlook").classList.remove("show"); ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—")}
-    function render(place,r){const task=taskConfig(), box=document.getElementById("result"); box.className=`result show ${r.css||""}`; document.getElementById("question").textContent=`${periodQuestion(task,selectedPeriod)} — ${place}`; document.getElementById("reason").textContent=r.reason; document.getElementById("answer").className=`answer ${r.css||""}`; document.getElementById("answer").textContent=r.status; document.getElementById("bestTime").textContent=r.best; document.getElementById("rain").textContent=r.rain; document.getElementById("wind").textContent=formatWind(r.windMph); document.getElementById("temp").textContent=formatTemp(r.tempC); document.getElementById("whyList").innerHTML=(r.why&&r.why.length?r.why:["There is not enough forecast detail to give a stronger reason."]).map(i=>`<li>${i}</li>`).join(""); updateFeatureVisibility(); renderForecastOutlook(lastWeather)}
+    function render(place,r){const task=taskConfig(), box=document.getElementById("result"); box.className=`result show ${r.css||""}`.trim(); document.getElementById("question").textContent=`${periodQuestion(task,selectedPeriod)} — ${place}`; document.getElementById("reason").textContent=r.reason; document.getElementById("answer").className=`answer ${r.css||""}`.trim(); document.getElementById("answer").textContent=r.status; document.getElementById("bestTime").textContent=r.best; document.getElementById("rain").textContent=r.rain; document.getElementById("wind").textContent=formatWind(r.windMph); document.getElementById("temp").textContent=formatTemp(r.tempC); document.getElementById("whyList").innerHTML=(r.why&&r.why.length?r.why:["There is not enough forecast detail to give a stronger reason."]).map(i=>`<li>${i}</li>`).join(""); updateFeatureVisibility(); renderForecastOutlook(lastWeather)}
     function showError(msg){document.getElementById("result").className="result show caution"; document.getElementById("question").textContent="Could not complete check"; document.getElementById("reason").textContent=msg; document.getElementById("answer").className="answer caution"; document.getElementById("answer").textContent="CHECK"; document.getElementById("whyList").innerHTML="<li>Try a nearby town, city or full postcode.</li>"; document.getElementById("forecastOutlook").classList.remove("show"); ["bestTime","rain","wind","temp"].forEach(id=>document.getElementById(id).textContent="—"); updateFeatureVisibility(); setTimeout(scrollResultIntoView,80)}
     function analyseAndRender(place,data){const r=analyse(data,taskConfig()); render(place.name||place,r); setTimeout(scrollResultIntoView,80)}
     function scrollResultIntoView(){const r=document.getElementById("result"); if(!r||!r.classList.contains("show"))return; const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches; r.scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"})}
