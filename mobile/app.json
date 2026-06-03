@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "Should I Do It Today?",
+    "slug": "shouldidoittoday",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#eff6ff"
+    },
+    "scheme": "shouldidoittoday",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.shouldidoittoday.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Used to check local weather for your current location."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#eff6ff"
+      },
+      "package": "com.shouldidoittoday.app",
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      ["expo-location", {
+        "locationWhenInUsePermission": "Used to check local weather for your current location."
+      }]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
