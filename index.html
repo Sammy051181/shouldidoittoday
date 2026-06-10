@@ -1003,7 +1003,7 @@
           checkFromCoords(pos.coords.latitude,pos.coords.longitude,"");
         },
         ()=>{locationStatus.innerHTML='<span>📍 Enter your location above to get started.</span>';},
-        {timeout:6000}
+        {enableHighAccuracy:false,timeout:20000,maximumAge:300000}
       );
     }
 
@@ -1013,7 +1013,7 @@
       navigator.geolocation.getCurrentPosition(
         pos=>checkFromCoords(pos.coords.latitude,pos.coords.longitude,""),
         ()=>{locationStatus.innerHTML='<span>Could not get location. Try entering it manually.</span>';},
-        {timeout:8000}
+        {enableHighAccuracy:false,timeout:20000,maximumAge:300000}
       );
     }
 
