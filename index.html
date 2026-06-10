@@ -108,7 +108,7 @@
       padding:18px 0;border-bottom:1px solid var(--line);
     }
     .brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy)}
-    .brand-logo-img{height:44px;width:auto;display:block;mix-blend-mode:multiply}
+    .brand-logo-img{height:46px;width:auto;display:block}
     .brand-wordmark{display:grid;line-height:.95;font-weight:800;letter-spacing:-.04em;font-size:1rem}
     .brand-wordmark strong{color:var(--blue);font-size:1.12em}
     .brand-tagline{font-size:.75rem;color:var(--muted);font-weight:500;letter-spacing:.02em;margin-top:1px}
@@ -575,7 +575,6 @@
     [data-theme="dark"] .seo-link-grid a{background:#0d1e38;border-color:var(--line)}
     [data-theme="dark"] .seo-link-grid a:hover{background:rgba(37,99,235,.1)}
     [data-theme="dark"] .brand-wordmark{color:var(--ink)}
-    [data-theme="dark"] .brand-logo-img{mix-blend-mode:normal}
     [data-theme="dark"] .benefit{background:rgba(13,30,56,.9);border-color:var(--line)}
     [data-theme="dark"] .top-chip,[data-theme="dark"] #themeToggle{background:rgba(13,30,56,.9);border-color:var(--line)}
     [data-theme="dark"] .header-wordmark{color:var(--ink)}
@@ -599,10 +598,10 @@
     <header>
       <a class="brand" href="/" aria-label="Should I Do It Today home">
         <img
-          src="/assets/should-i-do-it-today-logo.png"
+          src="/assets/should-i-do-it-today-logo-transparent.png"
           alt="Should I Do It Today? logo"
           class="brand-logo-img"
-          width="44" height="44"
+          width="42" height="46"
           onerror="this.style.display='none'"
         />
 
@@ -954,6 +953,9 @@
       document.querySelectorAll(".period-tab").forEach(t=>{
         t.classList.toggle("active",t.dataset.period===selectedPeriod);
       });
+      const word={today:"Today?",tomorrow:"Tomorrow?",weekend:"This Weekend?"}[selectedPeriod]||"Today?";
+      const el=document.getElementById("logoPeriodWord");
+      if(el)el.textContent=word;
     }
 
     document.querySelectorAll(".period-tab").forEach(t=>t.addEventListener("click",()=>{
