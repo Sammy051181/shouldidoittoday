@@ -1252,7 +1252,7 @@
           if(!sr.length)return"";
           const rp=max(sr.map(r=>r.rainProb)),w=avg(sr.map(r=>r.wind)),t=avg(sr.map(r=>r.temp)),g=max(sr.map(r=>r.gust));
           const storm=sr.some(r=>[95,96,99].includes(r.code));
-          const ic=storm?"⚡":(rp>60?"🌧️"):(rp>30?"🌦️"):(w>30?"💨":"☀️");
+          const ic=storm?"⚡":rp>60?"🌧️":rp>30?"🌦️":w>30?"💨":"☀️";
           return`<div class="forecast-row"><strong>${sl.label}</strong><span>${ic} ${Math.round(rp)}% rain · ${formatWind(w)} · ${formatTemp(t)}</span></div>`;
         }).join("");
         return`<div class="forecast-card"><h3>${dayNames[di]}</h3><div class="forecast-mini"><span style="color:${verdictRes.cls==="no"?"var(--red)":verdictRes.cls==="caution"?"var(--amber)":"var(--green)"};font-weight:800">${verdictRes.verdict}</span></div>${slotHtml}</div>`;
